@@ -1,0 +1,35 @@
+{
+  "name": "Subscription",
+  "version": "1.0.0",
+  "description": "",
+  "source": "./src/index.html",
+  "staticFiles": {
+    "staticOutPath": "./assets",
+    "staticPath": "./assets"
+  },
+  "targets": {
+    "main": false
+  },
+  "scripts": {
+    "clear": "rm -rf dist .parcel-cache",
+    "dev": "yarn clear && PARCEL_WORKERS=1 parcel",
+    "build": "yarn clear && PARCEL_WORKERS=1 parcel build --no-cache --no-content-hash --public-url ./ --no-scope-hoist",
+    "rename": "node rename.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "type": "commonjs",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-sass": "2.11.0",
+    "jquery": "^3.7.1",
+    "parcel": "^2.11.0",
+    "parcel-reporter-static-files-copy": "^1.5.3",
+    "sharp": "^0.33.2"
+  },
+  "dependencies": {
+    "@studio-freight/lenis": "^1.0.34"
+  },
+  "browserslist": "> 0.5%, last 2 versions, not dead, Safari 14"
+}
