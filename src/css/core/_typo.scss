@@ -1,12 +1,12 @@
 :root {
-    --h0-fs: 10rem;
+    --h0-fs: 12rem;
     --h0-lh: .9em;
 
-    --h1-fs: 7.2rem;
-    --h1-lh: 1.1em;
+    --h1-fs: 10rem;
+    --h1-lh: 1em;
 
-    --h2-fs: 6.2rem;
-    --h2-lh: 1.2em;
+    --h2-fs: 8rem;
+    --h2-lh: .95em;
 
     --h3-fs: 5.2rem;
     --h3-lh: 1.2em;
@@ -17,8 +17,8 @@
     --h5-fs: 3.2em;
     --h5-lh: 1.3em;
 
-    --h6-fs: 2.4rem;
-    --h6-lh: 1.5em;
+    --h6-fs: 3.6rem;
+    --h6-lh: 1.2em;
 
     --fs-12: 1.2rem;
     --lh-12: 1.6em;
@@ -33,7 +33,7 @@
     --lh-18: 1.6em;
 
     --fs-20: 2rem;
-    --lh-20: 1.5em;
+    --lh-20: 1.4em;
 
     --fs-24: 2.4rem;
     --lh-24: 1.3em;
@@ -76,7 +76,6 @@
 
 $txtSizes: 12, 14, 16, 18, 20, 24, 28, 36;
 .txt {
-    font-family: 'Saans';
     @each $size in $txtSizes {
         &-#{$size} {
             @include text(var(--fs-#{$size}), var(--lh-#{$size}))
@@ -108,9 +107,15 @@ $txtSizes: 12, 14, 16, 18, 20, 24, 28, 36;
     }
 }
 
+body {
+    @include text(var(--fs-20), var(--lh-20))
+}
+
 //heading
 @for $i from 0 through 6 {
     h#{$i}, .h#{$i} {
+        color: $cl-heading;
+        font-weight: 500;
         @include text(var(--h#{$i}-fs), var(--h#{$i}-lh))
     }
 }
@@ -158,21 +163,22 @@ $txtSizes: 12, 14, 16, 18, 20, 24, 28, 36;
     }
 }
 .btn {
-    padding: 2rem 3rem;
+    padding: 2.4rem 2.7rem;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     background-color: rgba($cl-primary, 1);
+    background: linear-gradient(180deg, #F5370D 0%, #F5430D 34%, #F58A0D 100%);
     color: rgba($cl-heading, 1);
+    border: 1px solid $cl-primary-border;
     -webkit-backface-visibility: hidden;
     position: relative;
     overflow: hidden;
     z-index: 1;
-    border-radius: .2rem;
+    border-radius: 1.5rem;
     @include transition(all $dur-default ease);
 }
-
 
 img {
     display: block;
@@ -229,4 +235,17 @@ input, textarea {
 }
 textarea {
     resize: vertical;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    cursor: pointer;
+}
+button {
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background-color: transparent;
 }
