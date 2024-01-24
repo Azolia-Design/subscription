@@ -3,18 +3,12 @@
     padding: 0;
     box-sizing: border-box;
 }
-
-$cl-txt: #1C1C1C;
-$cl-dark-grey: #252525;
-$cl-txt-sub: #292929;
-$cl-body: #454545;
-$cl-txt-desc: #858585;
-$cl-white: #ffffff;
-$cl-blue: #38B6FF;
-$cl-dark-blue: #0099F1;
-$cl-bg: #EAEEF0;
-$cl-bg-grey: #f5f5f5;
-$cl-dark-bg: #212121;
+$cl-heading: #fff;
+$cl-body: #CCCCCC;
+$cl-dark: #010101;
+$cl-primary: #F5450D;
+$cl-secondary: #3800AE;
+$cl-bg: #010101;
 $cl-disable: #DBDBDB;
 $cl-border: #2D2D2D;
 $cl-border-li: #C1C1C1;
@@ -27,6 +21,16 @@ $dur-default: 400ms;
 $container-width: 1728px;
 //$container-width: 192rem; //resolve in 192x12.5px(fontsize) = 2400px
 
+$xs-min: 477px;
+$sm-min: 768px;
+$md-min: 992px;
+$lg-min: 1728px;
+
+$xs-max: ($xs-min - 1); // Mobile
+$sm-max: ($sm-min - 1); // Tablet
+$md-max: ($md-min - 1); // Desktop
+$lg-max: ($lg-min - 1); // Large Desktop
+
 //Font
 html {
     scroll-behavior: unset;
@@ -35,9 +39,10 @@ html {
     font-kerning: none;
     -webkit-text-rendering: optimizeSpeed;
     text-rendering: optimizeSpeed;
-    font-family: 'HelveticaNowDisplay';
+    font-family: 'Saans';
     font-size: 0.5787037037vw;
-    color: black;
+    color: $cl-body;
+    background-color: $cl-bg;
     // @media only screen and (min-width: 2160px) {
     //     font-size: 12.5px;
     // }
@@ -146,7 +151,7 @@ button {
     height: 100%;
     position: fixed;
     pointer-events: none;
-    color: rgba($cl-white, 1);
+    color: #fff;
     &-wrap {
         position: absolute;
         top: 0;
@@ -160,7 +165,7 @@ button {
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: rgba($cl-dark-bg, 1);
+        background-color: rgba($cl-bg, 1);
         border-radius: 50%;
 
         @include size(10rem);
@@ -174,6 +179,8 @@ button {
         }
     }
 }
+
+
 @include md {
     .cursor {
         display: none;

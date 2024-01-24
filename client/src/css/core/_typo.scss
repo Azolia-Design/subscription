@@ -1,8 +1,82 @@
-.link-hidden {
-    display: none;
+:root {
+    --h0-fs: 10rem;
+    --h0-lh: .9em;
+
+    --h1-fs: 7.2rem;
+    --h1-lh: 1.1em;
+
+    --h2-fs: 6.2rem;
+    --h2-lh: 1.2em;
+
+    --h3-fs: 5.2rem;
+    --h3-lh: 1.2em;
+
+    --h4-fs: 4.4rem;
+    --h4-lh: 1.2em;
+
+    --h5-fs: 3.2em;
+    --h5-lh: 1.3em;
+
+    --h6-fs: 2.4rem;
+    --h6-lh: 1.5em;
+
+    --fs-12: 1.2rem;
+    --lh-12: 1.6em;
+
+    --fs-14: 1.4rem;
+    --lh-14: 1.5em;
+
+    --fs-16: 1.6rem;
+    --lh-16: 1.4em;
+
+    --fs-18: 1.8rem;
+    --lh-18: 1.6em;
+
+    --fs-20: 2rem;
+    --lh-20: 1.5em;
+
+    --fs-24: 2.4rem;
+    --lh-24: 1.3em;
+
+    --fs-28: 2.8em;
+    --lh-28: 1.35em;
+
+    --fs-36: 3.6rem;
+    --lh-36: 1.2em;
+
+    @media only screen and (max-width: 991px) {
+        --h0-fs: 4.4rem;
+        --h0-lh: 1.2em;
+
+        --h1-fs: 5.2rem;
+        --h2-lh: 1.2em;
+
+        --h2-fs: 5.2rem;
+
+        --h3-fs: 2.4rem;
+        --h3-lh: 1.3em;
+
+        --h4-fs: 2.6rem;
+        --h4-lh: 1.5em;
+
+        --h5-fs: 2rem;
+        --h5-lh: 1.5em;
+
+        --h6-fs: 2rem;
+        --h6-lh: 1.4em;
+    }
+    @media only screen and (max-width: 767px) {
+        --h0-fs: 3.6rem;
+        --h0-lh: 1.2em;
+
+        --h5-fs: 2.2rem;
+        --h5-lh: 1.5em;
+    }
 }
+
+$txtSizes: 12, 14, 16, 18, 20, 24, 28, 36;
 .txt {
-    font-family: '';
+    font-family: 'Saans';
     @each $size in $txtSizes {
         &-#{$size} {
             @include text(var(--fs-#{$size}), var(--lh-#{$size}))
@@ -14,23 +88,23 @@
     &-med {
         font-weight: 500;
     }
+    &-semi {
+        font-weight: 600;
+    }
     &-bold {
         font-weight: 700;
     }
     &-hl {
-        color: rgba($cl-blue, 1);
+        color: rgba($cl-primary, 1);
     }
     &-link {
-        color: rgba($cl-blue, 1);
+        color: rgba($cl-primary, 1);
     }
     &-subscript {
         vertical-align: sub;
     }
     &-btn {
         // font-family: "Poppins";
-    }
-    &-opt {
-        color: rgba($cl-txt-desc, 1);
     }
 }
 
@@ -89,173 +163,16 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: rgba($cl-dark-grey, 1);
-    color: rgba($cl-white, 1);
+    background-color: rgba($cl-primary, 1);
+    color: rgba($cl-heading, 1);
     -webkit-backface-visibility: hidden;
     position: relative;
     overflow: hidden;
     z-index: 1;
     border-radius: .2rem;
     @include transition(all $dur-default ease);
-    .icon-btn {
-        margin-right: 1rem;
-    }
-    &::before,
-    &::after {
-        content: '';
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        bottom: 100%;
-        top: 0;
-        left: -100%;
-        z-index: -1;
-        @include transition(transform 0.3s cubic-bezier(0.75, 0, 0.125, 1));
-    }
-    &::before {
-        background-color: rgba($cl-dark-blue, 1);
-    }
-    &::after {
-        background-color: rgba($cl-blue, 1);
-    }
-    &:hover {
-        &::before,
-        &::after {
-            @include transform(translate3d(100%, 0, 0));
-        }
-        &::after {
-            @include transition-delay(0.175s);
-        }
-    }
-    &-outline {
-        padding: 1.9rem 2.9rem;
-        border: 1px solid rgba($cl-border, .2);
-        background-color: transparent;
-        color: rgba($cl-txt, 1);
-        @include transition(all 0.3s cubic-bezier(0.75, 0, 0.125, 1));
-        &:hover {
-            color: rgba($cl-white, 1);
-            border-color: transparent;
-        }
-    }
-    &-white {
-        background-color: rgba($cl-white, 1);
-        color: rgba($cl-txt, 1);
-        @include transition(color 0.3s cubic-bezier(0.75, 0, 0.125, 1));
-        &:hover {
-            color: rgba($cl-white, 1);
-        }
-    }
-    &-sm {
-        padding: .9rem 1.9rem;
-    }
-    &-ic {
-        @include size(3.6rem);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        border: solid 1px rgba($cl-border, .2);
-        @include transition(all 400ms ease);
-        color: rgba($cl-txt, 1);
-        background-color: rgba($cl-txt, 0);
-        &:hover {
-            border-color: transparent;
-            color: rgba($cl-white, 1);
-            background-color: rgba($cl-txt, 1);
-        }
-    }
-    &-w-ic-sm {
-        column-gap: 1rem;
-    }
 }
-.line {
-    width: 100%;
-    height: 1px;
-    background-color: #F6F1EE;
-}
-.label-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: .8rem 1.9rem .9rem;
-    border-radius: 1.6rem;
-    border: 1px solid rgba($cl-border, .2);
-    color: $cl-txt-sub;
-    .txt.txt-16 {
-        line-height: 1.2em;
-    }
-}
-@include md {
-    .label-wrap {
-        padding: .7rem 1.9rem;
-        border-radius: 9.9rem;
-        .txt.txt-16 {
-            font-size: 1.4rem;
-            line-height: 1.5em;
-        }
-    }
-}
-.arr-wrap {
-    position: relative;
-    overflow: hidden;
-    .ic-arr-main {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        bottom: auto;
-        left: 0;
-        right: auto;
-    }
-    .ic-arr-clone {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        bottom: auto;
-        left: 0;
-        right: auto;
-        transform: translate(-150%, 150%);
-    }
-}
-.hover-arr:hover {
-    .ic-arr-main {
-        transform: translate(150%,-150%);
-        transition: transform .6s cubic-bezier(.4,0,.1,1);
-    }
-    .ic-arr-clone {
-        transform: translate(0,0);
-        transition: transform .6s cubic-bezier(.4,0,.1,1);
-    }
-}
-.heading {
-    font-family: 'Poppins';
-    font-weight: 500;
-    &-bold {
-        font-weight: 700;
-    }
-    &-reg {
-        font-weight: 400;
-    }
-    .g-lines {
-        overflow: hidden;
-        margin-bottom: -.2em;
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
-    &-f-lh {
-        line-height: 1em !important;
-    }
-}
-@include sm {
-    .heading {
-        .g-lines {
-            margin-bottom: 0;
-        }
-    }
-}
+
 
 img {
     display: block;
@@ -263,7 +180,6 @@ img {
     height: auto;
     max-width: none;
 }
-
 .img {
     &-wrap {
         position: relative;

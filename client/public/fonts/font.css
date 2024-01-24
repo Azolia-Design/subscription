@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'Saans';
+    src: url('./Saans-Regular.woff2') format('woff2'),
+        url('./Saans-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: fallback;
+}
+
+@font-face {
+    font-family: 'Saans';
+    src: url('./Saans-Medium.woff2') format('woff2'),
+        url('./Saans-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: fallback;
+}
+
+@font-face {
+    font-family: 'Saans';
+    src: url('./Saans-SemiBold.woff2') format('woff2'),
+        url('./Saans-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: fallback;
+}
+
+@font-face {
+    font-family: 'Saans';
+    src: url('./Saans-Bold.woff2') format('woff2'),
+        url('./Saans-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: fallback;
+}
+
