@@ -78,7 +78,7 @@
 	-ms-transform-origin: $args;
 	-o-transform-origin: $args;
 }
-@mixin transition($args) {
+@mixin transition($args...) {
 	transition: $args;
 	-webkit-transition: $args;
 	-moz-transition: $args;

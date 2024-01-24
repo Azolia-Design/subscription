@@ -1,0 +1,59 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    margin-top: -9.4rem;
+    &-discover {
+        display: flex;
+        align-items: center;
+    }
+    &-mouse {
+        position: relative;
+        width: 6.8rem;
+        display: flex;
+        justify-content: center;
+        margin-right: 1.6rem;
+        &-wheel {
+            position: absolute;
+            width: 12.5%;
+            aspect-ratio: 1;
+            background-color: white;
+            border-radius: 50%;
+            top: 33.33%;
+            box-shadow: 0rem 0rem 1rem 0rem rgba(255, 255, 255, 0.75);
+        }
+    }
+    &-links {
+        display: flex;
+        align-items: center;
+        &-border {
+            display: flex;
+            padding: 1rem;
+            border: 1px solid #1D1D1D;
+            border-radius: 2rem;
+            margin-left: 3.2rem;
+        }
+    }
+    &-hamburger {
+        width: 7rem;
+        height: 7rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        position: relative;
+        &-line {
+            width: 2.4rem;
+            height: 1px;
+            background-color: white;
+            position: absolute;
+            &:first-child {
+                transform: translate(0px, .55rem);
+            }
+            &:last-child {
+                transform: translate(0px, -.55rem);
+            }
+        }
+    }
+}
