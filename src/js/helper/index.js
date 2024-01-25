@@ -12,11 +12,18 @@ const ySetter = (el) => gsap.quickSetter(el, 'y', `px`);
 const xGetter = (el) => gsap.getProperty(el, 'x');
 const yGetter = (el) => gsap.getProperty(el, 'y');
 
+const isTouchDevice = () => {
+    return (('ontouchstart' in window) ||
+    (navigator.maxTouchPoints > 0) ||
+    (navigator.msMaxTouchPoints > 0));
+}
+
 export {
     lerp,
     parseRem,
     xSetter,
     ySetter,
     xGetter,
-    yGetter
+    yGetter,
+    isTouchDevice
 }

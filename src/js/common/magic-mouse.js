@@ -1,4 +1,4 @@
-import { lerp, xSetter, ySetter, xGetter, yGetter, isTouchDevice } from "@/helper/index";
+import { lerp, xSetter, ySetter, xGetter, yGetter, isTouchDevice } from "../helper";
 
 
 let pointer = { x: $(window).width() / 2, y: $(window).height() / 2 };
@@ -50,12 +50,12 @@ const initCursor = () => {
 
             switch (type) {
                 case 'stick':
-                    gsap.to(cursor.find('.cursor-dot'), {width: targetValue, height: targetValue, duration: .6, ease: gOpts.ease})
+                    gsap.to(cursor.find('.cursor-dot'), {width: targetValue, height: targetValue, duration: .6, ease: 'power2.out'})
                     xSetter(cursor.get(0))(lerp(cursorX, targetOffsetLeft + target.outerWidth()/2, velChange))
                     ySetter(cursor.get(0))(lerp(cursorY, targetOffsetTop + target.outerHeight()/2, velChange))
                     break;
                 case 'magnetic':
-                    gsap.to(cursor.find('.cursor-glow'), {width: targetValue, height: targetValue, duration: .6, ease: gOpts.ease})
+                    gsap.to(cursor.find('.cursor-glow'), {width: targetValue, height: targetValue, duration: .6, ease: 'power2.out'})
                     xSetter(cursor.get(0))(lerp(cursorX, targetOffsetLeft + target.outerWidth()/2, velChange))
                     ySetter(cursor.get(0))(lerp(cursorY, targetOffsetTop + target.outerHeight()/2, velChange))
                     break;
@@ -63,9 +63,9 @@ const initCursor = () => {
             updatePos('change')
         } else {
             if (cursorChange == true) {
-                gsap.to(cursor.find('.cursor-dot'), {width: cusrorDotWidth, height: cusrorDotWidth, duration: .6, ease: gOpts.ease})
-                gsap.to(cursor.find('.cursor-border'), {width: cusrorBorderWidth, height: cusrorBorderWidth, duration: .6, ease: gOpts.ease})
-                gsap.to(cursor.find('.cursor-glow'), {width: cusroGlowWidth, height: cusroGlowWidth, duration: .6, ease: gOpts.ease})
+                gsap.to(cursor.find('.cursor-dot'), {width: cusrorDotWidth, height: cusrorDotWidth, duration: .6, ease: 'power2.out'})
+                gsap.to(cursor.find('.cursor-border'), {width: cusrorBorderWidth, height: cusrorBorderWidth, duration: .6, ease: 'power2.out'})
+                gsap.to(cursor.find('.cursor-glow'), {width: cusroGlowWidth, height: cusroGlowWidth, duration: .6, ease: 'power2.out'})
                 cursorChange = false
             }
             updatePos('free')
