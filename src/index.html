@@ -26,9 +26,13 @@
     <link rel="preload" href="../public/fonts/Saans-Medium.woff" as="font" type="font/woff" crossorigin>
 </head>
 <body>
-    <div class="cursor">
-        <div class="cursor-wrap">
-            <div class="cursor-inner"></div>
+    <div class="cursor-wrap on-hidden">
+        <div class="cursor">
+            <div class="cursor-dot"></div>
+            <div class="cursor-border"></div>
+            <div class="cursor-glow">
+                <img src="../assets/cursor-glow.png" alt="cursor-glow">
+            </div>
         </div>
     </div>
     <main class="main" data-barba-namespace="home">
@@ -77,7 +81,7 @@
                                     <h3 class="h6 home-benefit-other-title">Cost<br/>Savings</h3>
                                     <div class="home-benefit-other-sub">
                                         <p class=home-benefit-other-sub-txt>Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
-                                        <button class="home-benefit-other-sub-btn">
+                                        <button data-cursor="stick" class="home-benefit-other-sub-btn">
                                             <span></span>
                                             <img src="../public/imgs/expand.svg" width="24" height="24" alt="expand icon">
                                         </button>
@@ -87,7 +91,7 @@
                                     <h3 class="h6 home-benefit-other-title">Diverse<br/>Skills</h3>
                                     <div class="home-benefit-other-sub">
                                         <p class=home-benefit-other-sub-txt>Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
-                                        <button class="home-benefit-other-sub-btn">
+                                        <button data-cursor="magnetic" class="home-benefit-other-sub-btn">
                                             <span></span>
                                             <img src="../public/imgs/expand.svg" width="24" height="24" alt="expand icon">
                                         </button>
@@ -451,6 +455,9 @@
     </main>
     <footer></footer>
     <!-- {# <a href="#" id="Purchase">Purchase</a> #} -->
+    <script src="https://bitbucket.org/bear-plus/webflowjs/raw/master/Greensock/SplitText.js" type="text/javascript"></script>
+    <script src="https://bitbucket.org/bear-plus/webflowjs/raw/master/Greensock/CustomEase.js" type="text/javascript"></script>
+    <script src="https://bitbucket.org/bear-plus/webflowjs/raw/master/Greensock/DrawSVG.js" type="text/javascript"></script>
     <script src="js/libs/jquery-3.5.1.js" type="text/javascript"></script>
     <script src="js/libs/lenis.js" type="text/javascript"></script>
     <script src="js/libs/gsap-3.11.3.js" type="text/javascript"></script>
