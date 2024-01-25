@@ -7,8 +7,7 @@
     "staticOutPath": "./assets",
     "staticPath": "./assets"
   },
-  "targets": {
-  },
+  "targets": {},
   "scripts": {
     "clear": "rm -rf dist .parcel-cache",
     "dev": "yarn clear && PARCEL_WORKERS=1 parcel -p 3000",
@@ -28,14 +27,12 @@
   "devDependencies": {
     "@parcel/transformer-sass": "2.11.0",
     "concurrently": "^8.2.2",
-    "jquery": "^3.7.1",
     "nodemon": "^3.0.3",
     "parcel": "^2.11.0",
     "parcel-reporter-static-files-copy": "^1.5.3",
     "sharp": "^0.31.1"
   },
   "dependencies": {
-    "@studio-freight/lenis": "^1.0.34",
     "dotenv": "^16.4.0",
     "express": "^4.18.2",
     "stripe": "^14.13.0"
