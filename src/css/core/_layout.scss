@@ -145,8 +145,8 @@ button {
     height: auto;
 }
 
-.cursor {
-    z-index: 1000;
+.cursor-wrap {
+    z-index: 999999;
     top: 0;
     left: 0;
     width: 100%;
@@ -154,30 +154,59 @@ button {
     position: fixed;
     pointer-events: none;
     color: #fff;
-    &-wrap {
+    opacity: 1;
+    // background-color: rgba(245, 69, 13, .2);
+    @include transition(opacity 400ms ease);
+
+    &.on-hidden {
+        opacity: 0;
+    }
+    $cs-lg: 30rem;
+    $cs-md: 6.5rem;
+    $cs-sm: 1.5rem;
+
+    .cursor {
         position: absolute;
         top: 0;
         left: 0;
         display: flex;
-        align-items: center;
         justify-content: center;
-    }
-    &-inner {
-        position: absolute;
-        display: flex;
         align-items: center;
-        justify-content: center;
-        background-color: rgba($cl-bg, 1);
-        border-radius: 50%;
+        width: 0;
+        height: 0;
+        will-change: transform;
 
-        @include size(10rem);
-        @include transform(scale(.2));
-        opacity: 0;
-        @include transition(all 400ms ease);
-        transform-origin: center;
-        &.on-hover-drag {
-            @include transform(scale(1));
-            opacity: 1;
+        &-dot {
+            position: absolute;
+            width: $cs-sm;
+            height: $cs-sm;
+            background-color: $cl-primary;
+            border-radius: 50%;
+            will-change: width, height;
+        }
+
+        &-border {
+            position: absolute;
+            width: $cs-md;
+            height: $cs-md;
+            border-radius: 50%;
+            border: dotted 2px rgba(255, 255, 255, .2);
+            animation: rotate 20s linear infinite;
+            will-change: width, height, rotate;
+        }
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            };
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        &-glow {
+            position: absolute;
+            width: $cs-lg;
+            height: $cs-lg;
+            will-change: width, height;
         }
     }
 }
