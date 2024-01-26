@@ -1,11 +1,12 @@
 .home {
     &-hero {
-        height: 100vh;
-        max-height: 100vh;
+        height: auto;
+        min-height: 100vh;
         overflow: hidden;
         display: flex;
         justify-self: center;
         padding-top: 9.7rem;
+        position: relative;
         &-img {
             position: absolute;
             z-index: 1;
@@ -458,20 +459,73 @@
             }
         }
         &-plan {
-            position: relative;
-            &:before {
-                content: '';
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                border-radius: 2rem;
-                border: 1px solid transparent;
-                background: linear-gradient(180deg, ) border-box;
-                -webkit-mask:
-                linear-gradient($cl-heading 0 0) padding-box,
-                linear-gradient($cl-heading 0 0);
-                -webkit-mask-composite: xor;
-                mask-composite: exclude;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            &-switch {
+                position: relative;
+                display: flex;
+                padding: 1rem;
+                margin-top: 2rem;
+                margin-bottom: 8rem;
+                &:before {
+                    content: '';
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 2rem;
+                    top: 0;
+                    left: 0;
+                    border: 1px solid transparent;
+                    background: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.00) 100%) border-box;
+                    -webkit-mask:
+                    linear-gradient($cl-heading 0 0) padding-box,
+                    linear-gradient($cl-heading 0 0);
+                    -webkit-mask-composite: xor;
+                    mask-composite: exclude;
+                }
+                &-wrap {
+                    position: relative;
+                }
+                &-overlay {
+                    width: 12.6rem;
+                    position: absolute;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    span {
+                        width: 100%;
+                        height: 100%;
+                        grid-area: 1/1/2/2;
+                        padding: 0;
+                    }
+                    span:first-child {
+                        opacity: 0;
+                        mix-blend-mode: hard-light;
+                    }
+                    span:last-child {
+                        mix-blend-mode: color;
+                    }
+                    &.active {
+                        span:first-child {
+                            opacity: 1;
+                        }
+                        span:last-child {
+                            opacity: 0;
+                        }
+                    }
+                }
+                &-btn {
+                    color: $cl-heading;
+                    width: 12.6rem;
+                    padding: 1.1rem 0;
+                    cursor: pointer;
+                    &.active {
+                        color: $cl-primary;
+                    }
+                }
             }
         }
     }
