@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0 , maximum-scale=1.0, user-scalable=0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>Subscription</title>
-    <!-- <link rel="icon" href="favicon."> -->
+    <link rel="icon" href="/favicon.png">
     <meta name="title" content="" />
     <meta name="description" content="" />
 
@@ -37,38 +37,55 @@
     </div>
     <main class="main" data-barba-namespace="home">
         <section class="home-hero">
-            <div class="home-hero-img">
-                <img class="img" src='../public/imgs/hero-banner.jpg?as=webp&width=5044' width='2522' alt='A Black Bear'/>
-            </div>
-            <div class="home-hero-content">
-                <div class="home-hero-logo">
-                    <img class="img" src='../public/imgs/logo.svg' width='65' height="92" alt='bear logo'/>
+            <div class="container grid">
+                <div class="home-hero-content">
+                    <div class="home-hero-logo">
+                        <img class="img" src='../public/imgs/logo.svg' width='65' height="92" alt='bear logo'/>
+                    </div>
+                    <h1 class="h0 home-hero-title">Reliable design partner committed to your company's growth</h1>
+                    <a href="#" class="btn home-hero-btn">
+                        <div class="txt txt-16 txt-med txt-btn">
+                            See all plans
+                        </div>
+                    </a>
                 </div>
-                <h1 class="h0 home-hero-title">Reliable design partner committed to your company's growth</h1>
+            </div>
+            <div class="home-hero-bg">
+                <img class="img" src='../public/imgs/hero-banner-full.jpg?as=webp&width=5044' width='2522' alt='A Black Bear'/>
+                <div class="home-hero-bg-overlay"></div>
+                <div class="home-hero-bg-grad"></div>
             </div>
         </section>
         <div class="home-main">
-            <header class="header container">
-                <div class="header-discover">
-                    <div class="header-mouse">
-                        <img class="img" src='../public/imgs/mouse.svg' width='68' height="92" alt='mouse icon'/>
-                        <span class="header-mouse-wheel"></span>
+            <header class="header">
+                <div class="container header-container">
+                    <div class="header-discover">
+                        <div class="header-mouse">
+                            <img class="img" src='../public/imgs/mouse.svg' width='68' height="92" alt='mouse icon'/>
+                            <span class="header-mouse-wheel"></span>
+                        </div>
+                        <p class="txt txt-16 txt-med header-discover-txt">Scroll down to discover how it works</p>
                     </div>
-                    <p class="txt txt-16 txt-med header-discover-txt">Scroll down to discover how it works</p>
-                </div>
-                <div class="header-links">
-                    <a class="hover-un txt txt-16 txt-med" href="#">Schedule a call</a>
-                    <div class="header-links-border">
-                        <button class="header-hamburger">
-                            <span class="header-hamburger-line"></span>
-                            <span class="header-hamburger-line"></span>
-                            <span class="header-hamburger-line"></span>
-                        </button>
-                        <a class="txt txt-16 txt-med btn" href="#">Get Started</a>
+                    <div class="header-main">
+                        <a class="hover-un txt txt-16 txt-med" href="#">Schedule a call</a>
+                        <div class="header-main-inner">
+                            <button class="header-hamburger">
+                                <span class="header-hamburger-line"></span>
+                                <span class="header-hamburger-line"></span>
+                                <span class="header-hamburger-line"></span>
+                            </button>
+                            <a class="btn-outer" href="#">
+                                <div class="btn">
+                                    <div class="txt txt-16 txt-med txt-btn">
+                                        Get Started
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </header>
-            <div class="home-main--inner">
+            <div class="home-main-inner">
                 <section class="home-benefit">
                     <div class="container">
                         <div class="home-benefit--wrap">
@@ -460,7 +477,9 @@
                                         <div class="home-pricing-plan-price">
                                             <div class="home-pricing-plan-price-inner">
                                                 <span class="txt txt-16">$</span>
-                                                <h3 class="h4 home-pricing-plan-price-txt"">4,999</h3>
+                                                <h3 class="h4 home-pricing-plan-price-txt">
+                                                    4,999
+                                                </h3>
                                             </div>
                                             <div class="txt txt-16 home-pricing-plan-type">
                                                 <p>/mo.</p>

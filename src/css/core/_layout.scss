@@ -3,29 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
-$cl-heading: #fff;
-$cl-body: #CCCCCC;
-$cl-dark: #010101;
-$cl-heading-dark: #010101;
-$cl-primary: #F5450D;
-$cl-primary-border: #F5450D;
-$cl-secondary: #3800AE;
-$cl-bg: #010101;
-$cl-disable: #DBDBDB;
-$cl-border: #343434;
-$cl-border-li: #C1C1C1;
-$border-line-3: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.00) 100%);
-.body.dark-mode {
-    $cl-heading: #000;
 
-}
-
-$cl-bg-beige: #F6F1EE;
-$dur-default: 400ms;
-
-$dur-default: 400ms;
-
-$container-width: 1728px;
 //$container-width: 192rem; //resolve in 192x12.5px(fontsize) = 2400px
 
 $xs-min: 477px;
@@ -40,7 +18,8 @@ $lg-max: ($lg-min - 1); // Large Desktop
 
 //Font
 html {
-    --fsGlobal: 0.5787037037vw;
+    --fs-global: 0.5787037037vw;
+    --container-max-width: none;
     scroll-behavior: unset;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -48,28 +27,28 @@ html {
     -webkit-text-rendering: optimizeSpeed;
     text-rendering: optimizeSpeed;
     font-family: 'Saans';
-    font-size: var(--fsGlobal);
+    font-size: var(--fs-global);
     color: $cl-body;
     background-color: $cl-bg;
     // @media only screen and (min-width: 2160px) {
     //     font-size: 12.5px;
     // }
-    @media only screen and (max-width: 1729px) and (min-width: 991px) {
+    @media only screen and (min-width: 991px) {
         @media screen and (min-aspect-ratio: 1600 / 800) {
-            --fsGlobal: 0.9259259259vh;
+            --fs-global: 0.9259259259vh;
         }
     }
     // @media only screen and (min-width: 1728px) {
-    //     --fsGlobal: 10px;
+    //     --fs-global: 10px;
     // }
     @media only screen and (max-width: 991px) {
-        --fsGlobal: 1.1990407674vw;
+        --fs-global: 1.1990407674vw;
     }
     @media only screen and (max-width: 767px) {
-        --fsGlobal: 1.8vw;
+        --fs-global: 1.8vw;
     }
     @media only screen and (max-width: 476px) {
-        --fsGlobal: 2.667vw;
+        --fs-global: 2.667vw;
     }
 }
 html.lenis {
@@ -116,8 +95,7 @@ button {
     width: 100%;
     margin: 0 auto;
     padding: 0 var(--container-padding);
-    max-width: $container-width;
-    //max-width: none;
+    max-width: var(--container-max-width);
     &.fluid {
         max-width: none;
     }
