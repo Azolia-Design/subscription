@@ -88,6 +88,7 @@
         background-color: rgba($cl-bg, 1);
         &--wrap {
             position: relative;
+            border-radius: 2rem;
             &::before {
                 content: '';
                 position: absolute;
@@ -158,12 +159,13 @@
                     align-items: center;
                     position: relative;
                     justify-content: center;
+                    border-radius: 50%;
                     span {
                         width: 100%;
                         height: 100%;
                         position: absolute;
                         pointer-events: none;
-                        @include border-gradient($border-line-3, 50%);
+                        @include border-gradient($border-line-3);
                     }
                 }
             }
@@ -343,6 +345,7 @@
         }
         &-step {
             position: relative;
+            border-radius: 2rem;
             &::before {
                 content: '';
                 position: absolute;
@@ -505,6 +508,7 @@
                 padding: 1rem;
                 margin-top: 2rem;
                 margin-bottom: 8rem;
+                border-radius: 2rem;
                 &:before {
                     content: '';
                     position: absolute;
@@ -559,7 +563,7 @@
             }
             &-listing {
                 display: flex;
-                align-items: center;
+                align-items: end;
                 gap: 0 2rem;
                 margin-bottom: 8rem;
             }
@@ -570,13 +574,11 @@
                 flex-direction: column;
                 box-shadow: 0rem 0rem 1rem 0rem rgba(255, 255, 255, 0.05) inset;
                 backdrop-filter: blur(.1rem);
+                border-radius: 2rem;
                 &:before {
                     content: '';
                     position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    top: 0;
-                    left: 0;
+                    inset: 0;
                     @include border-gradient();
                 }
                 &.popular {
@@ -586,6 +588,9 @@
                     box-shadow: 0rem 0rem 1.5rem 0rem rgba(255, 255, 255, 0.1) inset;
                     backdrop-filter: blur(.2rem);
                     color: white;
+                    &::before {
+                        @include border-gradient(linear-gradient(180deg, rgba($cl-primary-hl, 1) 0%, rgba($cl-primary-hl, 0) 100%), 1.5rem);
+                    }
                 }
                 &-popularTag {
                     border: 1px solid rgba($cl-heading, .1);
