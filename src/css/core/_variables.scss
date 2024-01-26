@@ -1,0 +1,27 @@
+$cl-bg: #010101;
+$cl-white: #ffffff;
+$cl-black: #000000;
+$cl-primary: #F5450D;
+$cl-primary-li: #F58A0D;
+$cl-primary-hl: #FF693A;
+$cl-red: #ff0000;
+
+$cl-heading: #fff;
+$cl-body: #CCCCCC;
+$cl-dark: #010101;
+$cl-heading-dark: #010101;
+
+$cl-primary-border: #F5450D;
+$cl-secondary: #3800AE;
+$cl-bg: #010101;
+$cl-disable: #DBDBDB;
+$cl-border: #343434;
+$cl-border-li: #C1C1C1;
+$border-line-3: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.00) 100%);
+.body.dark-mode {
+    $cl-heading: #000;
+
+}
+
+$cl-bg-beige: #F6F1EE;
+$dur-default: 400ms;

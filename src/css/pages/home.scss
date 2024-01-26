@@ -1,35 +1,91 @@
 .home {
     &-hero {
-        height: auto;
-        min-height: 100vh;
-        overflow: hidden;
-        display: flex;
-        justify-self: center;
-        padding-top: 9.7rem;
-        position: relative;
-        &-img {
-            position: absolute;
-            z-index: 1;
-            inset: -13.4rem -43.6rem;
+        .container {
+            height: 100%;
         }
+        z-index: 1;
+        height: 100vh;
+        min-height: 100vh;
+        position: relative;
         &-content {
-            position: relative;
-            z-index: 2;
+            --total-space: calc(100vh - 54rem);
+            grid-column: 1/-1;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             text-align: center;
+            width: 100%;
             max-width: 120.3rem;
             margin: 0 auto;
+            // padding-top: calc(.1644 * var(--total-space));
+            padding-top: 0;
+            padding-bottom: calc((.5432 - .1644) * var(--total-space));
         }
         &-logo {
             width: 6.5rem;
-            margin-bottom: 11.6rem;
+            margin-bottom: calc(.078782 * var(--total-space));
+        }
+        &-title {
+            // margin-bottom: calc(.04834377798 * var(--total-space));
+            margin-bottom: 5.4rem;
+        }
+        &-btn {
+            width: 18rem;
+        }
+        &-bg {
+            position: absolute;
+            z-index: 1;
+            width: 100%;
+            height: calc(100% + 7rem);
+            top: 0;
+            left: 0;
+            margin: 0 auto;
+            pointer-events: none;
+            .img {
+                margin-top: -19rem;
+                width: 100%;
+                height: calc(100vh + 19rem + 7rem - 8.9rem);
+                object-fit: cover;
+                object-position: 50% 29%;
+                position: relative;
+                z-index: 1;
+                background-color: rgba($cl-black, .4);
+            }
+            &-overlay {
+                position: absolute;
+                z-index: 2;
+                top: 0;
+                left: 0;
+                @include size(100%);
+                background-color: rgba($cl-bg, .4);
+            }
+            &-grad {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                height: 44.7rem;
+                min-height: 9.8rem;
+                margin-top: -34.9rem;
+                background: linear-gradient(180deg, rgba($cl-bg, 0.00) 0%, rgba($cl-bg, 1) calc(100% - 8.9rem));
+                z-index: 3;
+            }
+        }
+    }
+    &-main {
+        margin-top: -15.4rem;
+        position: relative;
+        z-index: 2;
+        &-inner {
+            position: relative;
+            z-index: 1;
         }
     }
     &-benefit {
         margin-top: 3rem;
         margin-bottom: 8.6rem;
+        background-color: rgba($cl-bg, 1);
         &--wrap {
             position: relative;
             &::before {

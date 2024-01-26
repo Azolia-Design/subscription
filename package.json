@@ -15,7 +15,7 @@
     "start:client": "parcel serve --target client -p 3000",
     "start:server": "parcel watch --target server-dev",
     "nodemon:server": "nodemon server.js",
-    "build:client": "yarn clear && PARCEL_WORKERS=1 parcel build --target client --no-cache --no-content-hash --public-url ./ --no-scope-hoist",
+    "build:client": "yarn clear && PARCEL_WORKERS=1 parcel build --no-cache --no-content-hash --public-url ./ --no-scope-hoist",
     "build:server": "parcel build --target server",
     "build:server-dev": "parcel build --target server-dev",
     "rename": "node rename.js",

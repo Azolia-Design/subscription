@@ -1,7 +1,21 @@
 const home = {
     namespace: "home",
-    afterEnter() {
+    afterEnter(data) {
         console.log(`enter ${this.namespace}`);
+        let cont = $('body');
+
+        function homeHeroParallax() {
+            let tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: cont.find('.home-hero'),
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true,
+                }
+            })
+            tl.to(cont.find('.home-hero-bg img'), {y: '19rem', ease: 'none'})
+        }
+        homeHeroParallax()
         function scrollAnimationGrid() {
             const gridItems = document.querySelectorAll('.home-portfolio-project-item');
             gridItems.forEach(item => {
@@ -24,7 +38,6 @@ const home = {
                 })
             });
         }
-
         scrollAnimationGrid();
     },
     beforeLeave() {
