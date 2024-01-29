@@ -1,5 +1,5 @@
-import { lerp, xSetter, ySetter, xGetter, yGetter, isTouchDevice } from "../helper";
-
+import { lerp, xSetter, ySetter, xGetter, yGetter } from "../helper";
+import { isTouchDevice } from '../helper/viewport'
 
 let pointer = { x: $(window).width() / 2, y: $(window).height() / 2 };
 $(window).on('pointermove', function (e) {

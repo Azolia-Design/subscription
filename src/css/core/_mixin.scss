@@ -9,7 +9,7 @@
 	}
 }
 @mixin md-up {
-	@media screen and (min-width: $md-min ) {
+	@media screen and (min-width: $md-min) {
 		@content;
 	}
 }
@@ -106,7 +106,7 @@
 }
 
 @mixin border-gradient($color: $border-line-3, $radius: inherit) {
-    padding: 2px;
+    padding: 1px;
     border-radius: $radius;
     background: $color border-box;
     -webkit-mask:

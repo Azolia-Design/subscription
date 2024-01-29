@@ -196,7 +196,6 @@
                 border-radius: 50%;
                 aspect-ratio: 1;
                 background: rgba(255, 255, 255, 0.20);
-                backdrop-filter: blur(5px);
                 display: flex;
                 align-items: center;
                 flex: none;
@@ -501,6 +500,8 @@
                 margin-top: 2rem;
                 margin-bottom: 8rem;
                 border-radius: 2rem;
+                background-color: rgba($cl-white, 0.01);
+                box-shadow: 0rem 0rem 1rem 0rem rgba($cl-white, 0.05) inset;
                 &:before {
                     content: '';
                     position: absolute;
@@ -572,8 +573,7 @@
                 position: relative;
                 display: flex;
                 flex-direction: column;
-                box-shadow: 0rem 0rem 1rem 0rem rgba(255, 255, 255, 0.05) inset;
-                backdrop-filter: blur(.1rem);
+                box-shadow: 0rem 0rem 1rem 0rem rgba($cl-white, 0.05) inset;
                 border-radius: 2rem;
                 &:before {
                     content: '';
@@ -582,14 +582,11 @@
                     @include border-gradient();
                 }
                 &.popular {
-                    border: 1px solid #FF693A;
-                    border-radius: 2rem;
                     background: linear-gradient(180deg, #F5370D 0%, #F5430D 34%, #F58A0D 100%);
-                    box-shadow: 0rem 0rem 1.5rem 0rem rgba(255, 255, 255, 0.1) inset;
-                    backdrop-filter: blur(.2rem);
+                    box-shadow: 0rem 0rem 1.5rem 0rem rgba($cl-white, 0.1) inset;
                     color: white;
                     &::before {
-                        @include border-gradient(linear-gradient(180deg, rgba($cl-primary-hl, 1) 0%, rgba($cl-primary-hl, 0) 100%), 1.5rem);
+                        @include border-gradient(linear-gradient(180deg, rgba($cl-primary-hl, 1) 0%, rgba($cl-primary-hl, 0) 100%), 2rem);
                     }
                     .home-pricing-plan-item-detail-txt .img {
                         filter: brightness(0) saturate(100%) invert(99%) sepia(10%) saturate(7%) hue-rotate(132deg) brightness(103%) contrast(100%);
@@ -963,6 +960,7 @@
         }
     }
     &-faq {
+        padding-bottom: 25rem;
         &-heading {
             grid-column: 4/14;
             text-align: center;
@@ -975,13 +973,15 @@
             }
             &-item {
                 --widthOrdinal: 13rem;
-                padding: 4rem 0;
                 border-bottom: 1px solid rgba($cl-white, 0.10);
+                padding-bottom: 2.4rem;
+                position: relative;
+                overflow: hidden;
                 &-ques {
                     display: flex;
                     align-items: center;
-                    margin-bottom: 3.2rem;
                     cursor: pointer;
+                    padding: 4rem 0 1.6rem;
                     &-ordinal {
                         width: var(--widthOrdinal);
                     }
@@ -1000,18 +1000,19 @@
                         @include size(2rem);
 
                         border-radius: 50%;
-                        border: 1px solid rgba($cl-white, 0.2);
+                        border: 1.5px solid rgba($cl-white, 0.2);
                         overflow: hidden;
+                        @include transition(border .65s cubic-bezier(.6,0,.3,1) .2s);
                         &:before {
                             content: '';
                             position: absolute;
                             inset: -1px;
                             @include transform(translateY(100%));
                             border-radius: 50%;
-                            background-color: $cl-primary;
+                            background: linear-gradient(180deg, rgba($cl-primary, 1) 50%, rgba($cl-primary-li, 1) 100%);
                             opacity: 0;
                             @include transition(
-                                transform 1.333s linear(
+                                transform 1.833s linear(
                                     0, 0.938 16.7%, 1.149 24.3%, 1.154 29.9%, 0.977 51%, 1
                                 ),
                                 opacity 1.333s linear(
@@ -1023,17 +1024,65 @@
                 }
                 &-answer {
                     margin-left: var(--widthOrdinal);
+                    padding-bottom: 1.6rem;
+                }
+                &:before,
+                &:after {
+                    --line-spacing: 1rem;
+
+                    content: '';
+                    position: absolute;
+                    display: block;
+                    inset: auto 0 0;
+                    width: calc(100% - var(--widthOrdinal));
+                    height: 1.5px;
+                    @include transition(transform .65s cubic-bezier(.6,0,.3,1) .15s);
+                }
+                &:before {
+                    opacity: 0;
+                    left: var(--widthOrdinal);
+                    background: linear-gradient(270deg, rgba($cl-primary, 1) 34%, rgba($cl-primary-li, 1) 100%);
+                    @include transition(transform .65s cubic-bezier(.6,0,.3,1), opacity .65s cubic-bezier(.6,0,.3,1) .05s);
+                }
+                &:after {
+                    left: calc(-1 * var(--line-spacing));
+                    opacity: .8;
+                    transform: translateX(-100%);
+                    background: linear-gradient(90deg, rgba($cl-primary, 1) 34%, rgba($cl-primary-li, 1) 100%);
+                    @include transition(transform .65s cubic-bezier(.6,0,.3,1) .2s);
                 }
                 &.active {
                     .home-faq-content-item-ques-title {
                         color: $cl-primary;
                     }
                     .home-faq-content-item-ques-dot {
-                        border: 2px solid rgba($cl-primary, 1);
+                        border: 1.5px solid rgba($cl-primary, 1);
                         &:before {
                             opacity: 1;
                             @include transform(translateY(100%) scale(2));
                         }
+                    }
+                    &:before {
+                        opacity: 1;
+                        @include transform(translateX(calc(100% + var(--line-spacing))) rotate(.01deg));
+                    }
+                    &:after {
+                        @include transform(translateX(calc(var(--line-spacing) + var(--widthOrdinal))) rotate(.01deg));
+                    }
+                }
+                &:hover {
+                    .home-faq-content-item-ques-title {
+                        color: $cl-primary;
+                    }
+                    .home-faq-content-item-ques-dot {
+                        border: 1.5px solid rgba($cl-primary, 1);
+                    }
+                    &:before {
+                        opacity: 1;
+                        @include transform(translateX(calc(100% + var(--line-spacing))) rotate(.01deg));
+                    }
+                    &:after {
+                        @include transform(translateX(calc(var(--line-spacing) + var(--widthOrdinal))) rotate(.01deg));
                     }
                 }
             }
