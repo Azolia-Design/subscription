@@ -499,16 +499,24 @@
 
         &-item {
             position: relative;
-            grid-column: 2/16;
             display: flex;
             padding: 6rem 0;
             align-items: flex-end;
             justify-content: space-between;
+            color: rgba($cl-black, 1);
 
-            &-inner {
-                display: flex;
-                flex-direction: column;
-                row-gap: 2rem;
+            &-industry {
+                grid-column: 2/-1;
+            }
+            &-name {
+                grid-column: 2/12;
+                margin-top: 2rem;
+                color: rgba($cl-black, 1);
+            }
+            &-view {
+                grid-column: 13/16;
+                align-self: end;
+                text-align: end;
             }
             .line {
                 width: 200%;
