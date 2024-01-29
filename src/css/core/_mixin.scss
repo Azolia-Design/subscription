@@ -104,3 +104,14 @@
 		border-radius: 2rem;
 	}
 }
+
+@mixin border-gradient($color: $border-line-3, $radius: inherit) {
+    padding: 2px;
+    border-radius: $radius;
+    background: $color border-box;
+    -webkit-mask:
+    linear-gradient($cl-heading 0 0) content-box,
+    linear-gradient($cl-heading 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}

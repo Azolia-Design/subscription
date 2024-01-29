@@ -190,7 +190,11 @@ button {
         }
     }
 }
-
+.line {
+    background-color: rgba($cl-heading, 0.10);
+    widows: 100%;
+    height: 1px;
+}
 
 @include md {
     .cursor {
