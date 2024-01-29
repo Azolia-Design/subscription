@@ -1,18 +1,4 @@
-import { lerp, xSetter, ySetter, xGetter, yGetter, isTouchDevice } from "../helper";
-
-
-let pointer = { x: $(window).width() / 2, y: $(window).height() / 2 };
-$(window).on('pointermove', function (e) {
-    pointer.x = e.clientX;
-    pointer.y = e.clientY;
-    if ($('.cursor-wrap').hasClass('on-hidden') && !isTouchDevice()) {
-        $('.cursor-wrap').removeClass('on-hidden')
-    }
-})
-
-const pointerCurr = () => {
-    return pointer
-}
+import { lerp, xSetter, ySetter, xGetter, yGetter, pointerCurr, isTouchDevice } from "../helper";
 
 const initCursor = () => {
     const cusrorDotWidth = parseFloat($('.cursor-dot').css('width'))

@@ -1,3 +1,6 @@
+import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, typeOpts, pointerCurr, isTouchDevice } from "../../helper";
+
+
 const home = {
     namespace: "home",
     afterEnter(data) {
@@ -11,35 +14,150 @@ const home = {
                     start: 'top top',
                     end: 'bottom top',
                     scrub: true,
-                }
+                }   
             })
             tl.to(cont.find('.home-hero-bg img'), {y: '19rem', ease: 'none'})
         }
         heroParallax()
 
-        function scrollAnimationGrid() {
-            const gridItems = document.querySelectorAll('.home-portfolio-project-item');
-            gridItems.forEach(item => {
-                const yPercentRandomVal = gsap.utils.random(-100,100);
-                gsap.timeline({
-                    scrollTrigger: {
-                        trigger: item,
-                        start: "top 40%",
-                        end: "top top",
-                        scrub: true
-                    }
+        function homeSkill() {
+            console.log('Init Homeskill');
+
+            ScrollTrigger.create({
+                trigger: '.home-skill',
+                start: 'top bottom',
+                end: 'bottom top',
+                toggleClass: {targets: '.home-skill-thumb', className: "active"},
+            })
+
+            $('.home-skill-item').each((idx, el) => {
+                const splitText = new SplitText($(el).find('.home-skill-item-title'), {
+                    type: "chars,lines",
+                    charsClass: 'char',
+                    // position: 'absolute'
                 })
-                .set(item, {
-                    transformOrigin: `50% 200%`
+
+                $(el).on('mouseenter', function(e) {
+                    gsap.to(splitText.chars, {
+                        x: 50,
+                        duration: .4,
+                        stagger: .012,
+                        overwrite: true,
+                        // ease: "power3.inOut" 
+                    })
+                    $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
                 })
-                .to(item, {
-                    ease: 'none',
-                    scale: 0.5,
-                    borderRadius: '50%'
+                $(el).on('mouseleave', function(e) {
+                    gsap.to(splitText.chars, {
+                        x: 0,
+                        duration: .2,
+                        overwrite: true,
+                    })
+                    $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
                 })
-            });
+            })
+
+            $('.home-skill-thumb-item').each((idx, el) => {
+                let clone = $(el).find('img')
+
+                for (let i = 1; i <= 5; i++) {
+                    let cloner = clone.clone()
+                    cloner.addClass('cloner')
+                    $(el).append(cloner)
+                }
+            })
+
+            function initMouseMove() {
+                const target = $('.home-skill-thumb')
+                
+                if (target.hasClass('active')) {
+                    let tarCurrX = xGetter(target.get(0))
+                    let tarCurrY = yGetter(target.get(0))     
+                    let tarCurrRot = rotZGetter(target.get(0))
+
+                    let tarX = -target.outerWidth()/4 + (pointerCurr().x - $('.home-skill-listing').get(0).getBoundingClientRect().left)/$('.home-skill-listing').outerWidth() * ($('.home-skill-listing').outerWidth() - $('.home-skill-item-desc').get(0).getBoundingClientRect().left - target.outerWidth()/2)
+                    let tarY =  -target.outerHeight()/4 + (pointerCurr().y - $('.home-skill-listing').get(0).getBoundingClientRect().top)/$('.home-skill-listing').outerHeight() * ($('.home-skill-listing').outerHeight() - target.outerHeight()/2)
+
+                    xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
+                    ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
+                    rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX)/5, -15), 15)), .06))
+                }
+                requestAnimationFrame(initMouseMove)
+            }
+            requestAnimationFrame(initMouseMove)
         }
-        scrollAnimationGrid();
+        homeSkill()
+
+        function homePortfolio() {
+            function scrollAnimationGrid() {
+                const gridItems = document.querySelectorAll('.home-portfolio-project-item');
+                gridItems.forEach(item => {
+                    const yPercentRandomVal = gsap.utils.random(-100,100);
+                    gsap.timeline({
+                        scrollTrigger: {
+                            trigger: item,
+                            start: "top 40%",
+                            end: "top top",
+                            scrub: true,
+                        }
+                    })
+                    .set(item, {
+                        transformOrigin: `50% 200%`
+                    })
+                    .to(item, {
+                        ease: 'none',
+                        scale: 0.5,
+                        borderRadius: '50%'
+                    })
+                });
+            }
+            scrollAnimationGrid();
+        }
+        homePortfolio()
+
+        function homeCurtain() {
+            let curtain = $('.home-curtain');
+            let offset = $(window).height()/10;
+            $('.home-curtain-inner').css('height', ' ' + offset  + 'px')
+
+            const clone = $('.home-curtain-inner')
+            for (let i = 1; i < 10; i++) {
+                let cloner = clone.clone()
+                $('.home-curtain').append(cloner)
+            }
+            let tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.home-curtain',
+                    start: 'top top+=80%',
+                    end: 'bottom top+=00%',
+                    scrub: true,
+                },
+                duration: 2
+            })
+
+            tl.to('.home-curtain-inner', {
+                scaleY: 0,
+                stagger: {
+                    amount: -.4
+                },
+                ease: 'none',
+                duration: 1.2,
+            }, 0);
+
+            $('.home-curtain-inner').each((idx, el) => {
+                tl
+                .to(el, {
+                    transformOrigin: 'center top',
+                    y: -idx * 100,
+                    stagger: {
+                        amount: -.4
+                    },
+                    ease: 'none',
+                    duration: 1,
+                }, 0)
+            })
+        }
+        homeCurtain()
 
         function homeIndustries() {
             const DOM = {
@@ -61,7 +179,6 @@ const home = {
             .fromTo(DOM.radarScan, {
                 rotate: 0 - 10,
             }, {
-                // delay: lifeCycleTime/4,
                 rotate: 270 - 10,
                 duration: lifeCycleTime,
                 ease: 'none',

@@ -293,21 +293,49 @@
         }
         &-thumb {
             position: absolute;
+            pointer-events: none;
             top: 0;
             left: 68.6rem;
             display: grid;
             grid-template-columns: 1fr;
             &-item {
+                // position: relative;
                 width: 40rem;
                 grid-area: 1/1/2/2;
                 opacity: 0;
+                scale: 1.1;
+                overflow: hidden;
+                transition: opacity 0.6s cubic-bezier(0.45, 0, 0.55, 1), scale 1s cubic-bezier(0.45, 0, 0.55, 1);
+
+                img.cloner {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    // translate: -50%;
+
+                    &:nth-child(1) {
+                        
+                    }
+                }
                 &.active {
+                    @include transition(
+                        opacity 3.333s linear(
+                            0, 0.002, 0.009 1%, 0.035, 0.078, 0.141 4.4%, 0.281 6.7%, 0.723 12.9%, 0.842,
+                            0.938, 1.017, 1.077 20.4%, 1.101, 1.121, 1.137, 1.149 24.3%, 1.159, 1.163,
+                            1.161, 1.154, 1.143, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 1.002, 0.991,
+                            0.982 48.9%, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.979 60%, 0.997 69.8%,
+                            1.001, 1.003 76.9%, 1.004 83.8%, 1
+                        ),
+                        scale .2s cubic-bezier(0.45, 0.5, 0.55, 1)
+                    );
                     opacity: 1;
+                    scale: 1;
                 }
             }
         }
     }
     &-gradientNoise {
+        pointer-events: none;
         @include size(100%, 221.6rem);
         margin: {
             top: -86.1rem;
@@ -430,15 +458,16 @@
             }
         }
         &-content {
-            height: 100vh;
             position: sticky;
             top: 0;
             color: $cl-heading-dark;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             text-align: center;
+
             &-title {
                 color: $cl-heading-dark;
                 font-weight: bold;
@@ -461,7 +490,19 @@
                     height: 3.2rem;
                     width: auto;
                 }
-            }
+            }            
+        }
+    }
+    &-curtain {
+        height: 50vh;
+        background-color: rgba($cl-bg, 1);
+        position: relative;
+        z-index: 222222;
+
+        &-inner {
+            width: 100%;
+            background-color: rgba($cl-primary, 1);
+            transform-origin: center top;
         }
     }
     &-pricing {
