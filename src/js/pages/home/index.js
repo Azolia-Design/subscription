@@ -115,13 +115,20 @@ const home = {
         }
         homePortfolio()
 
+        function homeProject() {
+            const line = document.createElement('div')
+            $(line).addClass('line')
+            $('.home-project-item:last-child').append(line)
+        }
+        homeProject()
+
         function homeCurtain() {
             let curtain = $('.home-curtain');
-            let offset = $(window).height()/10;
+            let offset = $(window).height()/20;
             $('.home-curtain-inner').css('height', ' ' + offset  + 'px')
 
             const clone = $('.home-curtain-inner')
-            for (let i = 1; i < 10; i++) {
+            for (let i = 1; i < 20; i++) {
                 let cloner = clone.clone()
                 $('.home-curtain').append(cloner)
             }
@@ -135,25 +142,26 @@ const home = {
                 duration: 2
             })
 
-            tl.to('.home-curtain-inner', {
+            tl
+            .to('.home-curtain-inner', {
                 scaleY: 0,
                 stagger: {
                     amount: -.4
                 },
                 ease: 'none',
                 duration: 1.2,
-            }, 0);
+            }, 0)
 
             $('.home-curtain-inner').each((idx, el) => {
                 tl
                 .to(el, {
                     transformOrigin: 'center top',
-                    y: -idx * 100,
+                    y: -idx * 50,
                     stagger: {
                         amount: -.4
                     },
                     ease: 'none',
-                    duration: 1,
+                    duration: 2,
                 }, 0)
             })
         }

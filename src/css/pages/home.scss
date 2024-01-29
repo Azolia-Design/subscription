@@ -493,8 +493,39 @@
             }            
         }
     }
+    &-project {
+        background-color: rgba($cl-primary, 1);
+        overflow: hidden;
+
+        &-item {
+            position: relative;
+            grid-column: 2/16;
+            display: flex;
+            padding: 6rem 0;
+            align-items: flex-end;
+            justify-content: space-between;
+
+            &-inner {
+                display: flex;
+                flex-direction: column;
+                row-gap: 2rem;
+            }
+            .line {
+                width: 200%;
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+
+                &:nth-child(2n) {
+                    top: auto;
+                    bottom: 0;
+                }
+            }
+        }
+    }
     &-curtain {
-        height: 50vh;
+        height: 30vh;
         background-color: rgba($cl-bg, 1);
         position: relative;
         z-index: 222222;
