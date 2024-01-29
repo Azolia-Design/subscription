@@ -532,10 +532,10 @@
                     @include transition(
                         transform .533s linear(
                             0, 0.938 16.7%, 1.149 24.3%, 1.154 29.9%, 0.977 51%, 1
-                          ),
+                        ),
                         opacity .633s linear(
                             0, 0.938 16.7%, 1.149 24.3%, 1.154 29.9%, 0.977 51%, 1
-                          ));
+                        ));
                     &:first-of-type {
                         mix-blend-mode: hard-light;
                         opacity: 0;
@@ -547,14 +547,6 @@
                         mix-blend-mode: color;
                         .btn {
                         }
-                    }
-                    &.active {
-                        // span:first-child {
-                        //     opacity: 1;
-                        // }
-                        // span:last-child {
-                        //     opacity: 0;
-                        // }
                     }
                 }
                 &-btn {
@@ -599,6 +591,9 @@
                     &::before {
                         @include border-gradient(linear-gradient(180deg, rgba($cl-primary-hl, 1) 0%, rgba($cl-primary-hl, 0) 100%), 1.5rem);
                     }
+                    .home-pricing-plan-item-detail-txt .img {
+                        filter: brightness(0) saturate(100%) invert(99%) sepia(10%) saturate(7%) hue-rotate(132deg) brightness(103%) contrast(100%);
+                    }
                 }
                 &-popularTag {
                     border: 1px solid rgba($cl-heading, .1);
@@ -621,10 +616,12 @@
                         gap: 0 .4rem;
                     }
                     &-txt {
-                        position: absolute;
-                        opacity: 0;
-                        pointer-events: none;
-                        &.curr {
+                        .h4 {
+                            position: absolute;
+                            opacity: 0;
+                            pointer-events: none;
+                        }
+                        .curr {
                             position: relative;
                             opacity: 1;
                             pointer-events: auto;
@@ -690,6 +687,7 @@
         }
     }
     &-explore {
+        padding-bottom: 16rem;
         &-heading {
             grid-area: 1/1/2/17;
             max-width: 144rem;
@@ -884,6 +882,159 @@
                     left: -2.6470588235%;
                     right: 0;
                     pointer-events: none;
+                }
+            }
+        }
+    }
+    &-testi {
+        padding-top: 16rem;
+        padding-bottom: 12.5rem;
+        &-text-wrap {
+            grid-column: 2/7;
+        }
+        &-heading {
+            margin-bottom: 6rem;
+        }
+        &-content {
+            grid-column: 8/17;
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            gap: 0 2rem;
+            &-wrap {
+                grid-column: span 8;
+            }
+            &-listing {
+            }
+            &-item {
+                position: relative;
+                padding: 10rem;
+                border-radius: 2rem;
+                background: linear-gradient(180deg, #121212 0%, #080808 100%);
+                display: flex;
+                flex-direction: column;
+                &:before {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    @include border-gradient(linear-gradient(180deg, rgba($cl-white, 0.1) 0%, rgba($cl-white, 0.00) 100%));
+                }
+                &-txt {
+                    margin-bottom: 4rem;
+                }
+                &-author {
+                    margin-top: 4.3rem;
+                    display: flex;
+                    align-items: center;
+                    &-avt {
+                        border-radius: 50%;
+                        overflow: hidden;
+                        margin-right: 2rem;
+                        @include size(8rem);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        .img {
+                            object-fit: cover;
+                            object-position: 50% 50%;
+                        }
+                    }
+                    &-info {
+                        display: flex;
+                        flex-direction: column;
+                        &-name {
+                            margin-bottom: .4rem;
+                        }
+                    }
+                }
+            }
+            &-progress {
+                grid-column: span 1;
+                align-self: center;
+                justify-self: end;
+                @include size(3px, 20rem);
+                background-color: rgba($cl-white, 0.10);
+                border-radius: 100vmax;
+                &-inner {
+                    background-color: $cl-primary;
+                    border-radius: 100vmax;
+                    height: 4rem;
+                }
+            }
+        }
+    }
+    &-faq {
+        &-heading {
+            grid-column: 4/14;
+            text-align: center;
+            margin-bottom: 10rem;
+        }
+        &-content {
+            grid-column: 4/14;
+            &-listing {
+
+            }
+            &-item {
+                --widthOrdinal: 13rem;
+                padding: 4rem 0;
+                border-bottom: 1px solid rgba($cl-white, 0.10);
+                &-ques {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 3.2rem;
+                    cursor: pointer;
+                    &-ordinal {
+                        width: var(--widthOrdinal);
+                    }
+                    &-title {
+                        flex-grow: 1;
+                        @include transition(color 1.333s linear(
+                            0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938, 1.077 20.4%, 1.121,
+                            1.149 24.3%, 1.163 27%, 1.154 29.9%, 1.017 43.1%, 0.991, 0.977 51%,
+                            0.975 57.1%, 1.003 76.9%, 1
+                        ));
+                    }
+                    &-dot {
+                        position: relative;
+
+                        margin-left: 3rem;
+                        @include size(2rem);
+
+                        border-radius: 50%;
+                        border: 1px solid rgba($cl-white, 0.2);
+                        overflow: hidden;
+                        &:before {
+                            content: '';
+                            position: absolute;
+                            inset: -1px;
+                            @include transform(translateY(100%));
+                            border-radius: 50%;
+                            background-color: $cl-primary;
+                            opacity: 0;
+                            @include transition(
+                                transform 1.333s linear(
+                                    0, 0.938 16.7%, 1.149 24.3%, 1.154 29.9%, 0.977 51%, 1
+                                ),
+                                opacity 1.333s linear(
+                                    0, 0.938 16.7%, 1.149 24.3%, 1.154 29.9%, 0.977 51%, 1
+                                )
+                            );
+                        }
+                    }
+                }
+                &-answer {
+                    margin-left: var(--widthOrdinal);
+                }
+                &.active {
+                    .home-faq-content-item-ques-title {
+                        color: $cl-primary;
+                    }
+                    .home-faq-content-item-ques-dot {
+                        border: 2px solid rgba($cl-primary, 1);
+                        &:before {
+                            opacity: 1;
+                            @include transform(translateY(100%) scale(2));
+                        }
+                    }
                 }
             }
         }

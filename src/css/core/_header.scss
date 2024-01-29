@@ -8,6 +8,7 @@
     position: sticky;
     top: 0;
     z-index: 99;
+    pointer-events: none;
     &-container {
         display: flex;
         justify-content: space-between;
@@ -16,6 +17,7 @@
     &-discover {
         display: flex;
         align-items: center;
+        pointer-events: auto;
     }
     &-mouse {
         position: relative;
@@ -36,6 +38,7 @@
     &-main {
         display: flex;
         align-items: center;
+        pointer-events: auto;
         &-inner {
             display: flex;
             padding: 1rem 1rem 1rem 0;

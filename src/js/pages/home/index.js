@@ -1,3 +1,4 @@
+import { selector } from "../../helper/index";
 const home = {
     namespace: "home",
     afterEnter(data) {
@@ -135,11 +136,12 @@ const home = {
         }
         homeIndustries()
 
-
         function switchPlanPricing() {
             const DOM = {
                 btnPlan: $('.home-pricing-plan-switch-wrap .home-pricing-plan-switch-btn'),
-                btnOverlay: $('.home-pricing-plan-switch-overlay')
+                btnOverlay: $('.home-pricing-plan-switch-overlay'),
+                periodic: $('.home-pricing-plan-item-price-periodic'),
+                price: $('.home-pricing-plan-item-price-txt')
             }
             function activePlan(index) {
                 gsap.to(DOM.btnOverlay, {
@@ -151,6 +153,18 @@ const home = {
                     .to(DOM.btnOverlay.eq(0), { autoAlpha: 1 }, 0.2)
                     .to(DOM.btnOverlay.eq(1), { autoAlpha: 1 }, 0.5)
                     .to(DOM.btnOverlay.eq(0), { autoAlpha: 0 }, 0.5);
+
+                DOM.price.each((i, item) => {
+                    let text = $(item).find('h3');
+                    text.removeClass('curr');
+                    text.eq(index).addClass('curr');
+                })
+
+                DOM.periodic.each((i, item) => {
+                    let text = $(item).find('p');
+                    text.removeClass('curr');
+                    text.eq(index).addClass('curr');
+                })
             }
 
             DOM.btnPlan.on('click', function (e) {
@@ -161,6 +175,29 @@ const home = {
             })
         }
         switchPlanPricing();
+
+        function faqAccordion() {
+            const parent = selector('.home-faq-content-listing');
+            const DOM = {
+                accordion: parent('.home-faq-content-item'),
+                accordionTitle: parent('.home-faq-content-item-ques'),
+                accordionContent: parent('.home-faq-content-item-answer')
+            }
+            parent(DOM.accordionContent).hide();
+            function activeAccordion(index) {
+                DOM.accordionContent.eq(index).slideToggle("slow");
+                DOM.accordion.eq(index).toggleClass("active");
+
+                DOM.accordionContent.not(DOM.accordionContent.eq(index)).slideUp("slow");
+                DOM.accordion.not(DOM.accordion.eq(index)).removeClass("active");
+            };
+
+            DOM.accordionTitle.on("click", function () {
+                let index = $(this).parent().index();
+                activeAccordion(index);
+            })
+        }
+        faqAccordion();
     },
     beforeLeave() {
         console.log(`leave ${this.namespace}`);

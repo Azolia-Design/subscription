@@ -18,6 +18,10 @@ const isTouchDevice = () => {
     (navigator.msMaxTouchPoints > 0));
 }
 
+const selector = (parent) => {
+    return (child) => $(parent).find(child);
+}
+
 export {
     lerp,
     parseRem,
@@ -25,5 +29,6 @@ export {
     ySetter,
     xGetter,
     yGetter,
-    isTouchDevice
+    isTouchDevice,
+    selector
 }
