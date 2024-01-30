@@ -339,7 +339,6 @@ const home = {
                 rotate: 270 - 10,
                 duration: lifeCycleTime,
                 ease: 'none',
-                repeat: -1,
             }, 0)
             DOM.lineItem.each((idx, el) => {
                 tl
