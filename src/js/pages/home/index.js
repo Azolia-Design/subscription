@@ -23,45 +23,100 @@ const home = {
 
         function benefitStackScroll() {
             const BENEFIT = {
+                wrap: $('.home-benefit'),
                 list: $('.home-benefit-list'),
-                item: $('.home-benefit-item')
+                item: $('.home-benefit-item'),
+                mainItem: $('.home-benefit-main'),
+                otherItem: $('.home-benefit-other'),
+                otherWrap: $('.home-benefit-other-wrap')
             }
-            let settings = {
-                flip: {
-                    absoluteOnLeave: false,
-                    absolute: false,
-                    scale: true,
-                    simple: true
-                },
+            let scrollerTl = gsap.timeline({
                 scrollTrigger: {
-                    start: 'center center',
-                    end: '+=300%',
-                },
-                stagger: 0
-            }
+                    trigger: BENEFIT.wrap,
+                    start: `top-=${$('header').outerHeight()} top`,
+                    end: 'bottom bottom',
+                    scrub: true
+                }
+            })
 
-            settings = Object.assign({}, settings);
+            let mainItemSelect = selector(BENEFIT.mainItem);
+            scrollerTl
+                .to(mainItemSelect('h2'), {
+                    scale: 0.56, transformOrigin: "top left", ease: "linear",
+                    duration: 1
+                }, 0)
+                .to(mainItemSelect('p'), {
+                    marginTop: "-6rem", ease: "linear",
+                    duration: 1
+                }, 0)
+                .to(BENEFIT.otherWrap, {
+                    x: -BENEFIT.mainItem.width() + parseRem(100), ease: "linear",
+                    duration: 1
+                }, 0)
 
-            BENEFIT.list.addClass('benefit--switch');
-            let finalState = Flip.getState(BENEFIT.item);
-            BENEFIT.list.removeClass('end-state');
-            const tl = Flip.to(finalState, {
-                ease: 'none',
-                absoluteOnLeave: settings.flip.absoluteOnLeave,
-                absolute: settings.flip.absolute,
-                scale: settings.flip.scale,
-                simple: settings.flip.simple,
-                scrollTrigger: {
-                    trigger: BENEFIT.list,
-                    start: settings.scrollTrigger.start,
-                    end: settings.scrollTrigger.end,
-                    pin: BENEFIT.list.parent(),
-                    scrub: true,
-                },
-                stagger: settings.stagger
+            BENEFIT.otherItem.each((index, item) => {
+                const ITEM_WIDTH = 210 + parseRem(100);
+                let itemSelect = selector(item);
+                    gsap.set(itemSelect('span'), { scaleX: 0 });
+                    scrollerTl
+                        .to(item, {
+                            duration: 1,
+                            paddingLeft: parseRem(40)
+                        })
+                        .to(itemSelect('h3'), {
+                            scale: .75, transformOrigin: "top left", ease: "linear", duration: 1
+                        }, '<=0')
+                        .to(itemSelect('span'), {
+                            scaleX: 1, transformOrigin: "right", ease: "linear", duration: 1
+                        }, "<=0")
+                        .to(itemSelect('p'), {
+                            autoAlpha: 0, ease: "linear", duration: 1,
+                            // onComplete: () => $(item).removeClass('active')
+                        }, '<=0.2')
+
+                    BENEFIT.otherItem.each((idx, el) => {
+                        if (idx > index) {
+                            scrollerTl
+                                .to(el, {
+                                    x: -(ITEM_WIDTH * ( 1 + index )), ease: "linear",
+                                    duration: 1,
+                                }, '<=0')
+                        }
+                    })
             })
         }
         //benefitStackScroll();
+
+        function showreelGalleryZoom() {
+            const GALLERY = {
+                wrap: $('.home-showreel'),
+                list: $('.home-showreel--inner'),
+                item: $('.home-showreel-item'),
+                mainItem: $('.home-showreel-item-main'),
+                otherItem: $('.home-showreel-item-other')
+            }
+            let tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: GALLERY.wrap,
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true,
+                    markers: true
+                }
+            })
+
+            tl
+                .to(GALLERY.list, {
+                    scale: 5, ease: 'none'
+                })
+                .to(GALLERY.otherItem.find('img'), {
+                    opacity: 0, ease: 'none'
+                }, "<= 0")
+                .from(GALLERY.mainItem.find('img'), {
+                    scale: 1.5, ease: 'none'
+                }, "<= 0")
+        }
+        // showreelGalleryZoom()
 
         function homeSkill() {
             ScrollTrigger.create({
@@ -77,7 +132,7 @@ const home = {
                 onEnter: () => {
                     $('.home-skill-item').each((idx, el) => {
                         const splitText = new SplitText($(el).find('.home-skill-item-title'), {type: "chars,lines", charsClass: 'char'})
-        
+
                         $(el).on('mouseenter', function(e) {
                             gsap.to(splitText.chars, {x: 50, duration: .4, stagger: .012, overwrite: true,})
                             $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
@@ -95,20 +150,20 @@ const home = {
                             $(el).append(cloner)
                         }
                     })
-        
+
                     function initMouseMove() {
                         const target = $('.home-skill-thumb')
                         if (target.hasClass('active')) {
                             let tarCurrX = xGetter(target.get(0))
                             let tarCurrY = yGetter(target.get(0))
                             let tarCurrRot = rotZGetter(target.get(0))
-        
+
                             let tarX = -target.outerWidth()/4 + (pointerCurr().x - $('.home-skill-listing').get(0).getBoundingClientRect().left)/$('.home-skill-listing').outerWidth() * ($('.home-skill-listing').outerWidth() - $('.home-skill-item-desc').get(0).getBoundingClientRect().left - target.outerWidth()/2)
                             let tarY =  -target.outerHeight()/4 + (pointerCurr().y - $('.home-skill-listing').get(0).getBoundingClientRect().top)/$('.home-skill-listing').outerHeight() * ($('.home-skill-listing').outerHeight() - target.outerHeight()/2)
-        
+
                             xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
                             ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
-                            rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX)/40, -7), 7)), .1))                    
+                            rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX)/40, -7), 7)), .1))
                         }
                         requestAnimationFrame(initMouseMove)
                     }
@@ -146,7 +201,7 @@ const home = {
                             borderRadius: '50%'
                         })
                     })
-                    
+
                 });
             }
             scrollAnimationGrid();
@@ -213,7 +268,7 @@ const home = {
                 $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
                 $(".home-project-thumb").find(`[data-thumb-name="${nameSpace}"]`).addClass('active')
             })
-            
+
 
             const target = $('.home-project-thumb')
             ScrollTrigger.create({
@@ -253,7 +308,7 @@ const home = {
                         gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
                     }
                 }
-                
+
             })
 
 
