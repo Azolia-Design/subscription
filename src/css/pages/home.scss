@@ -96,7 +96,11 @@
             }
         }
         &-list {
-            display: flex;
+            $benefitItem: 7;
+            $offset: 1rem;
+
+            display: grid;
+            grid-template-columns: repeat($benefitItem, 1fr);
             height: 70rem;
             position: relative;
             overflow-x: auto;
@@ -116,15 +120,21 @@
             &::-webkit-scrollbar-thumb {
                 background: $border-line-3;
             }
+            &.benefit--switch {
+                @for $i from 2 through $benefitItem {
+                    .home-benefit-item:nth-child(#{$i}) {
+                        margin-left: calc($offset * (#{$i} - 1));
+                    }
+                }
+            }
         }
         &-item {
             position: relative;
             z-index: 3;
             padding-top: 6rem;
-            flex: none;
         }
         &-main {
-            flex-basis: 41.74%;
+            width: 41.6vw;
             padding-left: 4rem;
             &-title {
                 margin-bottom: 6.4rem;
@@ -138,7 +148,7 @@
             flex-direction: column;
             justify-content: space-between;
             padding-inline: 6rem;
-            flex-basis: 29.13%;
+            width: 26.5vw;
             border-width: 1px;
             border-style: solid;
             border-image: linear-gradient(180deg, rgba($cl-heading, 0.2) 0%, rgba($cl-heading, 0) 100%) 1 100%;
@@ -738,7 +748,7 @@
                     height: 3.2rem;
                     width: auto;
                 }
-            }            
+            }
         }
     }
     &-project {
@@ -1219,7 +1229,7 @@
                                 background-color: rgba(245, 67, 13, 0.1);
                                 aspect-ratio: 1;
                                 border-radius: 50%;
-                                animation: loopDot 4s linear infinite;
+                                @include animation(loopDot 4s linear infinite);
 
                                 &:nth-child(1) {
                                     animation-delay: -1s;
