@@ -21,6 +21,7 @@
     <link rel="preload" href="css/style.scss" as="style"/>
     <link rel="stylesheet" href="css/style.scss">
     <link rel="stylesheet" href="../public/fonts/font.css">
+    <link rel="preload" href="../public/imgs/hero-banner-full.jpg?as=webp&width=5044" as="image">
     <link rel="preload" href="../public/fonts/Saans-Bold.woff" as="font" type="font/woff" crossorigin>
     <link rel="preload" href="../public/fonts/Saans-Regular.woff" as="font" type="font/woff" crossorigin>
     <link rel="preload" href="../public/fonts/Saans-Medium.woff" as="font" type="font/woff" crossorigin>
@@ -159,7 +160,7 @@
                     <div class="container">
                         <div class="home-showreel--inner">
                             <div class="home-showreel-thumb">
-                                <img class="img img-fill img-abs" src='../public/imgs/showreal-thumb.jpg?as=webp&width=3294' width='1647' alt='a man wearing a orange coat'/>
+                                <img class="img img-fill img-abs" src='../public/imgs/showreal-thumb.jpg?as=webp&width=3294' loading="lazy" width='1647' alt='a man wearing a orange coat'/>
                             </div>
                             <div class="home-showreel-play">
                                 <p class="h0">Play the</p>
@@ -214,25 +215,25 @@
                         </div>
                         <div class="home-skill-thumb">
                             <div class="home-skill-thumb-item">
-                                <img class="img" src='../public/imgs/skill-thumb-1.png?as=webp&width=800' loading="lazy" width='400' alt=''/>
+                                <img class="img" src='../public/imgs/skill-thumb-1.png?as=webp&width=800' loading="eager" width='400' alt=''/>
                             </div>
                             <div class="home-skill-thumb-item">
-                                <img class="img" src='../public/imgs/skill-thumb-2.png?as=webp&width=800' loading="lazy" width='400' alt=''/>
+                                <img class="img" src='../public/imgs/skill-thumb-2.png?as=webp&width=800' loading="eager" width='400' alt=''/>
                             </div>
                             <div class="home-skill-thumb-item">
-                                <img class="img" src='../public/imgs/skill-thumb-3.png?as=webp&width=800' loading="lazy" width='400' alt=''/>
+                                <img class="img" src='../public/imgs/skill-thumb-3.png?as=webp&width=800' loading="eager" width='400' alt=''/>
                             </div>
                             <div class="home-skill-thumb-item">
-                                <img class="img" src='../public/imgs/skill-thumb-1.png?as=webp&width=800' loading="lazy" width='400' alt=''/>
+                                <img class="img" src='../public/imgs/skill-thumb-1.png?as=webp&width=800' loading="eager" width='400' alt=''/>
                             </div>
                             <div class="home-skill-thumb-item">
-                                <img class="img" src='../public/imgs/skill-thumb-2.png?as=webp&width=800' loading="lazy" width='400' alt=''/>
+                                <img class="img" src='../public/imgs/skill-thumb-2.png?as=webp&width=800' loading="eager" width='400' alt=''/>
                             </div>
                         </div>
                     </div>
                 </section>
                 <div class="home-gradientNoise">
-                    <img class="img img-fill home-gradientNoise-img" src='../public/imgs/gradient-noise.webp?as=webp&width=3270.5' width='3270.5' alt='gradient noise with orange and blue color'/>
+                    <img class="img img-fill home-gradientNoise-img" src='../public/imgs/gradient-noise.png?as=webp&width=3270.5' width='3270.5' alt='gradient noise with orange and blue color'/>
                 </div>
                 <section class="home-process">
                     <div class="container grid">
@@ -459,42 +460,65 @@
                         <div class="line"></div>
                         <div class="container grid">
                             <p class="txt txt-20 home-project-item-industry">eCommerce</p>
-                            <h3 href="" class="h2 txt-med home-project-item-name">Artbook</h3>
+                            <h3 href="" class="h2 txt-med home-project-item-name" data-project-name="artbook">Artbook</h3>
                             <p href="" class="txt txt-18 home-project-item-view">View case study</p>
                         </div>
+                        <div class="home-project-item-disco"></div>
                     </a>
                     <a class="home-project-item">
                         <div class="line"></div>
                         <div class="container grid">
                             <p class="txt txt-20 home-project-item-industry">Fintech</p>
-                            <h3 href="" class="h2 txt-med home-project-item-name">Ryalize</h3>
+                            <h3 href="" class="h2 txt-med home-project-item-name" data-project-name="ryalize">Ryalize</h3>
                             <p href="" class="txt txt-18 home-project-item-view">View case study</p>
                         </div>
+                        <div class="home-project-item-disco"></div>
                     </a>
                     <a class="home-project-item">
                         <div class="line"></div>
                         <div class="container grid">
                             <p class="txt txt-20 home-project-item-industry">Crypto & Web3</p>
-                            <h3 href="" class="h2 txt-med home-project-item-name">Crytopie</h3>
+                            <h3 href="" class="h2 txt-med home-project-item-name" data-project-name="crytopie">Crytopie</h3>
                             <p href="" class="txt txt-18 home-project-item-view">View case study</p>
                         </div>
+                        <div class="home-project-item-disco"></div>
                     </a>
                     <a class="home-project-item">
                         <div class="line"></div>
                         <div class="container grid">
                             <p class="txt txt-20 home-project-item-industry">eCommerce</p>
-                            <h3 href="" class="h2 txt-med home-project-item-name">Zen Living</h3>
+                            <h3 href="" class="h2 txt-med home-project-item-name" data-project-name="zenliving">Zen Living</h3>
                             <p href="" class="txt txt-18 home-project-item-view">View case study</p>
                         </div>
+                        <div class="home-project-item-disco"></div>
                     </a>
                     <a class="home-project-item">
                         <div class="line"></div>
                         <div class="container grid">
                             <p class="txt txt-20 home-project-item-industry">B2B & Enterprise Software</p>
-                            <h3 href="" class="h2 txt-med home-project-item-name">CargoKite</h3>
+                            <h3 href="" class="h2 txt-med home-project-item-name" data-project-name="cargokite">CargoKite</h3>
                             <p href="" class="txt txt-18 home-project-item-view">View case study</p>
                         </div>
+                        <div class="home-project-item-disco"></div>
                     </a>
+
+                    <div class="home-project-thumb">
+                        <div class="home-project-thumb-wrap" data-thumb-name="artbook">
+                            <img src="../assets/home-proj-img-crtp.png" alt="Crypto-thumb" class="img home-project-thumb-wrap-img">
+                        </div>
+                        <div class="home-project-thumb-wrap" data-thumb-name="ryalize">
+                            <img src="../assets/home-proj-img-crtp.png" alt="Crypto-thumb" class="img home-project-thumb-wrap-img">
+                        </div>
+                        <div class="home-project-thumb-wrap" data-thumb-name="crytopie">
+                            <img src="../assets/home-proj-img-crtp.png" alt="Crypto-thumb" class="img home-project-thumb-wrap-img">
+                        </div>
+                        <div class="home-project-thumb-wrap" data-thumb-name="zenliving">
+                            <img src="../assets/home-proj-img-crtp.png" alt="Crypto-thumb" class="img home-project-thumb-wrap-img">
+                        </div>
+                        <div class="home-project-thumb-wrap" data-thumb-name="cargokite">
+                            <img src="../assets/home-proj-img-crtp.png" alt="Crypto-thumb" class="img home-project-thumb-wrap-img">
+                        </div>
+                    </div>
                 </section>
                 <div class="home-curtain">
                     <div class="home-curtain-inner"></div>
@@ -508,7 +532,7 @@
                                 <p class="txt txt-20 home-pricing-text-sub">Every plan includes a dedicated design team, unlimited requests and revisions, a frictionless DesignOps platform, and a project manager to keep you posted at every step.</p>
                             </div>
                             <div class="home-pricing-plan">
-                                <p>Discount <span class="txt-hl">5%</span> for the Quarter & <span class="txt-hl">10%</span> for the Yearly</p>
+                                <p class="txt txt-16">Discount <span class="txt-hl">5%</span> for the Quarter & <span class="txt-hl">10%</span> for the Yearly</p>
                                 <div class="home-pricing-plan-switch">
                                     <div class="home-pricing-plan-switch-wrap">
                                         <span class="home-pricing-plan-switch-overlay">
@@ -532,7 +556,11 @@
                                             <div class="home-pricing-plan-item-price">
                                                 <div class="home-pricing-plan-item-price-inner">
                                                     <span class="txt txt-16">$</span>
-                                                    <h3 class="h4 home-pricing-plan-item-price-txt curr">4,999</h3>
+                                                    <div class="home-pricing-plan-item-price-txt">
+                                                        <h3 class="h4 curr">4,999</h3>
+                                                        <h3 class="h4">5,999</h3>
+                                                        <h3 class="h4">6,999</h3>
+                                                    </div>
                                                 </div>
                                                 <div class="txt txt-16 home-pricing-plan-item-price-periodic">
                                                     <p class="curr">/mo.</p>
@@ -586,7 +614,11 @@
                                             <div class="home-pricing-plan-item-price">
                                                 <div class="home-pricing-plan-item-price-inner">
                                                     <span class="txt txt-16">$</span>
-                                                    <h3 class="h4 home-pricing-plan-item-price-txt curr"">8,999</h3>
+                                                    <div class="home-pricing-plan-item-price-txt">
+                                                        <h3 class="h4 curr">8,999</h3>
+                                                        <h3 class="h4">9,999</h3>
+                                                        <h3 class="h4">10,000</h3>
+                                                    </div>
                                                 </div>
                                                 <div class="txt txt-16 home-pricing-plan-item-price-periodic">
                                                     <p class="curr">/mo.</p>
@@ -828,7 +860,116 @@
                                         </div>
                                     </div>
                                 </div>
-                                <img class="img home-explore-industries-radar-scan" src='../public/imgs/radar-scan.png?as=webp&width=2257' width='1128.5' loading="lazy" alt=''/>
+                                <img class="img home-explore-industries-radar-scan" src='../public/imgs/radar-scan.png?as=webp&width=2257' width='1128.5' loading="eager" alt='radar-scan'/>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="home-testi">
+                    <div class="container grid ">
+                        <div class="home-testi-text-wrap">
+                            <h2 class="h1 home-testi-heading">Your success stories, our pride.</h2>
+                            <p class="txt txt-20 testi-sub">Here’s what people are saying about us</p>
+                        </div>
+                        <div class="home-testi-content">
+                            <div class="home-testi-content-wrap">
+                                <div class="home-testi-content-listing">
+                                    <div class="home-testi-content-item">
+                                        <p class="h6 txt-reg home-testi-content-item-txt">“The items were delivered on time and in great quality. Bear Plus delivered great work. The project was managed well through clearly defined phases, and the team collaborated closely with the client through weekly touchpoints. This ensured the project stayed on track. Moreover, their members' design capabilities were impressive and exceeded expectations.”</p>
+                                        <span class="line"></span>
+                                        <div class="home-testi-content-item-author">
+                                            <div class="home-testi-content-item-author-avt">
+                                                <img class="img" src='../public/imgs/testi-avt.jpg?as=webp&width=160' width='80' loading="lazy" alt=''/>
+                                            </div>
+                                            <div class="home-testi-content-item-author-info">
+                                                <p class="h6 home-testi-content-item-author-info-name">Ashley C</p>
+                                                <p class="txt txt-18 home-testi-content-item-author-info-role">Founder & CEO of Genimo Agency</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="home-testi-content-progress">
+                                <div class="home-testi-content-progress-inner"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="home-faq">
+                    <div class="container grid">
+                        <h2 class="h1 home-faq-heading">Find answers to your questions here</h2>
+                        <div class="home-faq-content">
+                            <div class="home-faq-content-listing">
+                                <div class="home-faq-content-item">
+                                    <div class="home-faq-content-item-ques">
+                                        <p class="txt txt-20 home-faq-content-item-ques-ordinal">001</p>
+                                        <h4 class="h6 txt-reg home-faq-content-item-ques-title">What is your working schedule?</h4>
+                                        <span class="home-faq-content-item-ques-dot"></span>
+                                    </div>
+                                    <div class="home-faq-content-item-answer">
+                                        <p class="txt txt-20">We to charitable foundations worldwide. However, supporting charity is not our main goal. If your main objective is to support charity, it may be more effective for you to directly donate to a foundation of your choice.</p>
+                                    </div>
+                                </div>
+                                <div class="home-faq-content-item">
+                                    <div class="home-faq-content-item-ques">
+                                        <p class="txt txt-20 home-faq-content-item-ques-ordinal">002</p>
+                                        <h4 class="h6 txt-reg home-faq-content-item-ques-title">Can I truly make unlimited design requests?</h4>
+                                        <span class="home-faq-content-item-ques-dot"></span>
+                                    </div>
+                                    <div class="home-faq-content-item-answer">
+                                        <p class="txt txt-20">We to charitable foundations worldwide. However, supporting charity is not our main goal. If your main objective is to support charity, it may be more effective for you to directly donate to a foundation of your choice.</p>
+                                    </div>
+                                </div>
+                                <div class="home-faq-content-item">
+                                    <div class="home-faq-content-item-ques">
+                                        <p class="txt txt-20 home-faq-content-item-ques-ordinal">003</p>
+                                        <h4 class="h6 txt-reg home-faq-content-item-ques-title">What if I don’t like the design?</h4>
+                                        <span class="home-faq-content-item-ques-dot"></span>
+                                    </div>
+                                    <div class="home-faq-content-item-answer">
+                                        <p class="txt txt-20">We to charitable foundations worldwide. However, supporting charity is not our main goal. If your main objective is to support charity, it may be more effective for you to directly donate to a foundation of your choice.</p>
+                                    </div>
+                                </div>
+                                <div class="home-faq-content-item">
+                                    <div class="home-faq-content-item-ques">
+                                        <p class="txt txt-20 home-faq-content-item-ques-ordinal">004</p>
+                                        <h4 class="h6 txt-reg home-faq-content-item-ques-title">Who will I work with?</h4>
+                                        <span class="home-faq-content-item-ques-dot"></span>
+                                    </div>
+                                    <div class="home-faq-content-item-answer">
+                                        <p class="txt txt-20">We to charitable foundations worldwide. However, supporting charity is not our main goal. If your main objective is to support charity, it may be more effective for you to directly donate to a foundation of your choice.</p>
+                                    </div>
+                                </div>
+                                <div class="home-faq-content-item">
+                                    <div class="home-faq-content-item-ques">
+                                        <p class="txt txt-20 home-faq-content-item-ques-ordinal">005</p>
+                                        <h4 class="h6 txt-reg home-faq-content-item-ques-title">Do you offer training or support</h4>
+                                        <span class="home-faq-content-item-ques-dot"></span>
+                                    </div>
+                                    <div class="home-faq-content-item-answer">
+                                        <p class="txt txt-20">We to charitable foundations worldwide. However, supporting charity is not our main goal. If your main objective is to support charity, it may be more effective for you to directly donate to a foundation of your choice.</p>
+                                    </div>
+                                </div>
+                                <div class="home-faq-content-item">
+                                    <div class="home-faq-content-item-ques">
+                                        <p class="txt txt-20 home-faq-content-item-ques-ordinal">006</p>
+                                        <h4 class="h6 txt-reg home-faq-content-item-ques-title">Do you offer free trial?</h4>
+                                        <span class="home-faq-content-item-ques-dot"></span>
+                                    </div>
+                                    <div class="home-faq-content-item-answer">
+                                        <p class="txt txt-20">We to charitable foundations worldwide. However, supporting charity is not our main goal. If your main objective is to support charity, it may be more effective for you to directly donate to a foundation of your choice.</p>
+                                    </div>
+                                </div>
+                                <div class="home-faq-content-item">
+                                    <div class="home-faq-content-item-ques">
+                                        <p class="txt txt-20 home-faq-content-item-ques-ordinal">0007</p>
+                                        <h4 class="h6 txt-reg home-faq-content-item-ques-title">Are there any refunds?</h4>
+                                        <span class="home-faq-content-item-ques-dot"></span>
+                                    </div>
+                                    <div class="home-faq-content-item-answer">
+                                        <p class="txt txt-20">We to charitable foundations worldwide. However, supporting charity is not our main goal. If your main objective is to support charity, it may be more effective for you to directly donate to a foundation of your choice.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -836,7 +977,84 @@
             </div>
         </div>
     </main>
-    <footer></footer>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-cta">
+                <p class="txt txt-20 txt-med footer-cta-sub">Learn more about how BearInk works and how it can help?</p>
+                <h3 class="h0 footer-cta-title">Schedule a call</h3>
+                <p class="txt txt-18 footer-cta-sub2">Or pick the plan that suits your business</p>
+                <a class="btn btn-border btn-dark footer-cta-btn" href="#">
+                    <span class="txt txt-18 txt-btn">Check our Pricing</span>
+                </a>
+                <div class="footer-cta-sub3">
+                    <p class="txt txt-18">If you need any support, feel free to contact us via email</p>
+                    <a class="txt txt-18 txt-med hover-line" href="mailto:halo@bearink.design">halo@bearink.design</a>
+                </div>
+            </div>
+            <div class="footer-brands">
+                <div class="marquee">
+                    <div class="marquee-inner">
+                        <div class="marquee-inner-item">
+                            <div class="footer-brands-marquee">
+                                <div class="footer-brands-marquee-item">
+                                    <img src="../public/imgs/brands/mirae-asset.svg" width="100" height="31.5" alt="">
+                                </div>
+                                <div class="footer-brands-marquee-item">
+                                    <img src="../public/imgs/brands/roxtaw.svg" width="100" height="31.5" alt="">
+                                </div>
+                                <div class="footer-brands-marquee-item">
+                                    <img src="../public/imgs/brands/fintech-control.svg" width="100" height="31.5" alt="">
+                                </div>
+                                <div class="footer-brands-marquee-item">
+                                    <img src="../public/imgs/brands/vaultbox.svg" width="100" height="31.5" alt="">
+                                </div>
+                                <div class="footer-brands-marquee-item">
+                                    <img src="../public/imgs/brands/cybercredit.svg" width="100" height="31.5" alt="">
+                                </div>
+                                <div class="footer-brands-marquee-item">
+                                    <img src="../public/imgs/brands/chainfund.svg" width="100" height="31.5" alt="">
+                                </div>
+                                <div class="footer-brands-marquee-item">
+                                    <img src="../public/imgs/brands/recruit.svg" width="100" height="31.5" alt="">
+                                </div>
+                                <div class="footer-brands-marquee-item">
+                                    <img src="../public/imgs/brands/crossian.svg" width="100" height="31.5" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="marquee-inner-item">
+                            <div class="footer-brands-marquee">
+                                <div class="footer-brands-marquee-item">
+                                    <img src="../public/imgs/brands/mirae-asset.svg" width="100" height="31.5" alt="">
+                                </div>
+                                <div class="footer-brands-marquee-item">
+                                    <img src="../public/imgs/brands/roxtaw.svg" width="100" height="31.5" alt="">
+                                </div>
+                                <div class="footer-brands-marquee-item">
+                                    <img src="../public/imgs/brands/fintech-control.svg" width="100" height="31.5" alt="">
+                                </div>
+                                <div class="footer-brands-marquee-item">
+                                    <img src="../public/imgs/brands/vaultbox.svg" width="100" height="31.5" alt="">
+                                </div>
+                                <div class="footer-brands-marquee-item">
+                                    <img src="../public/imgs/brands/cybercredit.svg" width="100" height="31.5" alt="">
+                                </div>
+                                <div class="footer-brands-marquee-item">
+                                    <img src="../public/imgs/brands/chainfund.svg" width="100" height="31.5" alt="">
+                                </div>
+                                <div class="footer-brands-marquee-item">
+                                    <img src="../public/imgs/brands/recruit.svg" width="100" height="31.5" alt="">
+                                </div>
+                                <div class="footer-brands-marquee-item">
+                                    <img src="../public/imgs/brands/crossian.svg" width="100" height="31.5" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
     <!-- {# <a href="#" id="Purchase">Purchase</a> #} -->
     <script src="js/libs/jquery-3.5.1.js" type="text/javascript"></script>
     <script src="js/libs/lenis.js" type="text/javascript"></script>

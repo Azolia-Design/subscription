@@ -1,5 +1,5 @@
-import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, typeOpts, pointerCurr, isTouchDevice } from "../../helper";
-
+import { selector } from "../../helper/index";
+import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, typeOpts, findClosestEdge, closestEdge, distMetric, pointerCurr } from "../../helper";
 
 const home = {
     namespace: "home",
@@ -14,7 +14,7 @@ const home = {
                     start: 'top top',
                     end: 'bottom top',
                     scrub: true,
-                }   
+                }
             })
             tl.to(cont.find('.home-hero-bg img'), {y: '19rem', ease: 'none'})
         }
@@ -43,7 +43,7 @@ const home = {
                         duration: .4,
                         stagger: .012,
                         overwrite: true,
-                        // ease: "power3.inOut" 
+                        // ease: "power3.inOut"
                     })
                     $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
                 })
@@ -69,10 +69,10 @@ const home = {
 
             function initMouseMove() {
                 const target = $('.home-skill-thumb')
-                
+
                 if (target.hasClass('active')) {
                     let tarCurrX = xGetter(target.get(0))
-                    let tarCurrY = yGetter(target.get(0))     
+                    let tarCurrY = yGetter(target.get(0))
                     let tarCurrRot = rotZGetter(target.get(0))
 
                     let tarX = -target.outerWidth()/4 + (pointerCurr().x - $('.home-skill-listing').get(0).getBoundingClientRect().left)/$('.home-skill-listing').outerWidth() * ($('.home-skill-listing').outerWidth() - $('.home-skill-item-desc').get(0).getBoundingClientRect().left - target.outerWidth()/2)
@@ -80,7 +80,7 @@ const home = {
 
                     xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
                     ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
-                    rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX)/5, -15), 15)), .06))
+                    rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX)/40, -5), 5)), .06))
                 }
                 requestAnimationFrame(initMouseMove)
             }
@@ -116,27 +116,117 @@ const home = {
         homePortfolio()
 
         function homeProject() {
+            console.log('Init HomeProject');
+
             const line = document.createElement('div')
             $(line).addClass('line')
             $('.home-project-item:last-child').append(line)
+
+
+            const projectBack = () => {
+                const PROJECT = {
+                    wrap: $('.home-project-item'),
+                    target: $('.home-project-item-disco'),
+                }
+
+                const mouseAction = {
+                    Enter: (ev, el) => {
+                        const edge = findClosestEdge(ev, el.get(0));
+                        const _target = el.find(PROJECT.target);
+
+                        gsap.timeline({
+                            duration: 0.4, ease: 'linear',
+                        }).set(_target, {
+                            y: edge === 'top' ? '-101%' : '101%',
+                        },0)
+                        .to(_target, {
+                            y: 0, overwrite: true
+                        },0)
+                    },
+                    Leave: (ev, el) => {
+                        const edge = findClosestEdge(ev, el.get(0));
+                        const _target = el.find(PROJECT.target);
+
+                        gsap.timeline({
+                            duration: 0.4, ease: 'linear'
+                        }).to(_target, {
+                            y: edge === 'top' ? '-101%' : '101%', overwrite: true
+                        }, 0)
+                    }
+                }
+                PROJECT.wrap.on("pointerenter", function(ev) {
+                    let index = $(this).index();
+                    mouseAction.Enter(ev, PROJECT.wrap.eq(index));
+                });
+
+                PROJECT.wrap.on("pointerleave", function(ev) {
+                    let index = $(this).index();
+                    mouseAction.Leave(ev, PROJECT.wrap.eq(index));
+                });
+            }
+            projectBack()
+            $('.home-project-item').on('pointerleave', function(e) {
+                $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
+            })
+
+            $('.home-project-item').on('pointerenter', function(e) {
+                let nameSpace = $(this).find('[data-project-name]').attr('data-project-name')
+
+                $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
+                $(".home-project-thumb").find(`[data-thumb-name="${nameSpace}"]`).addClass('active')
+            })
+            
+
+            const target = $('.home-project-thumb')
+            ScrollTrigger.create({
+                trigger: '.home-project',
+                start: 'top bottom',
+                end: 'bottom top',
+                toggleClass: {targets: target, className: "active"},
+            })
+
+            function initMouseMove() {
+                let offsetL =  parseFloat(target.css('left'))
+                let rotVl
+                if (target.hasClass('active')) {
+                    let tarCurrX = xGetter(target.get(0))
+                    let tarCurrY = yGetter(target.get(0))
+                    let tarCurrRot = rotZGetter(target.get(0))
+
+                    let tarX = (pointerCurr().x/$('.home-project').outerWidth()) * ($('.home-project-item-view').get(0).getBoundingClientRect().left - offsetL - target.width())
+                    let tarY = -target.height()/4 + (pointerCurr().y - $('.home-project').get(0).getBoundingClientRect().top)/$('.home-project').height() * ($('.home-project').height() - target.height()/2)
+
+                    let rotValue = (pointerCurr().x - (target.width()/2 + offsetL + tarCurrX))/$('.home-project').outerWidth()
+
+                    xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
+                    ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
+
+                    if (pointerCurr().x < (target.width()/2 + offsetL + tarCurrX)){rotVl = -1}
+                    else {rotVl = 1}
+                    rotZSetter(target.get(0))(lerp(tarCurrRot, rotVl * rotValue * (Math.min(Math.max(((tarX + tarY) - (tarCurrX + tarCurrY))/5, -15), 15)), .06))
+                }
+                requestAnimationFrame(initMouseMove)
+            }
+            requestAnimationFrame(initMouseMove)
         }
         homeProject()
 
         function homeCurtain() {
             let curtain = $('.home-curtain');
-            let offset = $(window).height()/20;
+            let offset = $(window).height()/15;
             $('.home-curtain-inner').css('height', ' ' + offset  + 'px')
 
             const clone = $('.home-curtain-inner')
-            for (let i = 1; i < 20; i++) {
+            for (let i = 1; i < 15; i++) {
                 let cloner = clone.clone()
                 $('.home-curtain').append(cloner)
             }
             let tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: '.home-curtain',
-                    start: 'top top+=80%',
+                    start: 'top top+=20%',
                     end: 'bottom top+=00%',
+                    // markers: true,
                     scrub: true,
                 },
                 duration: 2
@@ -156,7 +246,7 @@ const home = {
                 tl
                 .to(el, {
                     transformOrigin: 'center top',
-                    y: -idx * 50,
+                    y: -offset * idx/20,
                     stagger: {
                         amount: -.4
                     },
@@ -260,11 +350,12 @@ const home = {
         }
         homeIndustries()
 
-
         function switchPlanPricing() {
             const DOM = {
                 btnPlan: $('.home-pricing-plan-switch-wrap .home-pricing-plan-switch-btn'),
-                btnOverlay: $('.home-pricing-plan-switch-overlay')
+                btnOverlay: $('.home-pricing-plan-switch-overlay'),
+                periodic: $('.home-pricing-plan-item-price-periodic'),
+                price: $('.home-pricing-plan-item-price-txt')
             }
             function activePlan(index) {
                 gsap.to(DOM.btnOverlay, {
@@ -276,6 +367,18 @@ const home = {
                     .to(DOM.btnOverlay.eq(0), { autoAlpha: 1 }, 0.2)
                     .to(DOM.btnOverlay.eq(1), { autoAlpha: 1 }, 0.5)
                     .to(DOM.btnOverlay.eq(0), { autoAlpha: 0 }, 0.5);
+
+                DOM.price.each((i, item) => {
+                    let text = $(item).find('h3');
+                    text.removeClass('curr');
+                    text.eq(index).addClass('curr');
+                })
+
+                DOM.periodic.each((i, item) => {
+                    let text = $(item).find('p');
+                    text.removeClass('curr');
+                    text.eq(index).addClass('curr');
+                })
             }
 
             DOM.btnPlan.on('click', function (e) {
@@ -286,6 +389,29 @@ const home = {
             })
         }
         switchPlanPricing();
+
+        function faqAccordion() {
+            const parent = selector('.home-faq-content-listing');
+            const DOM = {
+                accordion: parent('.home-faq-content-item'),
+                accordionTitle: parent('.home-faq-content-item-ques'),
+                accordionContent: parent('.home-faq-content-item-answer')
+            }
+            parent(DOM.accordionContent).hide();
+            function activeAccordion(index) {
+                DOM.accordionContent.eq(index).slideToggle("slow");
+                DOM.accordion.eq(index).toggleClass("active");
+
+                DOM.accordionContent.not(DOM.accordionContent.eq(index)).slideUp("slow");
+                DOM.accordion.not(DOM.accordion.eq(index)).removeClass("active");
+            };
+
+            DOM.accordionTitle.on("click", function () {
+                let index = $(this).parent().index();
+                activeAccordion(index);
+            })
+        }
+        faqAccordion();
     },
     beforeLeave() {
         console.log(`leave ${this.namespace}`);

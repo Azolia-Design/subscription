@@ -1,4 +1,5 @@
-import { lerp, xSetter, ySetter, xGetter, yGetter, pointerCurr, isTouchDevice } from "../helper";
+import { lerp, xSetter, ySetter, xGetter, yGetter, pointerCurr } from "../helper";
+import { isTouchDevice } from '../helper/viewport'
 
 const initCursor = () => {
     const cusrorDotWidth = parseFloat($('.cursor-dot').css('width'))

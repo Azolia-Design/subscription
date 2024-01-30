@@ -1,0 +1,23 @@
+.footer {
+    padding-top: 6rem;
+    &-cta {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 2.8rem 0;
+        margin-bottom: 10.3rem;
+    }
+    &-brands {
+        padding: 1.6rem 0;
+        &-marquee {
+            display: flex;
+            align-items: center;
+            gap: 0 4rem;
+            padding: 0 2rem;
+            &-item {
+                @include size(10rem, auto)
+            }
+        }
+    }
+}

@@ -253,8 +253,39 @@ button {
     height: 1px;
 }
 
+@include keyframes(marquee) {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+}
+
+.marquee {
+    display: flex;
+    overflow-x: clip;
+    &-inner {
+        display: flex;
+        &-item {
+            width: max-content;
+            will-change: transform;
+            display: flex;
+            flex: none;
+        }
+    }
+    &-anim {
+        --delay: 0s;
+        --direction: normal;
+        --duration: 353.152s;
+        --iteration-count: infinite;
+
+        animation: marquee var(--duration) linear var(--delay) var(--iteration-count);
+        animation-direction: var(--direction);
+        will-change: transform;
+    }
+}
+
+
 @include md {
     .cursor {
         display: none;
     }
 }
+

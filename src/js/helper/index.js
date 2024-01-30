@@ -1,4 +1,6 @@
-const lerp = (a,b,t = 0.08) => {
+import { isTouchDevice } from "../helper/viewport";
+
+const lerp = (a, b, t = 0.08) => {
     return a + (b - a) * t;
 }
 
@@ -14,10 +16,8 @@ const xGetter = (el) => gsap.getProperty(el, 'x');
 const yGetter = (el) => gsap.getProperty(el, 'y');
 const rotZGetter = (el) => gsap.getProperty(el, 'rotateZ')
 
-const isTouchDevice = () => {
-    return (('ontouchstart' in window) ||
-    (navigator.maxTouchPoints > 0) ||
-    (navigator.msMaxTouchPoints > 0));
+const selector = (parent) => {
+    return (child) => $(parent).find(child);
 }
 
 let typeOpts = {
@@ -46,6 +46,26 @@ function debounce(func, delay = 100){
         timer = setTimeout(func, delay, event);
     };
 }
+const findClosestEdge = (ev, el) => {
+    if (!el) return;
+
+    const wrapperRect = el.getBoundingClientRect();
+    const x = ev.clientX - wrapperRect.left;
+    const y = ev.clientY - wrapperRect.top;
+
+    return closestEdge(x,y, el.clientWidth, el.clientHeight);
+}
+const closestEdge = (x,y,w,h) => {
+    const topEdgeDist = distMetric(x,y,w/2,0);
+    const bottomEdgeDist = distMetric(x,y,w/2,h);
+    const min = Math.min(topEdgeDist, bottomEdgeDist);
+    return min === topEdgeDist ? 'top' : 'bottom';
+}
+const distMetric = (x,y,x2,y2) => {
+    var xDiff = x - x2;
+    var yDiff = y - y2;
+    return (xDiff * xDiff) + (yDiff * yDiff);
+}
 
 export {
     lerp,
@@ -55,9 +75,12 @@ export {
     rotZSetter,
     xGetter,
     yGetter,
+    selector,
     rotZGetter,
     typeOpts,
     pointerCurr,
-    isTouchDevice,
+    findClosestEdge,
+    closestEdge,
+    distMetric,
     debounce
 }
