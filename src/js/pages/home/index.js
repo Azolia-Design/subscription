@@ -1,4 +1,4 @@
-import { selector } from "../../helper/index";
+import { parseRem, selector } from "../../helper/index";
 import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, typeOpts, findClosestEdge, closestEdge, distMetric, pointerCurr } from "../../helper";
 import Flip from '../../vendors/Flip';
 
@@ -279,47 +279,34 @@ const home = {
         homeProject()
 
         function homeCurtain() {
-            let curtain = $('.home-curtain');
-            let offset = $(window).height()/15;
-            $('.home-curtain-inner').css('height', ' ' + offset  + 'px')
+            let amount = 11;
+            let offset = $('.home-curtain').height() /  (amount - 1);
+            // $('.home-curtain-inner').css('height', ' ' + offset  + 'px')
 
-            const clone = $('.home-curtain-inner')
-            for (let i = 1; i < 15; i++) {
+            const clone = $('.home-curtain-inner').eq(0)
+            for (let i = 1; i < amount; i++) {
                 let cloner = clone.clone()
                 $('.home-curtain').append(cloner)
             }
             let tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: '.home-curtain',
-                    start: 'top top+=20%',
-                    end: 'bottom top+=00%',
+                    start: 'top bottom',
+                    end: 'top top-=70%',
                     scrub: true,
                 },
-                duration: 2
+                defaults: {
+                    ease: 'none'
+                }
             })
 
             tl
             .to('.home-curtain-inner', {
-                scaleY: 0,
-                stagger: {
-                    amount: -.4
-                },
-                ease: 'none',
-                duration: 1.2,
+                scaleY: 1,
+                stagger: -.1,
+                duration: 1,
+                y:  -offset,
             }, 0)
-
-            $('.home-curtain-inner').each((idx, el) => {
-                tl
-                .to(el, {
-                    transformOrigin: 'center top',
-                    y: -offset * idx/20,
-                    stagger: {
-                        amount: -.4
-                    },
-                    ease: 'none',
-                    duration: 2,
-                }, 0)
-            })
         }
         homeCurtain()
 

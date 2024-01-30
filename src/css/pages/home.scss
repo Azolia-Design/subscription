@@ -679,7 +679,7 @@
             grid-column: 1/-1;
             grid-row: 1/1;
             overflow: hidden;
-            padding-bottom: calc(7.3rem + (12rem * .9) + 2rem + (2 * 2rem * 1.4) + 3.4rem + (1.6rem * 1.4) + 2rem + 3.2rem + 16rem + 20vh);
+            padding-bottom: calc(10rem + (12rem * .9) + 2rem + (2 * 2rem * 1.4) + 3.4rem + (1.6rem * 1.4) + 2rem + 3.2rem + 16rem + 20vh);
             $grid-items: (
                 (row: 1, column: 4), (row: 1, column: 1), (row: 2, column: 8), (row: 2, column: 5), (row: 3, column: 3), (row: 3, column: 1), (row: 4, column: 2), (row: 4, column: 5),
                 (row: 5, column: 6), (row: 5, column: 8), (row: 6, column: 2), (row: 7, column: 3), (row: 8, column: 7), (row: 8, column: 2), (row: 9, column: 1), (row: 9, column: 6),
@@ -875,19 +875,21 @@
         }
     }
     &-curtain {
-        height: 80vh;
-        background-color: rgba($cl-bg, 1);
+        height: 70rem;
+        background-color: rgba($cl-primary, 1);
         position: relative;
-        z-index: 222222;
-
+        z-index: 3;
         &-inner {
             width: 100%;
-            background-color: rgba($cl-primary, 1);
+            height: calc(7rem + 2px);
+            margin-bottom: -2px;
+            background-color: rgba($cl-bg, 1);
             transform-origin: center top;
+            transform: scaleY(0);
         }
     }
     &-pricing {
-        padding-top: 25rem;
+        padding-top: 6rem;
         padding-bottom: 23rem;
         &--wrap {
             grid-column: 2/16;
