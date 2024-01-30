@@ -1,5 +1,6 @@
 import { selector } from "../../helper/index";
 import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, typeOpts, pointerCurr } from "../../helper";
+import Flip from '../../vendors/Flip';
 
 const home = {
     namespace: "home",
@@ -20,9 +21,49 @@ const home = {
         }
         heroParallax()
 
-        function homeSkill() {
-            console.log('Init Homeskill');
+        function benefitStackScroll() {
+            const BENEFIT = {
+                list: $('.home-benefit-list'),
+                item: $('.home-benefit-item')
+            }
+            let settings = {
+                flip: {
+                    absoluteOnLeave: false,
+                    absolute: false,
+                    scale: true,
+                    simple: true
+                },
+                scrollTrigger: {
+                    start: 'center center',
+                    end: '+=300%',
+                },
+                stagger: 0
+            }
 
+            settings = Object.assign({}, settings);
+
+            BENEFIT.list.addClass('benefit--switch');
+            let finalState = Flip.getState(BENEFIT.item);
+            BENEFIT.list.removeClass('end-state');
+            const tl = Flip.to(finalState, {
+                ease: 'none',
+                absoluteOnLeave: settings.flip.absoluteOnLeave,
+                absolute: settings.flip.absolute,
+                scale: settings.flip.scale,
+                simple: settings.flip.simple,
+                scrollTrigger: {
+                    trigger: BENEFIT.list,
+                    start: settings.scrollTrigger.start,
+                    end: settings.scrollTrigger.end,
+                    pin: BENEFIT.list.parent(),
+                    scrub: true,
+                },
+                stagger: settings.stagger
+            })
+        }
+        benefitStackScroll();
+
+        function homeSkill() {
             ScrollTrigger.create({
                 trigger: '.home-skill',
                 start: 'top bottom',

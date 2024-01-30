@@ -1,3 +1,8 @@
+@include keyframes(moveWheel) {
+    0% { transform: translateY(0%); }
+    100% { transform: translateY(60%); }
+}
+
 .header {
     display: flex;
     align-items: center;
@@ -33,6 +38,7 @@
             border-radius: 50%;
             top: 33.33%;
             box-shadow: 0rem 0rem 1rem 0rem rgba(255, 255, 255, 0.75);
+            @include animation(moveWheel 2s alternate-reverse infinite);
         }
     }
     &-main {
