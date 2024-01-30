@@ -1,3 +1,7 @@
+import { selector } from "../../helper/index";
+import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, typeOpts, pointerCurr } from "../../helper";
+import Flip from '../../vendors/Flip';
+
 const home = {
     namespace: "home",
     afterEnter(data) {
@@ -17,29 +21,192 @@ const home = {
         }
         heroParallax()
 
-        function scrollAnimationGrid() {
-            const gridItems = document.querySelectorAll('.home-portfolio-project-item');
-            gridItems.forEach(item => {
-                const yPercentRandomVal = gsap.utils.random(-100,100);
-                gsap.timeline({
-                    scrollTrigger: {
-                        trigger: item,
-                        start: "top 40%",
-                        end: "top top",
-                        scrub: true
-                    }
-                })
-                .set(item, {
-                    transformOrigin: `50% 200%`
-                })
-                .to(item, {
-                    ease: 'none',
-                    scale: 0.5,
-                    borderRadius: '50%'
-                })
-            });
+        function benefitStackScroll() {
+            const BENEFIT = {
+                list: $('.home-benefit-list'),
+                item: $('.home-benefit-item')
+            }
+            let settings = {
+                flip: {
+                    absoluteOnLeave: false,
+                    absolute: false,
+                    scale: true,
+                    simple: true
+                },
+                scrollTrigger: {
+                    start: 'center center',
+                    end: '+=300%',
+                },
+                stagger: 0
+            }
+
+            settings = Object.assign({}, settings);
+
+            BENEFIT.list.addClass('benefit--switch');
+            let finalState = Flip.getState(BENEFIT.item);
+            BENEFIT.list.removeClass('end-state');
+            const tl = Flip.to(finalState, {
+                ease: 'none',
+                absoluteOnLeave: settings.flip.absoluteOnLeave,
+                absolute: settings.flip.absolute,
+                scale: settings.flip.scale,
+                simple: settings.flip.simple,
+                scrollTrigger: {
+                    trigger: BENEFIT.list,
+                    start: settings.scrollTrigger.start,
+                    end: settings.scrollTrigger.end,
+                    pin: BENEFIT.list.parent(),
+                    scrub: true,
+                },
+                stagger: settings.stagger
+            })
         }
-        scrollAnimationGrid();
+        benefitStackScroll();
+
+        function homeSkill() {
+            ScrollTrigger.create({
+                trigger: '.home-skill',
+                start: 'top bottom',
+                end: 'bottom top',
+                toggleClass: {targets: '.home-skill-thumb', className: "active"},
+            })
+
+            $('.home-skill-item').each((idx, el) => {
+                const splitText = new SplitText($(el).find('.home-skill-item-title'), {
+                    type: "chars,lines",
+                    charsClass: 'char',
+                    // position: 'absolute'
+                })
+
+                $(el).on('mouseenter', function(e) {
+                    gsap.to(splitText.chars, {
+                        x: 50,
+                        duration: .4,
+                        stagger: .012,
+                        overwrite: true,
+                        // ease: "power3.inOut"
+                    })
+                    $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
+                })
+                $(el).on('mouseleave', function(e) {
+                    gsap.to(splitText.chars, {
+                        x: 0,
+                        duration: .2,
+                        overwrite: true,
+                    })
+                    $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
+                })
+            })
+
+            $('.home-skill-thumb-item').each((idx, el) => {
+                let clone = $(el).find('img')
+
+                for (let i = 1; i <= 5; i++) {
+                    let cloner = clone.clone()
+                    cloner.addClass('cloner')
+                    $(el).append(cloner)
+                }
+            })
+
+            function initMouseMove() {
+                const target = $('.home-skill-thumb')
+
+                if (target.hasClass('active')) {
+                    let tarCurrX = xGetter(target.get(0))
+                    let tarCurrY = yGetter(target.get(0))
+                    let tarCurrRot = rotZGetter(target.get(0))
+
+                    let tarX = -target.outerWidth()/4 + (pointerCurr().x - $('.home-skill-listing').get(0).getBoundingClientRect().left)/$('.home-skill-listing').outerWidth() * ($('.home-skill-listing').outerWidth() - $('.home-skill-item-desc').get(0).getBoundingClientRect().left - target.outerWidth()/2)
+                    let tarY =  -target.outerHeight()/4 + (pointerCurr().y - $('.home-skill-listing').get(0).getBoundingClientRect().top)/$('.home-skill-listing').outerHeight() * ($('.home-skill-listing').outerHeight() - target.outerHeight()/2)
+
+                    xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
+                    ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
+                    rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX)/5, -15), 15)), .06))
+                }
+                requestAnimationFrame(initMouseMove)
+            }
+            requestAnimationFrame(initMouseMove)
+        }
+        homeSkill()
+
+        function homePortfolio() {
+            function scrollAnimationGrid() {
+                const gridItems = document.querySelectorAll('.home-portfolio-project-item');
+                gridItems.forEach(item => {
+                    const yPercentRandomVal = gsap.utils.random(-100,100);
+                    gsap.timeline({
+                        scrollTrigger: {
+                            trigger: item,
+                            start: "top 40%",
+                            end: "top top",
+                            scrub: true,
+                        }
+                    })
+                    .set(item, {
+                        transformOrigin: `50% 200%`
+                    })
+                    .to(item, {
+                        ease: 'none',
+                        scale: 0.5,
+                        borderRadius: '50%'
+                    })
+                });
+            }
+            scrollAnimationGrid();
+        }
+        homePortfolio()
+
+        function homeProject() {
+            const line = document.createElement('div')
+            $(line).addClass('line')
+            $('.home-project-item:last-child').append(line)
+        }
+        homeProject()
+
+        function homeCurtain() {
+            let curtain = $('.home-curtain');
+            let offset = $(window).height()/20;
+            $('.home-curtain-inner').css('height', ' ' + offset  + 'px')
+
+            const clone = $('.home-curtain-inner')
+            for (let i = 1; i < 20; i++) {
+                let cloner = clone.clone()
+                $('.home-curtain').append(cloner)
+            }
+            let tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.home-curtain',
+                    start: 'top top+=80%',
+                    end: 'bottom top+=00%',
+                    scrub: true,
+                },
+                duration: 2
+            })
+
+            tl
+            .to('.home-curtain-inner', {
+                scaleY: 0,
+                stagger: {
+                    amount: -.4
+                },
+                ease: 'none',
+                duration: 1.2,
+            }, 0)
+
+            $('.home-curtain-inner').each((idx, el) => {
+                tl
+                .to(el, {
+                    transformOrigin: 'center top',
+                    y: -idx * 50,
+                    stagger: {
+                        amount: -.4
+                    },
+                    ease: 'none',
+                    duration: 2,
+                }, 0)
+            })
+        }
+        homeCurtain()
 
         function homeIndustries() {
             const DOM = {
@@ -61,7 +228,6 @@ const home = {
             .fromTo(DOM.radarScan, {
                 rotate: 0 - 10,
             }, {
-                // delay: lifeCycleTime/4,
                 rotate: 270 - 10,
                 duration: lifeCycleTime,
                 ease: 'none',
@@ -135,11 +301,12 @@ const home = {
         }
         homeIndustries()
 
-
         function switchPlanPricing() {
             const DOM = {
                 btnPlan: $('.home-pricing-plan-switch-wrap .home-pricing-plan-switch-btn'),
-                btnOverlay: $('.home-pricing-plan-switch-overlay')
+                btnOverlay: $('.home-pricing-plan-switch-overlay'),
+                periodic: $('.home-pricing-plan-item-price-periodic'),
+                price: $('.home-pricing-plan-item-price-txt')
             }
             function activePlan(index) {
                 gsap.to(DOM.btnOverlay, {
@@ -151,6 +318,18 @@ const home = {
                     .to(DOM.btnOverlay.eq(0), { autoAlpha: 1 }, 0.2)
                     .to(DOM.btnOverlay.eq(1), { autoAlpha: 1 }, 0.5)
                     .to(DOM.btnOverlay.eq(0), { autoAlpha: 0 }, 0.5);
+
+                DOM.price.each((i, item) => {
+                    let text = $(item).find('h3');
+                    text.removeClass('curr');
+                    text.eq(index).addClass('curr');
+                })
+
+                DOM.periodic.each((i, item) => {
+                    let text = $(item).find('p');
+                    text.removeClass('curr');
+                    text.eq(index).addClass('curr');
+                })
             }
 
             DOM.btnPlan.on('click', function (e) {
@@ -161,6 +340,29 @@ const home = {
             })
         }
         switchPlanPricing();
+
+        function faqAccordion() {
+            const parent = selector('.home-faq-content-listing');
+            const DOM = {
+                accordion: parent('.home-faq-content-item'),
+                accordionTitle: parent('.home-faq-content-item-ques'),
+                accordionContent: parent('.home-faq-content-item-answer')
+            }
+            parent(DOM.accordionContent).hide();
+            function activeAccordion(index) {
+                DOM.accordionContent.eq(index).slideToggle("slow");
+                DOM.accordion.eq(index).toggleClass("active");
+
+                DOM.accordionContent.not(DOM.accordionContent.eq(index)).slideUp("slow");
+                DOM.accordion.not(DOM.accordion.eq(index)).removeClass("active");
+            };
+
+            DOM.accordionTitle.on("click", function () {
+                let index = $(this).parent().index();
+                activeAccordion(index);
+            })
+        }
+        faqAccordion();
     },
     beforeLeave() {
         console.log(`leave ${this.namespace}`);
