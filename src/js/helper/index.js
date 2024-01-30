@@ -46,6 +46,26 @@ function debounce(func, delay = 100){
         timer = setTimeout(func, delay, event);
     };
 }
+const findClosestEdge = (ev, el) => {
+    if (!el) return;
+
+    const wrapperRect = el.getBoundingClientRect();
+    const x = ev.clientX - wrapperRect.left;
+    const y = ev.clientY - wrapperRect.top;
+
+    return closestEdge(x,y, el.clientWidth, el.clientHeight);
+}
+const closestEdge = (x,y,w,h) => {
+    const topEdgeDist = distMetric(x,y,w/2,0);
+    const bottomEdgeDist = distMetric(x,y,w/2,h);
+    const min = Math.min(topEdgeDist, bottomEdgeDist);
+    return min === topEdgeDist ? 'top' : 'bottom';
+}
+const distMetric = (x,y,x2,y2) => {
+    var xDiff = x - x2;
+    var yDiff = y - y2;
+    return (xDiff * xDiff) + (yDiff * yDiff);
+}
 
 export {
     lerp,
@@ -59,5 +79,8 @@ export {
     rotZGetter,
     typeOpts,
     pointerCurr,
+    findClosestEdge,
+    closestEdge,
+    distMetric,
     debounce
 }

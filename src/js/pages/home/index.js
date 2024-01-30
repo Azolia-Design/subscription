@@ -1,5 +1,5 @@
 import { parseRem, selector } from "../../helper/index";
-import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, typeOpts, pointerCurr } from "../../helper";
+import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, typeOpts, findClosestEdge, closestEdge, distMetric, pointerCurr } from "../../helper";
 import Flip from '../../vendors/Flip';
 
 const home = {
@@ -85,7 +85,7 @@ const home = {
                     })
             })
         }
-        benefitStackScroll();
+        //benefitStackScroll();
 
         function showreelGalleryZoom() {
             const GALLERY = {
@@ -125,86 +125,83 @@ const home = {
                 end: 'bottom top',
                 toggleClass: {targets: '.home-skill-thumb', className: "active"},
             })
+            ScrollTrigger.create({
+                trigger: '.home-skill',
+                start: 'top bottom',
+                once: true,
+                onEnter: () => {
+                    $('.home-skill-item').each((idx, el) => {
+                        const splitText = new SplitText($(el).find('.home-skill-item-title'), {type: "chars,lines", charsClass: 'char'})
 
-            $('.home-skill-item').each((idx, el) => {
-                const splitText = new SplitText($(el).find('.home-skill-item-title'), {
-                    type: "chars,lines",
-                    charsClass: 'char',
-                    // position: 'absolute'
-                })
-
-                $(el).on('mouseenter', function(e) {
-                    gsap.to(splitText.chars, {
-                        x: 50,
-                        duration: .4,
-                        stagger: .012,
-                        overwrite: true,
-                        // ease: "power3.inOut"
+                        $(el).on('mouseenter', function(e) {
+                            gsap.to(splitText.chars, {x: 50, duration: .4, stagger: .012, overwrite: true,})
+                            $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
+                        })
+                        $(el).on('mouseleave', function(e) {
+                            gsap.to(splitText.chars, {x: 0, duration: .2, overwrite: true})
+                            $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
+                        })
                     })
-                    $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
-                })
-                $(el).on('mouseleave', function(e) {
-                    gsap.to(splitText.chars, {
-                        x: 0,
-                        duration: .2,
-                        overwrite: true,
+                    $('.home-skill-thumb-item').each((idx, el) => {
+                        let clone = $(el).find('img')
+                        for (let i = 1; i <= 5; i++) {
+                            let cloner = clone.clone()
+                            cloner.addClass('cloner')
+                            $(el).append(cloner)
+                        }
                     })
-                    $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
-                })
-            })
 
-            $('.home-skill-thumb-item').each((idx, el) => {
-                let clone = $(el).find('img')
+                    function initMouseMove() {
+                        const target = $('.home-skill-thumb')
+                        if (target.hasClass('active')) {
+                            let tarCurrX = xGetter(target.get(0))
+                            let tarCurrY = yGetter(target.get(0))
+                            let tarCurrRot = rotZGetter(target.get(0))
 
-                for (let i = 1; i <= 5; i++) {
-                    let cloner = clone.clone()
-                    cloner.addClass('cloner')
-                    $(el).append(cloner)
+                            let tarX = -target.outerWidth()/4 + (pointerCurr().x - $('.home-skill-listing').get(0).getBoundingClientRect().left)/$('.home-skill-listing').outerWidth() * ($('.home-skill-listing').outerWidth() - $('.home-skill-item-desc').get(0).getBoundingClientRect().left - target.outerWidth()/2)
+                            let tarY =  -target.outerHeight()/4 + (pointerCurr().y - $('.home-skill-listing').get(0).getBoundingClientRect().top)/$('.home-skill-listing').outerHeight() * ($('.home-skill-listing').outerHeight() - target.outerHeight()/2)
+
+                            xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
+                            ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
+                            rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX)/40, -7), 7)), .1))
+                        }
+                        requestAnimationFrame(initMouseMove)
+                    }
+                    requestAnimationFrame(initMouseMove)
                 }
             })
-
-            function initMouseMove() {
-                const target = $('.home-skill-thumb')
-
-                if (target.hasClass('active')) {
-                    let tarCurrX = xGetter(target.get(0))
-                    let tarCurrY = yGetter(target.get(0))
-                    let tarCurrRot = rotZGetter(target.get(0))
-
-                    let tarX = -target.outerWidth()/4 + (pointerCurr().x - $('.home-skill-listing').get(0).getBoundingClientRect().left)/$('.home-skill-listing').outerWidth() * ($('.home-skill-listing').outerWidth() - $('.home-skill-item-desc').get(0).getBoundingClientRect().left - target.outerWidth()/2)
-                    let tarY =  -target.outerHeight()/4 + (pointerCurr().y - $('.home-skill-listing').get(0).getBoundingClientRect().top)/$('.home-skill-listing').outerHeight() * ($('.home-skill-listing').outerHeight() - target.outerHeight()/2)
-
-                    xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
-                    ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
-                    rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX)/5, -15), 15)), .06))
-                }
-                requestAnimationFrame(initMouseMove)
-            }
-            requestAnimationFrame(initMouseMove)
         }
         homeSkill()
 
         function homePortfolio() {
             function scrollAnimationGrid() {
-                const gridItems = document.querySelectorAll('.home-portfolio-project-item');
-                gridItems.forEach(item => {
-                    const yPercentRandomVal = gsap.utils.random(-100,100);
-                    gsap.timeline({
+                const gridItems = $('.home-portfolio-project-item');
+                gridItems.each((idx, item) => {
+                    const yPercentRandomVal = gsap.utils.random(0,60);
+                    let tl = gsap.timeline({
                         scrollTrigger: {
                             trigger: item,
-                            start: "top 40%",
-                            end: "top top",
+                            start: "top 100%",
+                            end: "top 0%",
                             scrub: true,
                         }
                     })
-                    .set(item, {
-                        transformOrigin: `50% 200%`
+                    requestAnimationFrame(() => {
+                        tl
+                        .set(item, {
+                            transformOrigin: `50% 200%`
+                        })
+                        .fromTo(item, {
+                            scale: 1,
+                            yPercent: yPercentRandomVal,
+                        },{
+                            ease: 'none',
+                            scale: 0.5,
+                            yPercent: 0,
+                            borderRadius: '50%'
+                        })
                     })
-                    .to(item, {
-                        ease: 'none',
-                        scale: 0.5,
-                        borderRadius: '50%'
-                    })
+
                 });
             }
             scrollAnimationGrid();
@@ -212,54 +209,165 @@ const home = {
         homePortfolio()
 
         function homeProject() {
+            console.log('Init HomeProject');
+
             const line = document.createElement('div')
             $(line).addClass('line')
             $('.home-project-item:last-child').append(line)
+
+            const projectBack = () => {
+                const PROJECT = {
+                    wrap: $('.home-project-item'),
+                    target: $('.home-project-item-disco'),
+                }
+
+                const mouseAction = {
+                    Enter: (ev, el) => {
+                        const edge = findClosestEdge(ev, el.get(0));
+                        const _target = el.find(PROJECT.target);
+
+                        gsap.timeline({
+                            duration: 0.4, ease: 'linear',
+                        }).set(_target, {
+                            y: edge === 'top' ? '-101%' : '101%',
+                        },0)
+                        .to(_target, {
+                            y: 0, overwrite: true
+                        },0)
+                    },
+                    Leave: (ev, el) => {
+                        const edge = findClosestEdge(ev, el.get(0));
+                        const _target = el.find(PROJECT.target);
+
+                        gsap.timeline({
+                            duration: 0.4, ease: 'linear'
+                        }).to(_target, {
+                            y: edge === 'top' ? '-101%' : '101%', overwrite: true
+                        }, 0)
+                    }
+                }
+                PROJECT.wrap.on("pointerenter", function(ev) {
+                    let index = $(this).index();
+                    mouseAction.Enter(ev, PROJECT.wrap.eq(index));
+                });
+
+                PROJECT.wrap.on("pointerleave", function(ev) {
+                    let index = $(this).index();
+                    mouseAction.Leave(ev, PROJECT.wrap.eq(index));
+                });
+            }
+            // projectBack()
+
+            $('.home-project-item').on('pointerleave', function(e) {
+                $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
+            })
+
+            $('.home-project-item').on('pointerenter', function(e) {
+                let nameSpace = $(this).find('[data-project-name]').attr('data-project-name')
+
+                $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
+                $(".home-project-thumb").find(`[data-thumb-name="${nameSpace}"]`).addClass('active')
+            })
+
+
+            const target = $('.home-project-thumb')
+            ScrollTrigger.create({
+                trigger: '.home-project',
+                start: 'top bottom',
+                end: 'bottom top',
+                toggleClass: {targets: target, className: "active"},
+            })
+
+            function projectClipath(index) {
+                let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
+                let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
+                gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
+            }
+
+            const targetMove = $('.home-project-wrap-top')
+            gsap.set(targetMove, {clipPath: `polygon(0 0, 100% 0, 100% 0, 0 0)`})
+
+            $('.home-project-wrap-bot .home-project-item').on('pointerenter', function(e) {
+                let index = $(this).index()
+                projectClipath(index)
+            })
+            $('.home-project-wrap-bot .home-project-item').on('pointerleave', function(e) {
+                if (!$('.home-project-wrap-bot:hover').length) {
+                    if ($(this).is(':first-child')){
+                        console.log('first');
+                        let index = -1;
+                        let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
+                        let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
+                        gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
+                    }
+                    if ($(this).is(':last-child')){
+                        console.log('last');
+                        let index = $('.home-project-wrap-bot .home-project-item').length
+                        let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
+                        let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
+                        gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
+                    }
+                }
+
+            })
+
+
+
+            function initMouseMove() {
+                let offsetL =  parseFloat(target.css('left'))
+                let rotVl
+                if (target.hasClass('active')) {
+                    let tarCurrX = xGetter(target.get(0))
+                    let tarCurrY = yGetter(target.get(0))
+                    let tarCurrRot = rotZGetter(target.get(0))
+
+                    let tarX = (pointerCurr().x/$('.home-project').outerWidth()) * ($('.home-project-item-view').get(0).getBoundingClientRect().left - offsetL - target.width())
+                    let tarY = -target.height()/4 + (pointerCurr().y - $('.home-project').get(0).getBoundingClientRect().top)/$('.home-project').height() * ($('.home-project').height() - target.height()/2)
+
+                    let rotValue = (pointerCurr().x - (target.width()/2 + offsetL + tarCurrX))/$('.home-project').outerWidth()
+
+                    xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
+                    ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
+
+                    if (pointerCurr().x < (target.width()/2 + offsetL + tarCurrX)){rotVl = -1}
+                    else {rotVl = 1}
+                    rotZSetter(target.get(0))(lerp(tarCurrRot, rotVl * rotValue * (Math.min(Math.max(((tarX + tarY) - (tarCurrX + tarCurrY))/5, -15), 15)), .06))
+                }
+                requestAnimationFrame(initMouseMove)
+            }
+            requestAnimationFrame(initMouseMove)
         }
         homeProject()
 
         function homeCurtain() {
-            let curtain = $('.home-curtain');
-            let offset = $(window).height()/20;
-            $('.home-curtain-inner').css('height', ' ' + offset  + 'px')
+            let amount = 11;
+            let offset = $('.home-curtain').height() /  (amount - 1);
+            // $('.home-curtain-inner').css('height', ' ' + offset  + 'px')
 
-            const clone = $('.home-curtain-inner')
-            for (let i = 1; i < 20; i++) {
+            const clone = $('.home-curtain-inner').eq(0)
+            for (let i = 1; i < amount; i++) {
                 let cloner = clone.clone()
                 $('.home-curtain').append(cloner)
             }
             let tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: '.home-curtain',
-                    start: 'top top+=80%',
-                    end: 'bottom top+=00%',
+                    start: 'top bottom',
+                    end: 'top top-=70%',
                     scrub: true,
                 },
-                duration: 2
+                defaults: {
+                    ease: 'none'
+                }
             })
 
             tl
             .to('.home-curtain-inner', {
-                scaleY: 0,
-                stagger: {
-                    amount: -.4
-                },
-                ease: 'none',
-                duration: 1.2,
+                scaleY: 1,
+                stagger: -.1,
+                duration: 1,
+                y:  -offset,
             }, 0)
-
-            $('.home-curtain-inner').each((idx, el) => {
-                tl
-                .to(el, {
-                    transformOrigin: 'center top',
-                    y: -idx * 50,
-                    stagger: {
-                        amount: -.4
-                    },
-                    ease: 'none',
-                    duration: 2,
-                }, 0)
-            })
         }
         homeCurtain()
 
