@@ -62,7 +62,7 @@ const home = {
                 stagger: settings.stagger
             })
         }
-        benefitStackScroll();
+        //benefitStackScroll();
 
         function homeSkill() {
             ScrollTrigger.create({
@@ -71,86 +71,84 @@ const home = {
                 end: 'bottom top',
                 toggleClass: {targets: '.home-skill-thumb', className: "active"},
             })
-
-            $('.home-skill-item').each((idx, el) => {
-                const splitText = new SplitText($(el).find('.home-skill-item-title'), {
-                    type: "chars,lines",
-                    charsClass: 'char',
-                    // position: 'absolute'
-                })
-
-                $(el).on('mouseenter', function(e) {
-                    gsap.to(splitText.chars, {
-                        x: 50,
-                        duration: .4,
-                        stagger: .012,
-                        overwrite: true,
-                        // ease: "power3.inOut"
+            ScrollTrigger.create({
+                trigger: '.home-skill',
+                start: 'top bottom',
+                once: true,
+                onEnter: () => {
+                    $('.home-skill-item').each((idx, el) => {
+                        const splitText = new SplitText($(el).find('.home-skill-item-title'), {type: "chars,lines", charsClass: 'char'})
+        
+                        $(el).on('mouseenter', function(e) {
+                            gsap.to(splitText.chars, {x: 50, duration: .4, stagger: .012, overwrite: true,})
+                            $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
+                        })
+                        $(el).on('mouseleave', function(e) {
+                            gsap.to(splitText.chars, {x: 0, duration: .2, overwrite: true})
+                            $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
+                        })
                     })
-                    $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
-                })
-                $(el).on('mouseleave', function(e) {
-                    gsap.to(splitText.chars, {
-                        x: 0,
-                        duration: .2,
-                        overwrite: true,
-                    })
-                    $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
-                })
-            })
-
-            $('.home-skill-thumb-item').each((idx, el) => {
-                let clone = $(el).find('img')
-
-                for (let i = 1; i <= 5; i++) {
-                    let cloner = clone.clone()
-                    cloner.addClass('cloner')
-                    $(el).append(cloner)
+                    // $('.home-skill-thumb-item').each((idx, el) => {
+                    //     let clone = $(el).find('img')
+                    //     for (let i = 1; i <= 5; i++) {
+                    //         let cloner = clone.clone()
+                    //         cloner.addClass('cloner')
+                    //         $(el).append(cloner)
+                    //     }
+                    // })
+        
+                    function initMouseMove() {
+                        const target = $('.home-skill-thumb')
+                        if (target.hasClass('active')) {
+                            let tarCurrX = xGetter(target.get(0))
+                            let tarCurrY = yGetter(target.get(0))
+                            let tarCurrRot = rotZGetter(target.get(0))
+        
+                            let tarX = -target.outerWidth()/4 + (pointerCurr().x - $('.home-skill-listing').get(0).getBoundingClientRect().left)/$('.home-skill-listing').outerWidth() * ($('.home-skill-listing').outerWidth() - $('.home-skill-item-desc').get(0).getBoundingClientRect().left - target.outerWidth()/2)
+                            let tarY =  -target.outerHeight()/4 + (pointerCurr().y - $('.home-skill-listing').get(0).getBoundingClientRect().top)/$('.home-skill-listing').outerHeight() * ($('.home-skill-listing').outerHeight() - target.outerHeight()/2)
+        
+                            xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
+                            ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
+                            rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX)/40, -7), 7)), .1))                    
+                        }
+                        requestAnimationFrame(initMouseMove)
+                    }
+                    requestAnimationFrame(initMouseMove)
                 }
             })
-
-            function initMouseMove() {
-                const target = $('.home-skill-thumb')
-
-                if (target.hasClass('active')) {
-                    let tarCurrX = xGetter(target.get(0))
-                    let tarCurrY = yGetter(target.get(0))
-                    let tarCurrRot = rotZGetter(target.get(0))
-
-                    let tarX = -target.outerWidth()/4 + (pointerCurr().x - $('.home-skill-listing').get(0).getBoundingClientRect().left)/$('.home-skill-listing').outerWidth() * ($('.home-skill-listing').outerWidth() - $('.home-skill-item-desc').get(0).getBoundingClientRect().left - target.outerWidth()/2)
-                    let tarY =  -target.outerHeight()/4 + (pointerCurr().y - $('.home-skill-listing').get(0).getBoundingClientRect().top)/$('.home-skill-listing').outerHeight() * ($('.home-skill-listing').outerHeight() - target.outerHeight()/2)
-
-                    xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
-                    ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
-                    rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX)/40, -5), 5)), .06))
-                }
-                requestAnimationFrame(initMouseMove)
-            }
-            requestAnimationFrame(initMouseMove)
         }
         homeSkill()
 
         function homePortfolio() {
             function scrollAnimationGrid() {
-                const gridItems = document.querySelectorAll('.home-portfolio-project-item');
-                gridItems.forEach(item => {
-                    const yPercentRandomVal = gsap.utils.random(-100,100);
-                    gsap.timeline({
+                const gridItems = $('.home-portfolio-project-item');
+                gridItems.each((idx, item) => {
+                    const yPercentRandomVal = gsap.utils.random(0,60);
+                    let tl = gsap.timeline({
                         scrollTrigger: {
                             trigger: item,
-                            start: "top 40%",
-                            end: "top top",
+                            start: "top 100%",
+                            end: "top 0%",
                             scrub: true,
+                            markers: true
                         }
                     })
-                    .set(item, {
-                        transformOrigin: `50% 200%`
+                    requestAnimationFrame(() => {
+                        tl
+                        .set(item, {
+                            transformOrigin: `50% 200%`
+                        })
+                        .fromTo(item, {
+                            scale: 1,
+                            yPercent: yPercentRandomVal,
+                        },{
+                            ease: 'none',
+                            scale: 0.5,
+                            yPercent: 0,
+                            borderRadius: '50%'
+                        })
                     })
-                    .to(item, {
-                        ease: 'none',
-                        scale: 0.5,
-                        borderRadius: '50%'
-                    })
+                    
                 });
             }
             scrollAnimationGrid();
