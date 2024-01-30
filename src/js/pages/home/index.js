@@ -226,7 +226,7 @@ const home = {
             function projectClipath(index) {
                 let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
                 let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
-                gsap.to('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`, duration: .8, ease:'power3.out'});
+                gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
             }
 
             const targetMove = $('.home-project-wrap-top')
@@ -240,11 +240,17 @@ const home = {
                 if (!$('.home-project-wrap-bot:hover').length) {
                     if ($(this).is(':first-child')){
                         console.log('first');
-                        gsap.to('.home-project-wrap-top', {clipPath: `polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)`, duration: .5, ease:'power3.out'});
+                        let index = -1;
+                        let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
+                        let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
+                        gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
                     }
                     if ($(this).is(':last-child')){
                         console.log('last');
-                        gsap.to('.home-project-wrap-top', {clipPath: `polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)`, duration: .5, ease:'power3.out'});
+                        let index = $('.home-project-wrap-bot .home-project-item').length
+                        let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
+                        let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
+                        gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
                     }
                 }
                 

@@ -784,7 +784,8 @@
             pointer-events: none;
             color: rgba($cl-white, 1);
             background-color: rgba($cl-black, 1);
-            transition: opacity .2s ease-in-out;
+            @include transition(clip-path .4s ease-out);
+
             z-index: 2;
 
             .home-project-item-industry, .home-project-item-name, .home-project-item-view {
@@ -835,7 +836,7 @@
                 left: 50%;
                 transform: translateX(-50%);
                 z-index: 999;
-
+                background-color: rgba($cl-black, .2);
                 &:nth-child(2n) {
                     top: auto;
                     bottom: 0;
@@ -1401,14 +1402,13 @@
             &-item {
                 --widthOrdinal: 13rem;
                 border-bottom: 1px solid rgba($cl-white, 0.10);
-                padding-bottom: 2.4rem;
                 position: relative;
                 overflow: hidden;
                 &-ques {
                     display: flex;
                     align-items: center;
                     cursor: pointer;
-                    padding: 4rem 0 1.6rem;
+                    padding: 4rem 0 4rem;
                     &-ordinal {
                         width: var(--widthOrdinal);
                     }
@@ -1436,22 +1436,19 @@
                             inset: -1px;
                             @include transform(translateY(100%));
                             border-radius: 50%;
-                            background: linear-gradient(180deg, rgba($cl-primary, 1) 50%, rgba($cl-primary-li, 1) 100%);
+                            background: rgba($cl-primary, 1);
                             opacity: 0;
                             @include transition(
-                                transform 1.833s linear(
-                                    0, 0.938 16.7%, 1.149 24.3%, 1.154 29.9%, 0.977 51%, 1
-                                ),
-                                opacity 1.333s linear(
-                                    0, 0.938 16.7%, 1.149 24.3%, 1.154 29.9%, 0.977 51%, 1
-                                )
+                                transform 1.833s linear(0, 0.938 16.7%, 1.149 24.3%, 1.154 29.9%, 0.977 51%, 1),
+                                opacity 1.333s linear(0, 0.938 16.7%, 1.149 24.3%, 1.154 29.9%, 0.977 51%, 1)
                             );
                         }
                     }
                 }
                 &-answer {
                     margin-left: var(--widthOrdinal);
-                    padding-bottom: 1.6rem;
+                    padding-bottom: 4rem;
+                    margin-top: -1.6rem;
                 }
                 &:before,
                 &:after {
@@ -1483,10 +1480,10 @@
                         color: $cl-primary;
                     }
                     .home-faq-content-item-ques-dot {
-                        border: 1.5px solid rgba($cl-primary, 1);
+                        border-color: rgba($cl-primary, 1);
                         &:before {
                             opacity: 1;
-                            @include transform(translateY(100%) scale(2));
+                            @include transform(scale(1));
                         }
                     }
                     &:before {
