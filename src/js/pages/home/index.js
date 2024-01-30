@@ -1,6 +1,5 @@
 import { selector } from "../../helper/index";
 import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, typeOpts, findClosestEdge, closestEdge, distMetric, pointerCurr } from "../../helper";
-import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, typeOpts, pointerCurr } from "../../helper";
 import Flip from '../../vendors/Flip';
 
 const home = {
@@ -130,7 +129,6 @@ const home = {
                             start: "top 100%",
                             end: "top 0%",
                             scrub: true,
-                            markers: true
                         }
                     })
                     requestAnimationFrame(() => {
@@ -161,7 +159,6 @@ const home = {
             const line = document.createElement('div')
             $(line).addClass('line')
             $('.home-project-item:last-child').append(line)
-
 
             const projectBack = () => {
                 const PROJECT = {
@@ -204,7 +201,8 @@ const home = {
                     mouseAction.Leave(ev, PROJECT.wrap.eq(index));
                 });
             }
-            projectBack()
+            // projectBack()
+
             $('.home-project-item').on('pointerleave', function(e) {
                 $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
             })
@@ -224,6 +222,35 @@ const home = {
                 end: 'bottom top',
                 toggleClass: {targets: target, className: "active"},
             })
+
+            function projectClipath(index) {
+                let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
+                let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
+                gsap.to('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`, duration: .8, ease:'power3.out'});
+            }
+
+            const targetMove = $('.home-project-wrap-top')
+            gsap.set(targetMove, {clipPath: `polygon(0 0, 100% 0, 100% 0, 0 0)`})
+
+            $('.home-project-wrap-bot .home-project-item').on('pointerenter', function(e) {
+                let index = $(this).index()
+                projectClipath(index)
+            })
+            $('.home-project-wrap-bot .home-project-item').on('pointerleave', function(e) {
+                if (!$('.home-project-wrap-bot:hover').length) {
+                    if ($(this).is(':first-child')){
+                        console.log('first');
+                        gsap.to('.home-project-wrap-top', {clipPath: `polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)`, duration: .5, ease:'power3.out'});
+                    }
+                    if ($(this).is(':last-child')){
+                        console.log('last');
+                        gsap.to('.home-project-wrap-top', {clipPath: `polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)`, duration: .5, ease:'power3.out'});
+                    }
+                }
+                
+            })
+
+
 
             function initMouseMove() {
                 let offsetL =  parseFloat(target.css('left'))
@@ -266,7 +293,6 @@ const home = {
                     trigger: '.home-curtain',
                     start: 'top top+=20%',
                     end: 'bottom top+=00%',
-                    // markers: true,
                     scrub: true,
                 },
                 duration: 2
