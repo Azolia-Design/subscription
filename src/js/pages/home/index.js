@@ -88,14 +88,14 @@ const home = {
                             $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
                         })
                     })
-                    // $('.home-skill-thumb-item').each((idx, el) => {
-                    //     let clone = $(el).find('img')
-                    //     for (let i = 1; i <= 5; i++) {
-                    //         let cloner = clone.clone()
-                    //         cloner.addClass('cloner')
-                    //         $(el).append(cloner)
-                    //     }
-                    // })
+                    $('.home-skill-thumb-item').each((idx, el) => {
+                        let clone = $(el).find('img')
+                        for (let i = 1; i <= 5; i++) {
+                            let cloner = clone.clone()
+                            cloner.addClass('cloner')
+                            $(el).append(cloner)
+                        }
+                    })
         
                     function initMouseMove() {
                         const target = $('.home-skill-thumb')
