@@ -1,6 +1,7 @@
 import { parseRem, selector } from "../../helper/index";
 import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, findClosestEdge, FloatingAnimation, pointerCurr } from "../../helper";
 import Flip from '../../vendors/Flip';
+import {lenis} from '../../common/lenis'
 
 const home = {
     namespace: "home",
@@ -8,6 +9,46 @@ const home = {
         console.log(`enter ${this.namespace}`);
         let cont = $('body');
 
+        function updateHeader() {
+            let allSections = $('[data-section]');
+            let htmlLabel = $('.header-menu-label-item').eq(0).clone();
+            let htmlProg = $('.header-menu-prog-item').eq(0).clone();
+
+            $('.header-menu-label').find('.header-menu-label-item').remove();
+            $('.header-menu-prog').find('.header-menu-prog-item').remove();
+            allSections.each((idx, el) => {
+                
+            })
+        }
+        function handleHeader() {
+            let tlHeaderTrigger = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.home-main',
+                    start: `top+=${$('.header').outerHeight()} top`,
+                    onEnter: () => {
+                        $('.header-logo').addClass('active')
+                        $('.header-menu').addClass('active')
+                        $('.header-hamburger').addClass('active')
+                    },
+                    onLeaveBack: () => {
+                        $('.header-logo').removeClass('active')
+                        $('.header-menu').removeClass('active')
+                        $('.header-hamburger').removeClass('active')
+                    }
+                }
+            })
+            $('.header-hamburger').on('click', function(e) {
+                e.preventDefault();
+                if (!$(this).hasClass('active')) {
+                    $('.header-menu').addClass('active')
+                    $(this).addClass('active')
+                } else {
+                    $('.header-menu').removeClass('active')
+                    $(this).removeClass('active')
+                }
+            })
+        }
+        handleHeader()
         function heroParallax() {
             let tl = gsap.timeline({
                 scrollTrigger: {
@@ -215,9 +256,10 @@ const home = {
                     let tl = gsap.timeline({
                         scrollTrigger: {
                             trigger: item,
-                            start: "top 100%",
-                            end: "top 0%",
+                            start: "top bottom",
+                            end: "top top-=25%",
                             scrub: true,
+                            markers: true
                         }
                     })
                     requestAnimationFrame(() => {

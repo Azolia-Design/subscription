@@ -289,6 +289,33 @@
                 z-index: 3;
             }
         }
+        &-discover {
+            display: flex;
+            align-items: center;
+            pointer-events: auto;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            margin-left: var(--container-padding);
+            margin-bottom: 3rem;
+        }
+        &-mouse {
+            position: relative;
+            width: 6.8rem;
+            display: flex;
+            justify-content: center;
+            margin-right: 1.6rem;
+            &-wheel {
+                position: absolute;
+                width: 12.5%;
+                aspect-ratio: 1;
+                background-color: white;
+                border-radius: 50%;
+                top: 33.33%;
+                box-shadow: 0rem 0rem 1rem 0rem rgba(255, 255, 255, 0.75);
+                @include animation(moveWheel 2s alternate-reverse infinite);
+            }
+        }
     }
     &-main {
         margin-top: -15.4rem;
@@ -950,6 +977,7 @@
                 (row: 32, column: 6), (row: 33, column: 3), (row: 34, column: 5), (row: 35, column: 1), (row: 36, column: 8), (row: 37, column: 6), (row: 38, column: 3), (row: 39, column: 5), (row: 40, column: 4)
             );
             &-list {
+                padding-top: 80vh;
                 display: grid;
                 top: 0;
                 bottom: 0;
