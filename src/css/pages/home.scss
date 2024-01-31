@@ -848,15 +848,32 @@
         &-step {
             position: relative;
             border-radius: 2rem;
-            &::before {
-                content: '';
+            transform-origin: left top;
+
+            &:nth-child(2n) .home-process-step-background {
+                transform-origin: right top;
+            }
+
+            &-background {
                 position: absolute;
                 @include size(100%);
                 top: 0;
                 left: 0;
                 pointer-events: none;
-                @include border-gradient();
+                background-color: rgba($cl-white, .05);
+                border-radius: 1.5rem;
+                transform-origin: left top;
+                &::before {
+                    content: '';
+                    position: absolute;
+                    @include size(100%);
+                    top: 0;
+                    left: 0;
+                    pointer-events: none;
+                    @include border-gradient();
+                }
             }
+
             &::after {
                 content: '';
                 width: 0;

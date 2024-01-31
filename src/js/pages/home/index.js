@@ -173,6 +173,32 @@ const home = {
         }
         homeSkill()
 
+        function homeProcess() {
+            let tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.home-process-step-listing',
+                    start: 'top top+=60%',
+                    end: 'bottom top+=80%',
+                    scrub: true,
+                },
+                default: {
+                    ease: 'none'
+                }
+            })
+
+            $('.home-process-step').each((idx, el) => {
+                tl
+                .from($(el).find('.home-process-step-background'), {
+                    scale: 0,
+                    borderRadius: '1rem'
+                })
+                .from($(el).find('.home-process-step-img, .home-process-step-content'), {
+                    opacity: 0,
+                }, "<=.2")
+            })
+        }
+        homeProcess()
+
         function homePortfolio() {
             function scrollAnimationGrid() {
                 const gridItems = $('.home-portfolio-project-item');
@@ -209,8 +235,6 @@ const home = {
         homePortfolio()
 
         function homeProject() {
-            console.log('Init HomeProject');
-
             const line = document.createElement('div')
             $(line).addClass('line')
             $('.home-project-item:last-child').append(line)
