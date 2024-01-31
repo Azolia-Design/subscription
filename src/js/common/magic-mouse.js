@@ -56,7 +56,8 @@ const initCursor = () => {
                     break
                 case 'hidden':
                     gsap.to(cursor.find('.cursor-dot'), {scale: 0, duration: .6, ease: 'power2.out', overwrite: true})
-                    gsap.to(cursor.find('.cursor-border'), {autoAlpha: 0, duration: .4, ease: 'power2.out', overwrite: true})
+                    gsap.to(cursor.find('.cursor-border'), {scale: 1.5, autoAlpha: 0, duration: .4, ease: 'power2.out', overwrite: true})
+                    gsap.to(cursor.find('.cursor-glow'), {scale: 1.5, autoAlpha: 0, duration: .4, ease: 'power2.out', overwrite: true})
                     updatePos('free')
                     break
             }
