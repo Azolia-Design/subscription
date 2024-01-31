@@ -308,11 +308,9 @@ const home = {
                         gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
                     }
                 }
-
+                
             })
-
-
-
+            
             function initMouseMove() {
                 let offsetL =  parseFloat(target.css('left'))
                 let rotVl
