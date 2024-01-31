@@ -51,6 +51,13 @@
                         </span>
                     </a>
                 </div>
+                <div class="home-hero-discover">
+                    <div class="home-hero-mouse">
+                        <img class="img" src='../public/imgs/mouse.svg' width='68' height="92" alt='mouse icon'/>
+                        <span class="home-hero-mouse-wheel"></span>
+                    </div>
+                    <p class="txt txt-16 txt-med home-hero-discover-txt">Scroll down to discover how it works</p>
+                </div>
             </div>
             <div class="home-hero-bg">
                 <img class="img" src='../public/imgs/hero-banner-full.jpg?as=webp&width=5044' width='2522' alt='A Black Bear'/>
@@ -61,16 +68,31 @@
         <div class="home-main">
             <header class="header">
                 <div class="container header-container">
-                    <div class="header-discover">
-                        <div class="header-mouse">
-                            <img class="img" src='../public/imgs/mouse.svg' width='68' height="92" alt='mouse icon'/>
-                            <span class="header-mouse-wheel"></span>
+                    <div class="header-logo">
+                        <div class="header-logo-img">
+                            <img src="../public/imgs/header-logo.svg" alt="Logo" class="img img-height">
                         </div>
-                        <p class="txt txt-16 txt-med header-discover-txt">Scroll down to discover how it works</p>
+                        <div class="header-logo-line"></div>
+                        <div class="txt header-logo-txt">
+                            Fueled by a passion for design, <span class="header-logo-txt-hl">BearInk</span>, a spin-off of Bearplus, was created to boost the success of young startups.
+                        </div>
                     </div>
                     <div class="header-main">
                         <a class="hover-un txt txt-16 txt-med" href="#">Schedule a call</a>
                         <div class="header-main-inner">
+                            <div class="header-menu">
+                                <div class="header-menu-label">
+                                    <div class="txt txt-16 txt-med header-menu-label-item">
+                                        Benefits
+                                    </div>
+                                </div>
+                                <div class="header-menu-prog">
+                                    <div class="header-menu-prog-item">
+                                        <div class="header-menu-prog-item-inner"></div>
+                                        <a href="#" class="header-menu-prog-item-link"></a>
+                                    </div>
+                                </div>
+                            </div>
                             <button class="header-hamburger">
                                 <span class="header-hamburger-line"></span>
                                 <span class="header-hamburger-line"></span>
@@ -84,7 +106,7 @@
                 </div>
             </header>
             <div class="home-main-inner">
-                <section class="home-benefit">
+                <section class="home-benefit" data-section="#" data-section-id="Benefit">
                     <div class="home-benefit-stick">
                         <div class="container">
                             <div class="home-benefit--wrap">
@@ -184,7 +206,7 @@
                         </div>
                     </div>
                 </section>
-                <section class="home-showreel">
+                <section class="home-showreel" data-section="#" data-section-id="Reel">
                     <div class="container">
                         <div class="home-showreel--inner">
                             <div class="home-showreel-item item--s home-showreel-item-other">
@@ -226,7 +248,7 @@
                         </div>
                     </div>
                 </section>
-                <section class="home-skill">
+                <section class="home-skill" data-section="#" data-section-id="Skill">
                     <div class="container grid">
                         <h2 class="h1 home-skill-title">Use all the skills of a design team at the cost of one person.</h2>
                         <p class="txt txt-20 home-skill-desc">With just one personnel cost, we provide all the necessary skills for you to operate your business at a high quality, led by professional designers with extensive experience in the field of digital design.</p>
@@ -286,7 +308,7 @@
                 <div class="home-gradientNoise">
                     <img class="img img-fill home-gradientNoise-img" src='../public/imgs/gradient-noise.png?as=webp&width=3270.5' width='3270.5' alt='gradient noise with orange and blue color'/>
                 </div>
-                <section class="home-process">
+                <section class="home-process" data-section="#" data-section-id="Process">
                     <div class="container grid">
                         <div class="home-process-title--wrap">
                             <h2 class="h1 home-process-title">Working process is extremely simple</h2>
@@ -335,7 +357,7 @@
                         </div>
                     </div>
                 </section>
-                <section class="home-portfolio">
+                <section class="home-portfolio" data-section="#" data-section-id="Portfolio">
                     <div class="home-portfolio-project">
                         <div class="home-portfolio-project-list">
                             <div class="home-portfolio-project-item">
@@ -590,7 +612,7 @@
                 <div class="home-curtain">
                     <div class="home-curtain-inner"></div>
                 </div>
-                <section class="home-pricing">
+                <section class="home-pricing" data-section="#" data-section-id="Pricing">
                     <div class="container grid">
                         <div class="home-pricing--wrap">
                             <div class="home-pricing-text">
@@ -790,7 +812,7 @@
                         </div>
                     </div>
                 </section>
-                <section class="home-explore">
+                <section class="home-explore" data-section="#" data-section-id="Explore">
                     <div class="container grid">
                         <div class="h3 home-explore-heading">
                             <h3>Standing behind this great service is BearPlus , a leading digital design agency, excels in web design, UI/UX, graphic design, and multimedia production. With a skilled team, they deliver tailored, innovative solutions that set the standard for impactful design in the dynamic digital landscape.</h3>
@@ -932,7 +954,7 @@
                         </div>
                     </div>
                 </section>
-                <section class="home-testi">
+                <section class="home-testi" data-section="#" data-section-id="Testimonial">
                     <div class="container grid ">
                         <div class="home-testi-text-wrap">
                             <h2 class="h1 home-testi-heading">Your success stories, our pride.</h2>
@@ -962,7 +984,7 @@
                         </div>
                     </div>
                 </section>
-                <section class="home-faq">
+                <section class="home-faq" data-section="#" data-section-id="Faq">
                     <div class="container grid">
                         <h2 class="h1 home-faq-heading">Find answers to your questions here</h2>
                         <div class="home-faq-content">
