@@ -240,18 +240,15 @@ const home = {
                 if (!$('.home-project-wrap-bot:hover').length) {
                     if ($(this).is(':first-child')){
                         console.log('first');
-                        gsap.to('.home-project-wrap-top', {clipPath: `polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)`, duration: .5, ease:'power3.out'});
+                        gsap.to('.home-project-wrap-top', {clipPath: `polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)`, duration: .5, ease:'power3.out', overwrite: true});
                     }
                     if ($(this).is(':last-child')){
                         console.log('last');
-                        gsap.to('.home-project-wrap-top', {clipPath: `polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)`, duration: .5, ease:'power3.out'});
+                        gsap.to('.home-project-wrap-top', {clipPath: `polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)`, duration: .5, ease:'power3.out', overwrite: true});
                     }
                 }
-                
             })
-
-
-
+            
             function initMouseMove() {
                 let offsetL =  parseFloat(target.css('left'))
                 let rotVl

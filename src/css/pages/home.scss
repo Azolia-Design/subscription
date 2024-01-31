@@ -315,8 +315,17 @@
                 scale: 1.1;
                 overflow: hidden;
                 transition: opacity 0.6s cubic-bezier(0.45, 0, 0.55, 1), scale 1s cubic-bezier(0.45, 0, 0.55, 1);
-
-                img.cloner {
+                @include transition(
+                    opacity 3.333s linear(
+                        0, 0.002, 0.009 1%, 0.035, 0.078, 0.141 4.4%, 0.281 6.7%, 0.723 12.9%, 0.842,
+                        0.938, 1.017, 1.077 20.4%, 1.101, 1.121, 1.137, 1.149 24.3%, 1.159, 1.163,
+                        1.161, 1.154, 1.143, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 1.002, 0.991,
+                        0.982 48.9%, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.979 60%, 0.997 69.8%,
+                        1.001, 1.003 76.9%, 1.004 83.8%, 1
+                    ),
+                    scale .2s cubic-bezier(0.45, 0.5, 0.55, 1)
+                );
+                .img.cloner {
                     --gap-horizontal: 20px;
                     --gap-vertical: 2px;
                     --time-anim: 2.25s;
@@ -335,6 +344,15 @@
                     top: 0;
                     left: 0;
                 }
+                
+                // @for $i from 1 through 5 {
+                //     .img.cloner:nth-child(#{$i}) {
+                //         --time-anim: random(1) * 2.25s;
+                //         --gap-horizontal: random(10) + 20px;
+                //         --gap-vertical: random(10) + 2px;
+                //     }
+                // }
+                
 
                 @keyframes glitch-anim-1 {
                     0%, 30% { 
@@ -545,7 +563,7 @@
                     }
                 }
                 @keyframes glitch-anim-flash {
-                    0%, 5% { 
+                    0%, 5%{ 
                         opacity: 0.2; 
                         transform: translate3d(var(--gap-horizontal), var(--gap-vertical), 0);
                     }
@@ -554,37 +572,145 @@
                         transform: translate3d(0, 0, 0);
                     }
                 }
-
-
-
-
-                &.active {
-                    @include transition(
-                        opacity 3.333s linear(
-                            0, 0.002, 0.009 1%, 0.035, 0.078, 0.141 4.4%, 0.281 6.7%, 0.723 12.9%, 0.842,
-                            0.938, 1.017, 1.077 20.4%, 1.101, 1.121, 1.137, 1.149 24.3%, 1.159, 1.163,
-                            1.161, 1.154, 1.143, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 1.002, 0.991,
-                            0.982 48.9%, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.979 60%, 0.997 69.8%,
-                            1.001, 1.003 76.9%, 1.004 83.8%, 1
-                        ),
-                        scale .2s cubic-bezier(0.45, 0.5, 0.55, 1)
-                    );
+                &:nth-child(1).active {
                     opacity: 1;
                     scale: 1;
 
                     img.cloner {
                         animation: glitch-anim-1 var(--time-anim) infinite linear alternate;
-                        img.cloner:nth-child(2) {
+                        &:nth-child(2) {
                             animation-name: glitch-anim-1;
+                            animation-delay: calc(var(--time-anim) + 4s);
+                            animation-duration: calc(var(--time-anim) + 5s);
+                        }
+                        &:nth-child(3) {
+                            animation-name: glitch-anim-2;
+                            animation-delay: calc(var(--time-anim));
+                        }
+                        &:nth-child(4) {
+                            animation-name: glitch-anim-3;
+                            animation-duration: calc(var(--time-anim) + 2s);
+                            animation-delay: calc(var(--time-anim) + 5s);
+                        }
+                        &:nth-child(5) {
+                            animation-delay: calc(var(--time-anim) + 1s);
+                            animation-name: glitch-anim-flash;
+                        }
+                    }
+                }
+                &:nth-child(2).active {
+                    opacity: 1;
+                    scale: 1;
+
+                    img.cloner {
+                        animation: glitch-anim-1 var(--time-anim) infinite linear alternate;
+                        &:nth-child(2) {
+                            animation-name: glitch-anim-1;
+                            animation-direction: reverse;
                             animation-delay: calc(var(--time-anim)/4);
                         }
-                        img.cloner:nth-child(3) {
+                        &:nth-child(3) {
+                            animation-direction: reverse;
+                            animation-duration: calc(random(2) *  var(--time-anim));
+                            animation-delay: calc(var(--time-anim) + 5s);
                             animation-name: glitch-anim-2;
                         }
-                        img.cloner:nth-child(4) {
+                        &:nth-child(4) {
+                            animation-duration: calc(random(5) *  var(--time-anim));
+                            animation-delay: calc(var(--time-anim) + 2s);
                             animation-name: glitch-anim-3;
                         }
-                        img.cloner:nth-child(5) {
+                        &:nth-child(5) {
+                            animation-direction: reverse;
+                            animation-delay: calc(var(--time-anim)/2);
+                            animation-duration: calc(var(--time-anim)/2);
+                            animation-name: glitch-anim-flash;
+                        }
+                    }
+                }
+                &:nth-child(3).active {
+                    opacity: 1;
+                    scale: 1;
+
+                    img.cloner {
+                        animation: glitch-anim-1 var(--time-anim) infinite linear alternate;
+                        &:nth-child(2) {
+                            animation-direction: reverse;
+                            animation-name: glitch-anim-1;
+                            animation-delay: calc(var(--time-anim)*3);
+                            animation-duration: calc(var(--time-anim) + 1s);
+                        }
+                        &:nth-child(3) {
+                            animation-name: glitch-anim-2;
+                            animation-duration: calc(var(--time-anim) + 1s);
+                        }
+                        &:nth-child(4) {
+                            animation-direction: reverse;
+                            animation-duration: calc(var(--time-anim) + 4s);
+                            animation-delay: calc(var(--time-anim)/4 + 1s);
+                            animation-name: glitch-anim-3;
+                        }
+                        &:nth-child(5) {
+                            animation-delay: calc(var(--time-anim)*2);
+                            animation-duration: calc(var(--time-anim) + 4s);
+                            animation-name: glitch-anim-flash;
+                        }
+                    }
+                }
+                &:nth-child(4).active {
+                    opacity: 1;
+                    scale: 1;
+
+                    img.cloner {
+                        animation: glitch-anim-1 var(--time-anim) infinite linear alternate;
+                        &:nth-child(2) {
+                            animation-direction: reverse;
+                            animation-name: glitch-anim-2;
+                            animation-delay: calc(var(--time-anim)*3);
+                            animation-duration: calc(var(--time-anim) + 1s);
+                        }
+                        &:nth-child(3) {
+                            animation-name: glitch-anim-2;
+                            animation-duration: calc(var(--time-anim) + 1s);
+                        }
+                        &:nth-child(4) {
+                            animation-direction: reverse;
+                            animation-duration: calc(var(--time-anim) + 4s);
+                            animation-delay: calc(var(--time-anim)/4 + 1s);
+                            animation-name: glitch-anim-1;
+                        }
+                        &:nth-child(5) {
+                            animation-delay: calc(var(--time-anim)*2);
+                            animation-duration: calc(var(--time-anim) + 4s);
+                            animation-name: glitch-anim-flash;
+                        }
+                    }
+                }
+                &:nth-child(5).active {
+                    opacity: 1;
+                    scale: 1;
+
+                    img.cloner {
+                        animation: glitch-anim-1 calc(var(--time-anim) * 1.5) infinite linear alternate;
+                        &:nth-child(2) {
+                            animation-direction: reverse;
+                            animation-name: glitch-anim-3;
+                            animation-delay: calc(var(--time-anim) * 2);
+                            animation-duration: calc(var(--time-anim) + 2s);
+                        }
+                        &:nth-child(3) {
+                            animation-name: glitch-anim-2;
+                            animation-duration: calc(var(--time-anim) + 2s);
+                        }
+                        &:nth-child(4) {
+                            animation-direction: reverse;
+                            animation-duration: calc(var(--time-anim) + 3s);
+                            animation-delay: calc(var(--time-anim)/4 + 2s);
+                            animation-name: glitch-anim-1;
+                        }
+                        &:nth-child(5) {
+                            animation-delay: calc(var(--time-anim) * 2);
+                            animation-duration: calc(var(--time-anim) + 3s);
                             animation-name: glitch-anim-flash;
                         }
                     }
