@@ -67,6 +67,68 @@ const distMetric = (x,y,x2,y2) => {
     return (xDiff * xDiff) + (yDiff * yDiff);
 }
 
+class FloatingAnimation {
+	constructor(target, x, y, angle, duration) {
+		this.target = $(target);
+		this.x = x || 50;
+		this.y = y || 50;
+		this.angle = angle || 15;
+		this.duration = duration || 10;
+
+		this.randomX = this.random(this.x * 0.1, this.x);
+		this.randomY = this.random(this.y * 0.1, this.y);
+		this.randomAngle = this.random(this.angle * 0.1, this.angle);
+		this.randomMoveTime = this.random(this.duration * 0.5, this.duration);
+		this.randomRotateTime = this.random(this.duration, this.duration * 2);
+
+		gsap.set(this.target, {
+			x: this.randomX(Math.random() < 0.5 ? 1 : -1),
+			y: this.randomY(Math.random() < 0.5 ? 1 : -1),
+			// rotation: this.randomAngle(Math.random() < 0.5 ? 1 : -1),
+			transformOrigin: "center center",
+		}, 0);
+
+		this.moveX(this.target, Math.random() < 0.5 ? 1 : -1);
+		this.moveY(this.target, Math.random() < 0.5 ? 1 : -1);
+		// this.rotate(this.target, Math.random() < 0.5 ? 1 : -1);
+	}
+
+	random(min, max) {
+		const delta = max - min;
+		return (direction = 1) => (max - delta * Math.random()) * direction;
+	}
+
+	moveX(selector, direction) {
+		gsap.to(selector, {
+			duration: this.randomMoveTime(),
+			x: this.randomX(direction),
+			ease: 'Sine.inOut',
+			onComplete: this.moveX.bind(this),
+			onCompleteParams: [selector, direction * -1],
+		});
+	}
+
+	moveY(selector, direction) {
+		gsap.to(selector, {
+			duration:this.randomMoveTime(),
+			y: this.randomY(direction),
+			ease: 'Sine.inOut',
+			onComplete: this.moveY.bind(this),
+			onCompleteParams: [selector, direction * -1],
+		});
+	}
+
+	rotate(selector, direction) {
+		gsap.to(selector, {
+			duration: this.randomRotateTime(),
+			rotation: this.randomAngle(direction),
+			ease: 'Sine.inOut',
+			onComplete: this.rotate.bind(this),
+			onCompleteParams: [selector, direction * -1],
+		});
+	}
+}
+
 export {
     lerp,
     parseRem,
@@ -82,5 +144,6 @@ export {
     findClosestEdge,
     closestEdge,
     distMetric,
+    FloatingAnimation,
     debounce
 }

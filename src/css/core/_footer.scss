@@ -1,6 +1,7 @@
 .footer {
+    position: relative;
     padding-top: 6rem;
-    padding-bottom: 2rem;
+    // padding-bottom: 2rem;
     &-cta {
         display: flex;
         flex-direction: column;
@@ -18,6 +19,11 @@
                 color: $cl-heading;
             }
         }
+        &-btn {
+            .txt-btn {
+                padding: 2.4rem 8.55rem;
+            }
+        }
     }
     &-brands {
         padding: 1.6rem 0;
@@ -32,14 +38,43 @@
             }
         }
     }
-    &-logo {
-        width: 36.7rem;
-        margin: 0 auto 14rem;
+    &-curtain {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 70rem;
+        transform: translateY(1px);
+        // background-color: rgba($cl-primary, 1);
+        z-index: 1;
+
+        &-inner {
+            width: 100%;
+            height: calc(100% / 10);
+            scale: 1 calc(1/(var(--i)));
+            background-color: rgba($cl-primary, 1);
+            z-index: calc(-1 * var(--i) + 11);
+        }
+
+        &-logo {
+            position: absolute;
+            width: 36.7rem;
+            padding-top: 2rem;
+            z-index: 7;
+        }
+    }
+    .footer-copyright-wrapper {
+        position: absolute;
+        bottom: 2rem;
+
+        // background-color: rgba($cl-black, 1);
+        z-index: 2;
     }
     &-copyright {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        color: $cl-white;
     }
     &-links {
         display: flex;
@@ -47,7 +82,6 @@
         gap: 4.4rem;
     }
     &-link {
-        // padding: 0 2rem;
         position: relative;
         display: flex;
         align-items: center;
