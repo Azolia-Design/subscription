@@ -1,5 +1,5 @@
 import { parseRem, selector } from "../../helper/index";
-import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, typeOpts, findClosestEdge, closestEdge, distMetric, pointerCurr } from "../../helper";
+import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, findClosestEdge, FloatingAnimation, pointerCurr } from "../../helper";
 import Flip from '../../vendors/Flip';
 
 const home = {
@@ -413,57 +413,6 @@ const home = {
             $('.home-explore-industries-radar-wrapper-item-line-dot-wrap').on('pointerleave', function(e) {
                 $(this).removeClass('on-hover')
             })
-
-            // tl
-            // .fromTo('.home-industries-wrap-radar-scan', {
-            //     rotate:0,
-            // }, {
-            //     rotate: 180,
-            //     duration: 4,
-            //     ease: 'none',
-            // })
-            // .to('.home-industries-wrap-radar-scan', {
-            //     rotate: 360,
-            //     duration: 2,
-            //     ease: 'none',
-            // })
-            // .fromTo('.home-industries-wrap-radar-wrapper-item-line .home-industries-wrap-radar-wrapper-item-line-dot-wrap', {
-            //     autoAlpha: 0
-            // }, {
-            //     stagger: 4 / 9,
-            //     autoAlpha: 1,
-            //     duration: 4 / 9
-            // }, 0)
-            // .to('.home-industries-wrap-radar-wrapper-item-line .home-industries-wrap-radar-wrapper-item-line-dot-wrap', {
-            //     stagger: 4 / 9,
-            //     autoAlpha: 0,
-            //     duration: 4 / 9
-            // }, 4/9)
-            // .to('.home-industries-wrap-radar-wrapper-item-line .home-industries-wrap-radar-wrapper-item-line-dot-wrap', {
-            //     duration: 2
-            // }, `>=2`)
-
-            // tl
-            // .to('radar-scan', {duration: 4})
-            // .fromTo('.radar-item-group', {autoAplha: 0},{autoAplha: 1, stagger: 4/4, duration:4/4}, 0)
-
-
-            // let waves = $('.home-industries-wrap-radar-wrapper-inner-wave')
-            // clonseCounts = 10;
-            // const clone = waves.clone()
-
-            // for (let i = 1; i < clonseCounts; i++) {
-            //     let cloner = clone
-            //     waves.closest('.home-industries-wrap-radar-wrapper-inner').append(cloner)
-            // }
-            // const dur = 3,
-            //     ease= 'none',
-            //     delayValue = 2
-
-            // waves.each((idx, el) => {
-            //     gsap.fromTo(el, {scale: 0}, {scale: 1.5, duration: waves.length * delayValue, delay: (idx) * delayValue, repeat: -1, ease: ease})
-            // })
-            /* Dot Anim */
         }
         homeIndustries()
 
@@ -529,6 +478,47 @@ const home = {
             })
         }
         faqAccordion();
+
+        
+        function footer() {
+            function bearMove() {
+                new FloatingAnimation('.footer-curtain-logo img', 20, 10, 10, 10)
+
+                function parallaxBear() {
+                    let target = $('.footer-curtain-logo')
+                    let tarCurrX = xGetter(target.get(0))
+                    let tarCurrY = yGetter(target.get(0))
+                    let moveX = (pointerCurr().x/$(window).width() - 0.5) * (target.width()/2)
+                    let moveY = (pointerCurr().y/$(window).height() - 0.5) * (target.height()/2/4)
+                    xSetter(target.get(0))(lerp(tarCurrX, moveX, .005))
+                    ySetter(target.get(0))(lerp(tarCurrY, moveY, .005))
+
+                    requestAnimationFrame(parallaxBear)    
+                }
+                requestAnimationFrame(parallaxBear)
+            }
+            bearMove()
+
+
+            function curtainFooter() {
+                gsap.to('.footer-curtain-inner', {
+                    scrollTrigger: {
+                        trigger: '.footer-curtain',
+                        start: 'top bottom',
+                        end: 'bottom top+=60%',
+                        scrub: true,
+                    },
+                    scaleY: .0,
+                    transformOrigin: 'bottom',
+                    stagger: {
+                        amount: .25
+                    },
+                    ease: 'power1.inOut'
+                })
+            }
+            // curtainFooter()
+        }
+        footer()
     },
     beforeLeave() {
         console.log(`leave ${this.namespace}`);
