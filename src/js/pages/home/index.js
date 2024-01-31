@@ -395,18 +395,24 @@ const home = {
             }, 0)
             DOM.lineItem.each((idx, el) => {
                 tl
-                .fromTo($(el).find(DOM.dot), {
-                    opacity: 0
-                }, {
-                    opacity: 1,
-                    duration: .5,
+                .to($(el).find(DOM.dot), {
+                    onStart: () => {
+                        $(el).find(DOM.dot).addClass('active')
+                    }
                 }, `${ (0.1254480287 * lifeCycleTime) + (0.1111111111 * idx * lifeCycleTime)}`)
                 .to($(el).find(DOM.dot), {
-                    opacity: 0,
-                    duration: .5,
-                }, '<=1.5')
+                    onStart: () => {
+                        $(el).find(DOM.dot).removeClass('active')
+                    }
+                }, '<=2')
             })
 
+            $('.home-explore-industries-radar-wrapper-item-line-dot-wrap').on('pointerenter', function(e) {
+                $(this).addClass('on-hover')
+            })
+            $('.home-explore-industries-radar-wrapper-item-line-dot-wrap').on('pointerleave', function(e) {
+                $(this).removeClass('on-hover')
+            })
 
             // tl
             // .fromTo('.home-industries-wrap-radar-scan', {
