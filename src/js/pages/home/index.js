@@ -130,17 +130,18 @@ const home = {
                 start: 'top bottom',
                 once: true,
                 onEnter: () => {
-                    $('.home-skill-item').each((idx, el) => {
-                        const splitText = new SplitText($(el).find('.home-skill-item-title'), {type: "chars,lines", charsClass: 'char'})
+                    // $('.home-skill-item').each((idx, el) => {
+                    //     const splitText = new SplitText($(el).find('.home-skill-item-title'), {type: "chars,lines", charsClass: 'char'})
 
-                        $(el).on('mouseenter', function(e) {
-                            gsap.to(splitText.chars, {x: 50, duration: .4, stagger: .012, overwrite: true,})
-                            $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
-                        })
-                        $(el).on('mouseleave', function(e) {
-                            gsap.to(splitText.chars, {x: 0, duration: .2, overwrite: true})
-                            $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
-                        })
+                    //     
+                    // })
+                    $('.home-skill-item').on('mouseenter', function(e) {
+                        let idx = $(this).index()
+                        $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
+                    })
+                    $('.home-skill-item').on('mouseleave', function(e) {
+                        let idx = $(this).index()
+                        $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).removeClass('active')
                     })
                     $('.home-skill-thumb-item').each((idx, el) => {
                         let clone = $(el).find('img')
@@ -174,26 +175,33 @@ const home = {
         homeSkill()
 
         function homeProcess() {
-            let tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: '.home-process-step-listing',
-                    start: 'top top+=60%',
-                    end: 'bottom top+=80%',
-                    scrub: true,
-                },
-                default: {
-                    ease: 'none'
-                }
-            })
-
             $('.home-process-step').each((idx, el) => {
+                let clone = $(el).find('.img')
+                
+                for (let i = 1; i <= 5; i++) {
+                    let cloner = clone.clone()
+                    cloner.addClass('cloner')
+                    $(el).find('.home-process-step-img').append(cloner)
+                }
+
+                let tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top top+=60%',
+                        end: 'bottom top+=60%',
+                        scrub: true,
+                        // markers: true,
+                    },
+                })
                 tl
                 .from($(el).find('.home-process-step-background'), {
                     scale: 0,
-                    borderRadius: '1rem'
-                })
+                    borderRadius: '1rem',
+                    ease: 'sine.out'
+                }, 0)
                 .from($(el).find('.home-process-step-img, .home-process-step-content'), {
                     opacity: 0,
+                    ease: 'sine.in'
                 }, "<=.2")
             })
         }
@@ -353,7 +361,7 @@ const home = {
 
                     if (pointerCurr().x < (target.width()/2 + offsetL + tarCurrX)){rotVl = -1}
                     else {rotVl = 1}
-                    rotZSetter(target.get(0))(lerp(tarCurrRot, rotVl * rotValue * (Math.min(Math.max(((tarX + tarY) - (tarCurrX + tarCurrY))/5, -15), 15)), .06))
+                    // rotZSetter(target.get(0))(lerp(tarCurrRot, rotVl * rotValue * (Math.min(Math.max(((tarX + tarY) - (tarCurrX + tarCurrY))/5, -15), 15)), .06))
                 }
                 requestAnimationFrame(initMouseMove)
             }

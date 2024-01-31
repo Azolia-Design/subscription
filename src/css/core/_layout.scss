@@ -226,10 +226,15 @@ button {
             position: absolute;
             width: $cs-md;
             height: $cs-md;
-            border-radius: 50%;
-            border: dotted 2px rgba(255, 255, 255, .2);
-            animation: rotate 20s linear infinite;
-            will-change: width, height, rotate;
+
+            &-inner {
+                width: 100%;
+                height: 100%;
+                border: dotted 2px rgba(255, 255, 255, .2);
+                border-radius: 50%;
+                animation: rotate 20s linear infinite;
+                will-change: width, height, rotate;
+            }
         }
         @keyframes rotate {
             0% {

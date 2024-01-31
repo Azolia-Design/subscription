@@ -51,9 +51,9 @@
         &-inner {
             width: 100%;
             height: calc(100% / 10);
-            scale: 1 calc(1/(var(--i)));
             background-color: rgba($cl-primary, 1);
             z-index: calc(-1 * var(--i) + 11);
+            transform: scale(1, calc(1 / var(--i)));
         }
 
         &-logo {
@@ -66,7 +66,6 @@
     .footer-copyright-wrapper {
         position: absolute;
         bottom: 2rem;
-
         // background-color: rgba($cl-black, 1);
         z-index: 2;
     }
@@ -85,13 +84,15 @@
         position: relative;
         display: flex;
         align-items: center;
+
         &:after {
-            position: absolute;
             content: '';
+            position: absolute;
             right: -2.2rem;
             background-color: rgba($cl-white, .2);
             @include size(2px, 100%);
         }
+
         &:last-child:after {
             display: none;
         }
