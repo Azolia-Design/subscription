@@ -127,7 +127,7 @@ const home = {
             let otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem");
             const ITEM_WIDTH = ($('.container').width() - percentage(25, $('.container').width())) / 5;
 
-            gsap.set(BENEFIT.stage, { height: totalDistance  });
+            gsap.set(BENEFIT.stage, { height: totalDistance + cvUnit(100, "rem") });
 
             // BENEFIT.otherItem.each((_, item) => {
             //     let benefit = $(item).find('.home-benefit-other-title').text().toLowerCase().replace(' ', '-');
@@ -213,15 +213,15 @@ const home = {
                     })
             })
             scrollerTl
-            .to(BENEFIT.wrap, {
-                scale: 0.5, autoAlpha: 0,
-                duration: 2,
-            }, '>=-1')
+                .to(BENEFIT.wrap, {
+                    scale: 0.5, autoAlpha: 0,
+                    duration: 2,
+                }, '>=-.5')
 
-            .to(BENEFIT.wrap, {
-                yPercent: -8,
-                duration: 1
-            }, "<= .8")
+                .to(BENEFIT.wrap, {
+                    yPercent: -8,
+                    duration: 1
+                }, "<= .8")
 
             $('.home-benefit-other-sub-btn').on('click', function(e) {
                 e.preventDefault();
@@ -229,7 +229,7 @@ const home = {
                 scrollToLabel(1, scrollerTl, `label${target}`)
             })
 
-            gsap.set('.home-showreel', { marginTop: -cvUnit(80, "vh") })
+            gsap.set('.home-showreel', { marginTop: -cvUnit(60, "vh") })
 
             function scrollToLabel(duration, timeline, label) {
                 const yStart = $('.home-benefit').offset().top - $('.header').outerHeight()
@@ -248,7 +248,7 @@ const home = {
         function showreelGalleryZoom() {
             const GALLERY = {
                 wrap: $('.home-showreel'),
-                item: $('.home-showreel-item'),
+                item: ({ wrap, item }) => GALLERY.otherWrap.eq(wrap).find(GALLERY.otherInner).eq(item),
                 mainWrap: $('.home-showreel-main--inner'),
                 mainInner: $('.home-showreel-item-main'),
                 otherWrap: $('.home-showreel-other--inner'),
@@ -256,66 +256,32 @@ const home = {
                 thumbPlay: $('.home-showreel-play')
             }
 
-            let tl = gsap.timeline({
+            let showreelTl = gsap.timeline({
                 defaults: { ease: 'none' },
                 scrollTrigger: {
                     trigger: GALLERY.wrap,
-                    start: `top top+=30%`,
+                    start: `top bottom`,
                     end: 'bottom bottom',
-                    scrub: true
+                    scrub: true,
+                    markers: true
                 }
             })
 
-            tl
-                .from(GALLERY.mainWrap, {
-                    scaleX: .25, scaleY: .7,
-                    duration: 1
-                }, "<=0")
-                .from(GALLERY.mainInner, {
-                    scaleX: 4, scaleY: 1.428,
-                    duration: 1
-                }, "<=0")
-                .from(GALLERY.mainInner.find('.img'), {
-                    scaleY: 1.5,
-                    duration: 1
-                }, "<=0")
-                .to(GALLERY.otherInner, {
-                    scale: 1.2,
-                    // '-webkit-filter': 'blur(' + 2.5 + 'px' + ')',
-                    // 'filter': 'blur(' + 2.5 + 'px' + ')'
-                }, "<=0")
-                .to(GALLERY.otherInner.find(".img"), {
-                    scale: 1.6,
-                    duration: 1
-                }, "<=0")
-                .to(GALLERY.otherWrap.eq(0).find(GALLERY.otherInner).eq(2), {
-                    xPercent: -250,
-                    duration: 1,
-                }, "<=0")
-                .to(GALLERY.otherWrap.eq(0).find(GALLERY.otherInner).eq(1), {
-                    xPercent: -460,
-                    duration: 1,
-                }, "<=0")
-                .to(GALLERY.otherWrap.eq(0).find(GALLERY.otherInner).eq(0), {
-                    xPercent: -760,
-                    duration: 1,
-                }, "<=0")
-                .to(GALLERY.otherWrap.eq(1).find(GALLERY.otherInner).eq(2), {
-                    xPercent: 250,
-                    duration: 1,
-                }, "<=0")
-                .to(GALLERY.otherWrap.eq(1).find(GALLERY.otherInner).eq(1), {
-                    xPercent: 460,
-                    duration: 1,
-                }, "<=0")
-                .to(GALLERY.otherWrap.eq(1).find(GALLERY.otherInner).eq(0), {
-                    xPercent: 760,
-                    duration: 1,
-                }, "<=0")
-                .from(GALLERY.thumbPlay, {
-                    autoAlpha: 0, y: 30,
-                    duration: .5
-                })
+            const getOtherItem = ({ wrap, item }) => GALLERY.otherWrap.eq(wrap).find(GALLERY.otherInner).eq(item);
+            showreelTl
+                .to('.home-showreel-overlay', { autoAlpha: 0, duration: .1 })
+                .from([getOtherItem({ wrap: 0, item: 2 }), getOtherItem({ wrap: 1, item: 2 })], { y: 80, duration: .2 }, "<=0")
+                .from([getOtherItem({ wrap: 0, item: 1 }), getOtherItem({ wrap: 1, item: 1 })], { y: 200, duration: .2 }, "<=0")
+                .from([getOtherItem({ wrap: 0, item: 0 }), getOtherItem({ wrap: 1, item: 0 })], { y: 320, duration: .2 }, "<=0")
+                .from(GALLERY.mainWrap, { "clipPath": `inset(14% 37.35% 14% 37.35% round ${cvUnit(20, "rem")}px)`, duration: 1 }, ">=-0.1")
+                .to(GALLERY.otherInner.find(".img"), { scale: 1.6, duration: 1 }, "<=0")
+                .to(getOtherItem({ wrap: 0, item: 2 }), { xPercent: -255, duration: 1 }, "<=0")
+                .to(getOtherItem({ wrap: 0, item: 1 }), { xPercent: -460, duration: 1 }, "<=0")
+                .to(getOtherItem({ wrap: 0, item: 0 }), { xPercent: -760, duration: 1 }, "<=0")
+                .to(getOtherItem({ wrap: 1, item: 2 }), { xPercent: 255, duration: 1 }, "<=0")
+                .to(getOtherItem({ wrap: 1, item: 1 }), { xPercent: 460, duration: 1 }, "<=0")
+                .to(getOtherItem({ wrap: 1, item: 0 }), { xPercent: 760, duration: 1 }, "<=0")
+                .from(GALLERY.thumbPlay, { autoAlpha: 0, y: 30, duration: .5 }, ">=-1")
         }
         showreelGalleryZoom()
 
