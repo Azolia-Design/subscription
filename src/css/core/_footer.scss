@@ -51,72 +51,47 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        height: 70rem;
         transform: translateY(1px);
-        // background-color: rgba($cl-primary, 1);
         z-index: 1;
 
-        &-inner {
-            width: 100%;
-            height: calc(100% / 10);
-            background-color: rgba($cl-primary, 1);
-            z-index: calc(-1 * var(--i) + 11);
-            // transform: scale(1, calc(1 / var(--i)));
-            transform-origin: bottom;
-
-            &:nth-child(1) {
-                transform: scale(1, .01);
-            }
-            &:nth-child(2) {
-                transform: scale(1, .05);
-            }
-            &:nth-child(3) {
-                transform: scale(1, .1);
-            }
-            &:nth-child(4) {
-                transform: scale(1, .15);
-            }
-            &:nth-child(5) {
-                transform: scale(1, .2);
-            }
-            &:nth-child(6) {
-                transform: scale(1, .3);
-            }
-            &:nth-child(7) {
-                transform: scale(1, .5);
-            }
-            &:nth-child(8) {
-                transform: scale(1, .7);
-            }
-            &:nth-child(9) {
-                transform: scale(1, .8);
-            }
-            &:nth-child(10) {
-                transform: scale(1, .9);
-            }
+        .footer-curtain-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            @include size(100%);
+            background: url("../../public/imgs/ft-line1.svg");
+            background-repeat: repeat-x;
+            background-size: auto 100%;
+        }
+        .footer-curtain-line2 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: url("../../public/imgs/ft-line2.svg");
+            background-repeat: repeat-x;
+            background-size: auto 100%;
+            z-index: 3;
         }
 
         &-logo {
-            position: absolute;
             width: 36.7rem;
-            padding-top: 2rem;
-            z-index: 6;
+            margin-bottom: 6.8rem;
+            z-index: 2;
         }
         &-hide {
             position: absolute;
+            opacity: 0;
             bottom: 0;
             height: 30%;
             width: 100%;
             background-color: rgba($cl-black, 1);
-            z-index: 6;
+            z-index: 3;
         }
     }
     .footer-copyright-wrapper {
-        position: absolute;
-        bottom: 2rem;
-        // background-color: rgba($cl-black, 1);
-        z-index: 2;
+        margin-top: -4.1rem;
+        padding-bottom: 2rem;
+        z-index: 1;
     }
     &-copyright {
         display: flex;
