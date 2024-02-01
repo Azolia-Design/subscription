@@ -184,7 +184,7 @@ const home = {
             $('.home-benefit-other-sub-btn').on('click', function(e) {
                 e.preventDefault();
                 let target = $(this).closest('.home-benefit-item.home-benefit-other').index();
-                scrollToLabel(5, scrollerTl, `label${target}`)
+                scrollToLabel(1, scrollerTl, `label${target}`)
             })
 
             gsap.set('.home-showreel', { marginTop: -cvUnit(80, "vh") })
@@ -275,7 +275,7 @@ const home = {
                     duration: .5
                 })
         }
-        showreelGalleryZoom()
+        // showreelGalleryZoom()
 
         function homeSkill() {
             ScrollTrigger.create({
