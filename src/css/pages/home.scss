@@ -1437,7 +1437,7 @@
                 top: 0;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                z-index: 2;
+                z-index: 5;
                 background: linear-gradient(180deg, #F5370D 0%, #F5430D 34%, #F58A0D 100%);
                 @include size(12.5rem);
                 display: flex;
@@ -1477,6 +1477,7 @@
                         @include size(100%);
                         border-radius: 0 0 1000rem 1000rem;
                         overflow: hidden;
+                        z-index: 1;
 
                         &-wave {
                             position: absolute;
@@ -1507,6 +1508,7 @@
                         left: 0;
                         right: 0;
                         @include size(100%);
+                        z-index: 3;
 
                         &-line {
                             position: absolute;
@@ -1605,11 +1607,12 @@
 
                 &-scan {
                     position: absolute;
-                    width: 105.294117647%;
-                    top: -105.294117647%;
-                    left: -2.6470588235%;
+                    width: 110.6%;
+                    top: -110.6%;
+                    left: -5.3%;
                     right: 0;
                     pointer-events: none;
+                    z-index: 2;
                 }
             }
         }
