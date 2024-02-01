@@ -46,7 +46,6 @@ const home = {
                             $(`.header-menu-prog-item[data-header-id="${id}"]`).addClass('active');
                             $(`.header-menu-prog-item`).not(`[data-header-id="${id}"]`).removeClass('active');
                             let percent = Math.ceil((self.progress * 100) - 100);
-                            console.log(percent)
                             gsap.to($(`.header-menu-prog-item[data-header-id="${id}"]`).find('.header-menu-prog-item-inner'), {xPercent: percent, duration: .3, overwrite: true})
                         }
                     })
@@ -56,7 +55,6 @@ const home = {
                     start: `top top+=${offset}`,
                     end: `bottom bottom-=${offset}`,
                     onLeave: () => {
-                        console.log('on leave')
                         $(`.header-menu-label-item`).removeClass('active');
                         $(`.header-menu-prog-item`).removeClass('active');
                     },
