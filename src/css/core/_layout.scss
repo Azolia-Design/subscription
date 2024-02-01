@@ -87,9 +87,10 @@ button {
 }
 
 //Layout
-.container {
+:root {
     --container-padding: 4rem;
-
+}
+.container {
     position: relative;
     z-index: 2;
     width: 100%;
@@ -144,7 +145,7 @@ button {
         height: calc(100% + 42vw);
         background-position: 40%;
         animation: noise 2s steps(4) infinite;
-        background-image: url(../../assets/bg-noise-grain.png);
+        background-image: url(../../public/imgs/bg-noise-grain.png?as=webp);
     }
     @keyframes noise {
         0% {

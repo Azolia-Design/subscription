@@ -140,7 +140,7 @@ const home = {
 
             BENEFIT.otherItem.each((index, item) => {
                 let itemSelect = selector(item);
-                gsap.set(itemSelect('span'), { scaleX: 0 });
+                gsap.set(itemSelect('.home-benefit-item-overlay'), { scaleX: 0 });
                 let label = $(item).find('.home-benefit-other-title').text().toLowerCase().replace(' ', '-');
                 $(item).attr('data-label', `${label}`)
 
@@ -186,17 +186,17 @@ const home = {
                 let target = $(this).closest('.home-benefit-item.home-benefit-other').index();
                 scrollToLabel(5, scrollerTl, `label${target}`)
             })
-            
+
             gsap.set('.home-showreel', { marginTop: -cvUnit(80, "vh") })
 
-            function scrollToLabel(duration, timeline, label) {   
+            function scrollToLabel(duration, timeline, label) {
                 const yStart = $('.home-benefit').offset().top - $('.header').outerHeight()
                 const now = timeline.progress()
                 timeline.seek(label)
                 const goToProgress = timeline.progress()
                 timeline.progress(now)
                 lenis.scrollTo(yStart + ( timeline.scrollTrigger.end - timeline.scrollTrigger.start ) * goToProgress, {
-                    duration: duration, 
+                    duration: duration,
                     force: true
                 })
             }
@@ -380,7 +380,7 @@ const home = {
                     ease: 'sine.in',
                     duration: .8
                 }, 3.2)
-                
+
             })
         }
         homeProcess()
