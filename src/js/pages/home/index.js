@@ -234,8 +234,8 @@ const home = {
                 }, "<=0")
                 .to(GALLERY.otherInner, {
                     scale: 1.2,
-                    '-webkit-filter': 'blur(' + 2.5 + 'px' + ')',
-                    'filter': 'blur(' + 2.5 + 'px' + ')'
+                    // '-webkit-filter': 'blur(' + 2.5 + 'px' + ')',
+                    // 'filter': 'blur(' + 2.5 + 'px' + ')'
                 }, "<=0")
                 .to(GALLERY.otherInner.find(".img"), {
                     scale: 1.6,
