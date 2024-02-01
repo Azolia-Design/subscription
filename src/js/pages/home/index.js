@@ -336,7 +336,6 @@ const home = {
         function homeProcess() {
             $('.home-process-step').each((idx, el) => {
                 let clone = $(el).find('.img')
-
                 for (let i = 1; i <= 5; i++) {
                     let cloner = clone.clone()
                     cloner.addClass('cloner')
@@ -350,37 +349,22 @@ const home = {
                         end: 'bottom top+=70%',
                         scrub: .3,
                     },
-                    // duration: 5
                 })
-                tl
-                .from($(el).find('.home-process-step-background'), {
-                    scale: 0,
-                    borderRadius: '6rem',
-                    ease: 'sine.out',
-                    duration: 4
-                }, 0)
-                .from($(el).find('.home-process-step-img'), {
-                    autoAlpha: 0,
-                    scale: .9,
-                    ease: 'sine.in',
-                    duration: 1
-                }, 1.8)
-                .from($(el).find('.home-process-step-label'), {
-                    autoAlpha: 0,
-                    ease: 'sine.in',
-                    duration: .5
-                }, 3)
-                .from($(el).find('.home-process-step-title'), {
-                    autoAlpha: 0,
-                    ease: 'sine.in',
-                    duration: .8
-                }, 3)
-                .from($(el).find('.home-process-step-desc'), {
-                    autoAlpha: 0,
-                    ease: 'sine.in',
-                    duration: .8
-                }, 3.2)
-
+                if (idx % 2 == 0) {
+                    tl
+                    .from($(el).find('.home-process-step-background'), {scale: 0, borderRadius: '8rem', ease: 'sine.out', duration: 4}, 0)
+                    .from($(el).find('.home-process-step-img'), {autoAlpha: 0, scale: .8, yPercent: 20, ease: 'sine.inOut', duration: 1}, 2)
+                    .from($(el).find('.home-process-step-label'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.2')
+                    .from($(el).find('.home-process-step-title'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.4')
+                    .from($(el).find('.home-process-step-desc'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.4')
+                } else {
+                    tl
+                    .from($(el).find('.home-process-step-background'), {scale: 0, borderRadius: '8rem', ease: 'sine.out', duration: 4}, 0)
+                    .from($(el).find('.home-process-step-img'), {autoAlpha: 0, scale: .8, yPercent: 20, ease: 'sine.inOut', duration: 1}, 2)
+                    .from($(el).find('.home-process-step-label'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.2')
+                    .from($(el).find('.home-process-step-title'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.4')
+                    .from($(el).find('.home-process-step-desc'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.4')
+                }
             })
         }
         homeProcess()
