@@ -349,38 +349,40 @@ const home = {
                     scrollTrigger: {
                         trigger: el,
                         start: 'top top+=60%',
-                        end: 'bottom top+=60%',
-                        scrub: .4,
-                        // markers: true
+                        end: 'bottom top+=70%',
+                        scrub: .3,
                     },
                     // duration: 5
                 })
                 tl
                 .from($(el).find('.home-process-step-background'), {
                     scale: 0,
-                    borderRadius: '3rem',
+                    borderRadius: '6rem',
                     ease: 'sine.out',
-                    duration: 1
+                    duration: 4
                 }, 0)
+                .from($(el).find('.home-process-step-img'), {
+                    autoAlpha: 0,
+                    scale: .9,
+                    ease: 'sine.in',
+                    duration: 1
+                }, 1.8)
                 .from($(el).find('.home-process-step-label'), {
                     autoAlpha: 0,
                     ease: 'sine.in',
                     duration: .5
-                }, 1.5)
+                }, 3)
                 .from($(el).find('.home-process-step-title'), {
                     autoAlpha: 0,
                     ease: 'sine.in',
-                    duration: .5
-                }, 2)
+                    duration: .8
+                }, 3)
                 .from($(el).find('.home-process-step-desc'), {
                     autoAlpha: 0,
                     ease: 'sine.in',
-                    duration: .5
-                }, 2.5)
-                // .from($(el).find('.home-process-step-img, .home-process-step-content'), {
-                //     autoAlpha: 0,
-                //     ease: 'sine.in'
-                // }, "<=.2")
+                    duration: .8
+                }, 3.2)
+                
             })
         }
         homeProcess()
