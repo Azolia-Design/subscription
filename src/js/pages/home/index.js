@@ -1,7 +1,7 @@
 import { parseRem, selector } from "../../helper/index";
+import { cvUnit, percentage } from "../../helper/viewport";
+import { lenis } from "../../common/lenis";
 import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, findClosestEdge, FloatingAnimation, pointerCurr } from "../../helper";
-import Flip from '../../vendors/Flip';
-import {lenis} from '../../common/lenis'
 
 const home = {
     namespace: "home",
@@ -71,99 +71,213 @@ const home = {
 
         function benefitStackScroll() {
             const BENEFIT = {
-                wrap: $('.home-benefit'),
+                stage: $('.home-benefit'),
+                wrap: $('.home-benefit--wrap'),
                 list: $('.home-benefit-list'),
                 item: $('.home-benefit-item'),
                 mainItem: $('.home-benefit-main'),
                 otherItem: $('.home-benefit-other'),
                 otherWrap: $('.home-benefit-other-wrap')
             }
-            let scrollerTl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: BENEFIT.wrap,
-                    start: `top-=${$('header').outerHeight()} top`,
-                    end: 'bottom bottom',
-                    scrub: true
-                }
-            })
 
             let mainItemSelect = selector(BENEFIT.mainItem);
+            let totalDistance = BENEFIT.mainItem.width() + (BENEFIT.otherItem.width() * BENEFIT.otherItem.length);
+            let otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem");
+            const ITEM_WIDTH = ($('.container').width() - percentage(25, $('.container').width())) / 5;
+
+            gsap.set(BENEFIT.stage, { height: totalDistance  });
+
+            // BENEFIT.otherItem.each((_, item) => {
+            //     let benefit = $(item).find('.home-benefit-other-title').text().toLowerCase().replace(' ', '-');
+            //     $(item).attr('href', `#benefit-${benefit}`)
+            // })
+
+            let reqCheck;
+            function checkHiddenImg() {
+                BENEFIT.otherItem.each((idx, item) => {
+                    if (idx + 1 < BENEFIT.otherItem.length) {
+                        let rectCurrent = BENEFIT.otherItem.eq(idx).get(0).getBoundingClientRect();
+                        let rectNext = BENEFIT.otherItem.eq(idx + 1).get(0).getBoundingClientRect();
+                        let distanceItem = Math.abs(rectCurrent.left - rectNext.left);
+                        let img = $(item).find('.home-benefit-other-img');
+                        if (distanceItem <= ITEM_WIDTH) {
+                            img.addClass('hidden');
+                        }
+                        else {
+                            img.removeClass('hidden');
+                        }
+                    }
+                })
+                reqCheck = window.requestAnimationFrame(checkHiddenImg);
+            }
+
+            let scrollerTl = gsap.timeline({
+                defaults: { ease: 'none' },
+                scrollTrigger: {
+                    trigger: BENEFIT.stage,
+                    start: `top-=${$('header').outerHeight()} top`,
+                    end: 'bottom bottom',
+                    scrub: true,
+                    onEnter: () => checkHiddenImg(),
+                    onEnterBack: () => checkHiddenImg(),
+                    onLeaveBack: () => window.cancelAnimationFrame(reqCheck),
+                    onLeave: () => window.cancelAnimationFrame(reqCheck)
+                }
+            })
             scrollerTl
                 .to(mainItemSelect('h2'), {
                     scale: 0.56, transformOrigin: "top left", ease: "linear",
                     duration: 1
                 }, 0)
                 .to(mainItemSelect('p'), {
-                    marginTop: "-6rem", ease: "linear",
+                    marginTop: "-6rem",
                     duration: 1
                 }, 0)
                 .to(BENEFIT.otherWrap, {
-                    x: -BENEFIT.mainItem.width() + parseRem(100), ease: "linear",
+                    x: -otherWrapDistance,
                     duration: 1
                 }, 0)
 
             BENEFIT.otherItem.each((index, item) => {
-                const ITEM_WIDTH = 210 + parseRem(100);
                 let itemSelect = selector(item);
-                    gsap.set(itemSelect('span'), { scaleX: 0 });
-                    scrollerTl
+                gsap.set(itemSelect('span'), { scaleX: 0 });
+                let label = $(item).find('.home-benefit-other-title').text().toLowerCase().replace(' ', '-');
+                $(item).attr('data-label', `${label}`)
+
+                scrollerTl
                         .to(item, {
-                            duration: 1,
-                            paddingLeft: parseRem(40)
+                            duration: 1
                         })
                         .to(itemSelect('h3'), {
-                            scale: .75, transformOrigin: "top left", ease: "linear", duration: 1
+                            scale: .75, transformOrigin: "top left", duration: 1
                         }, '<=0')
-                        .to(itemSelect('span'), {
-                            scaleX: 1, transformOrigin: "right", ease: "linear", duration: 1
-                        }, "<=0")
+                        .to(itemSelect('.home-benefit-item-overlay'), {
+                            scaleX: 1, transformOrigin: "right", duration: 1
+                        }, '<=0')
                         .to(itemSelect('p'), {
-                            autoAlpha: 0, ease: "linear", duration: 1,
-                            // onComplete: () => $(item).removeClass('active')
+                            autoAlpha: 0, duration: 1
                         }, '<=0.2')
 
                     BENEFIT.otherItem.each((idx, el) => {
                         if (idx > index) {
                             scrollerTl
                                 .to(el, {
-                                    x: -(ITEM_WIDTH * ( 1 + index )), ease: "linear",
+                                    x: -(ITEM_WIDTH * ( 1 + index )),
+                                    paddingLeft: parseRem(40),
                                     duration: 1,
                                 }, '<=0')
                         }
                     })
             })
+
+            // scrollerTl.to('.home-benefit--wrap', {
+            //     scale: 0.8, duration: 1
+            // }, 6)
+
+            let scaleTl = gsap.timeline({
+                defaults: { ease: 'none' },
+                scrollTrigger: {
+                    trigger: BENEFIT.stage,
+                    // start: `top-=${$('header').outerHeight()} top`,
+                    end: 'bottom bottom-=10',
+                    scrub: true
+                }
+            })
+
+            scaleTl
+                .set('.home-showreel', { marginTop: -cvUnit(80, "vh") })
+                .to(BENEFIT.wrap, {
+                    scale: 0.5, autoAlpha: 0,
+                    duration: 2,
+                }, 12)
+                .to(BENEFIT.wrap, {
+                    yPercent: -8,
+                    duration: 1
+                }, "<= .8")
+
+            let benefitTl = gsap.timeline();
+            benefitTl.add(scrollerTl).add(scaleTl);
+
+            // BENEFIT.otherItem.on('click', function (e) {
+            //     // let label = $(this).attr('data-label');
+            //     scrollerTl.seek("50%");
+            // })
         }
         benefitStackScroll();
 
         function showreelGalleryZoom() {
             const GALLERY = {
                 wrap: $('.home-showreel'),
-                list: $('.home-showreel--inner'),
                 item: $('.home-showreel-item'),
-                mainItem: $('.home-showreel-item-main'),
-                otherItem: $('.home-showreel-item-other')
+                mainWrap: $('.home-showreel-main--inner'),
+                mainInner: $('.home-showreel-item-main'),
+                otherWrap: $('.home-showreel-other--inner'),
+                otherInner: $('.home-showreel-item-other'),
+                thumbPlay: $('.home-showreel-play')
             }
+
             let tl = gsap.timeline({
+                defaults: { ease: 'none' },
                 scrollTrigger: {
                     trigger: GALLERY.wrap,
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: true,
+                    start: `top top+=30%`,
+                    end: 'bottom bottom',
+                    scrub: true
                 }
             })
 
             tl
-                .to(GALLERY.list, {
-                    scale: 5, ease: 'none'
+                .from(GALLERY.mainWrap, {
+                    scaleX: .25, scaleY: .7,
+                    duration: 1
+                }, "<=0")
+                .from(GALLERY.mainInner, {
+                    scaleX: 4, scaleY: 1.428,
+                    duration: 1
+                }, "<=0")
+                .from(GALLERY.mainInner.find('.img'), {
+                    scaleY: 1.5,
+                    duration: 1
+                }, "<=0")
+                .to(GALLERY.otherInner, {
+                    scale: 1.2,
+                    // '-webkit-filter': 'blur(' + 2.5 + 'px' + ')',
+                    // 'filter': 'blur(' + 2.5 + 'px' + ')'
+                }, "<=0")
+                .to(GALLERY.otherInner.find(".img"), {
+                    scale: 1.6,
+                    duration: 1
+                }, "<=0")
+                .to(GALLERY.otherWrap.eq(0).find(GALLERY.otherInner).eq(2), {
+                    xPercent: -250,
+                    duration: 1,
+                }, "<=0")
+                .to(GALLERY.otherWrap.eq(0).find(GALLERY.otherInner).eq(1), {
+                    xPercent: -460,
+                    duration: 1,
+                }, "<=0")
+                .to(GALLERY.otherWrap.eq(0).find(GALLERY.otherInner).eq(0), {
+                    xPercent: -760,
+                    duration: 1,
+                }, "<=0")
+                .to(GALLERY.otherWrap.eq(1).find(GALLERY.otherInner).eq(2), {
+                    xPercent: 250,
+                    duration: 1,
+                }, "<=0")
+                .to(GALLERY.otherWrap.eq(1).find(GALLERY.otherInner).eq(1), {
+                    xPercent: 460,
+                    duration: 1,
+                }, "<=0")
+                .to(GALLERY.otherWrap.eq(1).find(GALLERY.otherInner).eq(0), {
+                    xPercent: 760,
+                    duration: 1,
+                }, "<=0")
+                .from(GALLERY.thumbPlay, {
+                    autoAlpha: 0, y: 30,
+                    duration: .5
                 })
-                .to(GALLERY.otherItem.find('img'), {
-                    opacity: 0, ease: 'none'
-                }, "<= 0")
-                .from(GALLERY.mainItem.find('img'), {
-                    scale: 1.5, ease: 'none'
-                }, "<= 0")
         }
-        // showreelGalleryZoom()
+        showreelGalleryZoom()
 
         function homeSkill() {
             ScrollTrigger.create({
@@ -180,7 +294,7 @@ const home = {
                     // $('.home-skill-item').each((idx, el) => {
                     //     const splitText = new SplitText($(el).find('.home-skill-item-title'), {type: "chars,lines", charsClass: 'char'})
 
-                    //     
+                    //
                     // })
                     $('.home-skill-item').on('mouseenter', function(e) {
                         let idx = $(this).index()
@@ -224,7 +338,7 @@ const home = {
         function homeProcess() {
             $('.home-process-step').each((idx, el) => {
                 let clone = $(el).find('.img')
-                
+
                 for (let i = 1; i <= 5; i++) {
                     let cloner = clone.clone()
                     cloner.addClass('cloner')
@@ -404,9 +518,9 @@ const home = {
                         gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
                     }
                 }
-                
+
             })
-            
+
             function initMouseMove() {
                 let offsetL =  parseFloat(target.css('left'))
                 let rotVl
@@ -575,7 +689,7 @@ const home = {
         }
         faqAccordion();
 
-        
+
         function footer() {
             function bearMove() {
                 new FloatingAnimation('.footer-curtain-logo img', 20, 10, 10, 10)
@@ -589,7 +703,7 @@ const home = {
                     xSetter(target.get(0))(lerp(tarCurrX, moveX, .005))
                     ySetter(target.get(0))(lerp(tarCurrY, moveY, .005))
 
-                    requestAnimationFrame(parallaxBear)    
+                    requestAnimationFrame(parallaxBear)
                 }
                 requestAnimationFrame(parallaxBear)
             }
