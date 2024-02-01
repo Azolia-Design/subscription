@@ -89,10 +89,10 @@
                 position: absolute;
                 width: 12.5%;
                 aspect-ratio: 1;
-                background-color: white;
+                background-color: $cl-white;
                 border-radius: 50%;
                 top: 33.33%;
-                box-shadow: 0rem 0rem 1rem 0rem rgba(255, 255, 255, 0.75);
+                box-shadow: 0rem 0rem 1rem 0rem rgba($cl-white, 0.75);
                 @include animation(moveWheel 2s alternate-reverse infinite);
             }
         }
@@ -345,7 +345,7 @@
             &-ic {
                 border-radius: 50%;
                 aspect-ratio: 1;
-                background: rgba(255, 255, 255, 0.20);
+                background: rgba($cl-white, 0.20);
                 display: flex;
                 align-items: center;
                 flex: none;
@@ -413,31 +413,15 @@
             border-top: 1px solid rgba($cl-heading, 0.1);
             &-title {
                 grid-column: 2/11;
-                @include transition(color 1.333s linear(
-                    0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938, 1.077 20.4%, 1.121,
-                    1.149 24.3%, 1.163 27%, 1.154 29.9%, 1.017 43.1%, 0.991, 0.977 51%,
-                    0.975 57.1%, 1.003 76.9%, 1
-                ));
+                @include transition(color 1.333s var(--spring-easing-2));
             }
             &-desc {
                 grid-column: 12/17;
                 opacity: 0;
                 @include transform(translate(0, .8rem));
                 @include transition(
-                    opacity 2.333s linear(
-                        0, 0.002, 0.009 1%, 0.035, 0.078, 0.141 4.4%, 0.281 6.7%, 0.723 12.9%, 0.842,
-                        0.938, 1.017, 1.077 20.4%, 1.101, 1.121, 1.137, 1.149 24.3%, 1.159, 1.163,
-                        1.161, 1.154, 1.143, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 1.002, 0.991,
-                        0.982 48.9%, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.979 60%, 0.997 69.8%,
-                        1.001, 1.003 76.9%, 1.004 83.8%, 1
-                    ),
-                    transform 2.333s linear(
-                        0, 0.002, 0.009 1%, 0.035, 0.078, 0.141 4.4%, 0.281 6.7%, 0.723 12.9%, 0.842,
-                        0.938, 1.017, 1.077 20.4%, 1.101, 1.121, 1.137, 1.149 24.3%, 1.159, 1.163,
-                        1.161, 1.154, 1.143, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 1.002, 0.991,
-                        0.982 48.9%, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.979 60%, 0.997 69.8%,
-                        1.001, 1.003 76.9%, 1.004 83.8%, 1
-                    ));
+                    opacity .8s ease-in-out,
+                    transform 2.333s var(--spring-easing-1));
             }
             @media (hover:hover) {
                 &:hover {
@@ -492,15 +476,12 @@
                 &.active {
                     opacity: 1;
                     transform: scale(1.1);
-                    @include transition(
-                        opacity .8s ease-out,
-                        transform .2s cubic-bezier(0.45, 0.5, 0.55, 1)
-                    );
+                    @include transition(opacity .8s ease-out, transform .2s cubic-bezier(0.45, 0.5, 0.55, 1));
                 }
 
                 &:nth-child(1).active {
                     img.cloner {
-                        animation: glitch-anim-1 var(--time-anim) infinite linear alternate;
+                        @include animation(glitch-anim-1 var(--time-anim) infinite linear alternate);
                         &:nth-child(2) {
                             animation-name: glitch-anim-1;
                             animation-delay: calc(var(--time-anim) + 4s);
@@ -523,7 +504,7 @@
                 }
                 &:nth-child(2).active {
                     img.cloner {
-                        animation: glitch-anim-1 var(--time-anim) infinite linear alternate;
+                        @include animation(glitch-anim-1 var(--time-anim) infinite linear alternate);
                         &:nth-child(2) {
                             animation-name: glitch-anim-1;
                             animation-direction: reverse;
@@ -550,7 +531,7 @@
                 }
                 &:nth-child(3).active {
                     img.cloner {
-                        animation: glitch-anim-1 var(--time-anim) infinite linear alternate;
+                        @include animation(glitch-anim-1 var(--time-anim) infinite linear alternate);
                         &:nth-child(2) {
                             animation-direction: reverse;
                             animation-name: glitch-anim-1;
@@ -576,7 +557,7 @@
                 }
                 &:nth-child(4).active {
                     img.cloner {
-                        animation: glitch-anim-1 var(--time-anim) infinite linear alternate;
+                        @include animation(glitch-anim-1 var(--time-anim) infinite linear alternate);
                         &:nth-child(2) {
                             animation-direction: reverse;
                             animation-name: glitch-anim-2;
@@ -602,7 +583,7 @@
                 }
                 &:nth-child(5).active {
                     img.cloner {
-                        animation: glitch-anim-1 calc(var(--time-anim) * 1.5) infinite linear alternate;
+                        @include animation(glitch-anim-1 calc(var(--time-anim) * 1.5) infinite linear alternate);
                         &:nth-child(2) {
                             animation-direction: reverse;
                             animation-name: glitch-anim-3;
@@ -671,7 +652,6 @@
 
             &:nth-child(2n) .home-process-step-background {
                 transform-origin: right top;
-
                 * {
                     transform-origin: right top;
                 }
@@ -744,7 +724,7 @@
                     --blend-color-4: transparent;
                     --blend-color-5: transparent;
 
-                    animation: glitch-anim-1 var(--time-anim) infinite linear alternate;
+                    @include animation(glitch-anim-1 var(--time-anim) infinite linear alternate);
                     position: absolute;
 
                     &:nth-child(2) {
@@ -1038,7 +1018,7 @@
                     top: 0;
                     left: 0;
                     @include size(100%);
-                    @include border-gradient(linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.00) 100%));
+                    @include border-gradient(linear-gradient(180deg, rgba($cl-white, 0.20) 0%, rgba($cl-white, 0.00) 100%));
                 }
                 &-wrap {
                     position: relative;
@@ -1060,13 +1040,7 @@
                     -webkit-backface-visibility: visible;
                     backface-visibility: visible;
                     z-index: 3;
-                    @include transition(
-                        transform .533s linear(
-                            0, 0.938 16.7%, 1.149 24.3%, 1.154 29.9%, 0.977 51%, 1
-                        ),
-                        opacity .633s linear(
-                            0, 0.938 16.7%, 1.149 24.3%, 1.154 29.9%, 0.977 51%, 1
-                        ));
+                    @include transition(transform .533s var(--spring-easing-3), opacity .5s ease-in-out);
                     &:first-of-type {
                         mix-blend-mode: hard-light;
                         opacity: 0;
@@ -1113,9 +1087,9 @@
                     @include border-gradient();
                 }
                 &.popular {
-                    background: linear-gradient(180deg, #F5370D 0%, #F5430D 34%, #F58A0D 100%);
+                    background: linear-gradient(180deg, #F5370D 0%, #F5430D 34%, $cl-primary-li 100%);
                     box-shadow: 0rem 0rem 1.5rem 0rem rgba($cl-white, 0.1) inset;
-                    color: white;
+                    color: rgba($cl-heading, 1);
                     &::before {
                         @include border-gradient(linear-gradient(180deg, rgba($cl-primary-hl, 1) 0%, rgba($cl-primary-hl, 0) 100%), 2rem);
                     }
@@ -1124,12 +1098,12 @@
                     }
                 }
                 &-popularTag {
-                    border: 1px solid rgba($cl-heading, .1);
+                    border: 1px solid rgba($cl-white, .1);
                     border-radius: 5rem;
                     padding: 1.2rem 2rem;
                     margin: 0 auto;
                     color: $cl-heading;
-                    background: rgba(255, 255, 255, 0.05);
+                    background: rgba($cl-white, 0.05);
                 }
                 &-label {
                     margin-bottom: .4rem;
@@ -1401,7 +1375,7 @@
                                 padding: .6rem 1.6rem;
                                 translate: 0 -5rem;
                                 white-space: nowrap;
-                                background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.03) 100%);
+                                background: linear-gradient(180deg, rgba($cl-white, 0.15) 0%, rgba($cl-white, 0.03) 100%);
                                 border-radius: 100vmax;
                                 pointer-events: none;
 
@@ -1409,7 +1383,7 @@
                                     content: '';
                                     position: absolute;
                                     inset: 0;
-                                    @include border-gradient(linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.00) 100%), 100vmax);
+                                    @include border-gradient(linear-gradient(180deg, rgba($cl-white, 0.20) 0%, rgba($cl-white, 0.00) 100%), 100vmax);
                                 }
                                 p {
                                     margin: 0;
@@ -1536,11 +1510,7 @@
                     }
                     &-title {
                         flex-grow: 1;
-                        @include transition(color 1.333s linear(
-                            0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938, 1.077 20.4%, 1.121,
-                            1.149 24.3%, 1.163 27%, 1.154 29.9%, 1.017 43.1%, 0.991, 0.977 51%,
-                            0.975 57.1%, 1.003 76.9%, 1
-                        ));
+                        @include transition(color 1.333s var(--spring-easing-2));
                     }
                     &-dot {
                         position: relative;
@@ -1560,10 +1530,7 @@
                             border-radius: 50%;
                             background: rgba($cl-primary, 1);
                             opacity: 0;
-                            @include transition(
-                                transform 1.833s linear(0, 0.938 16.7%, 1.149 24.3%, 1.154 29.9%, 0.977 51%, 1),
-                                opacity 1.333s linear(0, 0.938 16.7%, 1.149 24.3%, 1.154 29.9%, 0.977 51%, 1)
-                            );
+                            @include transition(transform 1.833s var(--spring-easing-3), opacity .6s ease-in-out);
                         }
                     }
                 }
