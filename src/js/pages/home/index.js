@@ -259,14 +259,13 @@ const home = {
                     trigger: GALLERY.wrap,
                     start: `top bottom`,
                     end: 'bottom bottom',
-                    scrub: true,
-                    markers: true
+                    scrub: true
                 }
             })
 
             const getOtherItem = ({ wrap, item }) => GALLERY.otherWrap.eq(wrap).find(GALLERY.otherInner).eq(item);
             showreelTl
-                .to('.home-showreel-overlay', { autoAlpha: 0, duration: .1 })
+                .to('.home-showreel-item-overlay', { autoAlpha: 0, duration: .15 })
                 .from([getOtherItem({ wrap: 0, item: 2 }), getOtherItem({ wrap: 1, item: 2 })], { y: 80, duration: .2 }, "<=0")
                 .from([getOtherItem({ wrap: 0, item: 1 }), getOtherItem({ wrap: 1, item: 1 })], { y: 200, duration: .2 }, "<=0")
                 .from([getOtherItem({ wrap: 0, item: 0 }), getOtherItem({ wrap: 1, item: 0 })], { y: 320, duration: .2 }, "<=0")
@@ -526,7 +525,7 @@ const home = {
 
                     if (pointerCurr().x < (target.width()/2 + offsetL + tarCurrX)){rotVl = -1}
                     else {rotVl = 1}
-                    // rotZSetter(target.get(0))(lerp(tarCurrRot, rotVl * rotValue * (Math.min(Math.max(((tarX + tarY) - (tarCurrX + tarCurrY))/5, -15), 15)), .06))
+                    rotZSetter(target.get(0))(lerp(tarCurrRot, rotVl * rotValue * (Math.min(Math.max(((tarX + tarY) - (tarCurrX + tarCurrY))/5, -15), 15)), .06))
                 }
                 requestAnimationFrame(initMouseMove)
             }
@@ -665,7 +664,7 @@ const home = {
                 // ease: 'expo.inOut',
                 duration: .2
             }, "<=0")
-            
+
 
             tlScrub
             .to($('.home-testi-content-item').eq(0), {
@@ -783,7 +782,7 @@ const home = {
                 autoAlpha: 1,
                 duration: 1
             }, "<=0")
-       
+
 
             // tlScrub
             // .fromTo($('.home-testi-content-item').eq(1), {
@@ -806,17 +805,17 @@ const home = {
             //     autoAlpha: .8,
             //     duration: 1
             // }, .25)
-            
+
 
 
 
 
             $('.home-testi-content-item').each((idx, el) => {
                 if (idx == 0) {
-                    
-                }                
+
+                }
             })
-            
+
         }
         homeTesti()
 
