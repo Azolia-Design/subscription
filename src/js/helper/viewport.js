@@ -28,10 +28,29 @@ const viewportBreak = (options) => {
     return (result instanceof Function) ? result() : result;
 }
 
+const cvUnit = (val, unit) => {
+    let result;
+    switch (true) {
+        case unit === 'vw':
+            result = window.innerWidth * (val / 100);
+            break;
+        case unit === 'vh':
+            result = window.innerHeight * (val / 100);
+            break;
+        case unit === 'rem':
+            result = val / 10 * parseFloat($('html').css('font-size'));
+            break;
+        default: break;
+    }
+    return result;
+}
+
+const percentage = (percent, total) => ((percent / 100) * total).toFixed(2);
+
 const isTouchDevice = () => {
     return (('ontouchstart' in window) ||
     (navigator.maxTouchPoints > 0) ||
     (navigator.msMaxTouchPoints > 0));
 }
 
-export { viewport, useRem, viewportBreak, isTouchDevice };
+export { viewport, useRem, viewportBreak, isTouchDevice, cvUnit, percentage };

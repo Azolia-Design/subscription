@@ -151,6 +151,14 @@
             z-index: 2;
             display: grid;
             grid-template-columns: repeat($benefitItem, 1fr);
+            &:before {
+                content: '';
+                position: absolute;
+                right: calc(100% - 1px);
+                top: 0;
+                @include size(11.2rem, 100%);
+                background: linear-gradient(270deg, $cl-bg 11.76%, rgba($cl-bg, 0) 95.72%);
+            }
         }
         &-other {
             display: flex;
@@ -173,22 +181,14 @@
                 z-index: 3;
                 @include transform(scale(1.1));
                 @include transition(
-                    opacity 2.333s linear(
-                        0, 0.002, 0.009 1%, 0.035, 0.078, 0.141 4.4%, 0.281 6.7%, 0.723 12.9%, 0.842,
-                        0.938, 1.017, 1.077 20.4%, 1.101, 1.121, 1.137, 1.149 24.3%, 1.159, 1.163,
-                        1.161, 1.154, 1.143, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 1.002, 0.991,
-                        0.982 48.9%, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.979 60%, 0.997 69.8%,
-                        1.001, 1.003 76.9%, 1.004 83.8%, 1
-                    ),
-                    transform 2.333s linear(
-                        0, 0.002, 0.009 1%, 0.035, 0.078, 0.141 4.4%, 0.281 6.7%, 0.723 12.9%, 0.842,
-                        0.938, 1.017, 1.077 20.4%, 1.101, 1.121, 1.137, 1.149 24.3%, 1.159, 1.163,
-                        1.161, 1.154, 1.143, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 1.002, 0.991,
-                        0.982 48.9%, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.979 60%, 0.997 69.8%,
-                        1.001, 1.003 76.9%, 1.004 83.8%, 1
-                    ));
+                    opacity 2.333s var(--spring-easing-1),
+                    transform 2.333s var(--spring-easing-1));
                 img {
                     object-fit: contain;
+                }
+                &.hidden {
+                    opacity: 0 !important;
+                    @include transform(scale(1.1));
                 }
             }
             &-sub {
@@ -212,8 +212,7 @@
                     }
                 }
             }
-            &:hover,
-            &.active {
+            &:hover {
                 .home-benefit-other-img {
                     opacity: 1;
                     @include transform(scale(1));
@@ -222,123 +221,132 @@
         }
     }
     &-showreel {
-        padding-bottom: 19rem;
+        // margin-top: -80vh;
+        padding-bottom: 38rem;
         position: relative;
         height: 500vh;
-        contain: paint;
         .container {
-            height: 100%;
+            position: sticky;
+            top: 15.4rem;
+            height: calc(100vh - 15.4rem - 4rem);
         }
-        &--inner {
+        &--wrap {
+            position: relative;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 0 4rem;
-            position: sticky;
-            height: 100svh;
-            top: 0;
+            overflow: hidden;
+        }
+        &-main--inner {
+            overflow: hidden;
+            z-index: 3;
+            position: relative;
+        }
+        &-other--inner {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 0 1.75vw;
+            &:last-child {
+                flex-direction: row-reverse;
+                right: 0;
+            }
+            .home-showreel-item-other {
+                flex: none;
+                width: auto;
+                aspect-ratio: 2 / 3;
+                overflow: hidden;
+                border-radius: 1.2rem;
+                img {
+                    object-fit: contain;
+                    width: auto;
+                    height: 100%;
+                }
+            }
+            .home-showreel-item-other:nth-child(1) {
+                width: 5.5vw;
+            }
+            .home-showreel-item-other:nth-child(2) {
+                width: 9.2vw;
+            }
+            .home-showreel-item-other:nth-child(3) {
+                width: 15.36vw;
+            }
         }
         &-item {
-            --item-height: 20vh;
-            --size-factor: 1.5;
-
             display: flex;
             align-items: center;
             justify-content: center;
-            width: auto;
-            border-radius: 1.2rem;
-            overflow: hidden;
             position: relative;
-            // flex: none;
-            overflow: hidden;
-            &:before {
-                content: '';
-                // position: absolute;
-                display: block;
-                width: 100%;
-                height: 0;
-                padding-bottom: 145.88%;
-            }
-            &-main {
-                position: relative;
-                z-index: 100;
-	            height: calc(var(--size-factor) * 3 * var(--item-height));
-            }
-            .img {
-                object-fit: cover;
-            }
-            &.item {
-                &--s {
-                    height: var(--item-height);
-                }
-                &--m {
-                    height: calc(var(--size-factor) * var(--item-height));
-                }
-                &--l {
-                    height: calc(var(--size-factor) * 1.8 * var(--item-height));
-                }
-                &--xl {
-                    height: calc(var(--size-factor) * 2.5 * var(--item-height));
-                }
-            }
         }
         &-thumb {
-            width: 100%;
+            position: relative;
+            // width: 100%;
             // padding-bottom: 52.33%;
-            // overflow: hidden;
-            // border-radius: 2rem;
+            // height: auto;
+            // height: 100%;
+            overflow: hidden;
+            border-radius: 2rem;
             img {
                 object-position: center center;
             }
         }
         &-play {
-            // position: absolute;
-            // z-index: 2;
-            // display: flex;
-            // justify-content: center;
-            // align-items: center;
-            // gap: 0 4.9rem;
-            // &-ic {
-            //     width: 11.5%;
-            //     border-radius: 50%;
-            //     aspect-ratio: 1;
-            //     background: rgba(255, 255, 255, 0.20);
-            //     display: flex;
-            //     align-items: center;
-            //     flex: none;
-            //     svg {
-            //         margin-left: 38%;
-            //         width: 32%;
-            //         overflow: hidden;
-            //         path {
-            //             @include transition(transform .65s cubic-bezier(.785,.135,.15,.86), opacity .65s cubic-bezier(.785,.135,.15,.86));
-            //         }
-            //         path:first-child {
-            //             transition-delay: .1s;
-            //         }
-            //         path:last-child {
-            //             transform: translate(-101%);
-            //             transition-delay: 0s;
-            //             opacity: 0;
-            //         }
-            //     }
-            // }
-            // &:hover {
-            //     .home-showreel-play-ic {
-            //         svg {
-            //             path:first-child {
-            //                 transform: translate(101%);
-            //                 opacity: 0;
-            //                 transition-delay: 0;
-            //             }
-            //             path:last-child {
-            //                 transform: translate(0);
-            //                 opacity: 1;
-            //                 transition-delay: .1s;
-            //             }
-            //         }
-            //     }
-            // }
+            position: absolute;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &-ic {
+                border-radius: 50%;
+                aspect-ratio: 1;
+                background: rgba(255, 255, 255, 0.20);
+                display: flex;
+                align-items: center;
+                flex: none;
+                width: 65%;
+                svg {
+                    margin-left: 38%;
+                    width: 32%;
+                    overflow: hidden;
+                    path {
+                        @include transition(transform .65s cubic-bezier(.785,.135,.15,.86), opacity .65s cubic-bezier(.785,.135,.15,.86));
+                    }
+                    path:first-child {
+                        transition-delay: .1s;
+                    }
+                    path:last-child {
+                        transform: translate(-101%);
+                        transition-delay: 0s;
+                        opacity: 0;
+                    }
+                }
+            }
+            &:hover {
+                .home-showreel-play-ic {
+                    svg {
+                        path:first-child {
+                            transform: translate(101%);
+                            opacity: 0;
+                            transition-delay: 0;
+                        }
+                        path:last-child {
+                            transform: translate(0);
+                            opacity: 1;
+                            transition-delay: .1s;
+                        }
+                    }
+                }
+            }
+            p {
+                position: absolute;
+                text-wrap: nowrap;
+            }
+            p:first-child {
+                right: calc(100%);
+            }
+            p:last-child {
+                left: calc(100%);
+            }
         }
     }
     &-skill {
@@ -359,31 +367,15 @@
             border-top: 1px solid rgba($cl-heading, 0.1);
             &-title {
                 grid-column: 2/11;
-                @include transition(color 1.333s linear(
-                    0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938, 1.077 20.4%, 1.121,
-                    1.149 24.3%, 1.163 27%, 1.154 29.9%, 1.017 43.1%, 0.991, 0.977 51%,
-                    0.975 57.1%, 1.003 76.9%, 1
-                ));
+                @include transition(color 1.333s var(--spring-easing-2));
             }
             &-desc {
                 grid-column: 12/17;
                 opacity: 0;
                 @include transform(translate(0, .8rem));
                 @include transition(
-                    opacity 2.333s linear(
-                        0, 0.002, 0.009 1%, 0.035, 0.078, 0.141 4.4%, 0.281 6.7%, 0.723 12.9%, 0.842,
-                        0.938, 1.017, 1.077 20.4%, 1.101, 1.121, 1.137, 1.149 24.3%, 1.159, 1.163,
-                        1.161, 1.154, 1.143, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 1.002, 0.991,
-                        0.982 48.9%, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.979 60%, 0.997 69.8%,
-                        1.001, 1.003 76.9%, 1.004 83.8%, 1
-                    ),
-                    transform 2.333s linear(
-                        0, 0.002, 0.009 1%, 0.035, 0.078, 0.141 4.4%, 0.281 6.7%, 0.723 12.9%, 0.842,
-                        0.938, 1.017, 1.077 20.4%, 1.101, 1.121, 1.137, 1.149 24.3%, 1.159, 1.163,
-                        1.161, 1.154, 1.143, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 1.002, 0.991,
-                        0.982 48.9%, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.979 60%, 0.997 69.8%,
-                        1.001, 1.003 76.9%, 1.004 83.8%, 1
-                    ));
+                    opacity 2.333s var(--spring-easing-1),
+                    transform 2.333s var(--spring-easing-1));
             }
             @media (hover:hover) {
                 &:hover {
@@ -433,244 +425,16 @@
                     left: 0;
                 }
 
-                @keyframes glitch-anim-1 {
-                    0%, 30% { 
-                        opacity: 1;
-                        transform: translate3d(var(--gap-horizontal),0,0);
-                        -webkit-clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%);
-                        clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%);
-                    }
-                    2%, 32% {
-                        -webkit-clip-path: polygon(0 15%, 100% 15%, 100% 15%, 0 15%);
-                        clip-path: polygon(0 15%, 100% 15%, 100% 15%, 0 15%);
-                    }
-                    4%, 34% {
-                        -webkit-clip-path: polygon(0 10%, 100% 10%, 100% 20%, 0 20%);
-                        clip-path: polygon(0 10%, 100% 10%, 100% 20%, 0 20%);
-                    }
-                    6%, 36% {
-                        -webkit-clip-path: polygon(0 1%, 100% 1%, 100% 2%, 0 2%);
-                        clip-path: polygon(0 1%, 100% 1%, 100% 2%, 0 2%);
-                    }
-                    8%, 38% {
-                        -webkit-clip-path: polygon(0 33%, 100% 33%, 100% 33%, 0 33%);
-                        clip-path: polygon(0 33%, 100% 33%, 100% 33%, 0 33%);
-                    }
-                    10%, 40% {
-                        -webkit-clip-path: polygon(0 44%, 100% 44%, 100% 44%, 0 44%);
-                        clip-path: polygon(0 44%, 100% 44%, 100% 44%, 0 44%);
-                    }
-                    12%, 42% {
-                        -webkit-clip-path: polygon(0 50%, 100% 50%, 100% 20%, 0 20%);
-                        clip-path: polygon(0 50%, 100% 50%, 100% 20%, 0 20%);
-                    }
-                    14%, 44% {
-                        -webkit-clip-path: polygon(0 70%, 100% 70%, 100% 70%, 0 70%);
-                        clip-path: polygon(0 70%, 100% 70%, 100% 70%, 0 70%);
-                    }
-                    16%, 46% {
-                        -webkit-clip-path: polygon(0 80%, 100% 80%, 100% 80%, 0 80%);
-                        clip-path: polygon(0 80%, 100% 80%, 100% 80%, 0 80%);
-                    }
-                    18%, 48% {
-                        -webkit-clip-path: polygon(0 50%, 100% 50%, 100% 55%, 0 55%);
-                        clip-path: polygon(0 50%, 100% 50%, 100% 55%, 0 55%);
-                    }
-                    20%, 50% {
-                        -webkit-clip-path: polygon(0 70%, 100% 70%, 100% 80%, 0 80%);
-                        clip-path: polygon(0 70%, 100% 70%, 100% 80%, 0 80%);
-                    }
-                    21.9%, 51.9% {
-                        opacity: 1;
-                        transform: translate3d(var(--gap-horizontal),0,0);
-                    }
-                    22%, 29.9%, 52%, 100% {
-                        opacity: 0;
-                        transform: translate3d(0,0,0);
-                        -webkit-clip-path: polygon(0 0, 0 0, 0 0, 0 0);
-                        clip-path: polygon(0 0, 0 0, 0 0, 0 0);
-                    }
-                }
-                
-                @keyframes glitch-anim-2 {
-                    0%, 50% { 
-                        opacity: 1;
-                        transform: translate3d(calc(-1 * var(--gap-horizontal)),0,0);
-                        -webkit-clip-path: polygon(0 25%, 100% 25%, 100% 30%, 0 30%);
-                        clip-path: polygon(0 25%, 100% 25%, 100% 30%, 0 30%);
-                    }
-                    3%, 53% {
-                        -webkit-clip-path: polygon(0 3%, 100% 3%, 100% 3%, 0 3%);
-                        clip-path: polygon(0 3%, 100% 3%, 100% 3%, 0 3%);
-                    }
-                    5%, 55% {
-                        -webkit-clip-path: polygon(0 5%, 100% 5%, 100% 20%, 0 20%);
-                        clip-path: polygon(0 5%, 100% 5%, 100% 20%, 0 20%);
-                    }
-                    7%, 57% {
-                        -webkit-clip-path: polygon(0 20%, 100% 20%, 100% 20%, 0 20%);
-                        clip-path: polygon(0 20%, 100% 20%, 100% 20%, 0 20%);
-                    }
-                    9%, 59% {
-                        -webkit-clip-path: polygon(0 40%, 100% 40%, 100% 40%, 0 40%);
-                        clip-path: polygon(0 40%, 100% 40%, 100% 40%, 0 40%);
-                    }
-                    11%, 61% {
-                        -webkit-clip-path: polygon(0 52%, 100% 52%, 100% 59%, 0 59%);
-                        clip-path: polygon(0 52%, 100% 52%, 100% 59%, 0 59%);
-                    }
-                    13%, 63% {
-                        -webkit-clip-path: polygon(0 60%, 100% 60%, 100% 60%, 0 60%);
-                        clip-path: polygon(0 60%, 100% 60%, 100% 60%, 0 60%);
-                    }
-                    15%, 65% {
-                        -webkit-clip-path: polygon(0 75%, 100% 75%, 100% 75%, 0 75%);
-                        clip-path: polygon(0 75%, 100% 75%, 100% 75%, 0 75%);
-                    }
-                    17%, 67% {
-                        -webkit-clip-path: polygon(0 65%, 100% 65%, 100% 40%, 0 40%);
-                        clip-path: polygon(0 65%, 100% 65%, 100% 40%, 0 40%);
-                    }
-                    19%, 69% {
-                        -webkit-clip-path: polygon(0 45%, 100% 45%, 100% 50%, 0 50%);
-                        clip-path: polygon(0 45%, 100% 45%, 100% 50%, 0 50%);
-                    }
-                    20%, 70% {
-                        -webkit-clip-path: polygon(0 14%, 100% 14%, 100% 33%, 0 33%);
-                        clip-path: polygon(0 14%, 100% 14%, 100% 33%, 0 33%);
-                    }
-                    21.9%, 71.9% {
-                        opacity: 1;
-                        transform: translate3d(calc(-1 * var(--gap-horizontal)),0,0);
-                    }
-                    22%, 49%, 80%, 100% {
-                        opacity: 0;
-                        transform: translate3d(0,0,0);
-                        -webkit-clip-path: polygon(0 0, 0 0, 0 0, 0 0);
-                        clip-path: polygon(0 0, 0 0, 0 0, 0 0);
-                    }
-                }
-                
-                @keyframes glitch-anim-3 {
-                    0%, 80% { 
-                        opacity: 1;
-                        transform: translate3d(0, calc(-1 * var(--gap-vertical)), 0) scale3d(-1,-1,1);
-                        -webkit-clip-path: polygon(0 1%, 100% 1%, 100% 3%, 0 3%);
-                        clip-path: polygon(0 1%, 100% 1%, 100% 3%, 0 3%);
-                    }
-                    1.5%, 81.5% {
-                        -webkit-clip-path: polygon(0 10%, 100% 10%, 100% 9%, 0 9%);
-                        clip-path: polygon(0 10%, 100% 10%, 100% 9%, 0 9%);
-                    }
-                    2%, 82% {
-                        -webkit-clip-path: polygon(0 5%, 100% 5%, 100% 6%, 0 6%);
-                        clip-path: polygon(0 5%, 100% 5%, 100% 6%, 0 6%);
-                    }
-                    2.5%, 82.5% {
-                        -webkit-clip-path: polygon(0 20%, 100% 20%, 100% 20%, 0 20%);
-                        clip-path: polygon(0 20%, 100% 20%, 100% 20%, 0 20%);
-                    }
-                    3%, 83% {
-                        -webkit-clip-path: polygon(0 10%, 100% 10%, 100% 10%, 0 10%);
-                        clip-path: polygon(0 10%, 100% 10%, 100% 10%, 0 10%);
-                    }
-                    5%, 85% {
-                        -webkit-clip-path: polygon(0 30%, 100% 30%, 100% 25%, 0 25%);
-                        clip-path: polygon(0 30%, 100% 30%, 100% 25%, 0 25%);
-                    }
-                    5.5%, 85.5% {
-                        -webkit-clip-path: polygon(0 15%, 100% 15%, 100% 16%, 0 16%);
-                        clip-path: polygon(0 15%, 100% 15%, 100% 16%, 0 16%);
-                    }
-                    7%, 87% {
-                        -webkit-clip-path: polygon(0 40%, 100% 40%, 100% 39%, 0 39%);
-                        clip-path: polygon(0 40%, 100% 40%, 100% 39%, 0 39%);
-                    }
-                    8%, 88% {
-                        -webkit-clip-path: polygon(0 20%, 100% 20%, 100% 21%, 0 21%);
-                        clip-path: polygon(0 20%, 100% 20%, 100% 21%, 0 21%);
-                    }
-                    9%, 89% {
-                        -webkit-clip-path: polygon(0 60%, 100% 60%, 100% 55%, 0 55%);
-                        clip-path: polygon(0 60%, 100% 60%, 100% 55%, 0 55%);
-                    }
-                    10.5%, 90.5% {
-                        -webkit-clip-path: polygon(0 30%, 100% 30%, 100% 31%, 0 31%);
-                        clip-path: polygon(0 30%, 100% 30%, 100% 31%, 0 31%);
-                    }
-                    11%, 91% {
-                        -webkit-clip-path: polygon(0 70%, 100% 70%, 100% 69%, 0 69%);
-                        clip-path: polygon(0 70%, 100% 70%, 100% 69%, 0 69%);
-                    }
-                    13%, 93% {
-                        -webkit-clip-path: polygon(0 40%, 100% 40%, 100% 41%, 0 41%);
-                        clip-path: polygon(0 40%, 100% 40%, 100% 41%, 0 41%);
-                    }
-                    14%, 94% {
-                        -webkit-clip-path: polygon(0 80%, 100% 80%, 100% 75%, 0 75%);
-                        clip-path: polygon(0 80%, 100% 80%, 100% 75%, 0 75%);
-                    }
-                    14.5%, 94.5% {
-                        -webkit-clip-path: polygon(0 50%, 100% 50%, 100% 51%, 0 51%);
-                        clip-path: polygon(0 50%, 100% 50%, 100% 51%, 0 51%);
-                    }
-                    15%, 95% {
-                        -webkit-clip-path: polygon(0 90%, 100% 90%, 100% 90%, 0 90%);
-                        clip-path: polygon(0 90%, 100% 90%, 100% 90%, 0 90%);
-                    }
-                    16%, 96% {
-                        -webkit-clip-path: polygon(0 60%, 100% 60%, 100% 60%, 0 60%);
-                        clip-path: polygon(0 60%, 100% 60%, 100% 60%, 0 60%);
-                    }
-                    18%, 98% {
-                        -webkit-clip-path: polygon(0 100%, 100% 100%, 100% 99%, 0 99%);
-                        clip-path: polygon(0 100%, 100% 100%, 100% 99%, 0 99%);
-                    }
-                    20%, 98.5% {
-                        -webkit-clip-path: polygon(0 70%, 100% 70%, 100% 71%, 0 71%);
-                        clip-path: polygon(0 70%, 100% 70%, 100% 71%, 0 71%);
-                    }
-                    21.9%, 99% {
-                        opacity: 1;
-                        transform: translate3d(0, calc(-1 * var(--gap-vertical)), 0) scale3d(-1,-1,1);
-                    }
-                    22%, 79%, 100% {
-                        opacity: 0;
-                        transform: translate3d(0,0,0);
-                        -webkit-clip-path: polygon(0 0, 0 0, 0 0, 0 0);
-                        clip-path: polygon(0 0, 0 0, 0 0, 0 0);
-                    }
-                }
-                @keyframes glitch-anim-flash {
-                    0%, 5% { 
-                        opacity: 0.2; 
-                        transform: translate3d(var(--gap-horizontal), var(--gap-vertical), 0);
-                    }
-                    5.5%, 100% {
-                        opacity: 0;
-                        transform: translate3d(0, 0, 0);
-                    }
-                }
-
-
-
-
                 &.active {
                     @include transition(
-                        opacity 3.333s linear(
-                            0, 0.002, 0.009 1%, 0.035, 0.078, 0.141 4.4%, 0.281 6.7%, 0.723 12.9%, 0.842,
-                            0.938, 1.017, 1.077 20.4%, 1.101, 1.121, 1.137, 1.149 24.3%, 1.159, 1.163,
-                            1.161, 1.154, 1.143, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 1.002, 0.991,
-                            0.982 48.9%, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.979 60%, 0.997 69.8%,
-                            1.001, 1.003 76.9%, 1.004 83.8%, 1
-                        ),
+                        opacity 3.333s var(--spring-easing-1),
                         scale .2s cubic-bezier(0.45, 0.5, 0.55, 1)
                     );
                     opacity: 1;
                     scale: 1;
 
                     img.cloner {
-                        animation: glitch-anim-1 var(--time-anim) infinite linear alternate;
+                        @include animation(glitch-anim-1 var(--time-anim) infinite linear alternate);
                         img.cloner:nth-child(2) {
                             animation-name: glitch-anim-1;
                             animation-delay: calc(var(--time-anim)/4);
@@ -815,7 +579,7 @@
             grid-column: 1/-1;
             grid-row: 1/1;
             color: $cl-heading-dark;
-            
+
             .home-portfolio-content-stickywrap {
                 position: sticky;
                 top: 0;
@@ -1054,12 +818,8 @@
                     backface-visibility: visible;
                     z-index: 3;
                     @include transition(
-                        transform .533s linear(
-                            0, 0.938 16.7%, 1.149 24.3%, 1.154 29.9%, 0.977 51%, 1
-                        ),
-                        opacity .633s linear(
-                            0, 0.938 16.7%, 1.149 24.3%, 1.154 29.9%, 0.977 51%, 1
-                        ));
+                        transform .533s var(--spring-easing-3),
+                        opacity .633s var(--spring-easing-3));
                     &:first-of-type {
                         mix-blend-mode: hard-light;
                         opacity: 0;
@@ -1492,7 +1252,7 @@
         }
         &-content {
             grid-column: 4/14;
-            
+
             &-listing {
 
             }
@@ -1511,11 +1271,7 @@
                     }
                     &-title {
                         flex-grow: 1;
-                        @include transition(color 1.333s linear(
-                            0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938, 1.077 20.4%, 1.121,
-                            1.149 24.3%, 1.163 27%, 1.154 29.9%, 1.017 43.1%, 0.991, 0.977 51%,
-                            0.975 57.1%, 1.003 76.9%, 1
-                        ));
+                        @include transition(color 1.333s var(--spring-easing-2));
                     }
                     &-dot {
                         position: relative;
@@ -1536,8 +1292,8 @@
                             background: rgba($cl-primary, 1);
                             opacity: 0;
                             @include transition(
-                                transform 1.833s linear(0, 0.938 16.7%, 1.149 24.3%, 1.154 29.9%, 0.977 51%, 1),
-                                opacity 1.333s linear(0, 0.938 16.7%, 1.149 24.3%, 1.154 29.9%, 0.977 51%, 1)
+                                transform 1.833s var(--spring-easing-3),
+                                opacity 1.333s var(--spring-easing-3)
                             );
                         }
                     }
