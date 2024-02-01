@@ -140,7 +140,7 @@ const home = {
 
             BENEFIT.otherItem.each((index, item) => {
                 let itemSelect = selector(item);
-                gsap.set(itemSelect('span'), { scaleX: 0 });
+                gsap.set(itemSelect('.home-benefit-item-overlay'), { scaleX: 0 });
                 let label = $(item).find('.home-benefit-other-title').text().toLowerCase().replace(' ', '-');
                 $(item).attr('data-label', `${label}`)
 

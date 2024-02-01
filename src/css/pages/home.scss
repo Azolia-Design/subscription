@@ -253,29 +253,37 @@
         position: relative;
         height: 500vh;
         .container {
-            position: sticky;
-            top: 15.4rem;
-            height: calc(100vh - 15.4rem - 4rem);
+
         }
         &--wrap {
             position: relative;
             display: flex;
             align-items: center;
+            position: sticky;
+            top: 15.4rem;
+            height: calc(100vh - 15.4rem - 4rem);
             overflow: hidden;
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
         }
         &-main--inner {
             overflow: hidden;
             z-index: 3;
             position: relative;
+            height: 100%;
+            border-radius: 2rem;
         }
         &-other--inner {
             position: absolute;
             display: flex;
             align-items: center;
             gap: 0 1.75vw;
+            &:first-child {
+                left: 4rem;
+            }
             &:last-child {
                 flex-direction: row-reverse;
-                right: 0;
+                right: 4rem;
             }
             .home-showreel-item-other {
                 flex: none;
@@ -304,15 +312,11 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            height: 100%;
         }
         &-thumb {
             position: relative;
-            // width: 100%;
-            // padding-bottom: 52.33%;
-            // height: auto;
-            // height: 100%;
             overflow: hidden;
-            border-radius: 2rem;
             img {
                 object-position: center center;
             }
@@ -1205,7 +1209,7 @@
                 top: 0;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                z-index: 2;
+                z-index: 4;
                 background: linear-gradient(180deg, #F5370D 0%, #F5430D 34%, $cl-primary-li 100%);
                 @include size(12.5rem);
                 display: flex;
