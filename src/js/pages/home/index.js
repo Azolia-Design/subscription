@@ -365,9 +365,9 @@ const home = {
                     tl
                     .from($(el).find('.home-process-step-background'), {scale: 0, borderRadius: '8rem', ease: 'sine.out', duration: 4}, 0)
                     .from($(el).find('.home-process-step-img'), {autoAlpha: 0, scale: .8, yPercent: 20, ease: 'sine.inOut', duration: 1}, 2)
-                    .from($(el).find('.home-process-step-label'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.2')
-                    .from($(el).find('.home-process-step-title'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.4')
-                    .from($(el).find('.home-process-step-desc'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.4')
+                    .from($(el).find('.home-process-step-label'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=1.2')
+                    .from($(el).find('.home-process-step-title'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.2')
+                    .from($(el).find('.home-process-step-desc'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.2')
                 }
             })
         }
@@ -611,6 +611,213 @@ const home = {
             })
         }
         homeIndustries()
+
+        function homeTesti() {
+
+            console.log($('.home-testi-content-item').length);
+
+            ScrollTrigger.create({
+                trigger: '.home-testi',
+                    start: `top top`,
+                    end: 'bottom bottom',
+                    scrub: true,
+                    onUpdate: (timeline) => {
+                        gsap.set('.home-testi-content-progress-inner', {y: timeline.progress * parseRem(160)})
+                    }
+            })
+            let tlScrub = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.home-testi',
+                    start: `top+=-${parseRem(160)} top`,
+                    end: 'bottom bottom',
+                    scrub: .2,
+                }
+            })
+
+            tlScrub
+            .fromTo($('.home-testi-content-item').eq(0), {
+                scale: .9,
+                y: '-5rem',
+                autoAlpha: .9
+            },{
+                scale: 1,
+                y: '0rem',
+                autoAlpha: 1,
+                duration: .2
+            }, 0)
+            .fromTo($('.home-testi-content-item').eq(1), {
+                scale: .8,
+                y: '-10rem',
+                autoAlpha: .0
+            },{
+                scale: .9,
+                y: '-5rem',
+                autoAlpha: .8,
+                duration: .2
+            }, "<=0")
+            .fromTo($('.home-testi-content-item-fg').eq(0), {
+                autoAlpha: 1,
+                backgroundPosition: '0% 0%',
+            },{
+                backgroundPosition: '0% 100%',
+                autoAlpha: 0,
+                // ease: 'expo.inOut',
+                duration: .2
+            }, "<=0")
+            
+
+            tlScrub
+            .to($('.home-testi-content-item').eq(0), {
+                scale: 1.1,
+                y: '5rem',
+                ease: 'power2.out',
+                duration: 1,
+            }, 1)
+            .fromTo($('.home-testi-content-item-fg').eq(0), {
+                autoAlpha: 0,
+                backgroundPosition: '0% 0%',
+            },{
+                autoAlpha: 1,
+                backgroundPosition: '0% 100%',
+                ease: 'expo.out',
+                duration: .6
+            }, "<=0")
+            .to($('.home-testi-content-item').eq(0), {
+                autoAlpha: 0,
+                ease: 'power2.in',
+                duration: .5,
+            }, "<=0")
+            .fromTo($('.home-testi-content-item').eq(1), {
+                scale: .9,
+                y: '-5rem',
+                autoAlpha: .8
+            },{
+                scale: 1,
+                y: '0rem',
+                autoAlpha: 1,
+                duration: 1
+            }, "<=0")
+            .fromTo($('.home-testi-content-item-fg').eq(1), {
+                autoAlpha: 0,
+                backgroundPosition: '0% 0%',
+            },{
+                autoAlpha: 1,
+                backgroundPosition: '0% 100%',
+                ease: 'expo.out',
+                duration: .6
+            }, "<=0")
+            .fromTo($('.home-testi-content-item').eq(2), {
+                scale: .8,
+                y: '-10rem',
+                autoAlpha: .0
+            },{
+                scale: .9,
+                y: '-5rem',
+                autoAlpha: .8,
+                duration: 1
+            }, "<=0")
+
+            tlScrub
+            .to($('.home-testi-content-item').eq(1), {
+                scale: 1.1,
+                y: '5rem',
+                autoAlpha: 0,
+                ease: 'power2.out',
+                duration: 1
+            }, 2.5)
+            .fromTo($('.home-testi-content-item').eq(2), {
+                scale: .9,
+                y: '-5rem',
+                autoAlpha: .8
+            },{
+                scale: 1,
+                y: '0rem',
+                autoAlpha: 1,
+                duration: 1
+            }, "<=0")
+            .fromTo($('.home-testi-content-item-fg').eq(2), {
+                autoAlpha: 0,
+                backgroundPosition: '0% 0%',
+            },{
+                autoAlpha: 1,
+                backgroundPosition: '0% 100%',
+                ease: 'expo.out',
+                duration: .6
+            }, "<=0")
+            .fromTo($('.home-testi-content-item').eq(3), {
+                scale: .8,
+                y: '-10rem',
+                autoAlpha: .0
+            },{
+                scale: .9,
+                y: '-5rem',
+                autoAlpha: .8,
+                duration: 1
+            }, "<=0")
+
+            tlScrub
+            .to($('.home-testi-content-item').eq(2), {
+                scale: 1.1,
+                y: '5rem',
+                autoAlpha: 0,
+                ease: 'power2.out',
+                duration: 1
+            }, 4)
+            .fromTo($('.home-testi-content-item-fg').eq(3), {
+                autoAlpha: 0,
+                backgroundPosition: '0% 0%',
+            },{
+                autoAlpha: 1,
+                backgroundPosition: '0% 100%',
+                ease: 'expo.out',
+                duration: .6
+            }, "<=0")
+            .fromTo($('.home-testi-content-item').eq(3), {
+                scale: .9,
+                y: '-5rem',
+                autoAlpha: .8
+            },{
+                scale: 1,
+                y: '0rem',
+                autoAlpha: 1,
+                duration: 1
+            }, "<=0")
+       
+
+            // tlScrub
+            // .fromTo($('.home-testi-content-item').eq(1), {
+            //     scale: .9,
+            //     y: '-5rem',
+            //     autoAlpha: .8
+            // },{
+            //     scale: 1,
+            //     y: '0rem',
+            //     autoAlpha: 1,
+            //     duration: 1
+            // }, 0.25)
+            // .fromTo($('.home-testi-content-item').eq(2), {
+            //     scale: .8,
+            //     y: '-10rem',
+            //     autoAlpha: .0
+            // },{
+            //     scale: .9,
+            //     y: '-5rem',
+            //     autoAlpha: .8,
+            //     duration: 1
+            // }, .25)
+            
+
+
+
+
+            $('.home-testi-content-item').each((idx, el) => {
+                if (idx == 0) {
+                    
+                }                
+            })
+            
+        }
+        homeTesti()
 
         function switchPlanPricing() {
             const DOM = {
