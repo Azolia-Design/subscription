@@ -18,14 +18,56 @@ const home = {
             $('.header-menu-prog').find('.header-menu-prog-item').remove();
             allSections.each((idx, el) => {
                 let htmlLabel = tempLabel.clone();
-                htmlLabel.html(`${$(el).attr('data-section-id')}`)
+                htmlLabel.html(`${$(el).attr('data-section-id')}`).attr('data-header-id',`${$(el).attr('data-section-id')}`)
                 $('.header-menu-label').append(htmlLabel)
 
                 let htmlProg = tempProg.clone();
                 htmlProg.find('.header-menu-prog-item-link').attr('href', `#${$(el).attr('data-section-id')}`)
+                htmlProg.attr('data-header-id',`${$(el).attr('data-section-id')}`)
                 $('.header-menu-prog').append(htmlProg)
             })
         }
+        function headerScroll() {
+            let allSections = $('[data-section]');
+            setTimeout(() => {
+                let offset = '40%'
+                allSections.each((idx, el) => {
+                    ScrollTrigger.create({
+                        trigger: el,
+                        start: `top top+=${offset}`,
+                        end: `bottom bottom-=${offset}`,
+                        scrub: true,
+                        markers: true,
+                        onUpdate: (self) => {
+                            let currSection = allSections.eq(idx);
+                            let id = currSection.attr('data-section-id')
+                            $(`.header-menu-label-item[data-header-id="${id}"]`).addClass('active');
+                            $(`.header-menu-label-item`).not(`[data-header-id="${id}"]`).removeClass('active');
+                            $(`.header-menu-prog-item[data-header-id="${id}"]`).addClass('active');
+                            $(`.header-menu-prog-item`).not(`[data-header-id="${id}"]`).removeClass('active');
+                            let percent = Math.ceil((self.progress * 100) - 100);
+                            console.log(percent)
+                            gsap.to($(`.header-menu-prog-item[data-header-id="${id}"]`).find('.header-menu-prog-item-inner'), {xPercent: percent, duration: .3, overwrite: true})
+                        }
+                    })
+                })
+                ScrollTrigger.create({
+                    trigger: '.home-main',
+                    start: `top top+=${offset}`,
+                    end: `bottom bottom-=${offset}`,
+                    onLeave: () => {
+                        console.log('on leave')
+                        $(`.header-menu-label-item`).removeClass('active');
+                        $(`.header-menu-prog-item`).removeClass('active');
+                    },
+                    onLeaveBack: () => {
+                        $(`.header-menu-label-item`).removeClass('active');
+                        $(`.header-menu-prog-item`).removeClass('active');
+                    }
+                })
+            }, 100);
+        }
+        headerScroll()
         updateHeader()
         function handleHeader() {
             let tlHeaderTrigger = gsap.timeline({
@@ -275,7 +317,7 @@ const home = {
                     duration: .5
                 })
         }
-        // showreelGalleryZoom()
+        showreelGalleryZoom()
 
         function homeSkill() {
             ScrollTrigger.create({
@@ -674,22 +716,21 @@ const home = {
 
         function footer() {
             function bearMove() {
-                new FloatingAnimation('.footer-curtain-logo img', 20, 10, 10, 10)
-
+                // new FloatingAnimation('.footer-curtain-logo img', 20, 10, 10, 10)
                 function parallaxBear() {
                     let target = $('.footer-curtain-logo')
                     let tarCurrX = xGetter(target.get(0))
                     let tarCurrY = yGetter(target.get(0))
-                    let moveX = (pointerCurr().x/$(window).width() - 0.5) * (target.width()/2)
-                    let moveY = (pointerCurr().y/$(window).height() - 0.5) * (target.height()/2/4)
-                    xSetter(target.get(0))(lerp(tarCurrX, moveX, .005))
-                    ySetter(target.get(0))(lerp(tarCurrY, moveY, .005))
+                    let moveX = (pointerCurr().x/$(window).width() - 0.5) * 2 * (target.width()/2)
+                    let moveY = (pointerCurr().y/$(window).height() - 0.5) * 2 * (target.height()/8)
+                    xSetter(target.get(0))(lerp(tarCurrX, moveX, .01))
+                    ySetter(target.get(0))(lerp(tarCurrY, moveY, .01))
 
                     requestAnimationFrame(parallaxBear)
                 }
                 requestAnimationFrame(parallaxBear)
             }
-            // bearMove()
+            bearMove()
 
 
             function curtainFooter() {
