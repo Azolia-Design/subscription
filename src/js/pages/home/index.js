@@ -142,7 +142,6 @@ const home = {
                     start: 'top top',
                     end: 'bottom top',
                     scrub: true,
-                    markers: true
                 }
             })
 
@@ -230,20 +229,37 @@ const home = {
                         trigger: el,
                         start: 'top top+=60%',
                         end: 'bottom top+=60%',
-                        scrub: true,
-                        // markers: true,
+                        scrub: .4,
+                        // markers: true
                     },
+                    // duration: 5
                 })
                 tl
                 .from($(el).find('.home-process-step-background'), {
                     scale: 0,
-                    borderRadius: '1rem',
-                    ease: 'sine.out'
+                    borderRadius: '3rem',
+                    ease: 'sine.out',
+                    duration: 1
                 }, 0)
-                .from($(el).find('.home-process-step-img, .home-process-step-content'), {
-                    opacity: 0,
-                    ease: 'sine.in'
-                }, "<=.2")
+                .from($(el).find('.home-process-step-label'), {
+                    autoAlpha: 0,
+                    ease: 'sine.in',
+                    duration: .5
+                }, 1.5)
+                .from($(el).find('.home-process-step-title'), {
+                    autoAlpha: 0,
+                    ease: 'sine.in',
+                    duration: .5
+                }, 2)
+                .from($(el).find('.home-process-step-desc'), {
+                    autoAlpha: 0,
+                    ease: 'sine.in',
+                    duration: .5
+                }, 2.5)
+                // .from($(el).find('.home-process-step-img, .home-process-step-content'), {
+                //     autoAlpha: 0,
+                //     ease: 'sine.in'
+                // }, "<=.2")
             })
         }
         homeProcess()
@@ -259,7 +275,6 @@ const home = {
                             start: "top bottom",
                             end: "top top-=25%",
                             scrub: true,
-                            markers: true
                         }
                     })
                     requestAnimationFrame(() => {
@@ -571,7 +586,7 @@ const home = {
                 }
                 requestAnimationFrame(parallaxBear)
             }
-            bearMove()
+            // bearMove()
 
 
             function curtainFooter() {
