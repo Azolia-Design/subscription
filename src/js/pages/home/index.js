@@ -488,14 +488,12 @@ const home = {
             $('.home-project-wrap-bot .home-project-item').on('pointerleave', function(e) {
                 if (!$('.home-project-wrap-bot:hover').length) {
                     if ($(this).is(':first-child')){
-                        console.log('first');
                         let index = -1;
                         let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
                         let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
                         gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
                     }
                     if ($(this).is(':last-child')){
-                        console.log('last');
                         let index = $('.home-project-wrap-bot .home-project-item').length
                         let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
                         let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
