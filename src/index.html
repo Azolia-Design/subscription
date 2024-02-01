@@ -30,7 +30,9 @@
     <div class="cursor-wrap on-hidden">
         <div class="cursor">
             <div class="cursor-dot"></div>
-            <div class="cursor-border"></div>
+            <div class="cursor-border">
+                <div class="cursor-border-inner"></div>
+            </div>
             <div class="cursor-glow">
                 <img class="img" src='../public/imgs/cursor-glow.png?as=webp&width=1482' width='741' alt='cursor glow'/>
             </div>
@@ -45,11 +47,18 @@
                         <img class="img" src='../public/imgs/logo.svg' width='65' height="92" alt='bear logo'/>
                     </div>
                     <h1 class="h0 home-hero-title">Reliable design partner committed to your company's growth</h1>
-                    <a href="#" class="btn home-hero-btn">
+                    <a href="#" class="btn home-hero-btn" data-cursor="hidden">
                         <span class="txt txt-16 txt-btn">
                             See all plans
                         </span>
                     </a>
+                </div>
+                <div class="home-hero-discover">
+                    <div class="home-hero-mouse">
+                        <img class="img" src='../public/imgs/mouse.svg' width='68' height="92" alt='mouse icon'/>
+                        <span class="home-hero-mouse-wheel"></span>
+                    </div>
+                    <p class="txt txt-16 txt-med home-hero-discover-txt">Scroll down to discover how it works</p>
                 </div>
             </div>
             <div class="home-hero-bg">
@@ -61,22 +70,37 @@
         <div class="home-main">
             <header class="header">
                 <div class="container header-container">
-                    <div class="header-discover">
-                        <div class="header-mouse">
-                            <img class="img" src='../public/imgs/mouse.svg' width='68' height="92" alt='mouse icon'/>
-                            <span class="header-mouse-wheel"></span>
+                    <div class="header-logo">
+                        <div class="header-logo-img">
+                            <img src="../public/imgs/header-logo.svg" alt="Logo" class="img img-height">
                         </div>
-                        <p class="txt txt-16 txt-med header-discover-txt">Scroll down to discover how it works</p>
+                        <div class="header-logo-line"></div>
+                        <div class="txt header-logo-txt">
+                            Fueled by a passion for design, <span class="header-logo-txt-hl">BearInk</span>, a spin-off of Bearplus, was created to boost the success of young startups.
+                        </div>
                     </div>
                     <div class="header-main">
                         <a class="hover-un txt txt-16 txt-med" href="#">Schedule a call</a>
                         <div class="header-main-inner">
+                            <div class="header-menu">
+                                <div class="header-menu-label">
+                                    <div class="txt txt-16 txt-med header-menu-label-item">
+                                        Benefits
+                                    </div>
+                                </div>
+                                <div class="header-menu-prog">
+                                    <div class="header-menu-prog-item">
+                                        <div class="header-menu-prog-item-inner"></div>
+                                        <a href="#" class="header-menu-prog-item-link"></a>
+                                    </div>
+                                </div>
+                            </div>
                             <button class="header-hamburger">
                                 <span class="header-hamburger-line"></span>
                                 <span class="header-hamburger-line"></span>
                                 <span class="header-hamburger-line"></span>
                             </button>
-                            <a class="btn" href="#">
+                            <a class="btn" href="#" data-cursor="hidden">
                                 <span class="txt txt-16 txt-btn">Get Started</span>
                             </a>
                         </div>
@@ -84,7 +108,7 @@
                 </div>
             </header>
             <div class="home-main-inner">
-                <section class="home-benefit">
+                <section class="home-benefit" data-section="#" data-section-id="Benefit">
                     <div class="home-benefit-stick">
                         <div class="container">
                             <div class="home-benefit--wrap">
@@ -184,7 +208,7 @@
                         </div>
                     </div>
                 </section>
-                <section class="home-showreel">
+                <section class="home-showreel" data-section="#" data-section-id="Reel">
                     <div class="container">
                         <div class="home-showreel--wrap">
                             <div class="home-showreel-other--inner">
@@ -229,7 +253,7 @@
                         </div>
                     </div>
                 </section>
-                <section class="home-skill">
+                <section class="home-skill" data-section="#" data-section-id="Skill">
                     <div class="container grid">
                         <h2 class="h1 home-skill-title">Use all the skills of a design team at the cost of one person.</h2>
                         <p class="txt txt-20 home-skill-desc">With just one personnel cost, we provide all the necessary skills for you to operate your business at a high quality, led by professional designers with extensive experience in the field of digital design.</p>
@@ -239,7 +263,7 @@
                             <div class="home-skill-item grid">
                                 <h3 class="h4 home-skill-item-title">Website Design</h3>
                                 <div class="home-skill-item-desc">
-                                    <p class="txt txt-20">Logo, Icons, Social media, Poster, Banner, Brochure, Pitch deck, Flyer, Card visit, Folder, illustration, Mockup, Standee, Sticker, Backdrop, Print art, Brochure...</p>
+                                    <p class="txt txt-20">Landing Page Design  •  Web Design  •  Interaction Design  •  2D & 3D Motion Design  •  Webflow Development</p>
                                 </div>
                             </div>
                             <div class="home-skill-item grid">
@@ -251,13 +275,13 @@
                             <div class="home-skill-item grid">
                                 <h3 class="h4 home-skill-item-title">Product Design</h3>
                                 <div class="home-skill-item-desc">
-                                    <p class="txt txt-20">Logo, Icons, Social media, Poster, Banner, Brochure, Pitch deck, Flyer, Card visit, Folder, illustration, Mockup, Standee, Sticker, Backdrop, Print art, Brochure...</p>
+                                    <p class="txt txt-20">App Design  •  Mobile App Design  •  Prototyping  •  Interaction Design  •  2D & 3D Motion Design</p>
                                 </div>
                             </div>
                             <div class="home-skill-item grid">
                                 <h3 class="h4 home-skill-item-title">3D Design</h3>
                                 <div class="home-skill-item-desc">
-                                    <p class="txt txt-20">Logo, Icons, Social media, Poster, Banner, Brochure, Pitch deck, Flyer, Card visit, Folder, illustration, Mockup, Standee, Sticker, Backdrop, Print art, Brochure...</p>
+                                    <p class="txt txt-20">CGI  •  3D Visual Design  •  Product Visualization  •  Packaging Visualization  •  3D Motion Design</p>
                                 </div>
                             </div>
                             <div class="home-skill-item grid">
@@ -289,17 +313,18 @@
                 <div class="home-gradientNoise">
                     <img class="img img-fill home-gradientNoise-img" src='../public/imgs/gradient-noise.png?as=webp&width=3270.5' width='3270.5' alt='gradient noise with orange and blue color'/>
                 </div>
-                <section class="home-process">
+                <section class="home-process" data-section="#" data-section-id="Process">
                     <div class="container grid">
                         <div class="home-process-title--wrap">
                             <h2 class="h1 home-process-title">Working process is extremely simple</h2>
-                            <a class="btn" href="#"><span class="txt txt-16 txt-btn">Get Started Today</span></a>
+                            <a class="btn" href="#" data-cursor="hidden"><span class="txt txt-16 txt-btn">Get Started Today</span></a>
                         </div>
                         <p class="txt txt-20 home-process-desc">With just one personnel cost, we provide all the necessary skills for you to operate your business at a high quality With just one personnel cost, we provide all the necessary skills for you to operate.</p>
                     </div>
                     <div class="container grid">
                         <div class="home-process-step-listing">
                             <div class="home-process-step">
+                                <div class="home-process-step-background"></div>
                                 <div class="home-process-step-img">
                                     <img class="img" src='../public/imgs/skill-thumb-2.png?as=webp&width=800' width='400' loading="lazy" alt=''/>
                                 </div>
@@ -312,6 +337,8 @@
                                 </div>
                             </div>
                             <div class="home-process-step">
+                                <div class="home-process-step-background"></div>
+
                                 <div class="home-process-step-img">
                                     <img class="img" src='../public/imgs/skill-thumb-3.png?as=webp&width=800' width='400' loading="lazy" alt=''/>
                                 </div>
@@ -324,6 +351,7 @@
                                 </div>
                             </div>
                             <div class="home-process-step">
+                                <div class="home-process-step-background"></div>
                                 <div class="home-process-step-img">
                                     <img class="img" src='../public/imgs/skill-thumb-1.png?as=webp&width=800' width='400' loading="lazy" alt=''/>
                                 </div>
@@ -338,45 +366,9 @@
                         </div>
                     </div>
                 </section>
-                <section class="home-portfolio">
+                <section class="home-portfolio" data-section="#" data-section-id="Portfolio">
                     <div class="home-portfolio-project">
                         <div class="home-portfolio-project-list">
-                            <div class="home-portfolio-project-item">
-                                <img class="img" src='../public/imgs/portfolio-proj.jpg?as=webp&width=626' width='313' loading="lazy" alt=''/>
-                            </div>
-                            <div class="home-portfolio-project-item">
-                                <img class="img" src='../public/imgs/portfolio-proj.jpg?as=webp&width=626' width='313' loading="lazy" alt=''/>
-                            </div>
-                            <div class="home-portfolio-project-item">
-                                <img class="img" src='../public/imgs/portfolio-proj.jpg?as=webp&width=626' width='313' loading="lazy" alt=''/>
-                            </div>
-                            <div class="home-portfolio-project-item">
-                                <img class="img" src='../public/imgs/portfolio-proj.jpg?as=webp&width=626' width='313' loading="lazy" alt=''/>
-                            </div>
-                            <div class="home-portfolio-project-item">
-                                <img class="img" src='../public/imgs/portfolio-proj.jpg?as=webp&width=626' width='313' loading="lazy" alt=''/>
-                            </div>
-                            <div class="home-portfolio-project-item">
-                                <img class="img" src='../public/imgs/portfolio-proj.jpg?as=webp&width=626' width='313' loading="lazy" alt=''/>
-                            </div>
-                            <div class="home-portfolio-project-item">
-                                <img class="img" src='../public/imgs/portfolio-proj.jpg?as=webp&width=626' width='313' loading="lazy" alt=''/>
-                            </div>
-                            <div class="home-portfolio-project-item">
-                                <img class="img" src='../public/imgs/portfolio-proj.jpg?as=webp&width=626' width='313' loading="lazy" alt=''/>
-                            </div>
-                            <div class="home-portfolio-project-item">
-                                <img class="img" src='../public/imgs/portfolio-proj.jpg?as=webp&width=626' width='313' loading="lazy" alt=''/>
-                            </div>
-                            <div class="home-portfolio-project-item">
-                                <img class="img" src='../public/imgs/portfolio-proj.jpg?as=webp&width=626' width='313' loading="lazy" alt=''/>
-                            </div>
-                            <div class="home-portfolio-project-item">
-                                <img class="img" src='../public/imgs/portfolio-proj.jpg?as=webp&width=626' width='313' loading="lazy" alt=''/>
-                            </div>
-                            <div class="home-portfolio-project-item">
-                                <img class="img" src='../public/imgs/portfolio-proj.jpg?as=webp&width=626' width='313' loading="lazy" alt=''/>
-                            </div>
                             <div class="home-portfolio-project-item">
                                 <img class="img" src='../public/imgs/portfolio-proj.jpg?as=webp&width=626' width='313' loading="lazy" alt=''/>
                             </div>
@@ -515,19 +507,19 @@
                     <div class="home-project">
                         <div class="home-project-thumb">
                             <div class="home-project-thumb-wrap" data-thumb-name="artbook">
-                                <img src="../assets/home-proj-img-crtp.png" alt="Crypto-thumb" class="img home-project-thumb-wrap-img">
+                                <img src="../assets/home-proj-img-dkt.png" alt="Crypto-thumb" class="img home-project-thumb-wrap-img">
                             </div>
                             <div class="home-project-thumb-wrap" data-thumb-name="ryalize">
-                                <img src="../assets/home-proj-img-crtp.png" alt="Crypto-thumb" class="img home-project-thumb-wrap-img">
+                                <img src="../assets/home-proj-img-bp.png" alt="Crypto-thumb" class="img home-project-thumb-wrap-img">
                             </div>
                             <div class="home-project-thumb-wrap" data-thumb-name="crytopie">
                                 <img src="../assets/home-proj-img-crtp.png" alt="Crypto-thumb" class="img home-project-thumb-wrap-img">
                             </div>
                             <div class="home-project-thumb-wrap" data-thumb-name="zenliving">
-                                <img src="../assets/home-proj-img-crtp.png" alt="Crypto-thumb" class="img home-project-thumb-wrap-img">
+                                <img src="../assets/home-proj-img-zlv.png" alt="Crypto-thumb" class="img home-project-thumb-wrap-img">
                             </div>
                             <div class="home-project-thumb-wrap" data-thumb-name="cargokite">
-                                <img src="../assets/home-proj-img-crtp.png" alt="Crypto-thumb" class="img home-project-thumb-wrap-img">
+                                <img src="../assets/home-proj-img-cgk.png" alt="Crypto-thumb" class="img home-project-thumb-wrap-img">
                             </div>
                         </div>
                         <div class="home-project-wrap home-project-wrap-bot">
@@ -629,7 +621,7 @@
                 <div class="home-curtain">
                     <div class="home-curtain-inner"></div>
                 </div>
-                <section class="home-pricing">
+                <section class="home-pricing" data-section="#" data-section-id="Pricing">
                     <div class="container grid">
                         <div class="home-pricing--wrap">
                             <div class="home-pricing-text">
@@ -710,7 +702,7 @@
                                                     <p>Unlimited revisions</p>
                                                 </div>
                                             </div>
-                                            <a class="btn btn-border home-pricing-plan-item-btn" href="#"><span class="txt txt-18 txt-btn">Subscribe now</span></a>
+                                            <a class="btn btn-border home-pricing-plan-item-btn" href="#" data-cursor="hidden"><span class="txt txt-18 txt-btn">Subscribe now</span></a>
                                             <a class="txt txt-16 txt-link home-pricing-plan-booking" href="#">Book an intro call with us</a>
                                         </div>
                                         <div class="home-pricing-plan-item popular">
@@ -768,8 +760,8 @@
                                                     <p>Unlimited revisions</p>
                                                 </div>
                                             </div>
-                                            <a class="btn btn-border btn-white home-pricing-plan-item-btn" href="#"><span class="txt txt-18 txt-btn">Subscribe now</span></a>
-                                            <a class="txt txt-16 txt-link home-pricing-plan-booking" href="#">Book an intro call with us</a>
+                                            <a class="btn btn-border btn-white home-pricing-plan-item-btn" href="#" data-cursor="hidden"><span class="txt txt-18 txt-btn">Subscribe now</span></a>
+                                            <a class="txt txt-16 txt-link home-pricing-plan-booking" href="#" >Book an intro call with us</a>
                                         </div>
                                         <div class="home-pricing-plan-item">
                                             <p class="txt txt-20 txt-med txt-hl home-pricing-plan-item-label">Enterprise</p>
@@ -815,7 +807,7 @@
                                                     <p>Unlimited revisions</p>
                                                 </div>
                                             </div>
-                                            <a class="btn btn-border home-pricing-plan-item-btn" href="#"><span class="txt txt-18 txt-btn">Contact us</span></a>
+                                            <a class="btn btn-border home-pricing-plan-item-btn" href="#" data-cursor="hidden"><span class="txt txt-18 txt-btn">Contact us</span></a>
                                             <a class="txt txt-16 txt-link home-pricing-plan-booking" href="#">Book an intro call with us</a>
                                         </div>
                                     </div>
@@ -823,19 +815,19 @@
                                 <div class="home-pricing-plan-cta">
                                     <h4 class="h6 home-pricing-plan-cta-heading">Prefer a flexible plan? Try our Standard Plan design solution for 7 days</h4>
                                     <p class="txt txt-16 home-pricing-plan-cta-desc">Not ready to commit to a monthly payments plan yet? Try our plug and play service for one week and see if it works for you. You are able to get a few marketing landing pages in one week.</p>
-                                    <a class="btn btn-dark btn-border" href="#"><span class="txt txt-18 txt-btn">Try with $999 in 7 days</span></a>
+                                    <a class="btn btn-dark btn-border" href="#" data-cursor="hidden"><span class="txt txt-18 txt-btn">Try with $999 in 7 days</span></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-                <section class="home-explore">
+                <section class="home-explore" data-section="#" data-section-id="Explore">
                     <div class="container grid">
                         <div class="h3 home-explore-heading">
                             <h3>Standing behind this great service is BearPlus , a leading digital design agency, excels in web design, UI/UX, graphic design, and multimedia production. With a skilled team, they deliver tailored, innovative solutions that set the standard for impactful design in the dynamic digital landscape.</h3>
                         </div>
                         <div class="home-explore-img">
-                            <img class="img" src='../public/imgs/explore-3d.png?as=webp&width=1016' width='508' height="516" loading="lazy" alt=''/>
+                            <img class="img" src='../assets/logo-bear-plus.png' width='1142' height="920" loading="lazy" alt=''/>
                         </div>
                         <div class="home-explore-industries">
                             <h4 class="h6 home-explore-industries-title">We have extensive experience in many industries</h4>
@@ -857,7 +849,7 @@
                                     <div class="home-explore-industries-radar-wrapper-item">
                                         <div class="home-explore-industries-radar-wrapper-item-line" style="--i:1">
                                             <div class="home-explore-industries-radar-wrapper-item-line-dot dotwrap-1">
-                                                <div class="home-explore-industries-radar-wrapper-item-line-dot-wrap">
+                                                <div class="home-explore-industries-radar-wrapper-item-line-dot-wrap" data-cursor="radar">
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot" style="--d:1"></div>
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot" style="--d:2"></div>
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot" style="--d:3"></div>
@@ -870,7 +862,7 @@
                                         </div>
                                         <div class="home-explore-industries-radar-wrapper-item-line" style="--i:2">
                                             <div class="home-explore-industries-radar-wrapper-item-line-dot dotwrap-1">
-                                                <div class="home-explore-industries-radar-wrapper-item-line-dot-wrap">
+                                                <div class="home-explore-industries-radar-wrapper-item-line-dot-wrap" data-cursor="radar">
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
@@ -881,7 +873,7 @@
                                                 </div>
                                             </div>
                                             <div class="home-explore-industries-radar-wrapper-item-line-dot dotwrap-2">
-                                                <div class="home-explore-industries-radar-wrapper-item-line-dot-wrap">
+                                                <div class="home-explore-industries-radar-wrapper-item-line-dot-wrap" data-cursor="radar">
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
@@ -894,7 +886,7 @@
                                         </div>
                                         <div class="home-explore-industries-radar-wrapper-item-line" style="--i:3">
                                             <div class="home-explore-industries-radar-wrapper-item-line-dot dotwrap-1">
-                                                <div class="home-explore-industries-radar-wrapper-item-line-dot-wrap">
+                                                <div class="home-explore-industries-radar-wrapper-item-line-dot-wrap" data-cursor="radar">
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
@@ -905,7 +897,7 @@
                                                 </div>
                                             </div>
                                             <div class="home-explore-industries-radar-wrapper-item-line-dot dotwrap-2">
-                                                <div class="home-explore-industries-radar-wrapper-item-line-dot-wrap">
+                                                <div class="home-explore-industries-radar-wrapper-item-line-dot-wrap" data-cursor="radar">
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
@@ -918,7 +910,7 @@
                                         </div>
                                         <div class="home-explore-industries-radar-wrapper-item-line" style="--i:4">
                                             <div class="home-explore-industries-radar-wrapper-item-line-dot dotwrap-1">
-                                                <div class="home-explore-industries-radar-wrapper-item-line-dot-wrap">
+                                                <div class="home-explore-industries-radar-wrapper-item-line-dot-wrap" data-cursor="radar">
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
@@ -929,7 +921,7 @@
                                                 </div>
                                             </div>
                                             <div class="home-explore-industries-radar-wrapper-item-line-dot dotwrap-2">
-                                                <div class="home-explore-industries-radar-wrapper-item-line-dot-wrap">
+                                                <div class="home-explore-industries-radar-wrapper-item-line-dot-wrap" data-cursor="radar">
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
@@ -942,7 +934,7 @@
                                         </div>
                                         <div class="home-explore-industries-radar-wrapper-item-line" style="--i:5">
                                             <div class="home-explore-industries-radar-wrapper-item-line-dot dotwrap-1">
-                                                <div class="home-explore-industries-radar-wrapper-item-line-dot-wrap">
+                                                <div class="home-explore-industries-radar-wrapper-item-line-dot-wrap" data-cursor="radar">
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
@@ -953,7 +945,7 @@
                                                 </div>
                                             </div>
                                             <div class="home-explore-industries-radar-wrapper-item-line-dot dotwrap-2">
-                                                <div class="home-explore-industries-radar-wrapper-item-line-dot-wrap">
+                                                <div class="home-explore-industries-radar-wrapper-item-line-dot-wrap" data-cursor="radar">
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
                                                     <div class="home-explore-industries-radar-wrapper-item-line-innerdot"></div>
@@ -966,16 +958,16 @@
                                         </div>
                                     </div>
                                 </div>
-                                <img class="img home-explore-industries-radar-scan" src='../public/imgs/radar-scan.png?as=webp&width=2257' width='1128.5' alt=''/>
+                                <img class="img home-explore-industries-radar-scan" src='../public/imgs/radar-scan.png?as=webp&width=2257' width='1128.5' loading="eager" alt='radar-scan'/>
                             </div>
                         </div>
                     </div>
                 </section>
-                <section class="home-testi">
+                <section class="home-testi" data-section="#" data-section-id="Testimonial">
                     <div class="container grid ">
                         <div class="home-testi-text-wrap">
                             <h2 class="h1 home-testi-heading">Your success stories, our pride.</h2>
-                            <p class="txt txt-20 testi-sub">Here’s what people are saying about us</p>
+                            <p class="txt txt-20 testi-sub">Here's what people are saying about us</p>
                         </div>
                         <div class="home-testi-content">
                             <div class="home-testi-content-wrap">
@@ -1001,7 +993,7 @@
                         </div>
                     </div>
                 </section>
-                <section class="home-faq">
+                <section class="home-faq" data-section="#" data-section-id="Faq">
                     <div class="container grid">
                         <h2 class="h1 home-faq-heading">Find answers to your questions here</h2>
                         <div class="home-faq-content">
@@ -1089,7 +1081,7 @@
                 <p class="txt txt-20 txt-med footer-cta-sub1">Learn more about how BearInk works and how it can help?</p>
                 <h3 class="h0 footer-cta-title">Schedule a call</h3>
                 <p class="txt txt-18 footer-cta-sub2">Or pick the plan that suits your business</p>
-                <a class="btn btn-border btn-dark footer-cta-btn" href="#">
+                <a class="btn btn-border btn-dark footer-cta-btn" href="#" data-cursor="hidden">
                     <span class="txt txt-18 txt-btn">Check our Pricing</span>
                 </a>
                 <div class="footer-cta-sub3">
@@ -1160,10 +1152,23 @@
                 </div>
             </div>
         </div>
-        <div class="footer-logo">
-            <img  class="img" src="../public/imgs/logo.svg" width="367" height="361" alt="" loading="lazy">
+        <div class="footer-curtain">
+            <div class="footer-curtain-inner" style="--i: 10"></div>
+            <div class="footer-curtain-inner" style="--i: 9"></div>
+            <div class="footer-curtain-inner" style="--i: 8"></div>
+            <div class="footer-curtain-inner" style="--i: 7"></div>
+            <div class="footer-curtain-inner" style="--i: 6"></div>
+            <div class="footer-curtain-inner" style="--i: 5"></div>
+            <div class="footer-curtain-logo">
+                <img  class="img footer-curtain-logo-img" src="../assets/logo-bear-ink-2.svg" width="367" height="361" alt="logo bear" loading="lazy">
+            </div>
+            <div class="footer-curtain-inner" style="--i: 4"></div>
+            <div class="footer-curtain-inner" style="--i: 3"></div>
+            <div class="footer-curtain-inner" style="--i: 2"></div>
+            <div class="footer-curtain-inner" style="--i: 1"></div>
         </div>
-        <div class="container fluid">
+
+        <div class="container fluid footer-copyright-wrapper">
             <div class="footer-copyright">
                 <p class="txt txt-16 txt-med">All rights reserved © 2024 BearInk. From BearPlus with love</p>
                 <div class="footer-links">

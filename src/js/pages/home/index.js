@@ -1,8 +1,7 @@
 import { parseRem, selector } from "../../helper/index";
 import { cvUnit, percentage } from "../../helper/viewport";
-import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, typeOpts, findClosestEdge, closestEdge, distMetric, pointerCurr } from "../../helper";
-import Flip from '../../vendors/Flip';
 import { lenis } from "../../common/lenis";
+import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, findClosestEdge, FloatingAnimation, pointerCurr } from "../../helper";
 
 const home = {
     namespace: "home",
@@ -10,6 +9,46 @@ const home = {
         console.log(`enter ${this.namespace}`);
         let cont = $('body');
 
+        function updateHeader() {
+            let allSections = $('[data-section]');
+            let htmlLabel = $('.header-menu-label-item').eq(0).clone();
+            let htmlProg = $('.header-menu-prog-item').eq(0).clone();
+
+            $('.header-menu-label').find('.header-menu-label-item').remove();
+            $('.header-menu-prog').find('.header-menu-prog-item').remove();
+            allSections.each((idx, el) => {
+
+            })
+        }
+        function handleHeader() {
+            let tlHeaderTrigger = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.home-main',
+                    start: `top+=${$('.header').outerHeight()} top`,
+                    onEnter: () => {
+                        $('.header-logo').addClass('active')
+                        $('.header-menu').addClass('active')
+                        $('.header-hamburger').addClass('active')
+                    },
+                    onLeaveBack: () => {
+                        $('.header-logo').removeClass('active')
+                        $('.header-menu').removeClass('active')
+                        $('.header-hamburger').removeClass('active')
+                    }
+                }
+            })
+            $('.header-hamburger').on('click', function(e) {
+                e.preventDefault();
+                if (!$(this).hasClass('active')) {
+                    $('.header-menu').addClass('active')
+                    $(this).addClass('active')
+                } else {
+                    $('.header-menu').removeClass('active')
+                    $(this).removeClass('active')
+                }
+            })
+        }
+        handleHeader()
         function heroParallax() {
             let tl = gsap.timeline({
                 scrollTrigger: {
@@ -245,17 +284,18 @@ const home = {
                 start: 'top bottom',
                 once: true,
                 onEnter: () => {
-                    $('.home-skill-item').each((idx, el) => {
-                        const splitText = new SplitText($(el).find('.home-skill-item-title'), {type: "chars,lines", charsClass: 'char'})
+                    // $('.home-skill-item').each((idx, el) => {
+                    //     const splitText = new SplitText($(el).find('.home-skill-item-title'), {type: "chars,lines", charsClass: 'char'})
 
-                        $(el).on('mouseenter', function(e) {
-                            gsap.to(splitText.chars, {x: 50, duration: .4, stagger: .012, overwrite: true,})
-                            $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
-                        })
-                        $(el).on('mouseleave', function(e) {
-                            gsap.to(splitText.chars, {x: 0, duration: .2, overwrite: true})
-                            $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
-                        })
+                    //
+                    // })
+                    $('.home-skill-item').on('mouseenter', function(e) {
+                        let idx = $(this).index()
+                        $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
+                    })
+                    $('.home-skill-item').on('mouseleave', function(e) {
+                        let idx = $(this).index()
+                        $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).removeClass('active')
                     })
                     $('.home-skill-thumb-item').each((idx, el) => {
                         let clone = $(el).find('img')
@@ -288,6 +328,39 @@ const home = {
         }
         homeSkill()
 
+        function homeProcess() {
+            $('.home-process-step').each((idx, el) => {
+                let clone = $(el).find('.img')
+
+                for (let i = 1; i <= 5; i++) {
+                    let cloner = clone.clone()
+                    cloner.addClass('cloner')
+                    $(el).find('.home-process-step-img').append(cloner)
+                }
+
+                let tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top top+=60%',
+                        end: 'bottom top+=60%',
+                        scrub: true,
+                        // markers: true,
+                    },
+                })
+                tl
+                .from($(el).find('.home-process-step-background'), {
+                    scale: 0,
+                    borderRadius: '1rem',
+                    ease: 'sine.out'
+                }, 0)
+                .from($(el).find('.home-process-step-img, .home-process-step-content'), {
+                    opacity: 0,
+                    ease: 'sine.in'
+                }, "<=.2")
+            })
+        }
+        homeProcess()
+
         function homePortfolio() {
             function scrollAnimationGrid() {
                 const gridItems = $('.home-portfolio-project-item');
@@ -296,9 +369,10 @@ const home = {
                     let tl = gsap.timeline({
                         scrollTrigger: {
                             trigger: item,
-                            start: "top 100%",
-                            end: "top 0%",
+                            start: "top bottom",
+                            end: "top top-=25%",
                             scrub: true,
+                            markers: true
                         }
                     })
                     requestAnimationFrame(() => {
@@ -324,8 +398,6 @@ const home = {
         homePortfolio()
 
         function homeProject() {
-            console.log('Init HomeProject');
-
             const line = document.createElement('div')
             $(line).addClass('line')
             $('.home-project-item:last-child').append(line)
@@ -426,8 +498,6 @@ const home = {
 
             })
 
-
-
             function initMouseMove() {
                 let offsetL =  parseFloat(target.css('left'))
                 let rotVl
@@ -446,7 +516,7 @@ const home = {
 
                     if (pointerCurr().x < (target.width()/2 + offsetL + tarCurrX)){rotVl = -1}
                     else {rotVl = 1}
-                    rotZSetter(target.get(0))(lerp(tarCurrRot, rotVl * rotValue * (Math.min(Math.max(((tarX + tarY) - (tarCurrX + tarCurrY))/5, -15), 15)), .06))
+                    // rotZSetter(target.get(0))(lerp(tarCurrRot, rotVl * rotValue * (Math.min(Math.max(((tarX + tarY) - (tarCurrX + tarCurrY))/5, -15), 15)), .06))
                 }
                 requestAnimationFrame(initMouseMove)
             }
@@ -509,73 +579,27 @@ const home = {
                 rotate: 270 - 10,
                 duration: lifeCycleTime,
                 ease: 'none',
-                repeat: -1,
             }, 0)
             DOM.lineItem.each((idx, el) => {
                 tl
-                .fromTo($(el).find(DOM.dot), {
-                    opacity: 0
-                }, {
-                    opacity: 1,
-                    duration: .5,
+                .to($(el).find(DOM.dot), {
+                    onStart: () => {
+                        $(el).find(DOM.dot).addClass('active')
+                    }
                 }, `${ (0.1254480287 * lifeCycleTime) + (0.1111111111 * idx * lifeCycleTime)}`)
                 .to($(el).find(DOM.dot), {
-                    opacity: 0,
-                    duration: .5,
-                }, '<=1.5')
+                    onStart: () => {
+                        $(el).find(DOM.dot).removeClass('active')
+                    }
+                }, '<=2')
             })
 
-
-            // tl
-            // .fromTo('.home-industries-wrap-radar-scan', {
-            //     rotate:0,
-            // }, {
-            //     rotate: 180,
-            //     duration: 4,
-            //     ease: 'none',
-            // })
-            // .to('.home-industries-wrap-radar-scan', {
-            //     rotate: 360,
-            //     duration: 2,
-            //     ease: 'none',
-            // })
-            // .fromTo('.home-industries-wrap-radar-wrapper-item-line .home-industries-wrap-radar-wrapper-item-line-dot-wrap', {
-            //     autoAlpha: 0
-            // }, {
-            //     stagger: 4 / 9,
-            //     autoAlpha: 1,
-            //     duration: 4 / 9
-            // }, 0)
-            // .to('.home-industries-wrap-radar-wrapper-item-line .home-industries-wrap-radar-wrapper-item-line-dot-wrap', {
-            //     stagger: 4 / 9,
-            //     autoAlpha: 0,
-            //     duration: 4 / 9
-            // }, 4/9)
-            // .to('.home-industries-wrap-radar-wrapper-item-line .home-industries-wrap-radar-wrapper-item-line-dot-wrap', {
-            //     duration: 2
-            // }, `>=2`)
-
-            // tl
-            // .to('radar-scan', {duration: 4})
-            // .fromTo('.radar-item-group', {autoAplha: 0},{autoAplha: 1, stagger: 4/4, duration:4/4}, 0)
-
-
-            // let waves = $('.home-industries-wrap-radar-wrapper-inner-wave')
-            // clonseCounts = 10;
-            // const clone = waves.clone()
-
-            // for (let i = 1; i < clonseCounts; i++) {
-            //     let cloner = clone
-            //     waves.closest('.home-industries-wrap-radar-wrapper-inner').append(cloner)
-            // }
-            // const dur = 3,
-            //     ease= 'none',
-            //     delayValue = 2
-
-            // waves.each((idx, el) => {
-            //     gsap.fromTo(el, {scale: 0}, {scale: 1.5, duration: waves.length * delayValue, delay: (idx) * delayValue, repeat: -1, ease: ease})
-            // })
-            /* Dot Anim */
+            $('.home-explore-industries-radar-wrapper-item-line-dot-wrap').on('pointerenter', function(e) {
+                $(this).addClass('on-hover')
+            })
+            $('.home-explore-industries-radar-wrapper-item-line-dot-wrap').on('pointerleave', function(e) {
+                $(this).removeClass('on-hover')
+            })
         }
         homeIndustries()
 
@@ -641,6 +665,47 @@ const home = {
             })
         }
         faqAccordion();
+
+
+        function footer() {
+            function bearMove() {
+                new FloatingAnimation('.footer-curtain-logo img', 20, 10, 10, 10)
+
+                function parallaxBear() {
+                    let target = $('.footer-curtain-logo')
+                    let tarCurrX = xGetter(target.get(0))
+                    let tarCurrY = yGetter(target.get(0))
+                    let moveX = (pointerCurr().x/$(window).width() - 0.5) * (target.width()/2)
+                    let moveY = (pointerCurr().y/$(window).height() - 0.5) * (target.height()/2/4)
+                    xSetter(target.get(0))(lerp(tarCurrX, moveX, .005))
+                    ySetter(target.get(0))(lerp(tarCurrY, moveY, .005))
+
+                    requestAnimationFrame(parallaxBear)
+                }
+                requestAnimationFrame(parallaxBear)
+            }
+            bearMove()
+
+
+            function curtainFooter() {
+                gsap.to('.footer-curtain-inner', {
+                    scrollTrigger: {
+                        trigger: '.footer-curtain',
+                        start: 'top bottom',
+                        end: 'bottom top+=60%',
+                        scrub: true,
+                    },
+                    scaleY: .0,
+                    transformOrigin: 'bottom',
+                    stagger: {
+                        amount: .25
+                    },
+                    ease: 'power1.inOut'
+                })
+            }
+            // curtainFooter()
+        }
+        footer()
     },
     beforeLeave() {
         console.log(`leave ${this.namespace}`);

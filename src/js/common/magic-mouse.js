@@ -7,7 +7,7 @@ const initCursor = () => {
     const cusroGlowWidth = parseFloat($('.cursor-glow').css('width'))
 
     let cursorChange = false
-    const velChange = .1
+    const velChange = .11
 
     function initMouseMove() {
         let cursor = $('.cursor')
@@ -37,22 +37,35 @@ const initCursor = () => {
 
             switch (type) {
                 case 'stick':
-                    gsap.to(cursor.find('.cursor-dot'), {width: targetValue, height: targetValue, duration: .6, ease: 'power2.out'})
+                    gsap.to(cursor.find('.cursor-dot'), {width: targetValue, height: targetValue, duration: .6, ease: 'power2.out', overwrite: true})
                     xSetter(cursor.get(0))(lerp(cursorX, targetOffsetLeft + target.outerWidth()/2, velChange))
                     ySetter(cursor.get(0))(lerp(cursorY, targetOffsetTop + target.outerHeight()/2, velChange))
+                    updatePos('change')
                     break;
                 case 'magnetic':
-                    gsap.to(cursor.find('.cursor-glow'), {width: targetValue, height: targetValue, duration: .6, ease: 'power2.out'})
+                    gsap.to(cursor.find('.cursor-glow'), {width: targetValue, height: targetValue, duration: .6, ease: 'power2.out', overwrite: true})
                     xSetter(cursor.get(0))(lerp(cursorX, targetOffsetLeft + target.outerWidth()/2, velChange))
                     ySetter(cursor.get(0))(lerp(cursorY, targetOffsetTop + target.outerHeight()/2, velChange))
+                    updatePos('change')
                     break;
+                case 'radar':
+                    gsap.to(cursor.find('.cursor-dot'), {scale: 0, duration: .6, ease: 'power2.out', overwrite: true})
+                    xSetter(cursor.get(0))(lerp(cursorX, targetOffsetLeft + target.outerWidth()/2, velChange))
+                    ySetter(cursor.get(0))(lerp(cursorY, targetOffsetTop + target.outerHeight()/2, velChange))
+                    updatePos('change')
+                    break
+                case 'hidden':
+                    gsap.to(cursor.find('.cursor-dot'), {scale: 0, duration: .6, ease: 'power2.out', overwrite: true})
+                    gsap.to(cursor.find('.cursor-border'), {scale: 1.5, autoAlpha: 0, duration: .4, ease: 'power2.out', overwrite: true})
+                    gsap.to(cursor.find('.cursor-glow'), {scale: 1.5, autoAlpha: 0, duration: .4, ease: 'power2.out', overwrite: true})
+                    updatePos('free')
+                    break
             }
-            updatePos('change')
         } else {
             if (cursorChange == true) {
-                gsap.to(cursor.find('.cursor-dot'), {width: cusrorDotWidth, height: cusrorDotWidth, duration: .6, ease: 'power2.out'})
-                gsap.to(cursor.find('.cursor-border'), {width: cusrorBorderWidth, height: cusrorBorderWidth, duration: .6, ease: 'power2.out'})
-                gsap.to(cursor.find('.cursor-glow'), {width: cusroGlowWidth, height: cusroGlowWidth, duration: .6, ease: 'power2.out'})
+                gsap.to(cursor.find('.cursor-dot'), {width: cusrorDotWidth, height: cusrorDotWidth, scale: 1, autoAlpha: 1, duration: .6, ease: 'power2.out'})
+                gsap.to(cursor.find('.cursor-border'), {width: cusrorBorderWidth, height: cusrorBorderWidth, scale: 1, autoAlpha: 1, duration: .6, ease: 'power2.out'})
+                gsap.to(cursor.find('.cursor-glow'), {width: cusroGlowWidth, height: cusroGlowWidth, scale: 1, autoAlpha: 1, duration: .6, ease: 'power2.out'})
                 cursorChange = false
             }
             updatePos('free')
