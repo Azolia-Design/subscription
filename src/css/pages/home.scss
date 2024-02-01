@@ -114,11 +114,15 @@
         &-stick {
             position: sticky;
             top: 15.4rem;
-            height: calc(100vh - 22.36vh - 14vh);
+            height: calc(100vh - 15.4rem);
+        }
+        .container {
+            height: 100%;
         }
         &--wrap {
             position: relative;
             border-radius: 2rem;
+            height: 100%;
             &::before {
                 content: '';
                 position: absolute;
@@ -130,9 +134,9 @@
         &-list {
             display: flex;
             justify-content: start;
-            height: 70rem;
+            height: 100%;
             position: relative;
-            padding-bottom: 8.6rem;
+            padding-bottom: 12rem;
             border-radius: 2rem;
             overflow: hidden;
             // &.benefit--switch {
@@ -200,22 +204,11 @@
                 z-index: 3;
                 @include transform(scale(1.1));
                 @include transition(
-                    opacity 2.333s linear(
-                        0, 0.002, 0.009 1%, 0.035, 0.078, 0.141 4.4%, 0.281 6.7%, 0.723 12.9%, 0.842,
-                        0.938, 1.017, 1.077 20.4%, 1.101, 1.121, 1.137, 1.149 24.3%, 1.159, 1.163,
-                        1.161, 1.154, 1.143, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 1.002, 0.991,
-                        0.982 48.9%, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.979 60%, 0.997 69.8%,
-                        1.001, 1.003 76.9%, 1.004 83.8%, 1
-                    ),
-                    transform 2.333s linear(
-                        0, 0.002, 0.009 1%, 0.035, 0.078, 0.141 4.4%, 0.281 6.7%, 0.723 12.9%, 0.842,
-                        0.938, 1.017, 1.077 20.4%, 1.101, 1.121, 1.137, 1.149 24.3%, 1.159, 1.163,
-                        1.161, 1.154, 1.143, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 1.002, 0.991,
-                        0.982 48.9%, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.979 60%, 0.997 69.8%,
-                        1.001, 1.003 76.9%, 1.004 83.8%, 1
-                    ));
+                    opacity .8s ease-out,
+                    transform 2.333s var(--spring-easing-1));
                 img {
                     object-fit: contain;
+                    height: 100%;
                 }
             }
             &-sub {
@@ -253,6 +246,14 @@
         position: relative;
         height: 500vh;
         contain: paint;
+        &-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            @include size(100%);
+            background-color: rgba($cl-bg, 1);
+            z-index: 4;
+        }
         &--wrap {
             position: relative;
             display: flex;
@@ -260,7 +261,6 @@
             position: sticky;
             top: 15.4rem;
             height: calc(100vh - 15.4rem - 4rem);
-            overflow: hidden;
             margin: 0 auto;
             padding: 0 var(--container-padding);
         }
@@ -269,6 +269,7 @@
             z-index: 3;
             position: relative;
             height: 100%;
+            width: 100%;
             border-radius: 2rem;
         }
         &-other--inner {
@@ -320,13 +321,17 @@
             justify-content: center;
             width: auto;
             border-radius: 1.2rem;
-            overflow: hidden;
             position: relative;
             height: 100%;
+            &-main {
+                width: 100%;
+            }
         }
         &-thumb {
             position: relative;
             overflow: hidden;
+            height: 100%;
+            width: 100%;
             img {
                 object-position: center center;
             }
@@ -337,15 +342,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 0 4.9rem;
             &-ic {
-                width: 11.5%;
                 border-radius: 50%;
                 aspect-ratio: 1;
                 background: rgba(255, 255, 255, 0.20);
                 display: flex;
                 align-items: center;
                 flex: none;
+                width: 65%;
                 svg {
                     margin-left: 38%;
                     width: 32%;
@@ -362,6 +366,16 @@
                         opacity: 0;
                     }
                 }
+            }
+            p {
+                position: absolute;
+                text-wrap: nowrap;
+            }
+            p:first-child {
+                right: calc(100%);
+            }
+            p:last-child {
+                left: calc(100%);
             }
             &:hover {
                 .home-showreel-play-ic {
