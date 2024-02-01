@@ -18,14 +18,56 @@ const home = {
             $('.header-menu-prog').find('.header-menu-prog-item').remove();
             allSections.each((idx, el) => {
                 let htmlLabel = tempLabel.clone();
-                htmlLabel.html(`${$(el).attr('data-section-id')}`)
+                htmlLabel.html(`${$(el).attr('data-section-id')}`).attr('data-header-id',`${$(el).attr('data-section-id')}`)
                 $('.header-menu-label').append(htmlLabel)
 
                 let htmlProg = tempProg.clone();
                 htmlProg.find('.header-menu-prog-item-link').attr('href', `#${$(el).attr('data-section-id')}`)
+                htmlProg.attr('data-header-id',`${$(el).attr('data-section-id')}`)
                 $('.header-menu-prog').append(htmlProg)
             })
         }
+        function headerScroll() {
+            let allSections = $('[data-section]');
+            setTimeout(() => {
+                let offset = '40%'
+                allSections.each((idx, el) => {
+                    ScrollTrigger.create({
+                        trigger: el,
+                        start: `top top+=${offset}`,
+                        end: `bottom bottom-=${offset}`,
+                        scrub: true,
+                        markers: true,
+                        onUpdate: (self) => {
+                            let currSection = allSections.eq(idx);
+                            let id = currSection.attr('data-section-id')
+                            $(`.header-menu-label-item[data-header-id="${id}"]`).addClass('active');
+                            $(`.header-menu-label-item`).not(`[data-header-id="${id}"]`).removeClass('active');
+                            $(`.header-menu-prog-item[data-header-id="${id}"]`).addClass('active');
+                            $(`.header-menu-prog-item`).not(`[data-header-id="${id}"]`).removeClass('active');
+                            let percent = Math.ceil((self.progress * 100) - 100);
+                            console.log(percent)
+                            gsap.to($(`.header-menu-prog-item[data-header-id="${id}"]`).find('.header-menu-prog-item-inner'), {xPercent: percent, duration: .3, overwrite: true})
+                        }
+                    })
+                })
+                ScrollTrigger.create({
+                    trigger: '.home-main',
+                    start: `top top+=${offset}`,
+                    end: `bottom bottom-=${offset}`,
+                    onLeave: () => {
+                        console.log('on leave')
+                        $(`.header-menu-label-item`).removeClass('active');
+                        $(`.header-menu-prog-item`).removeClass('active');
+                    },
+                    onLeaveBack: () => {
+                        $(`.header-menu-label-item`).removeClass('active');
+                        $(`.header-menu-prog-item`).removeClass('active');
+                    }
+                })
+            }, 100);
+        }
+        headerScroll()
         updateHeader()
         function handleHeader() {
             let tlHeaderTrigger = gsap.timeline({
@@ -184,7 +226,7 @@ const home = {
             $('.home-benefit-other-sub-btn').on('click', function(e) {
                 e.preventDefault();
                 let target = $(this).closest('.home-benefit-item.home-benefit-other').index();
-                scrollToLabel(5, scrollerTl, `label${target}`)
+                scrollToLabel(1, scrollerTl, `label${target}`)
             })
 
             gsap.set('.home-showreel', { marginTop: -cvUnit(60, "vh") })
@@ -302,7 +344,6 @@ const home = {
         function homeProcess() {
             $('.home-process-step').each((idx, el) => {
                 let clone = $(el).find('.img')
-
                 for (let i = 1; i <= 5; i++) {
                     let cloner = clone.clone()
                     cloner.addClass('cloner')
@@ -316,37 +357,22 @@ const home = {
                         end: 'bottom top+=70%',
                         scrub: .3,
                     },
-                    // duration: 5
                 })
-                tl
-                .from($(el).find('.home-process-step-background'), {
-                    scale: 0,
-                    borderRadius: '6rem',
-                    ease: 'sine.out',
-                    duration: 4
-                }, 0)
-                .from($(el).find('.home-process-step-img'), {
-                    autoAlpha: 0,
-                    scale: .9,
-                    ease: 'sine.in',
-                    duration: 1
-                }, 1.8)
-                .from($(el).find('.home-process-step-label'), {
-                    autoAlpha: 0,
-                    ease: 'sine.in',
-                    duration: .5
-                }, 3)
-                .from($(el).find('.home-process-step-title'), {
-                    autoAlpha: 0,
-                    ease: 'sine.in',
-                    duration: .8
-                }, 3)
-                .from($(el).find('.home-process-step-desc'), {
-                    autoAlpha: 0,
-                    ease: 'sine.in',
-                    duration: .8
-                }, 3.2)
-
+                if (idx % 2 == 0) {
+                    tl
+                    .from($(el).find('.home-process-step-background'), {scale: 0, borderRadius: '8rem', ease: 'sine.out', duration: 4}, 0)
+                    .from($(el).find('.home-process-step-img'), {autoAlpha: 0, scale: .8, yPercent: 20, ease: 'sine.inOut', duration: 1}, 2)
+                    .from($(el).find('.home-process-step-label'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.2')
+                    .from($(el).find('.home-process-step-title'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.4')
+                    .from($(el).find('.home-process-step-desc'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.4')
+                } else {
+                    tl
+                    .from($(el).find('.home-process-step-background'), {scale: 0, borderRadius: '8rem', ease: 'sine.out', duration: 4}, 0)
+                    .from($(el).find('.home-process-step-img'), {autoAlpha: 0, scale: .8, yPercent: 20, ease: 'sine.inOut', duration: 1}, 2)
+                    .from($(el).find('.home-process-step-label'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.2')
+                    .from($(el).find('.home-process-step-title'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.4')
+                    .from($(el).find('.home-process-step-desc'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.4')
+                }
             })
         }
         homeProcess()
@@ -470,14 +496,12 @@ const home = {
             $('.home-project-wrap-bot .home-project-item').on('pointerleave', function(e) {
                 if (!$('.home-project-wrap-bot:hover').length) {
                     if ($(this).is(':first-child')){
-                        console.log('first');
                         let index = -1;
                         let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
                         let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
                         gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
                     }
                     if ($(this).is(':last-child')){
-                        console.log('last');
                         let index = $('.home-project-wrap-bot .home-project-item').length
                         let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
                         let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
@@ -658,22 +682,21 @@ const home = {
 
         function footer() {
             function bearMove() {
-                new FloatingAnimation('.footer-curtain-logo img', 20, 10, 10, 10)
-
+                // new FloatingAnimation('.footer-curtain-logo img', 20, 10, 10, 10)
                 function parallaxBear() {
                     let target = $('.footer-curtain-logo')
                     let tarCurrX = xGetter(target.get(0))
                     let tarCurrY = yGetter(target.get(0))
-                    let moveX = (pointerCurr().x/$(window).width() - 0.5) * (target.width()/2)
-                    let moveY = (pointerCurr().y/$(window).height() - 0.5) * (target.height()/2/4)
-                    xSetter(target.get(0))(lerp(tarCurrX, moveX, .005))
-                    ySetter(target.get(0))(lerp(tarCurrY, moveY, .005))
+                    let moveX = (pointerCurr().x/$(window).width() - 0.5) * 2 * (target.width()/2)
+                    let moveY = (pointerCurr().y/$(window).height() - 0.5) * 2 * (target.height()/8)
+                    xSetter(target.get(0))(lerp(tarCurrX, moveX, .01))
+                    ySetter(target.get(0))(lerp(tarCurrY, moveY, .01))
 
                     requestAnimationFrame(parallaxBear)
                 }
                 requestAnimationFrame(parallaxBear)
             }
-            // bearMove()
+            bearMove()
 
 
             function curtainFooter() {
