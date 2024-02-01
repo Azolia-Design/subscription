@@ -11,15 +11,22 @@ const home = {
 
         function updateHeader() {
             let allSections = $('[data-section]');
-            let htmlLabel = $('.header-menu-label-item').eq(0).clone();
-            let htmlProg = $('.header-menu-prog-item').eq(0).clone();
+            let tempLabel = $('.header-menu-label-item').eq(0).clone();
+            let tempProg = $('.header-menu-prog-item').eq(0).clone();
 
             $('.header-menu-label').find('.header-menu-label-item').remove();
             $('.header-menu-prog').find('.header-menu-prog-item').remove();
             allSections.each((idx, el) => {
-                
+                let htmlLabel = tempLabel.clone();
+                htmlLabel.html(`${$(el).attr('data-section-id')}`)
+                $('.header-menu-label').append(htmlLabel)
+
+                let htmlProg = tempProg.clone();
+                htmlProg.find('.header-menu-prog-item-link').attr('href', `#${$(el).attr('data-section-id')}`)
+                $('.header-menu-prog').append(htmlProg)
             })
         }
+        updateHeader()
         function handleHeader() {
             let tlHeaderTrigger = gsap.timeline({
                 scrollTrigger: {
@@ -274,7 +281,7 @@ const home = {
                             trigger: item,
                             start: "top bottom",
                             end: "top top-=25%",
-                            scrub: true,
+                            scrub: gsap.utils.random(.4,2),
                         }
                     })
                     requestAnimationFrame(() => {

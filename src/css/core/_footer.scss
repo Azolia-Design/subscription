@@ -9,12 +9,20 @@
         text-align: center;
         gap: 2.8rem 0;
         margin-bottom: 10.3rem;
+        &-title {
+            color: rgba($cl-primary, 1);
+        }
         &-sub1 {
             color: $cl-heading;
+            color: rgba($cl-white, 1);
+        }
+        &-sub2 {
+            color: rgba($cl-white, .7);
         }
         &-sub3 {
             display: flex;
             gap: 0 .5rem;
+            color: rgba($cl-white, .6);
             a {
                 color: $cl-heading;
             }
