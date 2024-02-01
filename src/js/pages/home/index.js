@@ -37,7 +37,6 @@ const home = {
                         start: `top top+=${offset}`,
                         end: `bottom bottom-=${offset}`,
                         scrub: true,
-                        markers: true,
                         onUpdate: (self) => {
                             let currSection = allSections.eq(idx);
                             let id = currSection.attr('data-section-id')
