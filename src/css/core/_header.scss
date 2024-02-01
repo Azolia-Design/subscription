@@ -146,7 +146,7 @@
                 max-width: 0px;
                 opacity: 0;
                 @include transform(scale(.8));
-                @include transition(all ease 400ms);
+                @include transition(all ease 600ms);
             }
         }
         &-prog {
@@ -170,13 +170,14 @@
                     border-radius: 9.9rem;
                     background-color: rgba($cl-white, 1);
                     opacity: 0;
-                    @include transform(translateX(-50%))
+                    @include transform(translateX(-100%));
+                    @include transition(opacity 400ms ease)
                 }
                 &-link {
                     display: block;
                     width: 0rem;
                     height: .6rem;
-                    @include transition(all 400ms ease)
+                    @include transition(all 600ms ease)
                 }
             }
         }
