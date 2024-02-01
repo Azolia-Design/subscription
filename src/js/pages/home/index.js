@@ -140,11 +140,12 @@ const home = {
 
             BENEFIT.otherItem.each((index, item) => {
                 let itemSelect = selector(item);
-                gsap.set(itemSelect('span'), { scaleX: 0 });
+                gsap.set(itemSelect('.home-benefit-item-overlay'), { scaleX: 0 });
                 let label = $(item).find('.home-benefit-other-title').text().toLowerCase().replace(' ', '-');
                 $(item).attr('data-label', `${label}`)
 
                 scrollerTl
+                        .add(`label${index}`)
                         .to(item, {
                             duration: 1
                         })
@@ -164,44 +165,41 @@ const home = {
                                 .to(el, {
                                     x: -(ITEM_WIDTH * ( 1 + index )),
                                     paddingLeft: parseRem(40),
-                                    duration: 1,
+                                    duration: 1
                                 }, '<=0')
                         }
                     })
             })
+            scrollerTl
+            .to(BENEFIT.wrap, {
+                scale: 0.5, autoAlpha: 0,
+                duration: 2,
+            }, '>=-1')
 
-            // scrollerTl.to('.home-benefit--wrap', {
-            //     scale: 0.8, duration: 1
-            // }, 6)
+            .to(BENEFIT.wrap, {
+                yPercent: -8,
+                duration: 1
+            }, "<= .8")
 
-            let scaleTl = gsap.timeline({
-                defaults: { ease: 'none' },
-                scrollTrigger: {
-                    trigger: BENEFIT.stage,
-                    // start: `top-=${$('header').outerHeight()} top`,
-                    end: 'bottom bottom-=10',
-                    scrub: true
-                }
+            $('.home-benefit-other-sub-btn').on('click', function(e) {
+                e.preventDefault();
+                let target = $(this).closest('.home-benefit-item.home-benefit-other').index();
+                scrollToLabel(1, scrollerTl, `label${target}`)
             })
 
-            scaleTl
-                .set('.home-showreel', { marginTop: -cvUnit(80, "vh") })
-                .to(BENEFIT.wrap, {
-                    scale: 0.5, autoAlpha: 0,
-                    duration: 2,
-                }, 12)
-                .to(BENEFIT.wrap, {
-                    yPercent: -8,
-                    duration: 1
-                }, "<= .8")
+            gsap.set('.home-showreel', { marginTop: -cvUnit(80, "vh") })
 
-            let benefitTl = gsap.timeline();
-            benefitTl.add(scrollerTl).add(scaleTl);
-
-            // BENEFIT.otherItem.on('click', function (e) {
-            //     // let label = $(this).attr('data-label');
-            //     scrollerTl.seek("50%");
-            // })
+            function scrollToLabel(duration, timeline, label) {
+                const yStart = $('.home-benefit').offset().top - $('.header').outerHeight()
+                const now = timeline.progress()
+                timeline.seek(label)
+                const goToProgress = timeline.progress()
+                timeline.progress(now)
+                lenis.scrollTo(yStart + ( timeline.scrollTrigger.end - timeline.scrollTrigger.start ) * goToProgress, {
+                    duration: duration,
+                    force: true
+                })
+            }
         }
         benefitStackScroll();
 
@@ -277,7 +275,7 @@ const home = {
                     duration: .5
                 })
         }
-        showreelGalleryZoom()
+        // showreelGalleryZoom()
 
         function homeSkill() {
             ScrollTrigger.create({
@@ -338,7 +336,6 @@ const home = {
         function homeProcess() {
             $('.home-process-step').each((idx, el) => {
                 let clone = $(el).find('.img')
-
                 for (let i = 1; i <= 5; i++) {
                     let cloner = clone.clone()
                     cloner.addClass('cloner')
@@ -352,37 +349,22 @@ const home = {
                         end: 'bottom top+=70%',
                         scrub: .3,
                     },
-                    // duration: 5
                 })
-                tl
-                .from($(el).find('.home-process-step-background'), {
-                    scale: 0,
-                    borderRadius: '6rem',
-                    ease: 'sine.out',
-                    duration: 4
-                }, 0)
-                .from($(el).find('.home-process-step-img'), {
-                    autoAlpha: 0,
-                    scale: .9,
-                    ease: 'sine.in',
-                    duration: 1
-                }, 1.8)
-                .from($(el).find('.home-process-step-label'), {
-                    autoAlpha: 0,
-                    ease: 'sine.in',
-                    duration: .5
-                }, 3)
-                .from($(el).find('.home-process-step-title'), {
-                    autoAlpha: 0,
-                    ease: 'sine.in',
-                    duration: .8
-                }, 3)
-                .from($(el).find('.home-process-step-desc'), {
-                    autoAlpha: 0,
-                    ease: 'sine.in',
-                    duration: .8
-                }, 3.2)
-                
+                if (idx % 2 == 0) {
+                    tl
+                    .from($(el).find('.home-process-step-background'), {scale: 0, borderRadius: '8rem', ease: 'sine.out', duration: 4}, 0)
+                    .from($(el).find('.home-process-step-img'), {autoAlpha: 0, scale: .8, yPercent: 20, ease: 'sine.inOut', duration: 1}, 2)
+                    .from($(el).find('.home-process-step-label'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.2')
+                    .from($(el).find('.home-process-step-title'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.4')
+                    .from($(el).find('.home-process-step-desc'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.4')
+                } else {
+                    tl
+                    .from($(el).find('.home-process-step-background'), {scale: 0, borderRadius: '8rem', ease: 'sine.out', duration: 4}, 0)
+                    .from($(el).find('.home-process-step-img'), {autoAlpha: 0, scale: .8, yPercent: 20, ease: 'sine.inOut', duration: 1}, 2)
+                    .from($(el).find('.home-process-step-label'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.2')
+                    .from($(el).find('.home-process-step-title'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.4')
+                    .from($(el).find('.home-process-step-desc'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.4')
+                }
             })
         }
         homeProcess()

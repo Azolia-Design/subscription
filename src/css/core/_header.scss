@@ -175,6 +175,7 @@
                 &-link {
                     display: block;
                     width: 0rem;
+                    height: .6rem;
                     @include transition(all 400ms ease)
                 }
             }
