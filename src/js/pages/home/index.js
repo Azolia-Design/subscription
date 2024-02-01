@@ -525,7 +525,7 @@ const home = {
 
                     if (pointerCurr().x < (target.width()/2 + offsetL + tarCurrX)){rotVl = -1}
                     else {rotVl = 1}
-                    // rotZSetter(target.get(0))(lerp(tarCurrRot, rotVl * rotValue * (Math.min(Math.max(((tarX + tarY) - (tarCurrX + tarCurrY))/5, -15), 15)), .06))
+                    rotZSetter(target.get(0))(lerp(tarCurrRot, rotVl * rotValue * (Math.min(Math.max(((tarX + tarY) - (tarCurrX + tarCurrY))/5, -15), 15)), .06))
                 }
                 requestAnimationFrame(initMouseMove)
             }
@@ -664,7 +664,7 @@ const home = {
                 // ease: 'expo.inOut',
                 duration: .2
             }, "<=0")
-            
+
 
             tlScrub
             .to($('.home-testi-content-item').eq(0), {
@@ -782,7 +782,7 @@ const home = {
                 autoAlpha: 1,
                 duration: 1
             }, "<=0")
-       
+
 
             // tlScrub
             // .fromTo($('.home-testi-content-item').eq(1), {
@@ -805,17 +805,17 @@ const home = {
             //     autoAlpha: .8,
             //     duration: 1
             // }, .25)
-            
+
 
 
 
 
             $('.home-testi-content-item').each((idx, el) => {
                 if (idx == 0) {
-                    
-                }                
+
+                }
             })
-            
+
         }
         homeTesti()
 
