@@ -259,14 +259,13 @@ const home = {
                     trigger: GALLERY.wrap,
                     start: `top bottom`,
                     end: 'bottom bottom',
-                    scrub: true,
-                    markers: true
+                    scrub: true
                 }
             })
 
             const getOtherItem = ({ wrap, item }) => GALLERY.otherWrap.eq(wrap).find(GALLERY.otherInner).eq(item);
             showreelTl
-                .to('.home-showreel-overlay', { autoAlpha: 0, duration: .1 })
+                .to('.home-showreel-item-overlay', { autoAlpha: 0, duration: .15 })
                 .from([getOtherItem({ wrap: 0, item: 2 }), getOtherItem({ wrap: 1, item: 2 })], { y: 80, duration: .2 }, "<=0")
                 .from([getOtherItem({ wrap: 0, item: 1 }), getOtherItem({ wrap: 1, item: 1 })], { y: 200, duration: .2 }, "<=0")
                 .from([getOtherItem({ wrap: 0, item: 0 }), getOtherItem({ wrap: 1, item: 0 })], { y: 320, duration: .2 }, "<=0")
