@@ -244,7 +244,7 @@
     &-showreel {
         padding-bottom: 19rem;
         position: relative;
-        height: 500vh;
+        height: 200vh;
         contain: paint;
         &--wrap {
             position: relative;
@@ -262,7 +262,6 @@
             position: relative;
             height: 100%;
             width: 100%;
-            border-radius: 2rem;
         }
         &-other--inner {
             position: absolute;
@@ -332,6 +331,12 @@
             overflow: hidden;
             height: 100%;
             width: 100%;
+            &-link {
+                position: absolute;
+                top: 0;
+                left: 0;
+                @include size(100%);
+            }
             img {
                 object-position: center center;
             }
@@ -1569,7 +1574,7 @@
                             border-radius: 50%;
                             background: rgba($cl-primary, 1);
                             opacity: 0;
-                            @include transition(transform 1.833s var(--spring-easing-3), opacity .6s ease-in-out);
+                            @include transition(transform .6s ease-in-out, opacity .6s ease-in-out);
                         }
                     }
                 }
