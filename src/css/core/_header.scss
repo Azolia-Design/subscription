@@ -137,7 +137,6 @@
         align-items: center;
         padding-left: 0rem;
         @include transition(all 400ms ease);
-        
         &-label {
             display: grid;
             &-item {
@@ -145,8 +144,8 @@
                 align-self: center;
                 text-align: center;
                 max-width: 0px;
-                @include transform(scale(.8));
                 opacity: 0;
+                @include transform(scale(.8));
                 @include transition(all ease 400ms);
             }
         }
@@ -162,6 +161,7 @@
                 background-color: rgba($cl-white, .1);
                 height: .6rem;
                 overflow: hidden;
+                opacity: 0;
                 &-inner {
                     @include size(100%);
                     position: absolute;
@@ -195,6 +195,7 @@
                     margin-left: 1.2rem;
                     column-gap: 1.2rem;
                     &-item {
+                        opacity: 1;
                         &-link {
                             width: .6rem;
                         }

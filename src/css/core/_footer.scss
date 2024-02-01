@@ -9,12 +9,20 @@
         text-align: center;
         gap: 2.8rem 0;
         margin-bottom: 10.3rem;
+        &-title {
+            color: rgba($cl-primary, 1);
+        }
         &-sub1 {
             color: $cl-heading;
+            color: rgba($cl-white, 1);
+        }
+        &-sub2 {
+            color: rgba($cl-white, .7);
         }
         &-sub3 {
             display: flex;
             gap: 0 .5rem;
+            color: rgba($cl-white, .6);
             a {
                 color: $cl-heading;
             }
@@ -43,6 +51,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         height: 70rem;
         transform: translateY(1px);
         // background-color: rgba($cl-primary, 1);
@@ -53,14 +62,54 @@
             height: calc(100% / 10);
             background-color: rgba($cl-primary, 1);
             z-index: calc(-1 * var(--i) + 11);
-            transform: scale(1, calc(1 / var(--i)));
+            // transform: scale(1, calc(1 / var(--i)));
+            transform-origin: bottom;
+
+            &:nth-child(1) {
+                transform: scale(1, .01);
+            }
+            &:nth-child(2) {
+                transform: scale(1, .05);
+            }
+            &:nth-child(3) {
+                transform: scale(1, .1);
+            }
+            &:nth-child(4) {
+                transform: scale(1, .15);
+            }
+            &:nth-child(5) {
+                transform: scale(1, .2);
+            }
+            &:nth-child(6) {
+                transform: scale(1, .3);
+            }
+            &:nth-child(7) {
+                transform: scale(1, .5);
+            }
+            &:nth-child(8) {
+                transform: scale(1, .7);
+            }
+            &:nth-child(9) {
+                transform: scale(1, .8);
+            }
+            &:nth-child(10) {
+                transform: scale(1, .9);
+            }
         }
 
         &-logo {
             position: absolute;
             width: 36.7rem;
             padding-top: 2rem;
-            z-index: 7;
+            z-index: 6;
+        }
+        &-hide {
+            position: absolute;
+            bottom: 0;
+            height: 30%;
+            width: 100%;
+            background-color: rgba($cl-black, 1);
+            z-index: 6;
         }
     }
     .footer-copyright-wrapper {

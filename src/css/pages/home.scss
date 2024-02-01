@@ -749,7 +749,7 @@
                 (row: 32, column: 6), (row: 33, column: 3), (row: 34, column: 5), (row: 35, column: 1), (row: 36, column: 8), (row: 37, column: 6), (row: 38, column: 3), (row: 39, column: 5), (row: 40, column: 4)
             );
             &-list {
-                padding-top: 80vh;
+                padding-top: 100vh;
                 display: grid;
                 top: 0;
                 bottom: 0;
@@ -1245,6 +1245,7 @@
                         @include size(100%);
                         border-radius: 0 0 1000rem 1000rem;
                         overflow: hidden;
+                        z-index: 1;
 
                         &-wave {
                             position: absolute;
@@ -1275,6 +1276,7 @@
                         left: 0;
                         right: 0;
                         @include size(100%);
+                        z-index: 3;
 
                         &-line {
                             position: absolute;
@@ -1372,11 +1374,12 @@
 
                 &-scan {
                     position: absolute;
-                    width: 105.294117647%;
-                    top: -105.294117647%;
-                    left: -2.6470588235%;
+                    width: 110.6%;
+                    top: -110.6%;
+                    left: -5.3%;
                     right: 0;
                     pointer-events: none;
+                    z-index: 2;
                 }
             }
         }
