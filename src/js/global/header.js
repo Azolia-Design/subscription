@@ -1,12 +1,13 @@
 import { xGetter, xSetter, lerp } from "../helper/index";
+import { lenis } from "../global/lenis";
 
 const setupDot = () => {
     let allSections = $('[data-section]');
     let tempLabel = $('.header-menu-label-item').eq(0).clone();
-    let tempProg = $('.header-menu-prog-item').eq(0).clone();
+    let tempProg = $('.header-menu-prog-item-wrap').eq(0).clone();
 
     $('.header-menu-label').find('.header-menu-label-item').remove();
-    $('.header-menu-prog').find('.header-menu-prog-item').remove();
+    $('.header-menu-prog').find('.header-menu-prog-item-wrap').remove();
     allSections.each((idx, el) => {
         let htmlLabel = tempLabel.clone();
         htmlLabel.html(`${$(el).attr('data-section-id')}`).attr('data-header-id',`${$(el).attr('data-section-id')}`)
@@ -14,7 +15,6 @@ const setupDot = () => {
 
         let htmlProg = tempProg.clone();
         htmlProg.attr('href', `#${$(el).attr('data-section-id')}`)
-        htmlProg.find('.header-menu-prog-item-txt').text(`${$(el).attr('data-section-id')}`)
         htmlProg.attr('data-header-id',`${$(el).attr('data-section-id')}`)
         $('.header-menu-prog').append(htmlProg)
     })
@@ -22,6 +22,13 @@ const setupDot = () => {
 
 const updateProgressByScroll = () => {
     let allSections = $('[data-section]');
+    const DOM = {
+        labelItem: $('.header-menu-label-item'),
+        labelById: (id) => $(`.header-menu-label-item[data-header-id="${id}"]`),
+        progWrap: $(`.header-menu-prog-item-wrap`),
+        progItem: $(`.header-menu-prog-item`),
+        progById: (id) => $(`.header-menu-prog-item-wrap[data-header-id="${id}"]`)
+    }
     setTimeout(() => {
         let offset = '40%'
         allSections.each((idx, el) => {
@@ -33,12 +40,15 @@ const updateProgressByScroll = () => {
                 onUpdate: (self) => {
                     let currSection = allSections.eq(idx);
                     let id = currSection.attr('data-section-id')
-                    $(`.header-menu-label-item[data-header-id="${id}"]`).addClass('active');
-                    $(`.header-menu-label-item`).not(`[data-header-id="${id}"]`).removeClass('active');
-                    $(`.header-menu-prog-item[data-header-id="${id}"]`).addClass('active');
-                    $(`.header-menu-prog-item`).not(`[data-header-id="${id}"]`).removeClass('active');
+
+                    DOM.labelById(id).addClass('active');
+                    DOM.labelItem.not(DOM.labelById(id)).removeClass('active');
+
+                    DOM.progById(id).find(DOM.progItem).addClass('active');
+                    DOM.progWrap.not(DOM.progById(id)).find(DOM.progItem).removeClass('active');
+
                     let percent = Math.ceil((self.progress * 100) - 100);
-                    gsap.to($(`.header-menu-prog-item[data-header-id="${id}"]`).find('.header-menu-prog-item-inner'), {xPercent: percent, duration: .3, overwrite: true})
+                    gsap.to(DOM.progById(id).find('.header-menu-prog-item-inner'), {xPercent: percent, duration: .3, overwrite: true})
                 }
             })
         })
@@ -56,10 +66,24 @@ const updateProgressByScroll = () => {
             }
         })
     }, 100);
+
+
+    DOM.progWrap.on('click', function (e) {
+        e.preventDefault();
+        let target = $(this).attr('data-header-id');
+        console.log($(`[data-section-id="${target}"]`))
+
+        lenis.scrollTo(`[data-section-id="${target}"]`, {
+            offset: -100,
+        })
+
+        history.replaceState({}, '', `${window.location.pathname}#${target}`);
+        return false;
+    })
 }
 
 const hoverDot = () => {
-    $('.header-menu-prog-item').on('mouseenter', function (e) {
+    $('.header-menu-prog-item-wrap').on('mouseenter', function (e) {
         let content = $(this).attr('data-header-id');
         $('.header-menu-prog-label').text(content);
         gsap.to('.header-menu-prog-label', { autoAlpha: 1 });
@@ -71,7 +95,6 @@ const hoverDot = () => {
 
 function checkHoverDot() {
     if ($('.header-menu-prog-item:hover').length) {
-        // console.log("hovering");
         let target = $('.header-menu-prog-item:hover')
         let currX = xGetter('.header-menu-prog-label')
         xSetter('.header-menu-prog-label')(lerp(currX, target.get(0).offsetLeft - $('.header-menu-prog-label').width() / 2 + target.width() / 2));
