@@ -124,7 +124,7 @@ const home = {
             let otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem");
             const ITEM_WIDTH = ($('.container').width() - percentage(25, $('.container').width())) / 5;
 
-            gsap.set(BENEFIT.stage, { height: totalDistance * 1.2 + cvUnit(100, "rem") });
+            gsap.set(BENEFIT.stage, { height: totalDistance * 1.2 + cvUnit(1000, "rem") });
 
             let reqCheck;
             function checkHiddenImg() {

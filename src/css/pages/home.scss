@@ -872,9 +872,8 @@
         &-wrap-top {
             pointer-events: none;
             color: rgba($cl-white, 1);
-            background-color: rgba($cl-black, 1);
+            background-color: #1e1510;
             @include transition(clip-path .4s ease-out);
-
             z-index: 2;
 
             .home-project-item-industry, .home-project-item-name, .home-project-item-view {
