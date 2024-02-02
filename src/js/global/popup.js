@@ -1,3 +1,5 @@
+import { lenis } from "./lenis";
+
 const popup = (name) => {
     let popupWrap = $(`[data-popup-${name}='wrap']`);
     const popupAction = {
@@ -18,16 +20,18 @@ const popup = (name) => {
     $(`[data-popup-${name}]`).on('click', function (e) {
         if ($(this).attr(`data-popup-${name}`) === 'open') {
             e.preventDefault();
+            lenis.stop();
             popupAction.open();
         }
         else if ($(this).attr(`data-popup-${name}`) === 'close') {
             e.preventDefault();
+            lenis.start();
             popupAction.close();
         }
         else return;
     })
     $(window).on('click', (e) => {
-        if (!$(`[data-popup-${name}='wrap'] .popup-inner>div:hover`).length)
+        if (!$(`[data-popup-${name}='wrap'] .popup-content>div:hover`).length)
             if (!$(`[data-popup-${name}='open']:hover`).length)
                 popupAction.close();
     })
