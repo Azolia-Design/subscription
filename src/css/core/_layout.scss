@@ -190,9 +190,9 @@ button {
     height: 100%;
     position: fixed;
     pointer-events: none;
+    mix-blend-mode: normal;
     color: #fff;
     opacity: 1;
-    // background-color: rgba(245, 69, 13, .2);
     @include transition(opacity 400ms ease);
 
     &.on-hidden {
@@ -201,6 +201,10 @@ button {
     $cs-lg: 30rem;
     $cs-md: 6.5rem;
     $cs-sm: 1.5rem;
+
+    &.mixBlendMode {
+        mix-blend-mode: lighten;
+    }
 
     .cursor {
         position: absolute;
