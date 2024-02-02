@@ -39,20 +39,34 @@
         </div>
     </div>
     <div class="grain-noise-bg"></div>
-    <div class="popup">
-        <div class="popup-overlay"></div>
-        <div class="popup-sidebar">
-            <a href="" class="popup-sidebar-close" data-popup="close" data-cursor="hidden">
-                <img src="../public/imgs/close.svg">
-            </a>
-            <h2 class="h5 txt popup-sidebar-heading">This is a heading</h2>
-
-            <div class="popup-sidebar-content">
-                <p class="txt txt-20 popup-sidebar-content-txt">Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
-                <p class="txt txt-20 popup-sidebar-content-txt">Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
-                <p class="txt txt-20 popup-sidebar-content-txt">Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
-                <p class="txt txt-20 popup-sidebar-content-txt">Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
-                <p class="txt txt-20 popup-sidebar-content-txt">Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
+    <div class="popup" data-popup-benefit="wrap">
+        <div class="container">
+            <div class="popup-inner">
+                <div class="popup-content" >
+                    <div class="popup--sidebar">
+                        <div class="popup--sidebar-header">
+                            <h2 class="h5 popup--sidebar-header-heading">This is a heading</h2>
+                            <a href="#" class="popup-close" data-popup-benefit="close">
+                                <img src="../public/imgs/close.svg">
+                            </a>
+                        </div>
+                        <div class="popup--sidebar-content custome-scroll" data-lenis-prevent>
+                            <p class="txt txt-20 popup-sidebar-content-txt">Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
+                            <p class="txt txt-20 popup-sidebar-content-txt">Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
+                            <p class="txt txt-20 popup-sidebar-content-txt">Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
+                            <p class="txt txt-20 popup-sidebar-content-txt">Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
+                            <p class="txt txt-20 popup-sidebar-content-txt">Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
+                            <p class="txt txt-20 popup-sidebar-content-txt">Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
+                            <p class="txt txt-20 popup-sidebar-content-txt">Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
+                            <p class="txt txt-20 popup-sidebar-content-txt">Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
+                            <p class="txt txt-20 popup-sidebar-content-txt">Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
+                            <p class="txt txt-20 popup-sidebar-content-txt">Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
+                            <p class="txt txt-20 popup-sidebar-content-txt">Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
+                            <p class="txt txt-20 popup-sidebar-content-txt">Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
+                            <p class="txt txt-20 popup-sidebar-content-txt">Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -106,10 +120,13 @@
                                     </div>
                                 </div>
                                 <div class="header-menu-prog" data-cursor="hidden">
-                                    <div class="header-menu-prog-item">
-                                        <div class="header-menu-prog-item-inner"></div>
-                                        <a href="#" class="header-menu-prog-item-link"></a>
-                                    </div>
+                                    <a href="#" class="header-menu-prog-item-wrap">
+                                        <div  class="header-menu-prog-item">
+                                            <div class="header-menu-prog-item-inner"></div>
+                                            <span class="txt-med header-menu-prog-item-link"></span>
+                                        </a>
+                                    </a>
+                                    <span class="txt txt-12 txt-med header-menu-prog-label">abc</span>
                                 </div>
                             </div>
                             <button class="header-hamburger">
@@ -117,7 +134,7 @@
                                 <span class="header-hamburger-line"></span>
                                 <span class="header-hamburger-line"></span>
                             </button>
-                            <a class="btn" href="#" data-cursor="hidden" data-popup="sidebar">
+                            <a class="btn" href="#" data-cursor="hidden" data-popup-benefit="open">
                                 <span class="txt txt-16 txt-btn">Get Started</span>
                             </a>
                         </div>
@@ -730,7 +747,7 @@
                                         </div>
                                         <div class="home-pricing-plan-item popular">
                                             <div class="txt txt-14 home-pricing-plan-item-popularTag">Most popular package</div>
-                                            <p class="txt txt-20 txt-med txt-hl home-pricing-plan-item-label">Pro</p>
+                                            <p class="txt txt-20 txt-med home-pricing-plan-item-label">Pro</p>
                                             <p class="txt txt-14">Design & Development</p>
                                             <div class="home-pricing-plan-item-price">
                                                 <div class="home-pricing-plan-item-price-inner">
