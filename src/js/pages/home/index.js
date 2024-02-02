@@ -101,7 +101,7 @@ const home = {
                     trigger: cont.find('.home-hero'),
                     start: 'top top',
                     end: 'bottom top',
-                    scrub: true,
+                    scrub: .3,
                 }
             })
             tl.to(cont.find('.home-hero-bg img'), {y: '19rem', ease: 'none'})
@@ -124,12 +124,7 @@ const home = {
             let otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem");
             const ITEM_WIDTH = ($('.container').width() - percentage(25, $('.container').width())) / 5;
 
-            gsap.set(BENEFIT.stage, { height: totalDistance + cvUnit(100, "rem") });
-
-            // BENEFIT.otherItem.each((_, item) => {
-            //     let benefit = $(item).find('.home-benefit-other-title').text().toLowerCase().replace(' ', '-');
-            //     $(item).attr('href', `#benefit-${benefit}`)
-            // })
+            gsap.set(BENEFIT.stage, { height: totalDistance * 1.2 + cvUnit(100, "rem") });
 
             let reqCheck;
             function checkHiddenImg() {
@@ -156,7 +151,7 @@ const home = {
                     trigger: BENEFIT.stage,
                     start: `top-=${$('header').outerHeight()} top`,
                     end: 'bottom bottom',
-                    scrub: true,
+                    scrub: .6,
                     onEnter: () => checkHiddenImg(),
                     onEnterBack: () => checkHiddenImg(),
                     onLeaveBack: () => window.cancelAnimationFrame(reqCheck),
@@ -213,7 +208,7 @@ const home = {
                 .to(BENEFIT.wrap, {
                     scale: 0.5, autoAlpha: 0,
                     duration: 2,
-                }, '>=-.5')
+                }, '>=-.8')
 
                 .to(BENEFIT.wrap, {
                     yPercent: -8,
@@ -259,7 +254,7 @@ const home = {
                     trigger: GALLERY.wrap,
                     start: `top bottom`,
                     end: 'bottom bottom',
-                    scrub: true
+                    scrub: .6
                 }
             })
 
@@ -269,7 +264,7 @@ const home = {
                 .from([getOtherItem({ wrap: 0, item: 2 }), getOtherItem({ wrap: 1, item: 2 })], { y: 80, duration: .2 }, "<=0")
                 .from([getOtherItem({ wrap: 0, item: 1 }), getOtherItem({ wrap: 1, item: 1 })], { y: 200, duration: .2 }, "<=0")
                 .from([getOtherItem({ wrap: 0, item: 0 }), getOtherItem({ wrap: 1, item: 0 })], { y: 320, duration: .2 }, "<=0")
-                .from(GALLERY.mainWrap, { "clipPath": `inset(14% 37.35% 14% 37.35% round ${cvUnit(20, "rem")}px)`, duration: 1 }, ">=-0.1")
+                .fromTo(GALLERY.mainWrap, { "clipPath": `inset(14% 37.35% 14% 37.35% round ${cvUnit(20, "rem")}px)`},{"clipPath": `inset(0% 0% 0% 0% round ${cvUnit(20, "rem")}px)`, duration: 1 }, ">=-0.1")
                 .to(GALLERY.otherInner.find(".img"), { scale: 1.6, duration: 1 }, "<=0")
                 .to(getOtherItem({ wrap: 0, item: 2 }), { xPercent: -255, duration: 1 }, "<=0")
                 .to(getOtherItem({ wrap: 0, item: 1 }), { xPercent: -460, duration: 1 }, "<=0")
@@ -277,7 +272,11 @@ const home = {
                 .to(getOtherItem({ wrap: 1, item: 2 }), { xPercent: 255, duration: 1 }, "<=0")
                 .to(getOtherItem({ wrap: 1, item: 1 }), { xPercent: 460, duration: 1 }, "<=0")
                 .to(getOtherItem({ wrap: 1, item: 0 }), { xPercent: 760, duration: 1 }, "<=0")
-                .from(GALLERY.thumbPlay, { autoAlpha: 0, y: 30, duration: .5 }, ">=-1")
+                .from(GALLERY.thumbPlay, { autoAlpha: 0, y: 0, duration: .5 }, ">=-1")
+                .from('.home-showreel-play-ic', { scale: 0.8, duration: 1 }, "<=0")
+                .from('.home-showreel-play-ic svg', { scale: 1.4, duration: 1 }, "<=0")
+                .from('.home-showreel-play-first', {x: -cvUnit(200, 'rem'), duration: 1}, '<=0')
+                .from('.home-showreel-play-last', {x: cvUnit(200, 'rem'), duration: 1}, '<=0')
         }
         showreelGalleryZoom()
 
