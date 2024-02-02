@@ -1,6 +1,6 @@
 import { parseRem, selector } from "../../helper/index";
 import { cvUnit, percentage } from "../../helper/viewport";
-import { lenis } from "../../common/lenis";
+import { lenis } from "../../global/lenis";
 import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, findClosestEdge, FloatingAnimation, pointerCurr } from "../../helper";
 
 const home = {
@@ -9,92 +9,6 @@ const home = {
         console.log(`enter ${this.namespace}`);
         let cont = $('body');
 
-        function updateHeader() {
-            let allSections = $('[data-section]');
-            let tempLabel = $('.header-menu-label-item').eq(0).clone();
-            let tempProg = $('.header-menu-prog-item').eq(0).clone();
-
-            $('.header-menu-label').find('.header-menu-label-item').remove();
-            $('.header-menu-prog').find('.header-menu-prog-item').remove();
-            allSections.each((idx, el) => {
-                let htmlLabel = tempLabel.clone();
-                htmlLabel.html(`${$(el).attr('data-section-id')}`).attr('data-header-id',`${$(el).attr('data-section-id')}`)
-                $('.header-menu-label').append(htmlLabel)
-
-                let htmlProg = tempProg.clone();
-                htmlProg.find('.header-menu-prog-item-link').attr('href', `#${$(el).attr('data-section-id')}`)
-                htmlProg.attr('data-header-id',`${$(el).attr('data-section-id')}`)
-                $('.header-menu-prog').append(htmlProg)
-            })
-        }
-        function headerScroll() {
-            let allSections = $('[data-section]');
-            setTimeout(() => {
-                let offset = '40%'
-                allSections.each((idx, el) => {
-                    ScrollTrigger.create({
-                        trigger: el,
-                        start: `top top+=${offset}`,
-                        end: `bottom bottom-=${offset}`,
-                        scrub: true,
-                        onUpdate: (self) => {
-                            let currSection = allSections.eq(idx);
-                            let id = currSection.attr('data-section-id')
-                            $(`.header-menu-label-item[data-header-id="${id}"]`).addClass('active');
-                            $(`.header-menu-label-item`).not(`[data-header-id="${id}"]`).removeClass('active');
-                            $(`.header-menu-prog-item[data-header-id="${id}"]`).addClass('active');
-                            $(`.header-menu-prog-item`).not(`[data-header-id="${id}"]`).removeClass('active');
-                            let percent = Math.ceil((self.progress * 100) - 100);
-                            gsap.to($(`.header-menu-prog-item[data-header-id="${id}"]`).find('.header-menu-prog-item-inner'), {xPercent: percent, duration: .3, overwrite: true})
-                        }
-                    })
-                })
-                ScrollTrigger.create({
-                    trigger: '.home-main',
-                    start: `top top+=${offset}`,
-                    end: `bottom bottom-=${offset}`,
-                    onLeave: () => {
-                        $(`.header-menu-label-item`).removeClass('active');
-                        $(`.header-menu-prog-item`).removeClass('active');
-                    },
-                    onLeaveBack: () => {
-                        $(`.header-menu-label-item`).removeClass('active');
-                        $(`.header-menu-prog-item`).removeClass('active');
-                    }
-                })
-            }, 100);
-        }
-        headerScroll()
-        updateHeader()
-        function handleHeader() {
-            let tlHeaderTrigger = gsap.timeline({
-                scrollTrigger: {
-                    trigger: '.home-main',
-                    start: `top+=${$('.header').outerHeight()} top`,
-                    onEnter: () => {
-                        $('.header-logo').addClass('active')
-                        $('.header-menu').addClass('active')
-                        $('.header-hamburger').addClass('active')
-                    },
-                    onLeaveBack: () => {
-                        $('.header-logo').removeClass('active')
-                        $('.header-menu').removeClass('active')
-                        $('.header-hamburger').removeClass('active')
-                    }
-                }
-            })
-            $('.header-hamburger').on('click', function(e) {
-                e.preventDefault();
-                if (!$(this).hasClass('active')) {
-                    $('.header-menu').addClass('active')
-                    $(this).addClass('active')
-                } else {
-                    $('.header-menu').removeClass('active')
-                    $(this).removeClass('active')
-                }
-            })
-        }
-        handleHeader()
         function heroParallax() {
             let tl = gsap.timeline({
                 scrollTrigger: {
@@ -124,7 +38,7 @@ const home = {
             let otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem");
             const ITEM_WIDTH = ($('.container').width() - percentage(25, $('.container').width())) / 5;
 
-            gsap.set(BENEFIT.stage, { height: totalDistance * 1.2 + cvUnit(1000, "rem") });
+            gsap.set(BENEFIT.stage, { height: totalDistance * 1.2 + cvUnit(100, "rem") });
 
             let reqCheck;
             function checkHiddenImg() {

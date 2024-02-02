@@ -1,4 +1,4 @@
-import { lerp, xSetter, ySetter, xGetter, yGetter, pointerCurr } from "../helper";
+import { lerp, xSetter, ySetter, xGetter, yGetter, pointerCurr } from "../helper/index";
 import { isTouchDevice } from '../helper/viewport'
 
 const initCursor = () => {

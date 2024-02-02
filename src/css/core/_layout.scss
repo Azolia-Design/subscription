@@ -256,66 +256,84 @@ button {
 .popup {
     pointer-events: none;
     position: fixed;
+    min-height: 100vh;
     @include size(100%, 100vh);
-    left: 0;
-    top: 0;
+    inset: 0;
     z-index: 3;
     overflow: hidden;
-
+    background-color: rgba($cl-black, 0.70);
+    pointer-events: none;
+    opacity: 0;
+    @include transition(opacity .5s ease-in-out);
+    .container {
+        height: 100%;
+    }
     &.active {
-        * {
-            pointer-events: auto;
-        } 
-
-        .popup-overlay {
-            opacity: 1;
+        opacity: 1;
+        pointer-events: auto;
+        .popup--sidebar {
+            @include transform(translateX(0));
         }
     }
-    &-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        background-color: rgba($cl-black, .5);
-        @include size(100%, 100%);
-        @include transition(opacity .6s ease-out);
-    }
-    &-sidebar {
-        position: absolute;
-        top: 4.9rem;
-        bottom: 4.9rem;
-        right: 0;
-        width: 50%;
+    &-inner {
+        height: 100%;
         display: flex;
         flex-direction: column;
+    }
+    &-content {
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+    // &-header {
+    //     padding: 6rem;
+    //     &-heading {
+    //         color: rgba($cl-dark, 1) !important;
+    //     }
+    // }
+    &-close {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // margin-left: auto;
+        margin-top: -3rem;
+        margin-right: -3rem;
+        @include size(2.4rem);
+    }
+    &--sidebar {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        @include size(50%, calc(100% - 4rem * 2));
         max-width: 71rem;
-        margin-right: 4rem;
+
         border-radius: 2rem;
         background-color: rgba($cl-white, 1);
+        color: rgba($cl-dark, 1);
+
         padding: 6rem;
-        @include transform(translateX(calc(100% + 6rem)));
-        @include transition(transform .6s ease-out);
+        margin-left: auto;
 
-        .txt {
-            color: rgba($cl-black, 1);
+        @include transition(transform .5s ease-in-out);
+        @include transform(translateX(100%));
+        &-header {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+            &-heading {
+                color: rgba($cl-dark, 1) !important;
+                flex: 1;
+            }
         }
-
-        .popup-sidebar-content {
-            margin-top: auto;
-            max-height: 32rem;
-            overflow-y: auto;
-        }
-
-        &-close {
-            position: absolute;
-            top: 3rem;
-            right: 3rem;
-            width: 3.5rem;
-            padding: .5rem;
-        }
-
-        &.active {
-            @include transform(translateX(0));
+        &-content {
+            position: relative;
+            z-index: 1;
+            padding: 3rem 2rem 3rem 0;
+            margin: -3rem -2rem -3rem 0;
+            mask-image: linear-gradient(180deg, transparent 0.5rem, $cl-white 6rem, $cl-white calc(100% - 6rem), transparent calc(100% - 0.5rem));
         }
     }
 }
@@ -329,6 +347,24 @@ button {
 @include keyframes(marquee) {
     0% { transform: translateX(0%); }
     100% { transform: translateX(-100%); }
+}
+
+.custome-scroll {
+    overflow-y: auto;
+    overflow-x: clip;
+    scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+        width: 0.3rem;
+        @media only screen and (max-width: 476px) {
+            width: 3px;
+        }
+    }
+    &::-webkit-scrollbar-track {
+        background: rgba($cl-bg, .2);
+    }
+    &::-webkit-scrollbar-thumb {
+        background: rgba($cl-primary, 1);
+    }
 }
 
 .marquee {
