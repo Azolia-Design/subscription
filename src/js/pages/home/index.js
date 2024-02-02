@@ -614,8 +614,9 @@ const home = {
         homeIndustries()
 
         function homeTesti() {
+            console.log($(window).height() + ($('.home-testi-content-item').eq(0).height() * 1.5 * $('.home-testi-content-item').length));
+            $('.home-testi').css('height', + $(window).height() + ($('.home-testi-content-item').eq(0).height() * 1.5 * $('.home-testi-content-item').length) + 'px')
 
-            console.log($('.home-testi-content-item').length);
 
             ScrollTrigger.create({
                 trigger: '.home-testi',
@@ -629,7 +630,7 @@ const home = {
             let tlScrub = gsap.timeline({
                 scrollTrigger: {
                     trigger: '.home-testi',
-                    start: `top+=-${parseRem(160)} top`,
+                    start: `top+=-${$('.home-testi-content-item').eq(0).height() * 1.5} top`,
                     end: 'bottom bottom',
                     scrub: .2,
                 }
@@ -679,7 +680,7 @@ const home = {
                 backgroundPosition: '0% 0%',
             },{
                 autoAlpha: 1,
-                backgroundPosition: '0% 100%',
+                // backgroundPosition: '0% 100%',
                 ease: 'expo.out',
                 duration: .6
             }, "<=0")
