@@ -554,66 +554,21 @@ const home = {
                     start: `top+=0% top`,
                     end: 'bottom bottom',
                     scrub: .2,
+                    markers: true
                 }
             })
 
-            // tlScrub
-            // .fromTo($('.home-testi-content-item').eq(0), {
-            //     scale: .95,
-            //     y: '-3rem',
-            //     autoAlpha: .9
-            // },{
-            //     scale: 1,
-            //     y: '0rem',
-            //     autoAlpha: 1,
-            //     duration: .2
-            // }, 0)
-            // .fromTo($('.home-testi-content-item').eq(1), {
-            //     scale: .8,
-            //     y: '-10rem',
-            //     autoAlpha: .0
-            // },{
-            //     scale: .95,
-            //     y: '-3rem',
-            //     autoAlpha: .8,
-            //     duration: .2
-            // }, "<=0")
-            // .fromTo($('.home-testi-content-item-fg').eq(0), {
-            //     autoAlpha: 1,
-            //     backgroundPosition: '0% 0%',
-            // },{
-            //     backgroundPosition: '0% 100%',
-            //     autoAlpha: 0,
-            //     // ease: 'expo.inOut',
-            //     duration: .2
-            // }, "<=0")
-
-
             let timeDelay = .5
             let timeAnim = 1
-            let translateY = cvUnit(30, "rem")
-            let offsettranslateY = 1.5
-
             $('.home-testi-content-item').each((idx, el) => {
-                if (idx == 0) {
-                    tlScrub
-                    .to($(el), {scale: 1.1, y: translateY, ease: 'power2.out', duration: timeAnim}, `0 + ${idx * (timeAnim + timeDelay)}`)
-                    .to($(el), {autoAlpha: 0, ease: 'power2.in', duration: timeAnim/2}, "<=0")
-                    .fromTo($(el).next(), {scale: .95, y: -translateY, autoAlpha: .8}, {scale: 1, y: 0, autoAlpha: 1, duration: 1}, "<=0")
-                    .fromTo($(el).next().next(), { scale: .8, y: -offsettranslateY * translateY, autoAlpha: 0}, {scale: .95, y: -translateY, autoAlpha: .8, duration: 1}, "<=0")
+                if (idx == 0){
+
                 }
-                if (0 < idx && idx < ($('.home-testi-content-item').length - 2)) {
+                if (0 < idx && idx < ($('.home-testi-content-item').length)) {
                     tlScrub
-                    .to($(el), {scale: 1.1, y: translateY, ease: 'power2.out', duration: timeAnim}, `0 + ${idx * (timeAnim + timeDelay)}`)
-                    .to($(el), {autoAlpha: 0, ease: 'power2.in', duration: timeAnim/2}, "<=0")
-                    .fromTo($(el).next(), {scale: .95, y: -translateY, autoAlpha: .8}, {scale: 1,y: 0, autoAlpha: 1, duration: 1}, "<=0")
-                    .fromTo($(el).next().next(), {scale: .8, y: -offsettranslateY * translateY, autoAlpha: 0}, {scale: .95, y: -translateY, autoAlpha: .8, duration: 1}, "<=0")
-                }
-                if (idx == ($('.home-testi-content-item').length - 2)) {
-                    tlScrub
-                    .to($(el), {scale: 1.1, y: translateY, ease: 'power2.out', duration: timeAnim}, `0 + ${idx * (timeAnim + timeDelay)}`)
-                    .to($(el), {autoAlpha: 0, ease: 'power2.in', duration: timeAnim/2,}, "<=0")
-                    .fromTo($(el).next(), { scale: .95, y: -translateY, autoAlpha: .8}, {scale: 1, y: 0, autoAlpha: 1, duration: 1}, "<=0")
+                    .fromTo($(el), {z: cvUnit(600, 'rem'), yPercent: 150}, {z: 0, yPercent: 0, ease: 'power3.out', duration: 1}, `0 + ${idx * (timeAnim + timeDelay)}`)
+                    .fromTo($(el).prev(), {z: 0, y: 0, filter:"brightness(1)"}, {z: cvUnit(-600, 'rem'), y: cvUnit(-90, 'rem'), filter:"brightness(.66)", ease: 'power2.out', duration: timeAnim}, "<=0")
+                    .fromTo($(el).prev().prev(), {z: cvUnit(-600, 'rem'), y: cvUnit(-90, 'rem'), filter:"brightness(.66)"}, {z: cvUnit(-1200, 'rem'), y: cvUnit(-180, 'rem'), filter:"brightness(.33)", ease: 'power2.out', duration: timeAnim}, "<=0")
                 }
             })
         }

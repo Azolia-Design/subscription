@@ -22,7 +22,6 @@ const initCursor = () => {
             if (mode == "free") {
                 xSetter(cursor.get(0))(lerp(cursorX, pointerCurr().x, .1))
                 ySetter(cursor.get(0))(lerp(cursorY, pointerCurr().y, .1))
-
                 if (dotstick == false) {
                     xSetter(cursor.find('.cursor-dot').get(0))(lerp(dotX, 0, .1))
                     ySetter(cursor.find('.cursor-dot').get(0))(lerp(dotY, 0, .1))
@@ -49,27 +48,27 @@ const initCursor = () => {
 
             switch (type) {
                 case 'stick':
+                    updatePos('change')
                     cursor.closest('.cursor-wrap').addClass('mixBlendMode')
-                    gsap.to(cursor.find('.cursor-dot'), {width: targetValue.w, height: targetValue.h, duration: .6, ease: 'power2.out', overwrite: true})
+                    gsap.to(cursor.find('.cursor-dot'), {scale: targetValue.w / cusrorDotWidth, duration: .6, ease: 'power2.out', overwrite: true})
                     gsap.to(cursor.find('.cursor-border'), {width: cusrorBorderWidth + cvUnit(15, "rem"), height: cusrorBorderWidth + cvUnit(15, "rem"), duration: .6, ease: 'power2.out', overwrite: true})
 
                     xSetter(cursor.get(0))(lerp(cursorX, targetOffsetLeft + target.outerWidth()/2, velChange))
                     ySetter(cursor.get(0))(lerp(cursorY, targetOffsetTop + target.outerHeight()/2, velChange))
-                    updatePos('change')
                     break;
 
                 case 'magnetic':
-                    gsap.to(cursor.find('.cursor-glow'), {width: targetValue.w, height: targetValue.h, duration: .6, ease: 'power2.out', overwrite: true})
+                    updatePos('change')
+                    gsap.to(cursor.find('.cursor-glow'), {scale: targetValue.w / cusrorDotWidth, duration: .6, ease: 'power2.out', overwrite: true})
                     xSetter(cursor.get(0))(lerp(cursorX, targetOffsetLeft + target.outerWidth()/2, velChange))
                     ySetter(cursor.get(0))(lerp(cursorY, targetOffsetTop + target.outerHeight()/2, velChange))
-                    updatePos('change')
                     break;
 
                 case 'radar':
+                    updatePos('change')
                     gsap.to(cursor.find('.cursor-dot'), {scale: 0, duration: .6, ease: 'power2.out', overwrite: true})
                     xSetter(cursor.get(0))(lerp(cursorX, targetOffsetLeft + target.outerWidth()/2, velChange))
                     ySetter(cursor.get(0))(lerp(cursorY, targetOffsetTop + target.outerHeight()/2, velChange))
-                    updatePos('change')
                     break;
 
                 case 'hidden':
@@ -81,27 +80,34 @@ const initCursor = () => {
 
                 case 'dotstick':
                     dotstick = true
+
+                    updatePos('free')
                     gsap.to(cursor.find('.cursor-dot'), {width: target.find('[data-cursor-dotpos]').width() + 6, height: target.find('[data-cursor-dotpos]').height() + 6, duration: .6, ease: 'power2.out', overwrite: true})
                     let dotOffsetLeft = target.find('[data-cursor-dotpos]').get(0).getBoundingClientRect().left
                     let dotOffsetTop = target.find('[data-cursor-dotpos]').get(0).getBoundingClientRect().top
                     xSetter(cursor.find('.cursor-dot').get(0))(lerp(dotX, dotOffsetLeft + (target.find('[data-cursor-dotpos]').width()/2 + 1.5) - pointerCurr().x, .1))
                     ySetter(cursor.find('.cursor-dot').get(0))(lerp(dotY, dotOffsetTop + (target.find('[data-cursor-dotpos]').height()/2 + 1.5) - pointerCurr().y, .1))
-                    updatePos('free')
+                    xSetter(cursor.find('.cursor-border').get(0))(lerp(dotX, dotOffsetLeft + (target.find('[data-cursor-dotpos]').width()/2 + 1.5) - pointerCurr().x, .1))
+                    ySetter(cursor.find('.cursor-border').get(0))(lerp(dotY, dotOffsetTop + (target.find('[data-cursor-dotpos]').height()/2 + 1.5) - pointerCurr().y, .1))
+                    xSetter(cursor.find('.cursor-glow').get(0))(lerp(dotX, dotOffsetLeft + (target.find('[data-cursor-dotpos]').width()/2 + 1.5) - pointerCurr().x, .1))
+                    ySetter(cursor.find('.cursor-glow').get(0))(lerp(dotY, dotOffsetTop + (target.find('[data-cursor-dotpos]').height()/2 + 1.5) - pointerCurr().y, .1))
                     break;
 
                 case 'txtstick':
                     dotstick = true
+
+                    updatePos('free')
                     gsap.set(cursor.find('.cursor-dot'), {width: cvUnit(5, "rem"), height: cvUnit(5, "rem"), scale: 1, duration: .6, ease: 'power2.out', overwrite: true})
                     gsap.to(cursor.find('.cursor-border'), {scale: 1.5, autoAlpha: 0, duration: .4, ease: 'power2.out', overwrite: true})
-
                     gsap.set(cursor.find('.cursor-dot'), {backgroundColor: '#fff', duration: .6, ease: 'power2.out', overwrite: true})
                     xSetter(cursor.find('.cursor-dot').get(0))(lerp(dotX, targetOffsetLeft - pointerCurr().x + cvUnit(-10, "rem"), .1))
                     ySetter(cursor.find('.cursor-dot').get(0))(lerp(dotY, targetOffsetTop + targetValue.h/2 - pointerCurr().y, .1))
-                    updatePos('free')
                     break;
 
                 case 'btnstick':
                     dotstick = true
+
+                    updatePos('free')
                     let sizeDot = target.attr('data-size')
                     let distanceDot = target.attr('data-distance')
                     gsap.to(target.find('.txt'), {x: cvUnit(sizeDot, 'rem')/2, duration: .6, ease: 'power2.out', overwrite: true})
@@ -120,7 +126,19 @@ const initCursor = () => {
                     } else {
                         gsap.set(cursor.find('.cursor-dot'), {backgroundColor: '#fff', duration: .6, ease: 'power2.out', overwrite: true})
                     }
+                    break;
+
+                case 'menuprog':
+                    dotstick = true
                     updatePos('free')
+                    gsap.to(cursor.find('.cursor-dot'), {scale: targetValue.w / cusrorDotWidth, duration: .6, ease: 'power2.out', overwrite: true})
+                    gsap.to(cursor.find('.cursor-border'), {scale: 1.5, autoAlpha: 0, duration: .4, ease: 'power2.out', overwrite: true})
+                    xSetter(cursor.find('.cursor-dot').get(0))(lerp(dotX, targetOffsetLeft - pointerCurr().x + targetValue.w/2, .1))
+                    ySetter(cursor.find('.cursor-dot').get(0))(lerp(dotY, targetOffsetTop - pointerCurr().y + targetValue.h/2, .1))
+                    xSetter(cursor.find('.cursor-border').get(0))(lerp(dotX, targetOffsetLeft - pointerCurr().x + targetValue.w/2, .1))
+                    ySetter(cursor.find('.cursor-border').get(0))(lerp(dotY, targetOffsetTop - pointerCurr().y + targetValue.h/2, .1))
+                    xSetter(cursor.find('.cursor-glow').get(0))(lerp(dotX, targetOffsetLeft - pointerCurr().x + targetValue.w/2, .1))
+                    ySetter(cursor.find('.cursor-glow').get(0))(lerp(dotY, targetOffsetTop - pointerCurr().y + targetValue.h/2, .1))
                     break;
             }
         } else {
