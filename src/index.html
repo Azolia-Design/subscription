@@ -42,7 +42,7 @@
     <div class="popup">
         <div class="popup-overlay"></div>
         <div class="popup-sidebar">
-            <a href="" class="popup-sidebar-close" data-popup="close">
+            <a href="" class="popup-sidebar-close" data-popup="close" data-cursor="hidden">
                 <img src="../public/imgs/close.svg">
             </a>
             <h2 class="h5 txt popup-sidebar-heading">This is a heading</h2>
@@ -64,7 +64,7 @@
                         <img class="img" src='../public/imgs/logo.svg' width='65' height="92" alt='bear logo'/>
                     </div>
                     <h1 class="h0 home-hero-title">Reliable design partner committed to your company's growth</h1>
-                    <a href="#" class="btn home-hero-btn" data-cursor="hidden">
+                    <a href="#" class="btn home-hero-btn" data-cursor="btnstick" data-size="10" data-distance="10">
                         <span class="txt txt-16 txt-btn">
                             See all plans
                         </span>
@@ -97,7 +97,7 @@
                         </div>
                     </div>
                     <div class="header-main">
-                        <a class="hover-un txt txt-16 txt-med" href="#">Schedule a call</a>
+                        <a class="hover-un txt txt-16 txt-med" href="#" data-cursor="txtstick">Schedule a call</a>
                         <div class="header-main-inner">
                             <div class="header-menu">
                                 <div class="header-menu-label">
@@ -105,7 +105,7 @@
                                         Benefits
                                     </div>
                                 </div>
-                                <div class="header-menu-prog">
+                                <div class="header-menu-prog" data-cursor="hidden">
                                     <div class="header-menu-prog-item">
                                         <div class="header-menu-prog-item-inner"></div>
                                         <a href="#" class="header-menu-prog-item-link"></a>
@@ -156,7 +156,7 @@
                                             </div>
                                             <div class="home-benefit-other-sub">
                                                 <p class=home-benefit-other-sub-txt>Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
-                                                <button data-cursor="magnetic" class="home-benefit-other-sub-btn">
+                                                <button data-cursor="stick" class="home-benefit-other-sub-btn">
                                                     <span></span>
                                                     <img class="img" src="../public/imgs/expand.svg" width="24" height="24" alt="expand icon">
                                                 </button>
@@ -170,7 +170,7 @@
                                             </div>
                                             <div class="home-benefit-other-sub">
                                                 <p class=home-benefit-other-sub-txt>Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
-                                                <button class="home-benefit-other-sub-btn">
+                                                <button data-cursor="stick" class="home-benefit-other-sub-btn">
                                                     <span></span>
                                                     <img class="img" src="../public/imgs/expand.svg" width="24" height="24" alt="expand icon">
                                                 </button>
@@ -184,7 +184,7 @@
                                             </div>
                                             <div class="home-benefit-other-sub">
                                                 <p class=home-benefit-other-sub-txt>Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
-                                                <button class="home-benefit-other-sub-btn">
+                                                <button data-cursor="stick" class="home-benefit-other-sub-btn">
                                                     <span></span>
                                                     <img class="img" src="../public/imgs/expand.svg" width="24" height="24" alt="expand icon">
                                                 </button>
@@ -198,7 +198,7 @@
                                             </div>
                                             <div class="home-benefit-other-sub">
                                                 <p class=home-benefit-other-sub-txt>Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
-                                                <button class="home-benefit-other-sub-btn">
+                                                <button data-cursor="stick" class="home-benefit-other-sub-btn">
                                                     <span></span>
                                                     <img class="img" src="../public/imgs/expand.svg" width="24" height="24" alt="expand icon">
                                                 </button>
@@ -212,7 +212,7 @@
                                             </div>
                                             <div class="home-benefit-other-sub">
                                                 <p class=home-benefit-other-sub-txt>Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis nisl. Mollis amet fermentum</p>
-                                                <button class="home-benefit-other-sub-btn">
+                                                <button data-cursor="stick" class="home-benefit-other-sub-btn">
                                                     <span></span>
                                                     <img class="img" src="../public/imgs/expand.svg" width="24" height="24" alt="expand icon">
                                                 </button>
@@ -226,45 +226,51 @@
                     </div>
                 </section>
                 <section class="home-showreel" data-section="#" data-section-id="Reel">
-                    <span class="home-showreel-overlay"></span>
                     <div class="home-showreel--wrap">
                         <div class="home-showreel-other--inner">
                             <div class="home-showreel-item home-showreel-item-other">
+                                <span class="home-showreel-item-overlay"></span>
                                 <img class="img" src='../public/imgs/showreel-1.jpg?as=webp&width=184' width='92' alt=''/>
                             </div>
                             <div class="home-showreel-item home-showreel-item-other">
+                                <span class="home-showreel-item-overlay"></span>
                                 <img class="img" src='../public/imgs/showreel-2.jpg?as=webp&width=306' width='153' alt=''/>
                             </div>
                             <div class="home-showreel-item home-showreel-item-other">
+                                <span class="home-showreel-item-overlay"></span>
                                 <img class="img" src='../public/imgs/showreel-3.jpg?as=webp&width=510' width='255' alt=''/>
                             </div>
                         </div>
                         <div class="home-showreel-main--inner">
                             <div class="home-showreel-item home-showreel-item-main">
+                                <span class="home-showreel-item-overlay"></span>
                                 <div class="home-showreel-thumb">
-                                    <a href=""></a>
+                                    <a href="" class="home-showreel-thumb-link"></a>
                                     <img class="img img-fill" src='../public/imgs/showreal-thumb.jpg?as=webp&width=3294' width='1647' alt='a man wearing a orange coat'/>
                                 </div>
                                 <div class="home-showreel-play">
-                                    <p class="h0">Play the</p>
+                                    <p class="h0 home-showreel-play-first">Play the</p>
                                     <button class="home-showreel-play-ic">
                                         <svg width="100%" viewBox="0 0 46 53" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M43.5 22.1147C46.8333 24.0392 46.8333 28.8505 43.5 30.775L7.49999 51.5596C4.16666 53.4841 -2.36385e-06 51.0785 -2.1956e-06 47.2295L-3.78551e-07 5.66025C-2.10306e-07 1.81124 4.16667 -0.594376 7.5 1.33012L43.5 22.1147Z" fill="white"/>
                                             <path d="M43.5 22.1147C46.8333 24.0392 46.8333 28.8505 43.5 30.775L7.49999 51.5596C4.16666 53.4841 -2.36385e-06 51.0785 -2.1956e-06 47.2295L-3.78551e-07 5.66025C-2.10306e-07 1.81124 4.16667 -0.594376 7.5 1.33012L43.5 22.1147Z" fill="white"/>
                                         </svg>
                                     </button>
-                                    <p class="h0">showreel</p>
+                                    <p class="h0 home-showreel-play-last">showreel</p>
                                 </div>
                             </div>
                         </div>
                         <div class="home-showreel-other--inner">
                             <div class="home-showreel-item home-showreel-item-other">
+                                <span class="home-showreel-item-overlay"></span>
                                 <img class="img" src='../public/imgs/showreel-6.jpg?as=webp&width=184' width='92' alt=''/>
                             </div>
                             <div class="home-showreel-item home-showreel-item-other">
+                                <span class="home-showreel-item-overlay"></span>
                                 <img class="img" src='../public/imgs/showreel-5.jpg?as=webp&width=306' width='153' alt=''/>
                             </div>
                             <div class="home-showreel-item home-showreel-item-other">
+                                <span class="home-showreel-item-overlay"></span>
                                 <img class="img" src='../public/imgs/showreel-4.jpg?as=webp&width=510' width='255' alt=''/>
                             </div>
                         </div>
@@ -719,8 +725,8 @@
                                                     <p>Unlimited revisions</p>
                                                 </div>
                                             </div>
-                                            <a class="btn btn-border home-pricing-plan-item-btn" href="#" data-cursor="hidden"><span class="txt txt-18 txt-btn">Subscribe now</span></a>
-                                            <a class="txt txt-16 txt-link home-pricing-plan-booking" href="#">Book an intro call with us</a>
+                                            <a class="btn btn-border home-pricing-plan-item-btn" href="#" data-cursor="btnstick" data-size="10" data-distance="10"><span class="txt txt-18 txt-btn">Subscribe now</span></a>
+                                            <a class="txt txt-16 txt-link home-pricing-plan-booking" href="#" data-cursor="txtstick">Book an intro call with us</a>
                                         </div>
                                         <div class="home-pricing-plan-item popular">
                                             <div class="txt txt-14 home-pricing-plan-item-popularTag">Most popular package</div>
@@ -777,8 +783,8 @@
                                                     <p>Unlimited revisions</p>
                                                 </div>
                                             </div>
-                                            <a class="btn btn-border btn-white home-pricing-plan-item-btn" href="#" data-cursor="hidden"><span class="txt txt-18 txt-btn">Subscribe now</span></a>
-                                            <a class="txt txt-16 txt-link home-pricing-plan-booking" href="#" >Book an intro call with us</a>
+                                            <a class="btn btn-border btn-white home-pricing-plan-item-btn" href="#" data-cursor="btnstick" data-size="10" data-distance="10"><span class="txt txt-18 txt-btn">Subscribe now</span></a>
+                                            <a class="txt txt-16 txt-link home-pricing-plan-booking" href="#" data-cursor="txtstick">Book an intro call with us</a>
                                         </div>
                                         <div class="home-pricing-plan-item">
                                             <p class="txt txt-20 txt-med txt-hl home-pricing-plan-item-label">Enterprise</p>
@@ -824,8 +830,8 @@
                                                     <p>Unlimited revisions</p>
                                                 </div>
                                             </div>
-                                            <a class="btn btn-border home-pricing-plan-item-btn" href="#" data-cursor="hidden"><span class="txt txt-18 txt-btn">Contact us</span></a>
-                                            <a class="txt txt-16 txt-link home-pricing-plan-booking" href="#">Book an intro call with us</a>
+                                            <a class="btn btn-border home-pricing-plan-item-btn" href="#" data-cursor="btnstick" data-size="10" data-distance="10"><span class="txt txt-18 txt-btn">Contact us</span></a>
+                                            <a class="txt txt-16 txt-link home-pricing-plan-booking" href="#" data-cursor="txtstick">Book an intro call with us</a>
                                         </div>
                                     </div>
                                 </div>
@@ -1007,7 +1013,7 @@
                                     </div>
                                     <div class="home-testi-content-item" style="--i: 2">
                                         <div class="home-testi-content-item-fg"></div>
-                                        <p class="h6 txt-reg home-testi-content-item-txt">“The items were delivered on time and in great quality. Bear Plus delivered great work. The project was managed well through clearly defined phases, and the team collaborated closely with the client through weekly touchpoints. This ensured the project stayed on track. Moreover, their members' design capabilities were impressive and exceeded expectations.”</p>
+                                        <p class="h6 txt-reg home-testi-content-item-txt">“The items w and the team collaborated closely with the client through weekly touchpoints. This ensured the project stayed on track. Moreover, their members' design capabilities were impressive and exceeded expectations.”</p>
                                         <div class="home-testi-content-item-wrap">
                                             <div class="line"></div>
                                             <div class="home-testi-content-item-author">
@@ -1023,7 +1029,7 @@
                                     </div>
                                     <div class="home-testi-content-item" style="--i: 3">
                                         <div class="home-testi-content-item-fg"></div>
-                                        <p class="h6 txt-reg home-testi-content-item-txt">“The items were delivered on time and in great quality. Bear Plus delivered great work. The project was managed well through clearly defined phases, and the team collaborated closely with the client through weekly touchpoints. This ensured the project stayed on track. Moreover, their members' design capabilities were impressive and exceeded expectations.”</p>
+                                        <p class="h6 txt-reg home-testi-content-item-txt">“The items were delivered on time and in great quality. Bear Plus delivered great ir members' design capabilities were impressive and exceeded expectations.”</p>
                                         <div class="home-testi-content-item-wrap">
                                             <div class="line"></div>
                                             <div class="home-testi-content-item-author">
@@ -1039,7 +1045,7 @@
                                     </div>
                                     <div class="home-testi-content-item" style="--i: 4">
                                         <div class="home-testi-content-item-fg"></div>
-                                        <p class="h6 txt-reg home-testi-content-item-txt">“The items were delivered on time and in great quality. Bear Plus delivered great work. The project was managed well through clearly defined phases, and the team collaborated closely with the client through weekly touchpoints. This ensured the project stayed on track. Moreover, their members' design capabilities were impressive and exceeded expectations.”</p>
+                                        <p class="h6 txt-reg home-testi-content-item-txt">“The items were delivered on time and in great quality. Bear Plus delivered great work. The project was managed well through weekly touchpoints. This ensured the project stayed on track. Moreover, their members' design capabilities were impressive and exceeded expectations.”</p>
                                         <div class="home-testi-content-item-wrap">
                                             <div class="line"></div>
                                             <div class="home-testi-content-item-author">
@@ -1055,9 +1061,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="home-testi-content-progress">
-                                <div class="home-testi-content-progress-inner"></div>
-                            </div>
+                        </div>
+                        <div class="home-testi-content-progress">
+                            <div class="home-testi-content-progress-inner"></div>
                         </div>
                     </div>
                 </section>
@@ -1066,71 +1072,71 @@
                         <h2 class="h1 home-faq-heading">Find answers to your questions here</h2>
                         <div class="home-faq-content">
                             <div class="home-faq-content-listing">
-                                <div class="home-faq-content-item">
+                                <div class="home-faq-content-item" data-cursor="dotstick">
                                     <div class="home-faq-content-item-ques">
                                         <p class="txt txt-20 home-faq-content-item-ques-ordinal">001</p>
                                         <h4 class="h6 txt-reg home-faq-content-item-ques-title">What is your working schedule?</h4>
-                                        <span class="home-faq-content-item-ques-dot"></span>
+                                        <span class="home-faq-content-item-ques-dot" data-cursor-dotpos=""></span>
                                     </div>
                                     <div class="home-faq-content-item-answer">
                                         <p class="txt txt-20">We to charitable foundations worldwide. However, supporting charity is not our main goal. If your main objective is to support charity, it may be more effective for you to directly donate to a foundation of your choice.</p>
                                     </div>
                                 </div>
-                                <div class="home-faq-content-item">
+                                <div class="home-faq-content-item" data-cursor="dotstick">
                                     <div class="home-faq-content-item-ques">
                                         <p class="txt txt-20 home-faq-content-item-ques-ordinal">002</p>
                                         <h4 class="h6 txt-reg home-faq-content-item-ques-title">Can I truly make unlimited design requests?</h4>
-                                        <span class="home-faq-content-item-ques-dot"></span>
+                                        <span class="home-faq-content-item-ques-dot" data-cursor-dotpos=""></span>
                                     </div>
                                     <div class="home-faq-content-item-answer">
                                         <p class="txt txt-20">We to charitable foundations worldwide. However, supporting charity is not our main goal. If your main objective is to support charity, it may be more effective for you to directly donate to a foundation of your choice.</p>
                                     </div>
                                 </div>
-                                <div class="home-faq-content-item">
+                                <div class="home-faq-content-item" data-cursor="dotstick">
                                     <div class="home-faq-content-item-ques">
                                         <p class="txt txt-20 home-faq-content-item-ques-ordinal">003</p>
-                                        <h4 class="h6 txt-reg home-faq-content-item-ques-title">What if I don’t like the design?</h4>
-                                        <span class="home-faq-content-item-ques-dot"></span>
+                                        <h4 class="h6 txt-reg home-faq-content-item-ques-title">What if I don't like the design?</h4>
+                                        <span class="home-faq-content-item-ques-dot" data-cursor-dotpos=""></span>
                                     </div>
                                     <div class="home-faq-content-item-answer">
                                         <p class="txt txt-20">We to charitable foundations worldwide. However, supporting charity is not our main goal. If your main objective is to support charity, it may be more effective for you to directly donate to a foundation of your choice.</p>
                                     </div>
                                 </div>
-                                <div class="home-faq-content-item">
+                                <div class="home-faq-content-item" data-cursor="dotstick">
                                     <div class="home-faq-content-item-ques">
                                         <p class="txt txt-20 home-faq-content-item-ques-ordinal">004</p>
                                         <h4 class="h6 txt-reg home-faq-content-item-ques-title">Who will I work with?</h4>
-                                        <span class="home-faq-content-item-ques-dot"></span>
+                                        <span class="home-faq-content-item-ques-dot" data-cursor-dotpos=""></span>
                                     </div>
                                     <div class="home-faq-content-item-answer">
                                         <p class="txt txt-20">We to charitable foundations worldwide. However, supporting charity is not our main goal. If your main objective is to support charity, it may be more effective for you to directly donate to a foundation of your choice.</p>
                                     </div>
                                 </div>
-                                <div class="home-faq-content-item">
+                                <div class="home-faq-content-item" data-cursor="dotstick">
                                     <div class="home-faq-content-item-ques">
                                         <p class="txt txt-20 home-faq-content-item-ques-ordinal">005</p>
                                         <h4 class="h6 txt-reg home-faq-content-item-ques-title">Do you offer training or support</h4>
-                                        <span class="home-faq-content-item-ques-dot"></span>
+                                        <span class="home-faq-content-item-ques-dot" data-cursor-dotpos=""></span>
                                     </div>
                                     <div class="home-faq-content-item-answer">
                                         <p class="txt txt-20">We to charitable foundations worldwide. However, supporting charity is not our main goal. If your main objective is to support charity, it may be more effective for you to directly donate to a foundation of your choice.</p>
                                     </div>
                                 </div>
-                                <div class="home-faq-content-item">
+                                <div class="home-faq-content-item" data-cursor="dotstick">
                                     <div class="home-faq-content-item-ques">
                                         <p class="txt txt-20 home-faq-content-item-ques-ordinal">006</p>
                                         <h4 class="h6 txt-reg home-faq-content-item-ques-title">Do you offer free trial?</h4>
-                                        <span class="home-faq-content-item-ques-dot"></span>
+                                        <span class="home-faq-content-item-ques-dot" data-cursor-dotpos=""></span>
                                     </div>
                                     <div class="home-faq-content-item-answer">
                                         <p class="txt txt-20">We to charitable foundations worldwide. However, supporting charity is not our main goal. If your main objective is to support charity, it may be more effective for you to directly donate to a foundation of your choice.</p>
                                     </div>
                                 </div>
-                                <div class="home-faq-content-item">
+                                <div class="home-faq-content-item" data-cursor="dotstick">
                                     <div class="home-faq-content-item-ques">
                                         <p class="txt txt-20 home-faq-content-item-ques-ordinal">0007</p>
                                         <h4 class="h6 txt-reg home-faq-content-item-ques-title">Are there any refunds?</h4>
-                                        <span class="home-faq-content-item-ques-dot"></span>
+                                        <span class="home-faq-content-item-ques-dot" data-cursor-dotpos=""></span>
                                     </div>
                                     <div class="home-faq-content-item-answer">
                                         <p class="txt txt-20">We to charitable foundations worldwide. However, supporting charity is not our main goal. If your main objective is to support charity, it may be more effective for you to directly donate to a foundation of your choice.</p>
@@ -1232,9 +1238,9 @@
             <div class="footer-copyright">
                 <p class="txt txt-16 txt-med">All rights reserved © 2024 BearInk. From BearPlus with love</p>
                 <div class="footer-links">
-                    <a class="txt txt-16 txt-med hover-un footer-link" href="#">Privacy Policy</a>
-                    <a class="txt txt-16 txt-med hover-un footer-link" href="#">Terms & Conditions</a>
-                    <button class="txt txt-16 txt-med hover-un footer-link" data-action="scrollTop">Back to top</button>
+                    <a class="txt txt-16 txt-med hover-un footer-link" href="#" data-cursor="txtstick" data-cursor-footer="#">Privacy Policy</a>
+                    <a class="txt txt-16 txt-med hover-un footer-link" href="#" data-cursor="txtstick" data-cursor-footer="#">Terms & Conditions</a>
+                    <button class="txt txt-16 txt-med hover-un footer-link" data-cursor="txtstick" data-cursor-footer="#" data-action="scrollTop">Back to top</button>
                 </div>
             </div>
         </div>

@@ -101,7 +101,7 @@ const home = {
                     trigger: cont.find('.home-hero'),
                     start: 'top top',
                     end: 'bottom top',
-                    scrub: true,
+                    scrub: .3,
                 }
             })
             tl.to(cont.find('.home-hero-bg img'), {y: '19rem', ease: 'none'})
@@ -124,12 +124,7 @@ const home = {
             let otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem");
             const ITEM_WIDTH = ($('.container').width() - percentage(25, $('.container').width())) / 5;
 
-            gsap.set(BENEFIT.stage, { height: totalDistance + cvUnit(100, "rem") });
-
-            // BENEFIT.otherItem.each((_, item) => {
-            //     let benefit = $(item).find('.home-benefit-other-title').text().toLowerCase().replace(' ', '-');
-            //     $(item).attr('href', `#benefit-${benefit}`)
-            // })
+            gsap.set(BENEFIT.stage, { height: totalDistance * 1.2 + cvUnit(100, "rem") });
 
             let reqCheck;
             function checkHiddenImg() {
@@ -156,7 +151,7 @@ const home = {
                     trigger: BENEFIT.stage,
                     start: `top-=${$('header').outerHeight()} top`,
                     end: 'bottom bottom',
-                    scrub: true,
+                    scrub: .6,
                     onEnter: () => checkHiddenImg(),
                     onEnterBack: () => checkHiddenImg(),
                     onLeaveBack: () => window.cancelAnimationFrame(reqCheck),
@@ -213,7 +208,7 @@ const home = {
                 .to(BENEFIT.wrap, {
                     scale: 0.5, autoAlpha: 0,
                     duration: 2,
-                }, '>=-.5')
+                }, '>=-.8')
 
                 .to(BENEFIT.wrap, {
                     yPercent: -8,
@@ -259,18 +254,17 @@ const home = {
                     trigger: GALLERY.wrap,
                     start: `top bottom`,
                     end: 'bottom bottom',
-                    scrub: true,
-                    markers: true
+                    scrub: .6
                 }
             })
 
             const getOtherItem = ({ wrap, item }) => GALLERY.otherWrap.eq(wrap).find(GALLERY.otherInner).eq(item);
             showreelTl
-                .to('.home-showreel-overlay', { autoAlpha: 0, duration: .1 })
+                .to('.home-showreel-item-overlay', { autoAlpha: 0, duration: .15 })
                 .from([getOtherItem({ wrap: 0, item: 2 }), getOtherItem({ wrap: 1, item: 2 })], { y: 80, duration: .2 }, "<=0")
                 .from([getOtherItem({ wrap: 0, item: 1 }), getOtherItem({ wrap: 1, item: 1 })], { y: 200, duration: .2 }, "<=0")
                 .from([getOtherItem({ wrap: 0, item: 0 }), getOtherItem({ wrap: 1, item: 0 })], { y: 320, duration: .2 }, "<=0")
-                .from(GALLERY.mainWrap, { "clipPath": `inset(14% 37.35% 14% 37.35% round ${cvUnit(20, "rem")}px)`, duration: 1 }, ">=-0.1")
+                .fromTo(GALLERY.mainWrap, { "clipPath": `inset(14% 37.35% 14% 37.35% round ${cvUnit(20, "rem")}px)`},{"clipPath": `inset(0% 0% 0% 0% round ${cvUnit(20, "rem")}px)`, duration: 1 }, ">=-0.1")
                 .to(GALLERY.otherInner.find(".img"), { scale: 1.6, duration: 1 }, "<=0")
                 .to(getOtherItem({ wrap: 0, item: 2 }), { xPercent: -255, duration: 1 }, "<=0")
                 .to(getOtherItem({ wrap: 0, item: 1 }), { xPercent: -460, duration: 1 }, "<=0")
@@ -278,7 +272,11 @@ const home = {
                 .to(getOtherItem({ wrap: 1, item: 2 }), { xPercent: 255, duration: 1 }, "<=0")
                 .to(getOtherItem({ wrap: 1, item: 1 }), { xPercent: 460, duration: 1 }, "<=0")
                 .to(getOtherItem({ wrap: 1, item: 0 }), { xPercent: 760, duration: 1 }, "<=0")
-                .from(GALLERY.thumbPlay, { autoAlpha: 0, y: 30, duration: .5 }, ">=-1")
+                .from(GALLERY.thumbPlay, { autoAlpha: 0, y: 0, duration: .5 }, ">=-1")
+                .from('.home-showreel-play-ic', { scale: 0.8, duration: 1 }, "<=0")
+                .from('.home-showreel-play-ic svg', { scale: 1.4, duration: 1 }, "<=0")
+                .from('.home-showreel-play-first', {x: -cvUnit(200, 'rem'), duration: 1}, '<=0')
+                .from('.home-showreel-play-last', {x: cvUnit(200, 'rem'), duration: 1}, '<=0')
         }
         showreelGalleryZoom()
 
@@ -510,7 +508,6 @@ const home = {
 
             function initMouseMove() {
                 let offsetL =  parseFloat(target.css('left'))
-                let rotVl
                 if (target.hasClass('active')) {
                     let tarCurrX = xGetter(target.get(0))
                     let tarCurrY = yGetter(target.get(0))
@@ -519,14 +516,9 @@ const home = {
                     let tarX = (pointerCurr().x/$('.home-project').outerWidth()) * ($('.home-project-item-view').get(0).getBoundingClientRect().left - offsetL - target.width())
                     let tarY = -target.height()/4 + (pointerCurr().y - $('.home-project').get(0).getBoundingClientRect().top)/$('.home-project').height() * ($('.home-project').height() - target.height()/2)
 
-                    let rotValue = (pointerCurr().x - (target.width()/2 + offsetL + tarCurrX))/$('.home-project').outerWidth()
-
                     xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
                     ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
-
-                    if (pointerCurr().x < (target.width()/2 + offsetL + tarCurrX)){rotVl = -1}
-                    else {rotVl = 1}
-                    // rotZSetter(target.get(0))(lerp(tarCurrRot, rotVl * rotValue * (Math.min(Math.max(((tarX + tarY) - (tarCurrX + tarCurrY))/5, -15), 15)), .06))
+                    rotZSetter(target.get(0))(lerp(tarCurrRot, Math.min(Math.max((tarX - tarCurrX)/20, -7), 7), .08))
                 }
                 requestAnimationFrame(initMouseMove)
             }
@@ -567,6 +559,20 @@ const home = {
         homeCurtain()
 
         function homeIndustries() {
+
+            function parallaxLogo() {
+                let target = $('.home-explore-img img')
+                let tarCurrX = xGetter(target.get(0))
+                let tarCurrY = yGetter(target.get(0))
+                let moveX = (pointerCurr().x/$(window).width() - 0.5) * 2 * (target.width()/4)
+                let moveY = (pointerCurr().y/$(window).height() - 0.5) * 2 * (target.height()/8)
+                xSetter(target.get(0))(lerp(tarCurrX, moveX, .01))
+                ySetter(target.get(0))(lerp(tarCurrY, moveY, .01))
+
+                requestAnimationFrame(parallaxLogo)
+            }
+            requestAnimationFrame(parallaxLogo)
+
             const DOM = {
                 radarScan: $('.home-explore-industries-radar-scan'),
                 lineItem: $('.home-explore-industries-radar-wrapper-item-line'),
@@ -614,9 +620,7 @@ const home = {
         homeIndustries()
 
         function homeTesti() {
-            console.log($(window).height() + ($('.home-testi-content-item').eq(0).height() * 1.5 * $('.home-testi-content-item').length));
             $('.home-testi').css('height', + $(window).height() + ($('.home-testi-content-item').eq(0).height() * 1.5 * $('.home-testi-content-item').length) + 'px')
-
 
             ScrollTrigger.create({
                 trigger: '.home-testi',
@@ -627,197 +631,77 @@ const home = {
                         gsap.set('.home-testi-content-progress-inner', {y: timeline.progress * parseRem(160)})
                     }
             })
+
+
+
             let tlScrub = gsap.timeline({
                 scrollTrigger: {
                     trigger: '.home-testi',
-                    start: `top+=-${$('.home-testi-content-item').eq(0).height() * 1.5} top`,
+                    start: `top+=0% top`,
                     end: 'bottom bottom',
                     scrub: .2,
                 }
             })
 
-            tlScrub
-            .fromTo($('.home-testi-content-item').eq(0), {
-                scale: .9,
-                y: '-5rem',
-                autoAlpha: .9
-            },{
-                scale: 1,
-                y: '0rem',
-                autoAlpha: 1,
-                duration: .2
-            }, 0)
-            .fromTo($('.home-testi-content-item').eq(1), {
-                scale: .8,
-                y: '-10rem',
-                autoAlpha: .0
-            },{
-                scale: .9,
-                y: '-5rem',
-                autoAlpha: .8,
-                duration: .2
-            }, "<=0")
-            .fromTo($('.home-testi-content-item-fg').eq(0), {
-                autoAlpha: 1,
-                backgroundPosition: '0% 0%',
-            },{
-                backgroundPosition: '0% 100%',
-                autoAlpha: 0,
-                // ease: 'expo.inOut',
-                duration: .2
-            }, "<=0")
-            
-
-            tlScrub
-            .to($('.home-testi-content-item').eq(0), {
-                scale: 1.1,
-                y: '5rem',
-                ease: 'power2.out',
-                duration: 1,
-            }, 1)
-            .fromTo($('.home-testi-content-item-fg').eq(0), {
-                autoAlpha: 0,
-                backgroundPosition: '0% 0%',
-            },{
-                autoAlpha: 1,
-                // backgroundPosition: '0% 100%',
-                ease: 'expo.out',
-                duration: .6
-            }, "<=0")
-            .to($('.home-testi-content-item').eq(0), {
-                autoAlpha: 0,
-                ease: 'power2.in',
-                duration: .5,
-            }, "<=0")
-            .fromTo($('.home-testi-content-item').eq(1), {
-                scale: .9,
-                y: '-5rem',
-                autoAlpha: .8
-            },{
-                scale: 1,
-                y: '0rem',
-                autoAlpha: 1,
-                duration: 1
-            }, "<=0")
-            .fromTo($('.home-testi-content-item-fg').eq(1), {
-                autoAlpha: 0,
-                backgroundPosition: '0% 0%',
-            },{
-                autoAlpha: 1,
-                backgroundPosition: '0% 100%',
-                ease: 'expo.out',
-                duration: .6
-            }, "<=0")
-            .fromTo($('.home-testi-content-item').eq(2), {
-                scale: .8,
-                y: '-10rem',
-                autoAlpha: .0
-            },{
-                scale: .9,
-                y: '-5rem',
-                autoAlpha: .8,
-                duration: 1
-            }, "<=0")
-
-            tlScrub
-            .to($('.home-testi-content-item').eq(1), {
-                scale: 1.1,
-                y: '5rem',
-                autoAlpha: 0,
-                ease: 'power2.out',
-                duration: 1
-            }, 2.5)
-            .fromTo($('.home-testi-content-item').eq(2), {
-                scale: .9,
-                y: '-5rem',
-                autoAlpha: .8
-            },{
-                scale: 1,
-                y: '0rem',
-                autoAlpha: 1,
-                duration: 1
-            }, "<=0")
-            .fromTo($('.home-testi-content-item-fg').eq(2), {
-                autoAlpha: 0,
-                backgroundPosition: '0% 0%',
-            },{
-                autoAlpha: 1,
-                backgroundPosition: '0% 100%',
-                ease: 'expo.out',
-                duration: .6
-            }, "<=0")
-            .fromTo($('.home-testi-content-item').eq(3), {
-                scale: .8,
-                y: '-10rem',
-                autoAlpha: .0
-            },{
-                scale: .9,
-                y: '-5rem',
-                autoAlpha: .8,
-                duration: 1
-            }, "<=0")
-
-            tlScrub
-            .to($('.home-testi-content-item').eq(2), {
-                scale: 1.1,
-                y: '5rem',
-                autoAlpha: 0,
-                ease: 'power2.out',
-                duration: 1
-            }, 4)
-            .fromTo($('.home-testi-content-item-fg').eq(3), {
-                autoAlpha: 0,
-                backgroundPosition: '0% 0%',
-            },{
-                autoAlpha: 1,
-                backgroundPosition: '0% 100%',
-                ease: 'expo.out',
-                duration: .6
-            }, "<=0")
-            .fromTo($('.home-testi-content-item').eq(3), {
-                scale: .9,
-                y: '-5rem',
-                autoAlpha: .8
-            },{
-                scale: 1,
-                y: '0rem',
-                autoAlpha: 1,
-                duration: 1
-            }, "<=0")
-       
-
             // tlScrub
-            // .fromTo($('.home-testi-content-item').eq(1), {
-            //     scale: .9,
-            //     y: '-5rem',
-            //     autoAlpha: .8
+            // .fromTo($('.home-testi-content-item').eq(0), {
+            //     scale: .95,
+            //     y: '-3rem',
+            //     autoAlpha: .9
             // },{
             //     scale: 1,
             //     y: '0rem',
             //     autoAlpha: 1,
-            //     duration: 1
-            // }, 0.25)
-            // .fromTo($('.home-testi-content-item').eq(2), {
+            //     duration: .2
+            // }, 0)
+            // .fromTo($('.home-testi-content-item').eq(1), {
             //     scale: .8,
             //     y: '-10rem',
             //     autoAlpha: .0
             // },{
-            //     scale: .9,
-            //     y: '-5rem',
+            //     scale: .95,
+            //     y: '-3rem',
             //     autoAlpha: .8,
-            //     duration: 1
-            // }, .25)
-            
+            //     duration: .2
+            // }, "<=0")
+            // .fromTo($('.home-testi-content-item-fg').eq(0), {
+            //     autoAlpha: 1,
+            //     backgroundPosition: '0% 0%',
+            // },{
+            //     backgroundPosition: '0% 100%',
+            //     autoAlpha: 0,
+            //     // ease: 'expo.inOut',
+            //     duration: .2
+            // }, "<=0")
 
 
-
+            let timeDelay = .5
+            let timeAnim = 1
+            let translateY = cvUnit(30, "rem")
+            let offsettranslateY = 1.5
 
             $('.home-testi-content-item').each((idx, el) => {
                 if (idx == 0) {
-                    
-                }                
+                    tlScrub
+                    .to($(el), {scale: 1.1, y: translateY, ease: 'power2.out', duration: timeAnim}, `0 + ${idx * (timeAnim + timeDelay)}`)
+                    .to($(el), {autoAlpha: 0, ease: 'power2.in', duration: timeAnim/2}, "<=0")
+                    .fromTo($(el).next(), {scale: .95, y: -translateY, autoAlpha: .8}, {scale: 1, y: 0, autoAlpha: 1, duration: 1}, "<=0")
+                    .fromTo($(el).next().next(), { scale: .8, y: -offsettranslateY * translateY, autoAlpha: 0}, {scale: .95, y: -translateY, autoAlpha: .8, duration: 1}, "<=0")
+                }
+                if (0 < idx && idx < ($('.home-testi-content-item').length - 2)) {
+                    tlScrub
+                    .to($(el), {scale: 1.1, y: translateY, ease: 'power2.out', duration: timeAnim}, `0 + ${idx * (timeAnim + timeDelay)}`)
+                    .to($(el), {autoAlpha: 0, ease: 'power2.in', duration: timeAnim/2}, "<=0")
+                    .fromTo($(el).next(), {scale: .95, y: -translateY, autoAlpha: .8}, {scale: 1,y: 0, autoAlpha: 1, duration: 1}, "<=0")
+                    .fromTo($(el).next().next(), {scale: .8, y: -offsettranslateY * translateY, autoAlpha: 0}, {scale: .95, y: -translateY, autoAlpha: .8, duration: 1}, "<=0")
+                }
+                if (idx == ($('.home-testi-content-item').length - 2)) {
+                    tlScrub
+                    .to($(el), {scale: 1.1, y: translateY, ease: 'power2.out', duration: timeAnim}, `0 + ${idx * (timeAnim + timeDelay)}`)
+                    .to($(el), {autoAlpha: 0, ease: 'power2.in', duration: timeAnim/2,}, "<=0")
+                    .fromTo($(el).next(), { scale: .95, y: -translateY, autoAlpha: .8}, {scale: 1, y: 0, autoAlpha: 1, duration: 1}, "<=0")
+                }
             })
-            
         }
         homeTesti()
 
@@ -902,7 +786,6 @@ const home = {
                 requestAnimationFrame(parallaxBear)
             }
             bearMove()
-
 
             function curtainFooter() {
                 gsap.to('.footer-curtain-inner', {
