@@ -554,7 +554,6 @@ const home = {
                     start: `top+=0% top`,
                     end: 'bottom bottom',
                     scrub: .2,
-                    markers: true
                 }
             })
 
@@ -613,7 +612,33 @@ const home = {
             })
         }
         switchPlanPricing();
-
+        function testPayment() {
+            $('.btn-purchase').on('click', function(e) {
+                e.preventDefault()
+                console.log('clicked')
+                let planId = $(this).attr('data-button-id')
+                fetch('http://localhost:4000/create-checkout-session', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        items: [
+                            {id: 1}
+                        ]
+                    })
+                }).then(res => {
+                    if (res.ok) return res.json()
+                    return res.json().then(json => Promise.reject(json))
+                }).then(({ url }) => {
+                    console.log(url)
+                    window.location = url
+                }).catch(e => {
+                    console.error(e.message)
+                })
+            })
+        }
+        testPayment()
         function faqAccordion() {
             const parent = selector('.home-faq-content-listing');
             const DOM = {

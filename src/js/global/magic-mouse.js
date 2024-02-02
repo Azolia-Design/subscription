@@ -131,7 +131,7 @@ const initCursor = () => {
                 case 'menuprog':
                     dotstick = true
                     updatePos('free')
-                    gsap.to(cursor.find('.cursor-dot'), {scale: targetValue.w / cusrorDotWidth, duration: .6, ease: 'power2.out', overwrite: true})
+                    gsap.to(cursor.find('.cursor-dot'), {scale: targetValue.h / cusrorDotWidth, duration: .6, ease: 'power2.out', overwrite: true})
                     gsap.to(cursor.find('.cursor-border'), {scale: 1.5, autoAlpha: 0, duration: .4, ease: 'power2.out', overwrite: true})
                     xSetter(cursor.find('.cursor-dot').get(0))(lerp(dotX, targetOffsetLeft - pointerCurr().x + targetValue.w/2, .1))
                     ySetter(cursor.find('.cursor-dot').get(0))(lerp(dotY, targetOffsetTop - pointerCurr().y + targetValue.h/2, .1))

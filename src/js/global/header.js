@@ -97,7 +97,7 @@ function checkHoverDot() {
     if ($('.header-menu-prog-item:hover').length) {
         let target = $('.header-menu-prog-item:hover')
         let currX = xGetter('.header-menu-prog-label')
-        xSetter('.header-menu-prog-label')(lerp(currX, target.get(0).offsetLeft - $('.header-menu-prog-label').width() / 2 + target.width() / 2));
+        xSetter('.header-menu-prog-label')(lerp(currX, target.get(0).offsetLeft - $('.header-menu-prog-label').outerWidth() / 2 + target.outerWidth() / 2));
     }
     requestAnimationFrame(checkHoverDot);
 }

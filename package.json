@@ -11,15 +11,8 @@
   "scripts": {
     "clear": "rm -rf dist .parcel-cache",
     "dev": "yarn clear && PARCEL_WORKERS=1 parcel -p 3000",
-    "start": "yarn clear && yarn build:server-dev && PARCEL_WORKERS=1 concurrently \"yarn nodemon:server\" \"yarn start:server\" \"yarn start:client\"",
-    "start:client": "parcel serve --target client -p 3000",
-    "start:server": "parcel watch --target server-dev",
-    "nodemon:server": "nodemon server.js",
-    "build:client": "yarn clear && PARCEL_WORKERS=1 parcel build --no-cache --no-content-hash --public-url ./ --no-scope-hoist",
-    "build:server": "parcel build --target server",
-    "build:server-dev": "parcel build --target server-dev",
-    "rename": "node rename.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "nodemon server.js",
+    "start": "concurrently \"yarn dev\" \"yarn server\""
   },
   "type": "commonjs",
   "author": "",
@@ -27,15 +20,16 @@
   "devDependencies": {
     "@parcel/transformer-sass": "2.11.0",
     "concurrently": "^8.2.2",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
     "nodemon": "^3.0.3",
     "parcel": "^2.11.0",
     "parcel-reporter-static-files-copy": "^1.5.3",
-    "sharp": "^0.31.1"
+    "sharp": "^0.31.1",
+    "stripe": "^14.14.0"
   },
+  "browserslist": "> 0.5%, last 2 versions, not dead, Safari 14",
   "dependencies": {
-    "dotenv": "^16.4.0",
-    "express": "^4.18.2",
-    "stripe": "^14.13.0"
-  },
-  "browserslist": "> 0.5%, last 2 versions, not dead, Safari 14"
+    "cors": "^2.8.5"
+  }
 }
