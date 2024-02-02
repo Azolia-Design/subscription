@@ -1452,10 +1452,11 @@
                 height: 100%;
                 display: flex;
                 align-items: center;
+                perspective: 5000px;
             }
             &-item {
                 // opacity: 0;
-                z-index: calc(var(--i) * -1);
+                // z-index: calc(var(--i) * -1);
                 position: absolute;
                 padding: 10rem;
                 border-radius: 2rem;

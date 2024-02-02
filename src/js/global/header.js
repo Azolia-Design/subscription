@@ -71,7 +71,7 @@ const hoverDot = () => {
 
 function checkHoverDot() {
     if ($('.header-menu-prog-item:hover').length) {
-        console.log("hovering");
+        // console.log("hovering");
         let target = $('.header-menu-prog-item:hover')
         let currX = xGetter('.header-menu-prog-label')
         xSetter('.header-menu-prog-label')(lerp(currX, target.get(0).offsetLeft - $('.header-menu-prog-label').width() / 2 + target.width() / 2));
