@@ -1,39 +1,68 @@
-$headingStyles: (
-    h0: ( font-size: 12rem, line-height: .9em  ),
-    h1: ( font-size: 10rem, line-height: 1em ),
-    h2: ( font-size: 8rem, line-height: .95em ),
-    h3: ( font-size: 7.2rem, line-height: 1em) ,
-    h4: ( font-size: 6.4rem, line-height: .95em ),
-    h5: ( font-size: 6rem, line-height: 1.3em ),
-    h6: ( font-size: 3.2rem, line-height: 1.3em )
-);
+:root {
+    --fs-h0: 12rem;
+    --lh-h0: .9em;
 
-$txtStyles: (
-    12: ( font-size: 1.2rem, line-height: 1.6em ),
-    14: ( font-size: 1.4rem, line-height: 1.5em ),
-    16: ( font-size: 1.6rem, line-height: 1.4em ),
-    18: ( font-size: 1.8rem, line-height: 1.6em ),
-    20: ( font-size: 2rem, line-height: 1.4em ),
-    24: ( font-size: 2.4rem, line-height: 1.3em ),
-    36: ( font-size: 3.6rem, line-height: 1.2em ),
-    reg: ( font-weight: 400 ),
-    med: ( font-weight: 500 ),
-    bold: ( font-weight: 700 )
-);
+    --fs-h1: 10rem;
+    --lh-h1: 1em;
 
-@each $key, $map in $headingStyles {
-    #{$key}, .#{$key} {
-        color: $cl-heading;
-        font-weight: 500;
-        @include text(heading, $key);
+    --fs-h2: 8rem;
+    --lh-h2: .95em;
+
+    --fs-h3: 7.2rem;
+    --lh-h3: 1em;
+
+    --fs-h4: 6.4rem;
+    --lh-h4: .95em;
+
+    --fs-h5: 6rem;
+    --lh-h5: 1.3em;
+
+    --fs-h6: 3.2rem;
+    --lh-h6: 1.3em;
+
+    --fs-12: 1.2rem;
+    --lh-12: 1.6em;
+
+    --fs-14: 1.4rem;
+    --lh-14: 1.5em;
+
+    --fs-16: 1.6rem;
+    --lh-16: 1.4em;
+
+    --fs-18: 1.8rem;
+    --lh-18: 1.6em;
+
+    --fs-20: 2rem;
+    --lh-20: 1.4em;
+
+    --fs-24: 2.4rem;
+    --lh-24: 1.3em;
+
+    --fs-36: 3.6rem;
+    --lh-36: 1.2em;
+
+    @media only screen and (max-width: 991px) {
+    }
+    @media only screen and (max-width: 767px) {
     }
 }
 
+$txtSizes: 12, 14, 16, 18, 20, 24, 36;
+
 .txt {
-    @each $key, $map in $txtStyles {
-        &-#{$key}  {
-            @include text(txt, $key);
+    @each $size in $txtSizes {
+        &-#{$size} {
+            @include text(#{$size});
         }
+    }
+    &-reg {
+        font-weight: 400 !important;
+    }
+    &-med {
+        font-weight: 500;
+    }
+    &-bold {
+        font-weight: 700;
     }
     &-hl {
         color: rgba($cl-primary, 1);
@@ -85,7 +114,15 @@ $txtStyles: (
 }
 
 body {
-    @include text(txt, 20);
+    @include text(20);
+}
+
+@for $i from 0 through 6 {
+    h#{$i}, .h#{$i} {
+        color: $cl-heading;
+        font-weight: 500;
+        @include text(h#{$i});
+    }
 }
 
 .icon {
@@ -361,12 +398,4 @@ button {
             }
         }
     }
-}
-
-
-@media screen and (max-width: 768px) {
-    $txtStyles: map-merge($txtStyles, (
-        14: ( font-size: 1rem, line-height: 1.5em ),
-        18: ( font-size: 2rem, line-height: 1.5em )
-    ));
 }
