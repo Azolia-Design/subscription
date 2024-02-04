@@ -31,28 +31,9 @@
 	}
 }
 
-@mixin text($type, $size) {
-	@if $type == heading {
-		@each $key, $map in $headingStyles {
-			@if $key == $size {
-				@each $property, $value in $map {
-					#{$property}: $value;
-				}
-			}
-		}
-	}
-	@else if $type == txt {
-		@each $key, $map in $txtStyles {
-			@if $key == $size {
-				@each $property, $value in $map {
-					#{$property}: $value;
-				}
-			}
-		}
-	}
-	@else {
-		@error "Unknown direction #{$type}.";
-	}
+@mixin text($fontSize) {
+	font-size: var(--fs-#{$fontSize});
+	line-height: var(--lh-#{$fontSize});
 }
 
 @mixin size($w, $h: $w) {
