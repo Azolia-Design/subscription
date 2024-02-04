@@ -222,37 +222,75 @@ button {
             width: $cs-sm;
             height: $cs-sm;
             background-color: $cl-primary;
+            @include transform(scale(1));
             border-radius: 50%;
-            will-change: width, height;
+            will-change: width, height, background-color;
+            @include transition(
+                background-color .3s ease-in-out,
+                width .3s ease-in-out,
+                height .3s ease-in-out,
+                transform .3s ease,
+            );
+
+            &.blackdot {
+                background-color: $cl-black;
+            }
+            &.whitedot {
+                background-color: $cl-white;
+            }
+            &.smdot {
+                width: .5rem;
+                height: .5rem;
+            }
+            &.hide {
+                @include transform(scale(0));
+            }
         }
 
         &-border {
             position: absolute;
             width: $cs-md;
             height: $cs-md;
-
+            opacity: 1;
+            will-change: width, height;
             &-inner {
                 width: 100%;
                 height: 100%;
                 border: dotted 2px rgba(255, 255, 255, .2);
                 border-radius: 50%;
+                @include transform(scale(1));
                 animation: rotate 20s linear infinite;
-                will-change: width, height, rotate;
+                will-change: rotate;
+                @include transition(all .4s ease);
+            }
+
+            &.hide {
+                .cursor-border-inner {
+                    @include transform(scale(1.5));
+                    opacity: 0;
+                }
             }
         }
         @keyframes rotate {
             0% {
-                transform: rotate(0deg);
+                @include transform(rotate(0deg));
             };
             100% {
-                transform: rotate(360deg);
+                @include transform(rotate(360deg));
             }
         }
         &-glow {
             position: absolute;
             width: $cs-lg;
             height: $cs-lg;
+            @include transform(scale(1));
             will-change: width, height;
+            @include transition(all .4s ease);
+
+            &.hide {
+                @include transform(scale(1.5));
+                opacity: 0;
+            }
         }
     }
 }

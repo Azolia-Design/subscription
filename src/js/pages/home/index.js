@@ -535,39 +535,63 @@ const home = {
 
         function homeTesti() {
             $('.home-testi').css('height', + $(window).height() + ($('.home-testi-content-item').eq(0).height() * 1.5 * $('.home-testi-content-item').length) + 'px')
-
-            ScrollTrigger.create({
-                trigger: '.home-testi',
+            let tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.home-testi',
                     start: `top top`,
                     end: 'bottom bottom',
                     scrub: true,
                     onUpdate: (timeline) => {
                         gsap.set('.home-testi-content-progress-inner', {y: timeline.progress * parseRem(160)})
                     }
+                }
             })
-
-
+            tl
+            .fromTo('.home-testi-text-wrap', {
+                y: cvUnit(-100, 'rem'),
+            }, {
+                y: cvUnit(-90, 'rem'),
+                ease: 'none'
+            })
 
             let tlScrub = gsap.timeline({
                 scrollTrigger: {
                     trigger: '.home-testi',
-                    start: `top+=0% top`,
-                    end: 'bottom bottom',
+                    start: `top+=0% bottom`,
+                    end: 'bottom top',
                     scrub: .2,
                 }
             })
 
-            let timeDelay = .5
+            let timeDelay = 1
             let timeAnim = 1
-            $('.home-testi-content-item').each((idx, el) => {
-                if (idx == 0){
+            let zUnit = 600
+            let yUnit = 90
 
-                }
-                if (0 < idx && idx < ($('.home-testi-content-item').length)) {
+            gsap.set('.home-testi-content-item', {z: cvUnit(zUnit, 'rem'), yPercent: 150, filter:"brightness(1)"})
+            $('.home-testi-content-item').each((idx, el) => {
+                if (idx == 0) {
                     tlScrub
-                    .fromTo($(el), {z: cvUnit(600, 'rem'), yPercent: 150}, {z: 0, yPercent: 0, ease: 'power3.out', duration: 1}, `0 + ${idx * (timeAnim + timeDelay)}`)
-                    .fromTo($(el).prev(), {z: 0, y: 0, filter:"brightness(1)"}, {z: cvUnit(-600, 'rem'), y: cvUnit(-90, 'rem'), filter:"brightness(.66)", ease: 'power2.out', duration: timeAnim}, "<=0")
-                    .fromTo($(el).prev().prev(), {z: cvUnit(-600, 'rem'), y: cvUnit(-90, 'rem'), filter:"brightness(.66)"}, {z: cvUnit(-1200, 'rem'), y: cvUnit(-180, 'rem'), filter:"brightness(.33)", ease: 'power2.out', duration: timeAnim}, "<=0")
+                    .fromTo($(el), {z: cvUnit(zUnit * 2, 'rem'), yPercent: 75, filter:"brightness(1)"}, {z: 0, yPercent: 0, filter:"brightness(1)", ease: 'power1.out', duration: timeAnim}, 0)
+                } 
+                if (idx > 0 && idx < ($('.home-testi-content-item').length)) {
+                    tlScrub
+                    .fromTo($(el), {z: cvUnit(zUnit, 'rem'), yPercent: 150, filter:"brightness(1)"}, {z: 0, yPercent: 0, filter:"brightness(1)", ease: 'power3.out', duration: timeAnim}, `0 + ${timeAnim + timeDelay + idx * (timeAnim + timeDelay)}`)
+                    .fromTo($(el).prev(), {z: 0, y: 0, filter:"brightness(1)"}, {z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter:"brightness(.67)", ease: 'power2.out', duration: timeAnim}, "<=0")
+                    if (idx > 1) {
+                        tlScrub
+                        .fromTo($(el).prev().prev(), {z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter:"brightness(.67)"}, {z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter:"brightness(.33)", ease: 'power2.out', duration: timeAnim}, "<=0")
+                    }
+                    if (idx > 2) {
+                        tlScrub
+                        .fromTo($(el).prev().prev().prev(), {z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter:"brightness(.33)"}, {z: cvUnit(-zUnit * 3, 'rem'), y: cvUnit(-yUnit * 3, 'rem'), filter:"brightness(0)", ease: 'power2.out', duration: timeAnim}, "<=0")
+                    }
+                }
+                if (idx == ($('.home-testi-content-item').length -1)) {
+                    tlScrub
+                    .fromTo($(el), {z: 0, y: 0, filter:"brightness(1)"}, {z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter:"brightness(.67)", ease: 'power3.out', duration: timeAnim}, `>=${timeAnim * .1}`)
+                    .fromTo($(el).prev(), {z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter:"brightness(.67)"}, {z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter:"brightness(.33)", ease: 'power3.out', duration: timeAnim}, "<=0")
+                    .fromTo($(el).prev().prev(), {z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter:"brightness(.33)"}, {z: cvUnit(-zUnit * 3, 'rem'), y: cvUnit(-yUnit * 3, 'rem'), filter:"brightness(0)", ease: 'power3.out', duration: timeAnim}, "<=0")
                 }
             })
         }
