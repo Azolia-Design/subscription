@@ -639,7 +639,7 @@ const home = {
                         let currLabel = $(item).siblings('.home-pricing-plan-item-label').text();
                         let planItemName = `${currLabel} ${currPlan}`
                         planListing.forEach((_, idx) => {
-                            if (planListing.get(idx).name == planItemName) {
+                            if (planListing.get(idx).name.toLowerCase() === planItemName.toLowerCase()) {
                                 $(item).attr('data-purchase-id', idx);
                             }
                         })
