@@ -45,6 +45,10 @@ $border-line-3: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 
 $cl-bg-beige: #F6F1EE;
 $dur-default: 400ms;
 
+@include keyframes(marquee) {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+}
 @include keyframes(glitch-anim-1) {
     0%, 30% {
         opacity: 1;
@@ -267,5 +271,40 @@ $dur-default: 400ms;
     };
     100% {
         top: 55.55%;
+    }
+}
+@include keyframes(noise) {
+    0% {
+        transform: translateZ(0);
+    }
+    10% {
+        transform: translate3d(-7vw,-7vw,0);
+    }
+    20% {
+        transform: translate3d(-14vw,7vw,0);
+    }
+    30% {
+        transform: translate3d(7vw,-14vw,0);
+    }
+    40% {
+        transform: translate3d(-7vw,-21vw,0);
+    }
+    50% {
+        transform: translate3d(-14vw,7vw,0);
+    }
+    60% {
+        transform: translate3d(21vw,21vw,0);
+    }
+    70% {
+        transform: translate3d(14vw,14vw,0);
+    }
+    80% {
+        transform: translate3d(-21vw,-21vw,0);
+    }
+    90% {
+        transform: translate3d(14vw,7vw,0);
+    }
+    100% {
+        transform: translate3d(7vw,7vw,0);
     }
 }
