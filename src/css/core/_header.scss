@@ -224,4 +224,8 @@
             }
         }
     }
+
+    @include sm {
+        display: none;
+    }
 }
