@@ -41,9 +41,39 @@
     --fs-36: 3.6rem;
     --lh-36: 1.2em;
 
-    @media only screen and (max-width: 991px) {
+    @include md {
+        --fs-h0: 7.2rem;
+        --lh-h0: 1em;
+
+        --fs-h1: 5rem;
+
+        --fs-h2: 4.4rem;
+        --lh-h2: 1em;
+
+        --fs-h4: 3.6rem;
+        --lh-h4: 1.1em;
+
+        --fs-h5: 3.2rem;
+        --lh-h5: 1em;
+
+        --fs-h6: 2.4rem;
+        --lh-h6: 1em;
+
+        --fs-20: 1.6rem;
     }
-    @media only screen and (max-width: 767px) {
+    @include sm {
+        --fs-h0: 5rem;
+
+        --fs-h1: 4.4rem;
+        
+
+        --fs-h5: 3.2rem;
+        --lh-h5: 1.1em;
+
+        --fs-h4: 2.4rem;
+        --lh-h4: 1.3em;
+
+        --fs-20: 1.6rem;
     }
 }
 
@@ -214,6 +244,10 @@ body {
         -webkit-backface-visibility: hidden;
         padding: 2.4rem 2.7rem;
         z-index: 3;
+
+        @include md {
+            padding: 1.4rem 2.7rem;
+        }
     }
     &-border {
         position: relative;

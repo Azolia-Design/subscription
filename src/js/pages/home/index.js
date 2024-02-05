@@ -1,5 +1,5 @@
 import { parseRem, selector } from "../../helper/index";
-import { cvUnit, percentage } from "../../helper/viewport";
+import { cvUnit, percentage, viewport, viewportBreak } from "../../helper/viewport";
 import { lenis } from "../../global/lenis";
 import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, findClosestEdge, FloatingAnimation, pointerCurr } from "../../helper";
 
@@ -206,45 +206,63 @@ const home = {
                 start: 'top bottom',
                 once: true,
                 onEnter: () => {
-                    // $('.home-skill-item').each((idx, el) => {
-                    //     const splitText = new SplitText($(el).find('.home-skill-item-title'), {type: "chars,lines", charsClass: 'char'})
-
-                    //
-                    // })
-                    $('.home-skill-item').on('mouseenter', function(e) {
-                        let idx = $(this).index()
-                        $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
-                    })
-                    $('.home-skill-item').on('mouseleave', function(e) {
-                        let idx = $(this).index()
-                        $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).removeClass('active')
-                    })
-                    $('.home-skill-thumb-item').each((idx, el) => {
-                        let clone = $(el).find('img')
-                        for (let i = 1; i <= 5; i++) {
-                            let cloner = clone.clone()
-                            cloner.addClass('cloner')
-                            $(el).append(cloner)
+                    viewportBreak({
+                        desktop: ()=> {
+                            $('.home-skill-item').on('mouseenter', function(e) {
+                                let idx = $(this).index()
+                                $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
+                            })
+                            $('.home-skill-item').on('mouseleave', function(e) {
+                                let idx = $(this).index()
+                                $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).removeClass('active')
+                            })
+                            $('.home-skill-thumb-item').each((idx, el) => {
+                                let clone = $(el).find('img')
+                                for (let i = 1; i <= 5; i++) {
+                                    let cloner = clone.clone()
+                                    cloner.addClass('cloner')
+                                    $(el).append(cloner)
+                                }
+                            })
+        
+                            function initMouseMove() {
+                                const target = $('.home-skill-thumb')
+                                if (target.hasClass('active')) {
+                                    let tarCurrX = xGetter(target.get(0))
+                                    let tarCurrY = yGetter(target.get(0))
+                                    let tarCurrRot = rotZGetter(target.get(0))
+        
+                                    let tarX = -target.outerWidth()/4 + (pointerCurr().x - $('.home-skill-listing').get(0).getBoundingClientRect().left)/$('.home-skill-listing').outerWidth() * ($('.home-skill-listing').outerWidth() - $('.home-skill-item-desc').get(0).getBoundingClientRect().left - target.outerWidth()/2)
+                                    let tarY =  -target.outerHeight()/4 + (pointerCurr().y - $('.home-skill-listing').get(0).getBoundingClientRect().top)/$('.home-skill-listing').outerHeight() * ($('.home-skill-listing').outerHeight() - target.outerHeight()/2)
+        
+                                    xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
+                                    ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
+                                    rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX)/40, -7), 7)), .1))
+                                }
+                                requestAnimationFrame(initMouseMove)
+                            }
+                            requestAnimationFrame(initMouseMove)
+                        },
+                        mobile: () => {
+                            $('.home-skill-item').on('click', function(e) {
+                                e.preventDefault()
+                                if (!$(this).hasClass('active')) {
+                                    $('.home-skill-item').removeClass('active')
+                                    $('.home-skill-item .home-skill-item-desc').slideUp(300, 'linear')
+                                    $(this).addClass('active')
+                                    $(this).find('.home-skill-item-desc').slideDown(300, 'linear')
+                                    gsap.to('.home-skill-item', {paddingTop: cvUnit( 60.5, 'rem'), paddingBottom: cvUnit( 60.5, 'rem'), duration: .3, ease: 'none'})
+                                    gsap.to(this, {paddingTop: cvUnit( 27.5, 'rem'), paddingBottom: cvUnit( 27.5, 'rem'), duration: .3, ease: 'none', overwrite: true})
+                                    gsap.to($(this).find('.home-skill-item-title'), {marginBottom: cvUnit(12, 'rem'), duration: .3, ease: 'none', overwrite: true})
+                                } else {
+                                    $('.home-skill-item').removeClass('active')
+                                    $('.home-skill-item .home-skill-item-desc').slideUp(300, 'linear')
+                                    gsap.to('.home-skill-item', {paddingTop: cvUnit( 60.5, 'rem'), paddingBottom: cvUnit( 60.5, 'rem'), duration: .3, ease: 'none'})
+                                    gsap.to('.home-skill-item .home-skill-item-title', {marginBottom: 0, duration: .3, ease: 'none'})
+                                }
+                            })
                         }
                     })
-
-                    function initMouseMove() {
-                        const target = $('.home-skill-thumb')
-                        if (target.hasClass('active')) {
-                            let tarCurrX = xGetter(target.get(0))
-                            let tarCurrY = yGetter(target.get(0))
-                            let tarCurrRot = rotZGetter(target.get(0))
-
-                            let tarX = -target.outerWidth()/4 + (pointerCurr().x - $('.home-skill-listing').get(0).getBoundingClientRect().left)/$('.home-skill-listing').outerWidth() * ($('.home-skill-listing').outerWidth() - $('.home-skill-item-desc').get(0).getBoundingClientRect().left - target.outerWidth()/2)
-                            let tarY =  -target.outerHeight()/4 + (pointerCurr().y - $('.home-skill-listing').get(0).getBoundingClientRect().top)/$('.home-skill-listing').outerHeight() * ($('.home-skill-listing').outerHeight() - target.outerHeight()/2)
-
-                            xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
-                            ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
-                            rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX)/40, -7), 7)), .1))
-                        }
-                        requestAnimationFrame(initMouseMove)
-                    }
-                    requestAnimationFrame(initMouseMove)
                 }
             })
         }
