@@ -2,6 +2,7 @@ import { parseRem, selector } from "../../helper/index";
 import { cvUnit, percentage, viewport, viewportBreak } from "../../helper/viewport";
 import { lenis } from "../../global/lenis";
 import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, findClosestEdge, FloatingAnimation, pointerCurr } from "../../helper";
+import { planListing } from '../../../../plan-data';
 
 const home = {
     namespace: "home",
@@ -591,7 +592,7 @@ const home = {
                 if (idx == 0) {
                     tlScrub
                     .fromTo($(el), {z: cvUnit(zUnit * 2, 'rem'), yPercent: 75, filter:"brightness(1)"}, {z: 0, yPercent: 0, filter:"brightness(1)", ease: 'power1.out', duration: timeAnim}, 0)
-                } 
+                }
                 if (idx > 0 && idx < ($('.home-testi-content-item').length)) {
                     tlScrub
                     .fromTo($(el), {z: cvUnit(zUnit, 'rem'), yPercent: 150, filter:"brightness(1)"}, {z: 0, yPercent: 0, filter:"brightness(1)", ease: 'power3.out', duration: timeAnim}, `0 + ${timeAnim + timeDelay + idx * (timeAnim + timeDelay)}`)
@@ -620,8 +621,10 @@ const home = {
                 btnPlan: $('.home-pricing-plan-switch-wrap .home-pricing-plan-switch-btn'),
                 btnOverlay: $('.home-pricing-plan-switch-overlay'),
                 periodic: $('.home-pricing-plan-item-price-periodic'),
-                price: $('.home-pricing-plan-item-price-txt')
+                price: $('.home-pricing-plan-item-price-txt'),
+                btnPurchase: $('.home-pricing-plan-item-btn.btn-purchase')
             }
+
             function activePlan(index) {
                 gsap.to(DOM.btnOverlay, {
                     x: index * DOM.btnOverlay.width()
@@ -635,21 +638,38 @@ const home = {
 
                 DOM.price.each((i, item) => {
                     let text = $(item).find('h3');
-                    text.removeClass('curr');
-                    text.eq(index).addClass('curr');
+                    text.removeClass('active');
+                    text.eq(index).addClass('active');
                 })
 
                 DOM.periodic.each((i, item) => {
                     let text = $(item).find('p');
-                    text.removeClass('curr');
-                    text.eq(index).addClass('curr');
+                    text.removeClass('active');
+                    text.eq(index).addClass('active');
+                })
+
+                let currPlan = DOM.btnPlan.eq(index).text();
+                DOM.btnPurchase.each((i, item) => {
+                    if ($(item).attr('data-purchase-method') === 'trial') {
+                        $(item).attr('data-purchase-id', 0);
+                    }
+                    else if ($(item).attr('data-purchase-method') === 'subscription') {
+                        let currLabel = $(item).siblings('.home-pricing-plan-item-label').text();
+                        let planItemName = `${currLabel} ${currPlan}`
+                        planListing.forEach((_, idx) => {
+                            if (planListing.get(idx).name.toLowerCase() === planItemName.toLowerCase()) {
+                                $(item).attr('data-purchase-id', idx);
+                            }
+                        })
+                    }
+                    else return;
                 })
             }
 
+            activePlan(0);
             DOM.btnPlan.on('click', function (e) {
                 let index = $(this).index();
                 e.preventDefault();
-                console.log(index);
                 activePlan(index);
             })
         }

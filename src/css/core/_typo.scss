@@ -143,16 +143,16 @@ $txtSizes: 12, 14, 16, 18, 20, 24, 36;
     }
 }
 
-body {
-    @include text(20);
-}
-
 @for $i from 0 through 6 {
     h#{$i}, .h#{$i} {
         color: $cl-heading;
         font-weight: 500;
         @include text(h#{$i});
     }
+}
+
+body {
+    @include text(20);
 }
 
 .icon {
@@ -350,6 +350,9 @@ img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+.link-hidden {
+    display: none;
 }
 
 input, textarea {

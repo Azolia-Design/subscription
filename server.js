@@ -1,4 +1,5 @@
 require('dotenv').config()
+import { planListing } from 'plan-data';
 
 const express = require('express');
 const path = require('path');
@@ -15,16 +16,11 @@ const port = process.env.PORT || 4000;
 
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
 
-const planItems = new Map([
-    [1, {priceId: 'price_1OfJjyAyaaWxy2CsH7LieoXV', name: 'Standard Monthly', method: 'subscription'}],
-    [2, {priceId: 'price_1OfJjyAyaaWxy2CsH7LieoXV', name: 'Standard Monthly', method: 'subscription'}],
-])
-
 app.get("/", async () => { })
 
 app.post('/create-checkout-session', async (req, res) => {
     try {
-        const planItem = planItems.get(req.body.items[0].id)
+        const planItem = planListing.get(req.body.items[0].id)
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             mode: planItem.method,

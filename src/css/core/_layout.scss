@@ -143,43 +143,8 @@ button {
         width: calc(100% + 42vw);
         height: calc(100% + 42vw);
         background-position: 40%;
-        animation: noise 2s steps(4) infinite;
+        @include animation(noise 2s steps(4) infinite);
         background-image: url(../../public/imgs/bg-noise-grain.png?as=webp);
-    }
-    @keyframes noise {
-        0% {
-            transform: translateZ(0);
-        }
-        10% {
-            transform: translate3d(-7vw,-7vw,0);
-        }
-        20% {
-            transform: translate3d(-14vw,7vw,0);
-        }
-        30% {
-            transform: translate3d(7vw,-14vw,0);
-        }
-        40% {
-            transform: translate3d(-7vw,-21vw,0);
-        }
-        50% {
-            transform: translate3d(-14vw,7vw,0);
-        }
-        60% {
-            transform: translate3d(21vw,21vw,0);
-        }
-        70% {
-            transform: translate3d(14vw,14vw,0);
-        }
-        80% {
-            transform: translate3d(-21vw,-21vw,0);
-        }
-        90% {
-            transform: translate3d(14vw,7vw,0);
-        }
-        100% {
-            transform: translate3d(7vw,7vw,0);
-        }
     }
 }
 .cursor-wrap {
@@ -263,7 +228,7 @@ button {
                 border: dotted 2px rgba(255, 255, 255, .2);
                 border-radius: 50%;
                 @include transform(scale(1));
-                animation: rotate 20s linear infinite;
+                @include animation(rotate 20s linear infinite);
                 will-change: rotate;
                 @include transition(all .4s ease);
             }
@@ -275,7 +240,7 @@ button {
                 }
             }
         }
-        @keyframes rotate {
+        @include keyframes(rotate) {
             0% {
                 @include transform(rotate(0deg));
             };
@@ -390,11 +355,6 @@ button {
     height: 1px;
 }
 
-@include keyframes(marquee) {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-100%); }
-}
-
 .custome-scroll {
     overflow-y: auto;
     overflow-x: clip;
@@ -431,7 +391,7 @@ button {
         --duration: 353.152s;
         --iteration-count: infinite;
 
-        animation: marquee var(--duration) linear var(--delay) var(--iteration-count);
+        @include animation(marquee var(--duration) linear var(--delay) var(--iteration-count));
         animation-direction: var(--direction);
         will-change: transform;
     }
