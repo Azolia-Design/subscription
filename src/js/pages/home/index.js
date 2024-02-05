@@ -607,22 +607,6 @@ const home = {
                 btnPurchase: $('.home-pricing-plan-item-btn.btn-purchase')
             }
 
-            const pricingID = {
-                trial: 0,
-                monthly: {
-                    standard: 1,
-                    pro: 4
-                },
-                quarterly: {
-                    standard: 2,
-                    pro: 5
-                },
-                yearly: {
-                    standard: 3,
-                    pro: 6
-                },
-            }
-
             function activePlan(index) {
                 gsap.to(DOM.btnOverlay, {
                     x: index * DOM.btnOverlay.width()
