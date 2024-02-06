@@ -315,6 +315,22 @@
             height: 100%;
             &-main {
                 width: 100%;
+                &:hover {
+                    .home-showreel-play-ic {
+                        svg {
+                            path:first-child {
+                                @include transform(translate(101%));
+                                opacity: 0;
+                                transition-delay: 0;
+                            }
+                            path:last-child {
+                                @include transform(translate(0%));
+                                opacity: 1;
+                                transition-delay: .1s;
+                            }
+                        }
+                    }
+                }
             }
             &-overlay {
                 position: absolute;
@@ -340,6 +356,7 @@
                 object-position: center center;
             }
         }
+
         &-play {
             position: absolute;
             z-index: 2;
@@ -365,7 +382,7 @@
                         transition-delay: .1s;
                     }
                     path:last-child {
-                        transform: translate(-101%);
+                        @include transform(translate(-101%));
                         transition-delay: 0s;
                         opacity: 0;
                     }
@@ -375,27 +392,13 @@
                 position: absolute;
                 text-wrap: nowrap;
             }
-            p:first-child {
+            &-first {
+                pointer-events: none;
                 right: calc(100%);
             }
-            p:last-child {
+            &-last {
+                pointer-events: none;
                 left: calc(100%);
-            }
-            &:hover {
-                .home-showreel-play-ic {
-                    svg {
-                        path:first-child {
-                            transform: translate(101%);
-                            opacity: 0;
-                            transition-delay: 0;
-                        }
-                        path:last-child {
-                            transform: translate(0);
-                            opacity: 1;
-                            transition-delay: .1s;
-                        }
-                    }
-                }
             }
         }
     }
