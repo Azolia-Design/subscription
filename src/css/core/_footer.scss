@@ -9,15 +9,29 @@
         text-align: center;
         gap: 2.8rem 0;
         margin-bottom: 10.3rem;
+
+        @include md {
+            margin-bottom: 6rem;
+        }
         &-title {
             color: rgba($cl-primary, 1);
         }
         &-sub1 {
             color: $cl-heading;
             color: rgba($cl-white, 1);
+
+            @include md {
+                --fs-20: 1.8rem;
+                --ld-20: 1.2rem;
+            }
         }
         &-sub2 {
             color: rgba($cl-white, .7);
+
+            @include md {
+                --fs-20: 1.8rem;
+                --ld-20: 1.2rem;
+            }
         }
         &-sub3 {
             display: flex;
@@ -25,11 +39,21 @@
             color: rgba($cl-white, .6);
             a {
                 color: $cl-heading;
+
+                @include md {
+                    font-weight: 600;
+                }
             }
         }
         &-btn {
             .txt-btn {
                 padding: 2.4rem 8.55rem;
+
+                @include md {
+                    --fs-18: 1.6rem;
+                    --ld-18: 1.4rem;
+                    padding: 1.9rem 8.55rem;
+                }
             }
         }
     }
@@ -77,6 +101,11 @@
             width: 36.7rem;
             margin-bottom: 6.8rem;
             z-index: 2;
+
+            @include md {
+                width: 28.9rem;
+                margin-bottom: 6.4rem;
+            }
         }
         &-hide {
             position: absolute;
@@ -93,6 +122,13 @@
         padding-bottom: 2rem;
         z-index: 1;
     }
+    &-premble {
+
+        @include md {
+            --fs-16: 1.4rem;
+            --lh-16: 1.3em;
+        }
+    }
     &-copyright {
         display: flex;
         align-items: center;
@@ -103,11 +139,20 @@
         display: flex;
         align-items: center;
         gap: 4.4rem;
+
+        @include md {
+            gap: 2rem;
+        }
     }
     &-link {
         position: relative;
         display: flex;
         align-items: center;
+
+        @include md {
+            --fs-16: 1.4rem;
+            --lh-16: 1.3em;
+        }
 
         &:after {
             content: '';
@@ -115,6 +160,10 @@
             right: -2.2rem;
             background-color: rgba($cl-white, .2);
             @include size(2px, 100%);
+
+            @include md {
+                right: -1.2rem;
+            }
         }
 
         &:last-child:after {

@@ -136,6 +136,10 @@
         &-inner {
             position: relative;
             z-index: 1;
+
+            @include md {
+                margin-top: 20rem;
+            }
         }
     }
     &-benefit {
@@ -188,6 +192,13 @@
             z-index: 3;
             padding-top: 6rem;
             background-color: $cl-bg;
+
+            @include md {
+                padding-top: 3.2rem;
+                padding-left: 2.4rem;
+                padding-right: 1.2rem;
+            }
+
             &-overlay {
                 position: absolute;
                 z-index: 2;
@@ -202,6 +213,13 @@
             padding-left: 4rem;
             z-index: 1;
             flex: none;
+
+            @include md {
+                padding-top: 3.2rem;
+                padding-left: 2.4rem;
+                padding-right: 1.2rem;
+            }
+
             &-sub {
                 margin-top: 6.4rem;
                 color: $cl-heading;
@@ -227,8 +245,14 @@
             border-right: 0;
             border-top: 0;
             border-bottom: 0;
+
+            @include md {
+                padding-left: 2.4rem;
+                // width: 35vw;
+                // padding-right: 1.2rem;
+            }
             &-img {
-                width: 40rem;
+                @include size(40rem, auto);
                 margin-top: -1.6rem;
                 flex: 1;
                 opacity: 0;
@@ -242,12 +266,24 @@
                     object-fit: contain;
                     height: 100%;
                 }
+
+                @include md {
+                    opacity: 1;
+                    @include size(14.7rem, auto);
+                    margin-top: 0;
+                }
             }
             &-sub {
                 position: relative;
                 z-index: 1;
+
                 &-txt {
                     margin-bottom: 3.2rem;
+
+                    @include md {
+                        --fs-20: 1.4rem;
+                        --lh-20: 1.3em;
+                    }
                 }
                 &-btn {
                     padding: 1.6rem;
@@ -256,11 +292,21 @@
                     position: relative;
                     justify-content: center;
                     border-radius: 50%;
+
+                    @include md {
+                        padding: 1rem;
+                    }
                     span {
                         position: absolute;
                         @include size(100%);
                         pointer-events: none;
                         @include border-gradient($border-line-3);
+                    }
+
+                    img {
+                        @include md {
+                            @include size(2rem);
+                        }
                     }
                 }
             }
@@ -423,20 +469,32 @@
             p {
                 position: absolute;
                 text-wrap: nowrap;
+
+                @include md {
+                    --fs-h0: 4.4rem;
+                }
             }
             &-first {
                 pointer-events: none;
                 right: calc(100%);
+
+                @include md {
+                    right: calc(90%);
+                }
             }
             &-last {
                 pointer-events: none;
                 left: calc(100%);
+
+                @include md {
+                    left: calc(90%);
+                }
             }
         }
     }
     &-skill {
         padding-top: 15rem;
-        overflow: hidden;
+        // overflow: hidden;
 
         &-title {
             grid-column: 2/10;
@@ -490,6 +548,10 @@
             &.active {
                 .home-skill-item-title {
                     color: $cl-primary;
+                }
+                .home-skill-item-desc {
+                    opacity: 1;
+                    @include transform(translate(0));
                 }
             }
 
@@ -545,6 +607,14 @@
             display: grid;
             grid-template-columns: 1fr;
 
+            @include md {
+                left: 34.8rem;
+            }
+            @include sm {
+                left: auto;
+                right: 2rem;
+            }
+
             &-item {
                 width: 40rem;
                 grid-area: 1/1/2/2;
@@ -556,6 +626,13 @@
                     opacity .3s ease-in,
                     transform .2s cubic-bezier(0.45, 0.5, 0.55, 1)
                 );
+
+                @include md {
+                    width: 13.5rem;
+                }
+
+
+
                 .img.cloner {
                     --gap-horizontal: 20px;
                     --gap-vertical: 2px;
@@ -718,6 +795,28 @@
         margin: {
             top: -86.1rem;
             bottom: -93rem;
+        }
+
+        @include md {
+            @include size(100%, 97.5rem);
+            margin: {
+                top: -29.1rem;
+                bottom: -46rem;
+            }
+        }
+        @include sm {
+            @include size(100%, 61.5rem);
+
+            margin: {
+                top: -32rem;
+                bottom: -19.5rem;
+            }
+        }
+
+        img {
+            @include sm {
+                // @include transform(rotate(-8.73deg));
+            }
         }
     }
     &-process {
@@ -1084,6 +1183,10 @@
         padding-bottom: 10rem;
         display: grid;
 
+        @include sm {
+            padding-bottom: 1rem;
+        }
+
         &-wrap {
             grid-row: 1/1;
             grid-column: 1/-1;
@@ -1240,6 +1343,7 @@
         position: relative;
         z-index: 3;
         margin-top: -2px;
+
         &-inner {
             width: 100%;
             height: calc(7rem + 2px);
@@ -1250,7 +1354,7 @@
         }
     }
     &-pricing {
-        padding-top: 6rem;
+        padding-top: 0rem;
         padding-bottom: 23rem;
 
         @include md {
@@ -1445,6 +1549,7 @@
                     box-shadow: 0rem 0rem 1.5rem 0rem rgba($cl-white, 0.1) inset;
                     color: rgba($cl-heading, 1);
                     &::before {
+                        pointer-events: none;
                         @include border-gradient(linear-gradient(180deg, rgba($cl-primary-hl, 1) 0%, rgba($cl-primary-hl, 0) 100%), 2rem);
                     }
                     .home-pricing-plan-item-detail-txt .img {
@@ -1473,7 +1578,6 @@
                 &-benefit {
 
                     @include md {
-                        height: 3.4rem;
                         --fs-14: 1.2rem;
                     }
                 }
@@ -1496,6 +1600,11 @@
                             position: absolute;
                             opacity: 0;
                             pointer-events: none;
+
+                            @include sm {
+                                --fs-h4: 4.4rem;
+                                --lh-h4: 1em;
+                            }
                         }
                         .active {
                             position: relative;
@@ -1519,6 +1628,17 @@
                 &-desc {
                     margin-bottom: 2rem;
                     text-align: center;
+
+                    @include md {
+                        --fs-14: 1.2rem;
+                        --lh-14: 1.4em;
+                    }
+
+                    @include sm {
+                        --fs-14: 1.4rem;
+                        --lh-14: 1.3em;
+                        margin-bottom: 1.6rem;
+                    }
                 }
                 &-detail {
                     display: flex;
@@ -1528,6 +1648,11 @@
                     margin-bottom: 2rem;
                     text-align: left;
 
+                    @include sm {
+                        margin-top: 2rem;
+                        margin-bottom: 2.4rem;
+                    }
+
                     &-txt {
                         display: flex;
                         align-items: center;
@@ -1536,6 +1661,11 @@
                         @include md {
                             --fs-18: 1.2rem;
                             --lh-18: 1.4em;
+                            font-weight: 600;
+                        }
+
+                        @include sm {
+                            gap: 0 1rem;
                         }
 
                         img {
@@ -1566,6 +1696,7 @@
                     margin-top: 1.2rem;
                     --fs-16: 1.4rem;
                     --lh-16: 1.3em;
+                    font-weight: 500;
                 }
             }
             &-cta {
@@ -1937,6 +2068,7 @@
 
         @include md {
             margin-top: 0;
+            margin-bottom: 17.2rem;
         }
 
 
@@ -1946,6 +2078,12 @@
             height: calc(100vh - 15.4rem);
             padding-bottom: 4rem;
             // background-color: orangered;
+
+
+            @include md {
+                top: 15.4rem;
+                height: calc(100vh - 15.4rem);
+            }
         }
         &-text-wrap {
             grid-column: 2/7;
@@ -1971,10 +2109,15 @@
 
             @include md {
                 grid-column: 7/-1;
+                grid-template-columns: repeat(1, 1fr);
             }
 
             &-wrap {
                 grid-column: span 8;
+
+                @include md {
+                    grid-column: span 1;
+                }
             }
             &-listing {
                 position: relative;
@@ -1982,10 +2125,12 @@
                 display: flex;
                 align-items: center;
                 perspective: 5000px;
+                pointer-events: none;
             }
             &-item {
                 // opacity: 0;
                 // z-index: calc(var(--i) * -1);
+                pointer-events: auto;
                 position: absolute;
                 padding: 10rem;
                 border-radius: 2rem;
@@ -1993,7 +2138,6 @@
                 display: flex;
                 justify-content: space-between;
                 flex-direction: column;
-                pointer-events: none;
                 @include transform-origin(top);
                 max-height: 74.2rem;
                 height: calc(100vh - 15.4rem - 4rem);
@@ -2001,6 +2145,7 @@
 
                 @include md {
                     padding: 3.2rem;
+                    height: 46.4rem;
                 }
 
                 &.active {
@@ -2021,16 +2166,27 @@
                 &:before {
                     content: '';
                     position: absolute;
+                    pointer-events: none;
                     inset: 0;
                     @include border-gradient(linear-gradient(180deg, rgba($cl-white, 0.1) 0%, rgba($cl-white, 0.00) 100%));
                 }
                 &-txt {
                     margin-bottom: 4rem;
+
+                    @include md {
+                        margin-bottom: 2.44rem;
+                        --fs-h6: 2rem;
+                        --lh-h6: 1.2em;
+                    }
                 }
                 &-author {
                     margin-top: 4.3rem;
                     display: flex;
                     align-items: center;
+
+                    @include md {
+                        margin-top: 3.2rem;
+                    }
                     &-avt {
                         border-radius: 50%;
                         overflow: hidden;
@@ -2039,6 +2195,12 @@
                         display: flex;
                         justify-content: center;
                         align-items: center;
+                        flex: none;
+
+                        @include md {
+                            @include size(4.8rem);
+                        }
+
                         .img {
                             object-fit: cover;
                             object-position: 50% 50%;
@@ -2047,8 +2209,22 @@
                     &-info {
                         display: flex;
                         flex-direction: column;
+
                         &-name {
                             margin-bottom: .4rem;
+
+                            @include md {
+                                --fs-h6: 2rem;
+                                --lh-h6: 1.2em;
+                            }
+                        }
+
+                        &-role {
+
+                            @include md {
+                                --fs-18: 1.4rem;
+                                --lh-18: 1.3em;
+                            }
                         }
                     }
                 }
@@ -2073,13 +2249,26 @@
     }
     &-faq {
         padding-bottom: 25rem;
+
+        @include md {
+            padding-bottom: 16rem;
+        }
         &-heading {
             grid-column: 4/14;
             text-align: center;
             margin-bottom: 10rem;
+
+            @include md {
+                grid-column: 3/11;
+                margin-bottom: 6rem;
+            }
         }
         &-content {
             grid-column: 4/14;
+
+            @include md {
+                grid-column: 1/-1;
+            }
 
             &-listing {
 
@@ -2094,14 +2283,25 @@
                     align-items: center;
                     cursor: pointer;
                     padding: 4rem 0 4rem;
+
+                    @include md {
+                        padding-bottom: 3.2rem;
+                    }
                     &-ordinal {
+                        color: rgba($cl-white, .2);
                         width: var(--widthOrdinal);
+                        flex: none;
                     }
                     &-title {
                         flex-grow: 1;
                         @include transition(color 1.333s var(--spring-easing-2));
+
+                        @include md {
+                            --lh-h6: 1.2em;
+                        }
                     }
                     &-dot {
+                        flex: none;
                         position: relative;
 
                         margin-left: 3rem;
@@ -2111,6 +2311,12 @@
                         border: 1.5px solid rgba($cl-white, 0.2);
                         overflow: hidden;
                         @include transition(border .65s cubic-bezier(.6,0,.3,1) .2s);
+
+                        @include md {
+                            @include size(1.2rem);
+                        }
+
+
                         &:before {
                             content: '';
                             position: absolute;
