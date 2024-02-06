@@ -1245,7 +1245,7 @@
             height: calc(7rem + 2px);
             margin-bottom: -2px;
             background-color: rgba($cl-bg, 1);
-            @include transform(scaleX(0));
+            @include transform(scaleY(0));
             @include transform-origin(center top);
         }
     }
@@ -1888,7 +1888,7 @@
                                 @include md {
                                     translate: 0 -3rem;
                                 }
-                                
+
                                 @include sm {
                                     padding: .4rem .8rem;
                                     translate: 0 -1.5rem;

@@ -376,7 +376,7 @@ const home = {
 
                 $('.home-project-wrap-bot .home-project-item').on('pointerenter', function(e) {
                     let index = $(this).index()
-                    projectClipath(index)
+                    projectClippath(index)
                 })
                 $('.home-project-wrap-bot .home-project-item').on('pointerleave', function(e) {
                     if (!$('.home-project-wrap-bot:hover').length) {
@@ -404,7 +404,7 @@ const home = {
                     $(".home-project-thumb").find(`[data-thumb-name="${nameSpace}"]`).addClass('active')
 
                     let index = $(this).index()
-                    projectClipath(index)
+                    projectClippath(index)
                     initClickThumb(index)
                 })
             }
@@ -447,7 +447,7 @@ const home = {
                     trigger: '.home-curtain',
                     start: 'top bottom',
                     end: 'top top-=70%',
-                    scrub: true,
+                    scrub: true
                 },
                 defaults: {
                     ease: 'none'

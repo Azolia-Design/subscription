@@ -19,8 +19,6 @@ const viewportBreak = (callbacks) => {
         default:
             result = callbacks.mobile && callbacks.mobile();
             break;
-        default:
-            break;
     }
     return (result instanceof Function) ? result() : result;
 }
