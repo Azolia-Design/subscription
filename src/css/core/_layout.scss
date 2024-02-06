@@ -207,6 +207,10 @@ button {
                 width: .5rem;
                 height: .5rem;
             }
+            &.stickstepdot {
+                width: 5rem;
+                height: 5rem;
+            }
             &.hide {
                 @include transform(scale(0));
             }
