@@ -345,61 +345,6 @@ const home = {
             $(line).addClass('line')
             $('.home-project-item:last-child').append(line)
 
-            const projectBack = () => {
-                const PROJECT = {
-                    wrap: $('.home-project-item'),
-                    target: $('.home-project-item-disco'),
-                }
-
-                const mouseAction = {
-                    Enter: (ev, el) => {
-                        const edge = findClosestEdge(ev, el.get(0));
-                        const _target = el.find(PROJECT.target);
-
-                        gsap.timeline({
-                            duration: 0.4, ease: 'linear',
-                        }).set(_target, {
-                            y: edge === 'top' ? '-101%' : '101%',
-                        },0)
-                        .to(_target, {
-                            y: 0, overwrite: true
-                        },0)
-                    },
-                    Leave: (ev, el) => {
-                        const edge = findClosestEdge(ev, el.get(0));
-                        const _target = el.find(PROJECT.target);
-
-                        gsap.timeline({
-                            duration: 0.4, ease: 'linear'
-                        }).to(_target, {
-                            y: edge === 'top' ? '-101%' : '101%', overwrite: true
-                        }, 0)
-                    }
-                }
-                PROJECT.wrap.on("pointerenter", function(ev) {
-                    let index = $(this).index();
-                    mouseAction.Enter(ev, PROJECT.wrap.eq(index));
-                });
-
-                PROJECT.wrap.on("pointerleave", function(ev) {
-                    let index = $(this).index();
-                    mouseAction.Leave(ev, PROJECT.wrap.eq(index));
-                });
-            }
-            // projectBack()
-
-            $('.home-project-item').on('pointerleave', function(e) {
-                $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
-            })
-
-            $('.home-project-item').on('pointerenter', function(e) {
-                let nameSpace = $(this).find('[data-project-name]').attr('data-project-name')
-
-                $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
-                $(".home-project-thumb").find(`[data-thumb-name="${nameSpace}"]`).addClass('active')
-            })
-
-
             const target = $('.home-project-thumb')
             ScrollTrigger.create({
                 trigger: '.home-project',
@@ -417,27 +362,52 @@ const home = {
             const targetMove = $('.home-project-wrap-top')
             gsap.set(targetMove, {clipPath: `polygon(0 0, 100% 0, 100% 0, 0 0)`})
 
-            $('.home-project-wrap-bot .home-project-item').on('pointerenter', function(e) {
-                let index = $(this).index()
-                projectClipath(index)
-            })
-            $('.home-project-wrap-bot .home-project-item').on('pointerleave', function(e) {
-                if (!$('.home-project-wrap-bot:hover').length) {
-                    if ($(this).is(':first-child')){
-                        let index = -1;
-                        let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
-                        let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
-                        gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
-                    }
-                    if ($(this).is(':last-child')){
-                        let index = $('.home-project-wrap-bot .home-project-item').length
-                        let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
-                        let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
-                        gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
-                    }
-                }
+            if ($(window).width() > 991) {
+                $('.home-project-item').on('pointerleave', function(e) {
+                    $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
+                })
+    
+                $('.home-project-item').on('pointerenter', function(e) {
+                    let nameSpace = $(this).find('[data-project-name]').attr('data-project-name')
+    
+                    $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
+                    $(".home-project-thumb").find(`[data-thumb-name="${nameSpace}"]`).addClass('active')
+                })
 
-            })
+                $('.home-project-wrap-bot .home-project-item').on('pointerenter', function(e) {
+                    let index = $(this).index()
+                    projectClipath(index)
+                })
+                $('.home-project-wrap-bot .home-project-item').on('pointerleave', function(e) {
+                    if (!$('.home-project-wrap-bot:hover').length) {
+                        if ($(this).is(':first-child')){
+                            let index = -1;
+                            let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
+                            let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
+                            gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
+                        }
+                        if ($(this).is(':last-child')){
+                            let index = $('.home-project-wrap-bot .home-project-item').length
+                            let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
+                            let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
+                            gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
+                        }
+                    }
+    
+                })
+                requestAnimationFrame(initMouseMove)
+            } else {
+                $('.home-project-wrap-bot .home-project-item').on('click', function(e) {
+                    let nameSpace = $(this).find('[data-project-name]').attr('data-project-name')
+    
+                    $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
+                    $(".home-project-thumb").find(`[data-thumb-name="${nameSpace}"]`).addClass('active')
+
+                    let index = $(this).index()
+                    projectClipath(index)
+                    initClickThumb(index)
+                })
+            }
 
             function initMouseMove() {
                 let offsetL =  parseFloat(target.css('left'))
@@ -455,7 +425,10 @@ const home = {
                 }
                 requestAnimationFrame(initMouseMove)
             }
-            requestAnimationFrame(initMouseMove)
+
+            function initClickThumb(idx) {
+                gsap.to(target, {y: (cvUnit(80, 'rem') + ($('.home-project-item').eq(0).outerHeight() - target.outerHeight())/2) + idx * $('.home-project-item').eq(0).outerHeight()})
+            }
         }
         homeProject()
 
