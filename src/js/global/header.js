@@ -113,11 +113,22 @@ const updateHeaderBarByScroll = () => {
                 $('.header-logo').addClass('active')
                 $('.header-menu').addClass('active')
                 $('.header-hamburger').addClass('active')
+
+                if ($(window).width() <= 991) {
+                    gsap.to('.header-main-schedule', {width: 0, overwrite: true})
+                    gsap.to('.header-hamburger', {width: 0, overwrite: true})
+                }
             },
             onLeaveBack: () => {
                 $('.header-logo').removeClass('active')
                 $('.header-menu').removeClass('active')
                 $('.header-hamburger').removeClass('active')
+                if ($(window).width() <= 991) {
+                    gsap.to('.header-main-schedule', {width: 'auto', overwrite: true})
+                    gsap.to('.header-hamburger', {width: 'auto', overwrite: true})
+
+                }
+                
             }
         }
     })

@@ -36,7 +36,12 @@ const home = {
 
             let mainItemSelect = selector(BENEFIT.mainItem);
             let totalDistance = BENEFIT.mainItem.width() + (BENEFIT.otherItem.width() * BENEFIT.otherItem.length);
-            let otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem");
+            let otherWrapDistance
+            if ($(window).width() > 991) {
+                otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem") + cvUnit(11, 'rem');
+            } else {
+                otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem") + cvUnit(15, 'rem');
+            }
             const ITEM_WIDTH = ($('.container').width() - percentage(25, $('.container').width())) / 5;
 
             gsap.set(BENEFIT.stage, { height: totalDistance * 1.2 + cvUnit(100, "rem") });
@@ -110,12 +115,21 @@ const home = {
 
                     BENEFIT.otherItem.each((idx, el) => {
                         if (idx > index) {
-                            scrollerTl
+                            if ($(window).width() > 991) {
+                                scrollerTl
                                 .to(el, {
                                     x: -(ITEM_WIDTH * ( 1 + index )),
-                                    paddingLeft: parseRem(40),
+                                    paddingLeft: cvUnit(40, 'rem'),
                                     duration: 1
                                 }, '<=0')
+                            } else if ($(window).width() > 767) {
+                                scrollerTl
+                                .to(el, {
+                                    x: -(ITEM_WIDTH * ( 1 + index )),
+                                    paddingLeft: cvUnit(30, 'rem'),
+                                    duration: 1
+                                }, '<=0')
+                            }
                         }
                     })
             })
@@ -207,63 +221,84 @@ const home = {
                 start: 'top bottom',
                 once: true,
                 onEnter: () => {
-                    viewportBreak({
-                        desktop: ()=> {
-                            $('.home-skill-item').on('mouseenter', function(e) {
-                                let idx = $(this).index()
-                                $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
-                            })
-                            $('.home-skill-item').on('mouseleave', function(e) {
-                                let idx = $(this).index()
-                                $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).removeClass('active')
-                            })
-                            $('.home-skill-thumb-item').each((idx, el) => {
-                                let clone = $(el).find('img')
-                                for (let i = 1; i <= 5; i++) {
-                                    let cloner = clone.clone()
-                                    cloner.addClass('cloner')
-                                    $(el).append(cloner)
-                                }
-                            })
-        
-                            function initMouseMove() {
-                                const target = $('.home-skill-thumb')
-                                if (target.hasClass('active')) {
-                                    let tarCurrX = xGetter(target.get(0))
-                                    let tarCurrY = yGetter(target.get(0))
-                                    let tarCurrRot = rotZGetter(target.get(0))
-        
-                                    let tarX = -target.outerWidth()/4 + (pointerCurr().x - $('.home-skill-listing').get(0).getBoundingClientRect().left)/$('.home-skill-listing').outerWidth() * ($('.home-skill-listing').outerWidth() - $('.home-skill-item-desc').get(0).getBoundingClientRect().left - target.outerWidth()/2)
-                                    let tarY =  -target.outerHeight()/4 + (pointerCurr().y - $('.home-skill-listing').get(0).getBoundingClientRect().top)/$('.home-skill-listing').outerHeight() * ($('.home-skill-listing').outerHeight() - target.outerHeight()/2)
-        
-                                    xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
-                                    ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
-                                    rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX)/40, -7), 7)), .1))
-                                }
-                                requestAnimationFrame(initMouseMove)
-                            }
-                            requestAnimationFrame(initMouseMove)
-                        },
-                        mobile: () => {
-                            $('.home-skill-item').on('click', function(e) {
-                                e.preventDefault()
-                                if (!$(this).hasClass('active')) {
-                                    $('.home-skill-item').removeClass('active')
-                                    $('.home-skill-item .home-skill-item-desc').slideUp(300, 'linear')
-                                    $(this).addClass('active')
-                                    $(this).find('.home-skill-item-desc').slideDown(300, 'linear')
-                                    gsap.to('.home-skill-item', {paddingTop: cvUnit( 60.5, 'rem'), paddingBottom: cvUnit( 60.5, 'rem'), duration: .3, ease: 'none'})
-                                    gsap.to(this, {paddingTop: cvUnit( 27.5, 'rem'), paddingBottom: cvUnit( 27.5, 'rem'), duration: .3, ease: 'none', overwrite: true})
-                                    gsap.to($(this).find('.home-skill-item-title'), {marginBottom: cvUnit(12, 'rem'), duration: .3, ease: 'none', overwrite: true})
-                                } else {
-                                    $('.home-skill-item').removeClass('active')
-                                    $('.home-skill-item .home-skill-item-desc').slideUp(300, 'linear')
-                                    gsap.to('.home-skill-item', {paddingTop: cvUnit( 60.5, 'rem'), paddingBottom: cvUnit( 60.5, 'rem'), duration: .3, ease: 'none'})
-                                    gsap.to('.home-skill-item .home-skill-item-title', {marginBottom: 0, duration: .3, ease: 'none'})
-                                }
-                            })
+                    $('.home-skill-thumb-item').each((idx, el) => {
+                        let clone = $(el).find('img')
+                        for (let i = 1; i <= 5; i++) {
+                            let cloner = clone.clone()
+                            cloner.addClass('cloner')
+                            $(el).append(cloner)
                         }
                     })
+                    if ($(window).width() > 991) {
+                        $('.home-skill-item').on('mouseenter', function(e) {
+                            let idx = $(this).index()
+                            $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
+                        })
+                        $('.home-skill-item').on('mouseleave', function(e) {
+                            let idx = $(this).index()
+                            $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).removeClass('active')
+                        })
+    
+                        function initMouseMove() {
+                            const target = $('.home-skill-thumb')
+                            if (target.hasClass('active')) {
+                                let tarCurrX = xGetter(target.get(0))
+                                let tarCurrY = yGetter(target.get(0))
+                                let tarCurrRot = rotZGetter(target.get(0))
+    
+                                let tarX = -target.outerWidth()/4 + (pointerCurr().x - $('.home-skill-listing').get(0).getBoundingClientRect().left)/$('.home-skill-listing').outerWidth() * ($('.home-skill-listing').outerWidth() - $('.home-skill-item-desc').get(0).getBoundingClientRect().left - target.outerWidth()/2)
+                                let tarY =  -target.outerHeight()/4 + (pointerCurr().y - $('.home-skill-listing').get(0).getBoundingClientRect().top)/$('.home-skill-listing').outerHeight() * ($('.home-skill-listing').outerHeight() - target.outerHeight()/2)
+    
+                                xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
+                                ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
+                                rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX)/40, -7), 7)), .1))
+                            }
+                            requestAnimationFrame(initMouseMove)
+                        }
+                        requestAnimationFrame(initMouseMove)
+                    } else if ($(window).width() > 767) {
+                        $('.home-skill-item').on('click', function(e) {
+                            e.preventDefault()
+                            if (!$(this).hasClass('active')) {
+                                $('.home-skill-item').removeClass('active')
+                                $(this).addClass('active')
+                                $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
+                                let idx = $(this).index()
+                                $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
+                                gsap.to('.home-skill-thumb', {y: (cvUnit(80, 'rem') + ($('.home-skill-item').eq(0).outerHeight() - $('.home-skill-thumb').outerHeight())/2) + idx * $('.home-skill-item').eq(0).outerHeight(), duration: 1})
+                            } else {
+                                $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
+                                $('.home-skill-item').removeClass('active')
+                            }
+                        })
+                    } else {
+                        $('.home-skill-item').on('click', function(e) {
+                            e.preventDefault()
+                            if (!$(this).hasClass('active')) {
+                                let idx = $(this).index()
+
+                                $('.home-skill-item').removeClass('active')
+                                $('.home-skill-item .home-skill-item-desc').slideUp(300, 'linear')
+                                $(this).addClass('active')
+                                $(this).find('.home-skill-item-desc').slideDown(300, 'linear')
+                                gsap.to('.home-skill-item', {paddingTop: cvUnit( 60.5, 'rem'), paddingBottom: cvUnit( 60.5, 'rem'), duration: .3, ease: 'none'})
+                                gsap.to(this, {paddingTop: cvUnit( 27.5, 'rem'), paddingBottom: cvUnit( 27.5, 'rem'), duration: .3, ease: 'none', overwrite: true})
+                                gsap.to($(this).find('.home-skill-item-title'), {marginBottom: cvUnit(12, 'rem'), duration: .3, ease: 'none', overwrite: true})
+                                $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
+                                $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
+                                requestAnimationFrame(() => {
+                                    gsap.to('.home-skill-thumb', {y: cvUnit(80, 'rem') - $('.home-skill-thumb').outerHeight()*3/4 + ($(this).outerHeight()) + (idx - 1) * $('.home-skill-item:not(.active)').outerHeight(), duration: 1})
+                                })
+                            } else {
+                                $('.home-skill-item').removeClass('active')
+                                $('.home-skill-item .home-skill-item-desc').slideUp(300, 'linear')
+                                gsap.to('.home-skill-item', {paddingTop: cvUnit( 60.5, 'rem'), paddingBottom: cvUnit( 60.5, 'rem'), duration: .3, ease: 'none'})
+                                gsap.to('.home-skill-item .home-skill-item-title', {marginBottom: 0, duration: .3, ease: 'none'})
+                                $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
+
+                            }
+                        })
+                    }
                 }
             })
         }
@@ -466,18 +501,31 @@ const home = {
 
         function homeIndustries() {
 
-            function parallaxLogo() {
-                let target = $('.home-explore-img img')
-                let tarCurrX = xGetter(target.get(0))
-                let tarCurrY = yGetter(target.get(0))
-                let moveX = (pointerCurr().x/$(window).width() - 0.5) * 2 * (target.width()/4)
-                let moveY = (pointerCurr().y/$(window).height() - 0.5) * 2 * (target.height()/8)
-                xSetter(target.get(0))(lerp(tarCurrX, moveX, .01))
-                ySetter(target.get(0))(lerp(tarCurrY, moveY, .01))
-
+            if ($(window).width() > 991) {
+                function parallaxLogo() {
+                    let target = $('.home-explore-img img')
+                    let tarCurrX = xGetter(target.get(0))
+                    let tarCurrY = yGetter(target.get(0))
+                    let moveX = (pointerCurr().x/$(window).width() - 0.5) * 2 * (target.width()/4)
+                    let moveY = (pointerCurr().y/$(window).height() - 0.5) * 2 * (target.height()/8)
+                    xSetter(target.get(0))(lerp(tarCurrX, moveX, .01))
+                    ySetter(target.get(0))(lerp(tarCurrY, moveY, .01))
+    
+                    requestAnimationFrame(parallaxLogo)
+                }
                 requestAnimationFrame(parallaxLogo)
+            } else {
+                gsap.to('.home-explore-img img', {
+                    scrollTrigger: {
+                        trigger: '.home-explore-heading',
+                        start: 'top top+=90%',
+                        end: 'bottom top+=0%',
+                        scrub: .2,
+                    },
+                    yPercent: -150
+                })
             }
-            requestAnimationFrame(parallaxLogo)
+            
 
             const DOM = {
                 radarScan: $('.home-explore-industries-radar-scan'),
@@ -557,10 +605,21 @@ const home = {
 
             let timeDelay = 1
             let timeAnim = 1
-            let zUnit = 600
-            let yUnit = 90
+            let zUnit
+            let yUnit
+            if ($(window).width() > 991) {
+                zUnit = 600
+                yUnit = 90
+            } else if ($(window).width() > 767) {
+                zUnit = 1200
+                yUnit = 100
+            } else {
+                zUnit = 1500
+                yUnit = 110
+            }
 
             gsap.set('.home-testi-content-item', {z: cvUnit(zUnit, 'rem'), yPercent: 150, filter:"brightness(1)"})
+
             $('.home-testi-content-item').each((idx, el) => {
                 if (idx == 0) {
                     tlScrub
