@@ -362,68 +362,52 @@ const home = {
             const targetMove = $('.home-project-wrap-top')
             gsap.set(targetMove, {clipPath: `polygon(0 0, 100% 0, 100% 0, 0 0)`})
 
-            viewportBreak({
-                desktop: () => {
-                    $('.home-project-item').on('pointerleave', function(e) {
-                        $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
-                    })
-        
-                    $('.home-project-item').on('pointerenter', function(e) {
-                        let nameSpace = $(this).find('[data-project-name]').attr('data-project-name')
-        
-                        $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
-                        $(".home-project-thumb").find(`[data-thumb-name="${nameSpace}"]`).addClass('active')
-                    })
+            if ($(window).width() > 991) {
+                $('.home-project-item').on('pointerleave', function(e) {
+                    $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
+                })
+    
+                $('.home-project-item').on('pointerenter', function(e) {
+                    let nameSpace = $(this).find('[data-project-name]').attr('data-project-name')
+    
+                    $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
+                    $(".home-project-thumb").find(`[data-thumb-name="${nameSpace}"]`).addClass('active')
+                })
 
-                    $('.home-project-wrap-bot .home-project-item').on('pointerenter', function(e) {
-                        let index = $(this).index()
-                        projectClipath(index)
-                    })
-                    $('.home-project-wrap-bot .home-project-item').on('pointerleave', function(e) {
-                        if (!$('.home-project-wrap-bot:hover').length) {
-                            if ($(this).is(':first-child')){
-                                let index = -1;
-                                let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
-                                let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
-                                gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
-                            }
-                            if ($(this).is(':last-child')){
-                                let index = $('.home-project-wrap-bot .home-project-item').length
-                                let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
-                                let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
-                                gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
-                            }
+                $('.home-project-wrap-bot .home-project-item').on('pointerenter', function(e) {
+                    let index = $(this).index()
+                    projectClipath(index)
+                })
+                $('.home-project-wrap-bot .home-project-item').on('pointerleave', function(e) {
+                    if (!$('.home-project-wrap-bot:hover').length) {
+                        if ($(this).is(':first-child')){
+                            let index = -1;
+                            let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
+                            let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
+                            gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
                         }
-        
-                    })
-                    requestAnimationFrame(initMouseMove)
-                },
-                tablet: () => {
-                    $('.home-project-wrap-bot .home-project-item').on('click', function(e) {
-                        let nameSpace = $(this).find('[data-project-name]').attr('data-project-name')
-        
-                        $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
-                        $(".home-project-thumb").find(`[data-thumb-name="${nameSpace}"]`).addClass('active')
+                        if ($(this).is(':last-child')){
+                            let index = $('.home-project-wrap-bot .home-project-item').length
+                            let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
+                            let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
+                            gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
+                        }
+                    }
+    
+                })
+                requestAnimationFrame(initMouseMove)
+            } else {
+                $('.home-project-wrap-bot .home-project-item').on('click', function(e) {
+                    let nameSpace = $(this).find('[data-project-name]').attr('data-project-name')
+    
+                    $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
+                    $(".home-project-thumb").find(`[data-thumb-name="${nameSpace}"]`).addClass('active')
 
-                        let index = $(this).index()
-                        projectClipath(index)
-                    })
-                    initClickThumb()
-                },
-                mobile: () => {
-                    $('.home-project-wrap-bot .home-project-item').on('click', function(e) {
-                        let nameSpace = $(this).find('[data-project-name]').attr('data-project-name')
-        
-                        $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
-                        $(".home-project-thumb").find(`[data-thumb-name="${nameSpace}"]`).addClass('active')
-
-                        let index = $(this).index()
-                        projectClipath(index)
-                    })
-                    initClickThumb()
-                },
-            })
-            
+                    let index = $(this).index()
+                    projectClipath(index)
+                    initClickThumb(index)
+                })
+            }
 
             function initMouseMove() {
                 let offsetL =  parseFloat(target.css('left'))
@@ -442,7 +426,8 @@ const home = {
                 requestAnimationFrame(initMouseMove)
             }
 
-            function initClickThumb() {
+            function initClickThumb(idx) {
+                gsap.to(target, {y: (cvUnit(80, 'rem') + ($('.home-project-item').eq(0).outerHeight() - target.outerHeight())/2) + idx * $('.home-project-item').eq(0).outerHeight()})
             }
         }
         homeProject()

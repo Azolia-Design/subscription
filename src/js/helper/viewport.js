@@ -3,20 +3,26 @@ let viewport = {
     height: $(window).height(),
     pixelRatio: window.devicePixelRatio,
 }
-const device = { desktop: 991, tablet: 767, mobile: 479  }
+const DEVICE = {
+    mobile: window.matchMedia('only screen and (max-width: 767px)'),
+    tablet: window.matchMedia('only screen and (max-width: 991px)'),
+    desktop: window.matchMedia('only screen and (max-width: 9999999px)')
+}
 
 const viewportBreak = (options) => {
     const { desktop, tablet, mobile } = options;
     let result;
     switch (true) {
-        case viewport.width <= device.tablet:
+        case DEVICE.mobile.matches:
             result = mobile;
             break;
-        case viewport.width <= device.desktop:
+        case DEVICE.tablet.matches:
             result = tablet;
             break;
-        default:
+        case DEVICE.desktop.matches:
             result = desktop;
+            break;
+        default:
             break;
     }
     return (result instanceof Function) ? result() : result;

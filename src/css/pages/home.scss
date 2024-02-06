@@ -1252,6 +1252,11 @@
             padding-bottom: 15.6rem;
         }
 
+        @include sm {
+            padding-top: 0rem;
+            padding-bottom: 12.8rem;
+        }
+
         &--wrap {
             grid-column: 2/16;
             display: flex;
@@ -1277,6 +1282,10 @@
                 margin-bottom: 6rem;
             }
 
+            @include sm {
+                grid-column: 1/-1;
+            }
+
             &-label {
                 margin-bottom: 2rem;
 
@@ -1298,6 +1307,10 @@
             flex-direction: column;
             align-items: center;
 
+            @include sm {
+                width: 100%;
+            }
+
             &-switch {
                 position: relative;
                 display: flex;
@@ -1312,6 +1325,10 @@
                     margin-bottom: 7.1rem;
                 }
 
+                @include sm {
+                    width: 100%;
+                }
+
                 &:before {
                     content: '';
                     position: absolute;
@@ -1322,6 +1339,11 @@
                 }
                 &-wrap {
                     position: relative;
+
+                    @include sm {
+                        width: 100%;
+                    }
+
                     &-btn {
                         display: flex;
                         align-items: center;
@@ -1342,6 +1364,11 @@
                     z-index: 3;
                     @include transition(transform .533s var(--spring-easing-3), opacity .5s ease-in-out);
                     pointer-events: none;
+
+                    @include sm {
+                        width: 10.7rem;
+                    }
+
                     &:first-of-type {
                         mix-blend-mode: hard-light;
                         opacity: 0;
@@ -1382,6 +1409,12 @@
                 @include md {
                     gap: 0 1.6rem;
                     margin-bottom: 6rem;
+                }
+
+                @include sm {
+                    flex-direction: column;
+                    gap: 2.4rem;
+                    padding: 0px 2.15rem
                 }
             }
             &-item {
@@ -1543,6 +1576,10 @@
                     @include md {
                         max-width: 57.3rem;
                     }
+
+                    @include sm {
+                        --lh-h6: 1.2em;
+                    }
                 }
                 &-desc {
                     max-width: 81.5rem;
@@ -1552,6 +1589,16 @@
                         max-width: 57.3rem;
                         margin-bottom: 3.2rem;
                     }
+
+                    @include sm {
+                        margin-bottom: 4rem;
+                    }
+                }
+
+                .btn {
+                    @include sm {
+                        @include size(100%, auto);
+                    }
                 }
                 .txt-btn {
                     padding: 2.4rem 6.6rem;
@@ -1559,12 +1606,21 @@
                     @include md {
                         padding: 1.4rem 2.7rem;
                     }
+
+                    @include sm {
+                        --fs-18: 1.6rem;
+                        --lh-18: 1.4em;
+                    }
                 }
             }
         }
     }
     &-explore {
         padding-bottom: 16rem;
+
+        @include md {
+            padding-bottom: 14rem;
+        }
 
         &-heading {
             grid-area: 1/1/2/17;
@@ -1576,6 +1632,11 @@
                 grid-column: 2/12;
                 --fs-h3: 3.6rem;
                 --lh-h3: 1.1em;
+            }
+
+            @include sm {
+                grid-column: 1/-1;
+                --fs-h3: 3.2rem;
             }
         }
         &-img {
@@ -1589,6 +1650,14 @@
                 margin-top: 10.1rem;
                 width: 31.47rem;
             }
+
+            @include sm {
+                grid-column: 1/-1;
+                width: 19.8rem;
+                display: flex;
+                align-items: center;
+                margin-top: 0;
+            }
         }
         &-industries {
             grid-column: 3/15;
@@ -1598,6 +1667,11 @@
             @include md {
                 grid-column: 2/12;
                 margin-top: 8.2rem;
+            }
+
+            @include sm {
+                grid-column: 1/-1;
+                margin-top: 10.5rem;
             }
 
             &-title {
@@ -1610,6 +1684,10 @@
                     --lh-h6: 1.2em;
                     margin-bottom: 8.1rem;
                 }
+
+                @include sm {
+                    margin-bottom: 4.318rem;
+                }
             }
             &-wrap {
                 position: relative;
@@ -1617,6 +1695,10 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+
+                @include sm {
+                    margin: 0px -1.6rem;
+                }
             }
             &-logo {
                 position: absolute;
@@ -1634,6 +1716,10 @@
 
                 @include md {
                     @include size(9rem);
+                }
+
+                @include sm {
+                    @include size(4.62rem);
                 }
 
                 &-img {
@@ -1726,6 +1812,10 @@
                                 filter: drop-shadow(0px 0px 7px rgba(255, 79, 4, 0.90));
                                 rotate: calc(var(--i) * -30deg);
 
+                                @include sm {
+                                    width: .2rem;
+                                }
+
                                 &-wrap {
                                     width: calc(6.4rem * 1.2);
                                     aspect-ratio: 1;
@@ -1738,6 +1828,9 @@
 
                                     @include md {
                                         width: 4.35rem;
+                                    }
+                                    @include sm {
+                                        width: 2rem;
                                     }
 
                                     &.active, &.on-hover {
@@ -1788,6 +1881,11 @@
                                 @include md {
                                     translate: 0 -3rem;
                                 }
+                                
+                                @include sm {
+                                    padding: .4rem .8rem;
+                                    translate: 0 -1.5rem;
+                                }
 
                                 &:before {
                                     content: '';
@@ -1801,6 +1899,10 @@
 
                                     @include md {
                                         --fs-14: 1.2rem;
+                                    }
+
+                                    @include sm {
+                                        --fs-14: .8rem;
                                     }
                                 }
                             }
@@ -1826,6 +1928,10 @@
         margin-bottom: 25rem;
         // background: linear-gradient(to top, blue 0%, red 100%);
 
+        @include md {
+            margin-top: 0;
+        }
+
 
         &-sticky {
             position: sticky;
@@ -1841,6 +1947,11 @@
             @include transform(translateY(-10rem));
             margin-top: auto;
             margin-bottom: auto;
+
+
+            @include md {
+                grid-column: 1/6;
+            }
         }
         &-heading {
             margin-bottom: 6rem;
@@ -1850,6 +1961,10 @@
             display: grid;
             grid-template-columns: repeat(9, 1fr);
             gap: 0 2rem;
+
+            @include md {
+                grid-column: 7/-1;
+            }
 
             &-wrap {
                 grid-column: span 8;
@@ -1875,6 +1990,11 @@
                 transform-origin: top;
                 max-height: 74.2rem;
                 height: calc(100vh - 15.4rem - 4rem);
+
+
+                @include md {
+                    padding: 3.2rem;
+                }
 
                 &.active {
                     opacity: 1;
@@ -1929,10 +2049,10 @@
             &-progress {
                 position: absolute;
                 top: calc(50vh - 15.4rem);
-                right: 4rem;
+                right: 2.4rem;
                 align-self: center;
                 justify-self: end;
-                @include size(3px, 20rem);
+                @include size(.5rem, 20rem);
                 background-color: rgba($cl-white, 0.10);
                 @include transform(translateY(-50%));
                 border-radius: 100vmax;
