@@ -450,7 +450,7 @@
                 grid-column: 1/-1;
                 margin-bottom: 3.2rem;
             }
-            
+
         }
         &-desc {
             grid-column: 12/16;
@@ -549,9 +549,9 @@
                 width: 40rem;
                 grid-area: 1/1/2/2;
                 opacity: 0;
-                transform: scale(1.1);
+                @include transform(scale(1.1));
                 overflow: hidden;
-                // transition: opacity 0.6s cubic-bezier(0.45, 0, 0.55, 1), scale 1s cubic-bezier(0.45, 0, 0.55, 1);
+                // @include transition(opacity 0.6s cubic-bezier(0.45, 0, 0.55, 1), scale 1s cubic-bezier(0.45, 0, 0.55, 1));
                 @include transition(
                     opacity .3s ease-in,
                     transform .2s cubic-bezier(0.45, 0.5, 0.55, 1)
@@ -577,7 +577,7 @@
                 }
                 &.active {
                     opacity: 1;
-                    transform: scale(1.1);
+                    @include transform(scale(1.1));
                     @include transition(opacity .8s ease-out, transform .2s cubic-bezier(0.45, 0.5, 0.55, 1));
                 }
 
@@ -780,7 +780,7 @@
             @include md {
                 grid-column: 7/-1;
             }
-            
+
             @include sm {
                 grid-column: 1/-1;
                 grid-row: 2/2;
@@ -812,16 +812,17 @@
         &-step {
             position: relative;
             border-radius: 2rem;
-            transform-origin: left top;
+            @include transform-origin(left top);
 
             * {
-                transform-origin: left top;
+                @include transform-origin(left top);
             }
 
             &:nth-child(2n) .home-process-step-background {
-                transform-origin: right top;
+                @include transform-origin(right top);
+
                 * {
-                    transform-origin: right top;
+                    @include transform-origin(right top);
                 }
             }
 
@@ -833,7 +834,8 @@
                 pointer-events: none;
                 background-color: rgba($cl-white, .05);
                 border-radius: 1.5rem;
-                transform-origin: left top;
+                @include transform-origin(left top);
+
                 &::before {
                     content: '';
                     position: absolute;
@@ -1094,7 +1096,7 @@
             padding: 6rem 0;
             align-items: flex-end;
             justify-content: space-between;
-            transition: color .3s ease-out;
+            @include transition(color .3s ease-out);
             overflow: hidden;
 
             @include md {
@@ -1113,7 +1115,7 @@
                 grid-column: 2/12;
                 margin-top: 2rem;
                 color: rgba($cl-black, 1);
-                transition: color .3s ease-out;
+                @include transition(color .3s ease-out);
 
                 @include md {
                     grid-column: 1/7;
@@ -1147,7 +1149,7 @@
                 position: absolute;
                 top: 0;
                 left: 50%;
-                transform: translateX(-50%);
+                @include transform(translateX(-50%));
                 z-index: 999;
                 background-color: rgba($cl-black, .2);
                 &:nth-child(2n) {
@@ -1205,8 +1207,8 @@
             height: calc(7rem + 2px);
             margin-bottom: -2px;
             background-color: rgba($cl-bg, 1);
-            transform-origin: center top;
-            transform: scaleY(0);
+            @include transform(scaleX(0));
+            @include transform-origin(center top);
         }
     }
     &-pricing {
@@ -1557,7 +1559,7 @@
                 position: absolute;
                 top: 0;
                 left: 50%;
-                transform: translate(-50%, -50%);
+                @include transform(translate(-50%, -50%));
                 z-index: 7;
                 background: linear-gradient(180deg, #F5370D 0%, #F5430D 34%, $cl-primary-li 100%);
                 @include size(12.5rem);
@@ -1612,13 +1614,16 @@
                             border-radius: 50%;
                             padding-bottom: 100%;
                             &:nth-child(2) {
-                                transform: scale($offset-1);
+                                // transform: scale($offset-1);
+                                @include transform(scale($offset-1));
                             }
                             &:nth-child(3) {
-                                transform: scale($offset-2);
+                                // transform: scale($offset-2);
+                                @include transform(scale($offset-2));
                             }
                             &:nth-child(4) {
-                                transform: scale($offset-3);
+                                // transform: scale($offset-3);
+                                @include transform(scale($offset-3));
                             }
                         }
                     }
@@ -1638,9 +1643,8 @@
                             background-color: rgba(80, 20, 7, 0.5);
                             display: flex;
                             align-items: center;
-                            transform-origin: left center;
-                            translate: 100% -50%;
-                            rotate: calc(var(--i) * 30deg);
+                            @include transform-origin(left center);
+                            @include transform(translate(100%, -50%) rotate(calc(var(--i) * 30deg)));
 
                             &-dot {
                                 position: absolute;
@@ -1790,7 +1794,7 @@
                 justify-content: space-between;
                 flex-direction: column;
                 pointer-events: none;
-                transform-origin: top;
+                @include transform-origin(top);
                 max-height: 74.2rem;
                 height: calc(100vh - 15.4rem - 4rem);
 
@@ -1940,7 +1944,7 @@
                 &:after {
                     left: calc(-1 * var(--line-spacing));
                     opacity: .8;
-                    transform: translateX(-100%);
+                    @include transform(translateX(-100%));
                     background: linear-gradient(90deg, rgba($cl-primary, 1) 34%, rgba($cl-primary-li, 1) 100%);
                     @include transition(transform .65s cubic-bezier(.6,0,.3,1) .2s);
                 }

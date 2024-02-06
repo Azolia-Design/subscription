@@ -225,17 +225,17 @@ const home = {
                                     $(el).append(cloner)
                                 }
                             })
-        
+
                             function initMouseMove() {
                                 const target = $('.home-skill-thumb')
                                 if (target.hasClass('active')) {
                                     let tarCurrX = xGetter(target.get(0))
                                     let tarCurrY = yGetter(target.get(0))
                                     let tarCurrRot = rotZGetter(target.get(0))
-        
+
                                     let tarX = -target.outerWidth()/4 + (pointerCurr().x - $('.home-skill-listing').get(0).getBoundingClientRect().left)/$('.home-skill-listing').outerWidth() * ($('.home-skill-listing').outerWidth() - $('.home-skill-item-desc').get(0).getBoundingClientRect().left - target.outerWidth()/2)
                                     let tarY =  -target.outerHeight()/4 + (pointerCurr().y - $('.home-skill-listing').get(0).getBoundingClientRect().top)/$('.home-skill-listing').outerHeight() * ($('.home-skill-listing').outerHeight() - target.outerHeight()/2)
-        
+
                                     xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
                                     ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
                                     rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX)/40, -7), 7)), .1))
@@ -408,7 +408,7 @@ const home = {
                 toggleClass: {targets: target, className: "active"},
             })
 
-            function projectClipath(index) {
+            function projectClippath(index) {
                 let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
                 let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
                 gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
@@ -419,7 +419,7 @@ const home = {
 
             $('.home-project-wrap-bot .home-project-item').on('pointerenter', function(e) {
                 let index = $(this).index()
-                projectClipath(index)
+                projectClippath(index)
             })
             $('.home-project-wrap-bot .home-project-item').on('pointerleave', function(e) {
                 if (!$('.home-project-wrap-bot:hover').length) {
@@ -436,7 +436,6 @@ const home = {
                         gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
                     }
                 }
-
             })
 
             function initMouseMove() {

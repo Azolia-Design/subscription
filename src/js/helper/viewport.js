@@ -3,20 +3,21 @@ let viewport = {
     height: $(window).height(),
     pixelRatio: window.devicePixelRatio,
 }
-const device = { desktop: 991, tablet: 767, mobile: 479  }
+const device = { tablet: 991, mobile: 767  }
 
-const viewportBreak = (options) => {
-    const { desktop, tablet, mobile } = options;
+const viewportBreak = (callbacks) => {
+    const { desktop, tablet, mobile } = callbacks;
+
     let result;
     switch (true) {
-        case viewport.width <= device.tablet:
-            result = mobile;
+        case viewport.width >= device.tablet:
+            result = callbacks.desktop && callbacks.desktop();
             break;
-        case viewport.width <= device.desktop:
-            result = tablet;
+        case viewport.width >= device.mobile:
+            result = callbacks.tablet && callbacks.tablet();
             break;
         default:
-            result = desktop;
+            result = callbacks.mobile && callbacks.mobile();
             break;
     }
     return (result instanceof Function) ? result() : result;
