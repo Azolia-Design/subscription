@@ -74,9 +74,14 @@ const updateProgressByScroll = () => {
     DOM.progWrap.on('click', function (e) {
         e.preventDefault();
         let target = $(this).attr('data-header-id');
-
+        let offset = -100;
         lenis.scrollTo(`[data-section-id="${target}"]`, {
-            offset: -100,
+            offset: offset,
+        })
+
+        requestAnimationFrame(() => {
+            let targetTop = $(`[data-section-id="${target}"]`).get(0).offsetTop + $(window).height() + offset;
+            window.scrollTo({ top: targetTop });
         })
 
         history.replaceState({}, '', `${window.location.pathname}#${target}`);
