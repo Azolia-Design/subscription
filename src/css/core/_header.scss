@@ -247,6 +247,9 @@
                         opacity: 1;
                         &-wrap {
                             padding: .6rem;
+                            &.active {
+                                pointer-events: none;
+                            }
                         }
                         &-link {
                             width: .6rem;
