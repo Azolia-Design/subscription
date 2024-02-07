@@ -100,6 +100,12 @@ button {
     &.fluid {
         max-width: none;
     }
+    @include md {
+        --grid-gap: 1.6rem;
+    }
+    @include sm {
+        --container-padding: 1.6rem;
+    }
 }
 
 .grid {

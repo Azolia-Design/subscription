@@ -13,8 +13,16 @@
         @include md {
             margin-bottom: 6rem;
         }
+        @include sm {
+            margin-bottom: 4.7rem;
+        }
         &-title {
             color: rgba($cl-primary, 1);
+
+            @include sm {
+                --fs-h0: 4.4rem;
+                --ld-h0: 1em;
+            }
         }
         &-sub1 {
             color: $cl-heading;
@@ -22,7 +30,12 @@
 
             @include md {
                 --fs-20: 1.8rem;
-                --ld-20: 1.2rem;
+                --ld-20: 1.2em;
+            }
+            @include sm {
+                --fs-20: 1.6rem;
+                --ld-20: 1.4em;
+                padding: 0 2.2rem;
             }
         }
         &-sub2 {
@@ -30,13 +43,22 @@
 
             @include md {
                 --fs-20: 1.8rem;
-                --ld-20: 1.2rem;
+                --ld-20: 1.2em;
+            }
+            @include md {
+                --fs-20: 1.6rem;
+                --ld-20: 1.4em;
             }
         }
         &-sub3 {
             display: flex;
             gap: 0 .5rem;
             color: rgba($cl-white, .6);
+
+            @include sm {
+                --fs-18: 1.6rem;
+                --lh-18: 1.4em;
+            }
             a {
                 color: $cl-heading;
 
@@ -53,6 +75,9 @@
                     --fs-18: 1.6rem;
                     --ld-18: 1.4rem;
                     padding: 1.9rem 8.55rem;
+                }
+                @include sm {
+                    padding: 1.4rem 3.2rem;
                 }
             }
         }
@@ -106,6 +131,10 @@
                 width: 28.9rem;
                 margin-bottom: 6.4rem;
             }
+            @include sm {
+                width: 23.2rem;
+                margin-bottom: 6.4rem;
+            }
         }
         &-hide {
             position: absolute;
@@ -121,6 +150,13 @@
         margin-top: -4.1rem;
         padding-bottom: 2rem;
         z-index: 1;
+
+        @include sm {
+            margin-top: 0;
+            padding-bottom: .6rem;
+            padding-top: .9rem;
+            background-color: rgba($cl-primary, 1);
+        }
     }
     &-premble {
 
@@ -128,12 +164,24 @@
             --fs-16: 1.4rem;
             --lh-16: 1.3em;
         }
+        @include sm {
+            --fs-16: 1.2rem;
+            --lh-16: 1.4em;
+            max-width: 19.3rem;
+            width: 100%;
+            text-align: center;
+            margin-bottom: .4rem;
+        }
     }
     &-copyright {
         display: flex;
         align-items: center;
         justify-content: space-between;
         color: $cl-white;
+
+        @include sm {
+            flex-direction: column;
+        }
     }
     &-links {
         display: flex;
@@ -142,6 +190,9 @@
 
         @include md {
             gap: 2rem;
+        }
+        @include sm {
+            gap: 3.6rem;
         }
     }
     &-link {
@@ -153,6 +204,10 @@
             --fs-16: 1.4rem;
             --lh-16: 1.3em;
         }
+        @include sm {
+            --fs-16: 1.2rem;
+            --lh-16: 1.4em;
+        }
 
         &:after {
             content: '';
@@ -163,6 +218,9 @@
 
             @include md {
                 right: -1.2rem;
+            }
+            @include sm {
+                right: -2rem;
             }
         }
 
