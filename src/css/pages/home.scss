@@ -1,4 +1,5 @@
 .home {
+    --height-header: 15.4rem;
     &-hero {
         .container {
             height: 100%;
@@ -134,7 +135,7 @@
         }
     }
     &-main {
-        margin-top: -15.4rem;
+        margin-top: calc(var(--height-header) * -1);
         position: relative;
         z-index: 2;
         &-inner {
@@ -158,8 +159,8 @@
         }
         &-stick {
             position: sticky;
-            top: 15.4rem;
-            height: calc(100vh - 15.4rem);
+            top: var(--height-header);
+            height: calc(100vh - var(--height-header));
 
             @include md {
                 height: 60vh;
@@ -204,18 +205,6 @@
                 border-radius: 0;
                 padding-bottom: 0;
             }
-
-            // &.benefit--switch {
-            //     .home-benefit-item {
-            //         grid-area: 1 / 1 / 2 / 2;
-            //     }
-            //     @for $i from 2 through $benefitItem {
-            //         .home-benefit-item:nth-child(#{$i}) {
-            //             margin-left: calc($offset * (#{$i} - 1));
-            //             z-index: #{$i};
-            //         }
-            //     }
-            // }
         }
         &-item {
             position: relative;
@@ -331,6 +320,9 @@
                     object-fit: contain;
                     height: 100%;
                 }
+                &.hidden {
+                    opacity: 0;
+                }
 
                 @include md {
                     opacity: 1;
@@ -397,8 +389,8 @@
             display: flex;
             align-items: center;
             position: sticky;
-            top: 15.4rem;
-            height: calc(100vh - 15.4rem - 4rem);
+            top: var(--height-header);
+            height: calc(100vh - var(--height-header) - 4rem);
             margin: 0 auto;
             padding: 0 var(--container-padding);
 
@@ -413,9 +405,11 @@
             overflow: hidden;
             z-index: 3;
             position: relative;
-            height: 100%;
-            width: 100%;
-
+            @include size(100%);
+            @include md {
+                padding-block: 28.125%;
+                height: auto;
+            }
             @include sm {
                 border-radius: 1rem;
             }
@@ -431,10 +425,16 @@
             }
             &:first-child {
                 left: 4rem;
+                @include md {
+                    left: 9rem;
+                }
             }
             &:last-child {
                 flex-direction: row-reverse;
                 right: 4rem;
+                @include md {
+                    right: 9rem;
+                }
             }
             .home-showreel-item-other {
                 flex: none;
@@ -450,6 +450,9 @@
             }
             .home-showreel-item-other:nth-child(1) {
                 width: 5.5vw;
+                @include md {
+                    display: none;
+                }
             }
             .home-showreel-item-other:nth-child(2) {
                 width: 9.2vw;
@@ -458,15 +461,6 @@
                 width: 15.36vw;
             }
         }
-        // &-item {
-        //     display: flex;
-        //     align-items: center;
-        //     justify-content: center;
-        //     gap: 0 4rem;
-        //     position: sticky;
-        //     height: 100svh;
-        //     top: 0;
-        // }
         &-item {
             display: flex;
             align-items: center;
@@ -477,6 +471,9 @@
             height: 100%;
             &-main {
                 width: 100%;
+                @include md {
+                    height: auto;
+                }
                 &:hover {
                     .home-showreel-play-ic {
                         svg {
@@ -510,8 +507,7 @@
         &-thumb {
             position: relative;
             overflow: hidden;
-            height: 100%;
-            width: 100%;
+            @include size(100%);
             &-link {
                 position: absolute;
                 top: 0;
@@ -537,6 +533,9 @@
                 align-items: center;
                 flex: none;
                 width: 65%;
+                @include md {
+                    width: 40%;
+                }
 
                 @include sm {
                     width: 20%;
@@ -561,40 +560,36 @@
             p {
                 position: absolute;
                 text-wrap: nowrap;
+                --text-position: 100%;
 
                 @include md {
                     --fs-h0: 4.4rem;
+
+                    --text-position: calc(100% - 6rem);
                 }
                 @include sm {
                     --fs-h0: 2.4rem;
                     --lh-h0: 1.2rem;
+
+                    --text-position: calc(100% - 8.5rem);
                 }
             }
             &-first {
                 pointer-events: none;
-                right: calc(100%);
-
-                @include md {
-                    right: calc(90%);
-                }
-                @include sm {
-                    right: calc(65%);
-                }
+                right: var(--text-position);
             }
             &-last {
                 pointer-events: none;
-                left: calc(100%);
-
-                @include md {
-                    left: calc(65%);
-                }
+                left: var(--text-position);
             }
         }
     }
     &-skill {
         padding-top: 15rem;
         // overflow: hidden;
-
+        @include md {
+            padding-top: 0;
+        }
         @include sm {
             padding-top: 11.8rem;
         }
@@ -713,7 +708,7 @@
             grid-template-columns: 1fr;
 
             @include md {
-                left: 34.8rem;
+                left: 30.8rem;
             }
             @include sm {
                 left: auto;
@@ -733,10 +728,8 @@
                 );
 
                 @include md {
-                    width: 13.5rem;
+                    width: 16.5rem;
                 }
-
-
 
                 .img.cloner {
                     --gap-horizontal: 20px;
@@ -1173,17 +1166,25 @@
                 (row: 32, column: 6), (row: 33, column: 3), (row: 34, column: 5), (row: 35, column: 1), (row: 36, column: 8), (row: 37, column: 6), (row: 38, column: 3), (row: 39, column: 5), (row: 40, column: 4)
             );
             &-list {
+                --grid-portfolio-column: 8;
+                --width-column: calc(100vw / var(--grid-portfolio-column));
                 padding-top: 100vh;
                 display: grid;
                 top: 0;
                 bottom: 0;
                 left: 0;
                 right: 0;
-                // overflow: hidden;
-                grid-template-rows: 12.5vw;
-                grid-template-columns: repeat(8, 12.5vw);
-                grid-auto-rows: 12.5vw;
+
+                grid-template-rows: var(--width-column);
+                grid-template-columns: repeat(var(--grid-portfolio-column), var(--width-column));
+                grid-auto-rows: var(--width-column);
                 grid-auto-columns: 1fr;
+                @include md {
+                    --grid-portfolio-column: 6;
+                }
+                @include sm {
+                    --grid-portfolio-column: 4;
+                }
             }
             @for $i from 1 through length($grid-items) {
                 &-item:nth-child(#{$i}) {
@@ -2245,15 +2246,10 @@
 
         &-sticky {
             position: sticky;
-            top: 15.4rem;
-            height: calc(100vh - 15.4rem);
+            top: var(--height-header);
+            height: calc(100vh - var(--height-header));
             padding-bottom: 4rem;
             // background-color: orangered;
-
-            @include md {
-                top: 15.4rem;
-                height: calc(100vh - 15.4rem);
-            }
 
             @include sm {
                 position: static;
@@ -2342,7 +2338,7 @@
                 flex-direction: column;
                 @include transform-origin(top);
                 max-height: 74.2rem;
-                height: calc(100vh - 15.4rem - 4rem);
+                height: calc(100vh - var(--height-header) - 4rem);
 
 
                 @include md {
@@ -2448,7 +2444,7 @@
             }
             &-progress {
                 position: absolute;
-                top: calc(50vh - 15.4rem);
+                top: calc(50vh - var(--height-header));
                 right: 2.4rem;
                 align-self: center;
                 justify-self: end;

@@ -41,8 +41,9 @@ const home = {
                 tablet: BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem") + cvUnit(1, 'rem')
             });
 
-            const ITEM_WIDTH = ($('.container').width() - percentage(25, $('.container').width())) / 5;
-
+            const ITEM_WIDTH = ($('.container').width() - percentage(25, $('.container').width())) / 2.8;
+            console.log($('.container').width() - percentage(25, $('.container').width()) / 5)
+            console.log(ITEM_WIDTH * 5)
             gsap.set(BENEFIT.stage, { height: totalDistance * 1.2 + cvUnit(100, "rem") });
 
             let reqCheck;
@@ -90,7 +91,6 @@ const home = {
                     x: -otherWrapDistance,
                     duration: 1
                 }, 0)
-
             BENEFIT.otherItem.each((index, item) => {
                 let itemSelect = selector(item);
                 gsap.set(itemSelect('.home-benefit-item-overlay'), { scaleX: 0 });
@@ -125,7 +125,7 @@ const home = {
             })
             scrollerTl
                 .to(BENEFIT.wrap, {
-                    scale: 0.5, autoAlpha: 0,
+                    scale: viewportBreak({ desktop: 0.5, tablet: 0.8 }), autoAlpha: 0,
                     duration: 2,
                 }, '>=-.8')
 
@@ -140,7 +140,7 @@ const home = {
                 scrollToLabel(1, scrollerTl, `label${target}`)
             })
 
-            gsap.set('.home-showreel', { marginTop: -cvUnit(60, "vh") })
+            gsap.set('.home-showreel', { marginTop: -cvUnit(viewportBreak({ desktop: 60, tablet: 85 }), "vh") })
 
             function scrollToLabel(duration, timeline, label) {
                 const yStart = $('.home-benefit').offset().top - $('.header').outerHeight()
@@ -177,6 +177,11 @@ const home = {
             })
 
             const getOtherItem = ({ wrap, item }) => GALLERY.otherWrap.eq(wrap).find(GALLERY.otherInner).eq(item);
+            viewportBreak({
+                tablet: () => {
+                    gsap.set(GALLERY.mainWrap, { "padding": 0 })
+                }
+            })
             showreelTl
                 .to('.home-showreel-item-overlay', { autoAlpha: 0, duration: .15 })
                 .from([getOtherItem({ wrap: 0, item: 2 }), getOtherItem({ wrap: 1, item: 2 })], { y: 80, duration: .2 }, "<=0")
@@ -184,7 +189,7 @@ const home = {
                 .from([getOtherItem({ wrap: 0, item: 0 }), getOtherItem({ wrap: 1, item: 0 })], { y: 320, duration: .2 }, "<=0")
                 .fromTo(GALLERY.mainWrap, { "clipPath": `inset(14% 37.35% 14% 37.35% round ${cvUnit(20, "rem")}px)`},{"clipPath": `inset(0% 0% 0% 0% round ${cvUnit(20, "rem")}px)`, duration: 1 }, ">=-0.1")
                 .to(GALLERY.otherInner.find(".img"), { scale: 1.6, duration: 1 }, "<=0")
-                .to(getOtherItem({ wrap: 0, item: 2 }), { xPercent: -255, duration: 1 }, "<=0")
+                .to(getOtherItem({ wrap: 0, item: 2 }), { xPercent:  -255, duration: 1 }, "<=0")
                 .to(getOtherItem({ wrap: 0, item: 1 }), { xPercent: -460, duration: 1 }, "<=0")
                 .to(getOtherItem({ wrap: 0, item: 0 }), { xPercent: -760, duration: 1 }, "<=0")
                 .to(getOtherItem({ wrap: 1, item: 2 }), { xPercent: 255, duration: 1 }, "<=0")
@@ -257,7 +262,7 @@ const home = {
                                 $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
                                 let idx = $(this).index()
                                 $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
-                                gsap.to('.home-skill-thumb', {y: (cvUnit(80, 'rem') + ($('.home-skill-item').eq(0).outerHeight() - $('.home-skill-thumb').outerHeight())/2) + idx * $('.home-skill-item').eq(0).outerHeight(), duration: 1})
+                                gsap.to('.home-skill-thumb', {y: (cvUnit(40, 'rem') + ($('.home-skill-item').eq(0).outerHeight() - $('.home-skill-thumb').outerHeight())/2) + idx * $('.home-skill-item').eq(0).outerHeight(), duration: 1})
                             } else {
                                 $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
                                 $('.home-skill-item').removeClass('active')
@@ -287,7 +292,6 @@ const home = {
                                 gsap.to('.home-skill-item', {paddingTop: cvUnit( 60.5, 'rem'), paddingBottom: cvUnit( 60.5, 'rem'), duration: .3, ease: 'none'})
                                 gsap.to('.home-skill-item .home-skill-item-title', {marginBottom: 0, duration: .3, ease: 'none'})
                                 $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
-
                             }
                         })
                     }
