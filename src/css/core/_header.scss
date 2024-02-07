@@ -40,13 +40,13 @@
             max-width: 21.8rem;
             font-size: .9rem;
             line-height: 1.4em;
-            color: rgba($cl-white, .2);
+            color: rgba($cl-white, .6);
             font-weight: 600;
             text-transform: uppercase;
             @include transition(transform 400ms ease);
             @include transform(translateX(-1rem));
             &-hl {
-                color: rgba($cl-white, .35);
+                color: rgba($cl-white, .8);
             }
         }
         &.active {
@@ -79,7 +79,7 @@
             display: flex;
             padding: 1rem 1rem 1rem 0;
             border: 1px solid rgba($cl-white, .1);
-            background-color: rgba($cl-white, .02);
+            background-color: rgba(0,0,0,.8);
             border-radius: 2rem;
             margin-left: 3.2rem;
             -webkit-backdrop-filter: blur(1rem);
@@ -120,31 +120,31 @@
             height: 1px;
             background-color: white;
             position: absolute;
-            transform-origin: center;
+            @include transform-origin(center);
             @include transition(all 400ms ease);
             &:first-child {
-                transform: translate(0px, .6rem);
+                @include transform(translate(0px, .6rem));
             }
             &:last-child {
-                transform: translate(0px, -.6rem);
+                @include transform(translate(0px, -.6rem));
             }
         }
         &.active {
             .header-hamburger {
                 &-line {
                     &:nth-child(2) {
-                        @include transform(scalex(0));
                         opacity: 0;
+                        @include transform(scaleX(0));
                     }
                     &:first-child {
                         background-color: rgba($cl-white, .35);
                         width: 2.2rem;
-                        transform: translate(0px, 0px) rotate(-45deg);
+                        @include transform(translate(0px, 0px) rotate(-45deg));
                     }
                     &:last-child {
                         background-color: rgba($cl-white, .35);
                         width: 2.2rem;
-                        transform: translate(0px, 0px) rotate(45deg);
+                        @include transform(translate(0px, 0px) rotate(45deg));
                     }
                 }
             }
@@ -242,11 +242,14 @@
                 }
                 &-prog {
                     margin-left: .6rem;
-                    margin-right: -.6rem;
+                    // margin-right: -.6rem;
                     &-item {
                         opacity: 1;
                         &-wrap {
-                            padding: 0 .6rem;
+                            padding: .6rem;
+                            &.active {
+                                pointer-events: none;
+                            }
                         }
                         &-link {
                             width: .6rem;

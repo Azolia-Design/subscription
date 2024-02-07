@@ -20,7 +20,7 @@ $lg-max: ($lg-min - 1); // Large Desktop
 html {
     --fs-global: 0.5787037037vw;
     --container-max-width: none;
-    scroll-behavior: unset;
+    scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-kerning: none;

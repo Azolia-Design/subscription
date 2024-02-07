@@ -1,5 +1,6 @@
 import { xGetter, xSetter, lerp } from "../helper/index";
 import { lenis } from "../global/lenis";
+import { isTouchDevice } from "../helper/viewport";
 
 const setupDot = () => {
     let allSections = $('[data-section]');
@@ -44,6 +45,9 @@ const updateProgressByScroll = () => {
                     DOM.labelById(id).addClass('active');
                     DOM.labelItem.not(DOM.labelById(id)).removeClass('active');
 
+                    DOM.progById(id).addClass('active');
+                    DOM.progWrap.not(DOM.progById(id)).removeClass('active');
+
                     DOM.progById(id).find(DOM.progItem).addClass('active');
                     DOM.progWrap.not(DOM.progById(id)).find(DOM.progItem).removeClass('active');
 
@@ -71,11 +75,18 @@ const updateProgressByScroll = () => {
     DOM.progWrap.on('click', function (e) {
         e.preventDefault();
         let target = $(this).attr('data-header-id');
-        console.log($(`[data-section-id="${target}"]`))
-
-        lenis.scrollTo(`[data-section-id="${target}"]`, {
-            offset: -100,
-        })
+        let offset = viewportBreak({ desktop: -100, mobile: -30 });
+        if (!isTouchDevice()) {
+            lenis.scrollTo(`[data-section-id="${target}"]`, {
+                offset: offset
+            })
+        }
+        else {
+            let targetTop = $(`[data-section-id="${target}"]`).get(0).offsetTop + $(window).height() + offset;
+            $('html').animate({
+                scrollTop: targetTop
+            }, 800);
+        }
 
         history.replaceState({}, '', `${window.location.pathname}#${target}`);
         return false;
@@ -88,21 +99,19 @@ const hoverDot = () => {
         $('.header-menu-prog-label').text(content);
         gsap.to('.header-menu-prog-label', { autoAlpha: 1 });
     })
-    $('.header-menu-prog-item').on('mouseleave', function (e) {
+    $('.header-menu-prog-item-wrap').on('mouseleave', function (e) {
         gsap.to('.header-menu-prog-label', { autoAlpha: 0 })
     })
 }
 
 function checkHoverDot() {
-    if ($('.header-menu-prog-item:hover').length) {
-        let target = $('.header-menu-prog-item:hover')
+    if ($('.header-menu-prog-item-wrap:hover').length) {
+        let target = $('.header-menu-prog-item-wrap:hover')
         let currX = xGetter('.header-menu-prog-label')
         xSetter('.header-menu-prog-label')(lerp(currX, target.get(0).offsetLeft - $('.header-menu-prog-label').outerWidth() / 2 + target.outerWidth() / 2));
     }
     requestAnimationFrame(checkHoverDot);
 }
-
-checkHoverDot();
 
 const updateHeaderBarByScroll = () => {
     let tlHeaderTrigger = gsap.timeline({
@@ -126,9 +135,7 @@ const updateHeaderBarByScroll = () => {
                 if ($(window).width() <= 991) {
                     gsap.to('.header-main-schedule', {width: 'auto', overwrite: true})
                     gsap.to('.header-hamburger', {width: 'auto', overwrite: true})
-
                 }
-                
             }
         }
     })
@@ -150,6 +157,7 @@ const header = {
     },
     init() {
         hoverDot();
+        checkHoverDot();
         updateProgressByScroll();
         updateHeaderBarByScroll();
     }

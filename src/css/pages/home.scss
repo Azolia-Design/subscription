@@ -1,4 +1,5 @@
 .home {
+    --height-header: 15.4rem;
     &-hero {
         .container {
             height: 100%;
@@ -121,6 +122,10 @@
             display: flex;
             justify-content: center;
             margin-right: 1.6rem;
+            @include md {
+                width: 5.4rem;
+                margin-right: 1.2rem;
+            }
             &-wheel {
                 position: absolute;
                 width: 12.5%;
@@ -134,7 +139,7 @@
         }
     }
     &-main {
-        margin-top: -15.4rem;
+        margin-top: calc(var(--height-header) * -1);
         position: relative;
         z-index: 2;
         &-inner {
@@ -158,9 +163,12 @@
         }
         &-stick {
             position: sticky;
-            top: 15.4rem;
-            height: calc(100vh - 15.4rem);
+            top: var(--height-header);
+            height: calc(100vh - var(--height-header));
 
+            @include md {
+                height: 60vh;
+            }
             @include sm {
                 position: static;
                 top: auto;
@@ -201,18 +209,6 @@
                 border-radius: 0;
                 padding-bottom: 0;
             }
-
-            // &.benefit--switch {
-            //     .home-benefit-item {
-            //         grid-area: 1 / 1 / 2 / 2;
-            //     }
-            //     @for $i from 2 through $benefitItem {
-            //         .home-benefit-item:nth-child(#{$i}) {
-            //             margin-left: calc($offset * (#{$i} - 1));
-            //             z-index: #{$i};
-            //         }
-            //     }
-            // }
         }
         &-item {
             position: relative;
@@ -223,7 +219,6 @@
             @include md {
                 padding-top: 3.2rem;
                 padding-left: 2.4rem;
-                padding-right: 1.2rem;
             }
 
             &-overlay {
@@ -244,13 +239,9 @@
             padding-left: 4rem;
             z-index: 1;
             flex: none;
-
             @include md {
-                padding-top: 3.2rem;
-                padding-left: 2.4rem;
-                padding-right: 1.2rem;
+                width: 45.6vw;
             }
-
             @include sm {
                 width: 100%;
                 padding-top: 0rem;
@@ -289,7 +280,7 @@
             flex-direction: column;
             justify-content: space-between;
             padding-inline: 6rem;
-            width: 28vw;
+            width: 28.38vw;
             border-width: 1px;
             border-style: solid;
             border-image: linear-gradient(180deg, rgba($cl-heading, 0.2) 0%, rgba($cl-heading, 0) 100%) 1 100%;
@@ -298,9 +289,8 @@
             border-bottom: 0;
 
             @include md {
-                padding-left: 2.4rem;
                 width: 35vw;
-                // padding-right: 1.2rem;
+                padding-inline: 2.4rem 1.2rem;
             }
             @include sm {
                 width: calc(100% - 2px);
@@ -318,9 +308,12 @@
                     @include border-gradient();
                 }
                 &:nth-child(1) {
-                    top: calc(3.7rem + 3.6rem * 1.1 * 3 + 2.4rem + 1.6rem * 1.4 * 2 + 5.4rem - 1px);   
+                    top: calc(3.7rem + 3.6rem * 1.1 * 3 + 2.4rem + 1.6rem * 1.4 * 2 + 5.4rem - 1px);
                 }
                 &:nth-child(n+2) {
+                    // border-top: 1px solid rgba($cl-heading, 0.2);
+                    border-radius: 1.5rem;
+                    box-shadow: inset 0 1px .2rem rgba($cl-heading, 0.2);
                     &::before {
                         content: none
                     }
@@ -328,9 +321,6 @@
                     @include transform(translateX(1px));
                 }
             }
-            
-            
-            
             &-img {
                 @include size(40rem, auto);
                 margin-top: -1.6rem;
@@ -345,6 +335,9 @@
                 img {
                     object-fit: contain;
                     height: 100%;
+                }
+                &.hidden {
+                    opacity: 0;
                 }
 
                 @include md {
@@ -412,8 +405,8 @@
             display: flex;
             align-items: center;
             position: sticky;
-            top: 15.4rem;
-            height: calc(100vh - 15.4rem - 4rem);
+            top: var(--height-header);
+            height: calc(100vh - var(--height-header) - 4rem);
             margin: 0 auto;
             padding: 0 var(--container-padding);
 
@@ -428,10 +421,14 @@
             overflow: hidden;
             z-index: 3;
             position: relative;
-            height: 100%;
-            width: 100%;
-            
+            @include size(100%);
+            @include md {
+                padding-block: 28.125%;
+                height: auto;
+            }
             @include sm {
+                @include size(100%);
+                padding-block: 0;
                 border-radius: 1rem;
             }
         }
@@ -446,10 +443,16 @@
             }
             &:first-child {
                 left: 4rem;
+                @include md {
+                    left: 9rem;
+                }
             }
             &:last-child {
                 flex-direction: row-reverse;
                 right: 4rem;
+                @include md {
+                    right: 9rem;
+                }
             }
             .home-showreel-item-other {
                 flex: none;
@@ -465,6 +468,9 @@
             }
             .home-showreel-item-other:nth-child(1) {
                 width: 5.5vw;
+                @include md {
+                    display: none;
+                }
             }
             .home-showreel-item-other:nth-child(2) {
                 width: 9.2vw;
@@ -473,15 +479,6 @@
                 width: 15.36vw;
             }
         }
-        // &-item {
-        //     display: flex;
-        //     align-items: center;
-        //     justify-content: center;
-        //     gap: 0 4rem;
-        //     position: sticky;
-        //     height: 100svh;
-        //     top: 0;
-        // }
         &-item {
             display: flex;
             align-items: center;
@@ -492,6 +489,25 @@
             height: 100%;
             &-main {
                 width: 100%;
+                @include md {
+                    height: auto;
+                }
+                &:hover {
+                    .home-showreel-play-ic {
+                        svg {
+                            path:first-child {
+                                @include transform(translate(101%));
+                                opacity: 0;
+                                transition-delay: 0;
+                            }
+                            path:last-child {
+                                @include transform(translate(0%));
+                                opacity: 1;
+                                transition-delay: .1s;
+                            }
+                        }
+                    }
+                }
             }
             &-overlay {
                 position: absolute;
@@ -509,24 +525,37 @@
         &-thumb {
             position: relative;
             overflow: hidden;
-            height: 100%;
-            width: 100%;
+            @include size(100%);
             &-link {
                 position: absolute;
                 top: 0;
                 left: 0;
                 @include size(100%);
+                &-vid {
+                    object-fit: cover;
+                    @include size(100%);
+                    &.hidden {
+                        opacity: 0;
+                        pointer-events: none;
+                    }
+                }
             }
-            img {
+            .img {
                 object-position: center center;
+                &.hidden {
+                    opacity: 0;
+                    pointer-events: none;
+                }
             }
         }
+
         &-play {
             position: absolute;
             z-index: 2;
             display: flex;
             justify-content: center;
             align-items: center;
+            pointer-events: none;
             &-ic {
                 border-radius: 50%;
                 aspect-ratio: 1;
@@ -535,6 +564,9 @@
                 align-items: center;
                 flex: none;
                 width: 65%;
+                @include md {
+                    width: 40%;
+                }
 
                 @include sm {
                     width: 20%;
@@ -550,7 +582,7 @@
                         transition-delay: .1s;
                     }
                     path:last-child {
-                        transform: translate(-101%);
+                        @include transform(translate(-101%));
                         transition-delay: 0s;
                         opacity: 0;
                     }
@@ -559,56 +591,42 @@
             p {
                 position: absolute;
                 text-wrap: nowrap;
+                --text-position: 100%;
 
                 @include md {
                     --fs-h0: 4.4rem;
+
+                    --text-position: calc(100% - 6rem);
                 }
                 @include sm {
                     --fs-h0: 2.4rem;
                     --lh-h0: 1.2rem;
-                }
-            }
-            p:first-child {
-                right: calc(100%);
 
-                @include md {
-                    right: calc(90%);
-                }
-                @include sm {
-                    right: calc(65%);
+                    --text-position: calc(100% - 8.5rem);
                 }
             }
-            p:last-child {
-                left: calc(100%);
-
-                @include md {
-                    left: calc(65%);
-                }
+            &-first {
+                pointer-events: none;
+                right: var(--text-position);
             }
-            &:hover {
-                .home-showreel-play-ic {
-                    svg {
-                        path:first-child {
-                            transform: translate(101%);
-                            opacity: 0;
-                            transition-delay: 0;
-                        }
-                        path:last-child {
-                            transform: translate(0);
-                            opacity: 1;
-                            transition-delay: .1s;
-                        }
-                    }
-                }
+            &-last {
+                pointer-events: none;
+                left: var(--text-position);
+            }
+            &.hidden {
+                opacity: 0 !important;
+                pointer-events: none;
             }
         }
     }
     &-skill {
         padding-top: 15rem;
         // overflow: hidden;
-
+        @include md {
+            padding-top: 0;
+        }
         @include sm {
-            padding-top: 11.8rem; 
+            padding-top: 11.8rem;
         }
 
         &-title {
@@ -623,7 +641,7 @@
                 grid-column: 1/-1;
                 margin-bottom: 3.2rem;
             }
-            
+
         }
         &-desc {
             grid-column: 12/16;
@@ -725,7 +743,7 @@
             grid-template-columns: 1fr;
 
             @include md {
-                left: 34.8rem;
+                left: 30.8rem;
             }
             @include sm {
                 left: auto;
@@ -736,19 +754,20 @@
                 width: 40rem;
                 grid-area: 1/1/2/2;
                 opacity: 0;
-                transform: scale(1.1);
+                @include transform(scale(1.1));
                 overflow: hidden;
-                // transition: opacity 0.6s cubic-bezier(0.45, 0, 0.55, 1), scale 1s cubic-bezier(0.45, 0, 0.55, 1);
+                // @include transition(opacity 0.6s cubic-bezier(0.45, 0, 0.55, 1), scale 1s cubic-bezier(0.45, 0, 0.55, 1));
                 @include transition(
                     opacity .3s ease-in,
                     transform .2s cubic-bezier(0.45, 0.5, 0.55, 1)
                 );
 
                 @include md {
-                    width: 13.5rem;
+                    width: 16.5rem;
                 }
-
-
+                @include sm {
+                    width: 14.5rem;
+                }
 
                 .img.cloner {
                     --gap-horizontal: 20px;
@@ -771,7 +790,7 @@
                 }
                 &.active {
                     opacity: 1;
-                    transform: scale(1.1);
+                    @include transform(scale(1.1));
                     @include transition(opacity .8s ease-out, transform .2s cubic-bezier(0.45, 0.5, 0.55, 1));
                 }
 
@@ -923,7 +942,7 @@
         }
         @include sm {
             @include size(100%, 61.5rem);
-            
+
             margin: {
                 top: -32rem;
                 bottom: -19.5rem;
@@ -1000,7 +1019,7 @@
             @include md {
                 grid-column: 7/-1;
             }
-            
+
             @include sm {
                 grid-column: 1/-1;
                 grid-row: 2/2;
@@ -1032,16 +1051,17 @@
         &-step {
             position: relative;
             border-radius: 2rem;
-            transform-origin: left top;
+            @include transform-origin(left top);
 
             * {
-                transform-origin: left top;
+                @include transform-origin(left top);
             }
 
             &:nth-child(2n) .home-process-step-background {
-                transform-origin: right top;
+                @include transform-origin(right top);
+
                 * {
-                    transform-origin: right top;
+                    @include transform-origin(right top);
                 }
             }
 
@@ -1053,7 +1073,8 @@
                 pointer-events: none;
                 background-color: rgba($cl-white, .05);
                 border-radius: 1.5rem;
-                transform-origin: left top;
+                @include transform-origin(left top);
+
                 &::before {
                     content: '';
                     position: absolute;
@@ -1183,17 +1204,25 @@
                 (row: 32, column: 6), (row: 33, column: 3), (row: 34, column: 5), (row: 35, column: 1), (row: 36, column: 8), (row: 37, column: 6), (row: 38, column: 3), (row: 39, column: 5), (row: 40, column: 4)
             );
             &-list {
+                --grid-portfolio-column: 8;
+                --width-column: calc(100vw / var(--grid-portfolio-column));
                 padding-top: 100vh;
                 display: grid;
                 top: 0;
                 bottom: 0;
                 left: 0;
                 right: 0;
-                // overflow: hidden;
-                grid-template-rows: 12.5vw;
-                grid-template-columns: repeat(8, 12.5vw);
-                grid-auto-rows: 12.5vw;
+
+                grid-template-rows: var(--width-column);
+                grid-template-columns: repeat(var(--grid-portfolio-column), var(--width-column));
+                grid-auto-rows: var(--width-column);
                 grid-auto-columns: 1fr;
+                @include md {
+                    --grid-portfolio-column: 6;
+                }
+                @include sm {
+                    --grid-portfolio-column: 4;
+                }
             }
             @for $i from 1 through length($grid-items) {
                 &-item:nth-child(#{$i}) {
@@ -1339,7 +1368,7 @@
             padding: 6rem 0;
             align-items: flex-end;
             justify-content: space-between;
-            transition: color .3s ease-out;
+            @include transition(color .3s ease-out);
             overflow: hidden;
 
             @include md {
@@ -1362,7 +1391,7 @@
                 grid-column: 2/12;
                 margin-top: 2rem;
                 color: rgba($cl-black, 1);
-                transition: color .3s ease-out;
+                @include transition(color .3s ease-out);
 
                 @include md {
                     grid-column: 1/7;
@@ -1415,7 +1444,7 @@
                 position: absolute;
                 top: 0;
                 left: 50%;
-                transform: translateX(-50%);
+                @include transform(translateX(-50%));
                 z-index: 999;
                 background-color: rgba($cl-black, .2);
                 &:nth-child(2n) {
@@ -1487,8 +1516,8 @@
             height: calc(var(--block-height)/10 + 2px);
             margin-bottom: -2px;
             background-color: rgba($cl-bg, 1);
-            transform-origin: center top;
-            transform: scaleY(0);
+            @include transform(scaleY(0));
+            @include transform-origin(center top);
         }
     }
     &-pricing {
@@ -1501,7 +1530,7 @@
 
         @include sm {
             padding-top: 0rem;
-            padding-bottom: 12.8rem;
+            padding-bottom: 6.8rem;
         }
 
         &--wrap {
@@ -2024,7 +2053,7 @@
                 position: absolute;
                 top: 0;
                 left: 50%;
-                transform: translate(-50%, -50%);
+                @include transform(translate(-50%, -50%));
                 z-index: 7;
                 background: linear-gradient(180deg, #F5370D 0%, #F5430D 34%, $cl-primary-li 100%);
                 @include size(12.5rem);
@@ -2088,13 +2117,16 @@
                             border-radius: 50%;
                             padding-bottom: 100%;
                             &:nth-child(2) {
-                                transform: scale($offset-1);
+                                // transform: scale($offset-1);
+                                @include transform(scale($offset-1));
                             }
                             &:nth-child(3) {
-                                transform: scale($offset-2);
+                                // transform: scale($offset-2);
+                                @include transform(scale($offset-2));
                             }
                             &:nth-child(4) {
-                                transform: scale($offset-3);
+                                // transform: scale($offset-3);
+                                @include transform(scale($offset-3));
                             }
                         }
                     }
@@ -2114,9 +2146,8 @@
                             background-color: rgba(80, 20, 7, 0.5);
                             display: flex;
                             align-items: center;
-                            transform-origin: left center;
-                            translate: 100% -50%;
-                            rotate: calc(var(--i) * 30deg);
+                            @include transform-origin(left center);
+                            @include transform(translate(100%, -50%) rotate(calc(var(--i) * 30deg)));
 
                             &-dot {
                                 position: absolute;
@@ -2201,7 +2232,7 @@
                                 @include md {
                                     translate: 0 -3rem;
                                 }
-                                
+
                                 @include sm {
                                     padding: .4rem .8rem;
                                     translate: 0 -1.5rem;
@@ -2259,16 +2290,11 @@
 
         &-sticky {
             position: sticky;
-            top: 15.4rem;
-            height: calc(100vh - 15.4rem);
+            top: var(--height-header);
+            height: calc(100vh - var(--height-header));
             padding-bottom: 4rem;
             overflow: hidden;
             // background-color: orangered;
-
-            @include md {
-                top: 15.4rem;
-                height: calc(100vh - 15.4rem);
-            }
 
             @include sm {
                 position: static;
@@ -2330,7 +2356,7 @@
 
             &-wrap {
                 grid-column: span 8;
-                
+
                 @include md {
                     grid-column: span 1;
                 }
@@ -2354,9 +2380,9 @@
             }
 
             &-item {
-                pointer-events: auto;
                 // opacity: 0;
                 // z-index: calc(var(--i) * -1);
+                pointer-events: auto;
                 position: absolute;
                 padding: 10rem;
                 border-radius: 2rem;
@@ -2364,9 +2390,9 @@
                 display: flex;
                 justify-content: space-between;
                 flex-direction: column;
-                transform-origin: top;
+                @include transform-origin(top);
                 max-height: 74.2rem;
-                height: calc(100vh - 15.4rem - 4rem);
+                height: calc(100vh - var(--height-header) - 4rem);
 
 
                 @include md {
@@ -2486,7 +2512,7 @@
             }
             &-progress {
                 position: absolute;
-                top: calc(50vh - 15.4rem);
+                top: calc(50vh - var(--height-header));
                 right: 2.4rem;
                 align-self: center;
                 justify-self: end;
@@ -2667,7 +2693,7 @@
                 &:after {
                     left: calc(-1 * var(--line-spacing));
                     opacity: .8;
-                    transform: translateX(-100%);
+                    @include transform(translateX(-100%));
                     background: linear-gradient(90deg, rgba($cl-primary, 1) 34%, rgba($cl-primary-li, 1) 100%);
                     @include transition(transform .65s cubic-bezier(.6,0,.3,1) .2s);
                 }
