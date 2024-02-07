@@ -1,5 +1,6 @@
 import { xGetter, xSetter, lerp } from "../helper/index";
 import { lenis } from "../global/lenis";
+import { isTouchDevice } from "../helper/viewport";
 
 const setupDot = () => {
     let allSections = $('[data-section]');
@@ -75,14 +76,17 @@ const updateProgressByScroll = () => {
         e.preventDefault();
         let target = $(this).attr('data-header-id');
         let offset = -100;
-        lenis.scrollTo(`[data-section-id="${target}"]`, {
-            offset: offset,
-        })
-
-        requestAnimationFrame(() => {
+        if (!isTouchDevice()) {
+            lenis.scrollTo(`[data-section-id="${target}"]`, {
+                offset: offset
+            })
+        }
+        else {
             let targetTop = $(`[data-section-id="${target}"]`).get(0).offsetTop + $(window).height() + offset;
-            window.scrollTo({ top: targetTop });
-        })
+            $('html').animate({
+                scrollTop: targetTop
+            }, 800);
+        }
 
         history.replaceState({}, '', `${window.location.pathname}#${target}`);
         return false;

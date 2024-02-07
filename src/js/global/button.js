@@ -1,4 +1,5 @@
 import { lenis } from "./lenis";
+import { isTouchDevice } from "../helper/viewport";
 
 const initButton = () => {
     $('.btn').each((_, el) => {
@@ -8,15 +9,21 @@ const initButton = () => {
     $('a').on('click', function (e) {
         if ($(this).attr('href').includes('#')) {
             let target = $(this).attr('href').slice(1);
+            let offset = -100;
+
             if (target) {
                 e.preventDefault();
-                lenis.scrollTo(`[data-section-id="${target}"]`, {
-                    offset: -100,
-                })
-                requestAnimationFrame(() => {
-                    let targetTop = $(`[data-section-id="${target}"]`).get(0).offsetTop + $(window).height() - 100;
-                    window.scrollTo({ top: targetTop });
-                })
+                if (!isTouchDevice()) {
+                    lenis.scrollTo(`[data-section-id="${target}"]`, {
+                        offset: offset
+                    })
+                }
+                else {
+                    let targetTop = $(`[data-section-id="${target}"]`).get(0).offsetTop + $(window).height() + offset;
+                    $('html').animate({
+                        scrollTop: targetTop
+                    }, 800);
+                }
                 history.replaceState({}, '', `${window.location.pathname}#${target}`);
                 return false;
             }
