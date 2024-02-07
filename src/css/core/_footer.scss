@@ -2,6 +2,10 @@
     position: relative;
     padding-top: 6rem;
     // padding-bottom: 2rem;
+
+    @include sm {
+        padding-top: 0;
+    }
     &-cta {
         display: flex;
         flex-direction: column;
@@ -85,6 +89,10 @@
     &-brands {
         padding: 1.6rem 0;
         margin-bottom: 2rem;
+
+        @include md {
+            margin-bottom: 3rem;
+        }
         &-marquee {
             display: flex;
             align-items: center;
@@ -92,6 +100,11 @@
             padding: 0 2rem;
             &-item {
                 @include size(10rem, auto)
+            }
+
+            @include sm {
+                gap: 0 1.6rem;
+                padding: 0 .8rem;
             }
         }
     }
