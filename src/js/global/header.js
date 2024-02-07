@@ -74,7 +74,6 @@ const updateProgressByScroll = () => {
     DOM.progWrap.on('click', function (e) {
         e.preventDefault();
         let target = $(this).attr('data-header-id');
-        console.log($(`[data-section-id="${target}"]`))
 
         lenis.scrollTo(`[data-section-id="${target}"]`, {
             offset: -100,

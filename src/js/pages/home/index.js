@@ -492,7 +492,6 @@ const home = {
         homeCurtain()
 
         function homeIndustries() {
-
             if ($(window).width() > 991) {
                 function parallaxLogo() {
                     let target = $('.home-explore-img img')
