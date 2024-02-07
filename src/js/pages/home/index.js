@@ -617,9 +617,7 @@ const home = {
                     zUnit = 1200
                     yUnit = 100
                 }
-    
-                gsap.set('.home-testi-content-item', {z: cvUnit(zUnit, 'rem'), yPercent: 150, filter:"brightness(1)"})
-    
+        
                 $('.home-testi-content-item').each((idx, el) => {
                     if (idx == 0) {
                         tlScrub
@@ -632,6 +630,8 @@ const home = {
                         if (idx > 1) {
                             tlScrub
                             .fromTo($(el).prev().prev(), {z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter:"brightness(.67)"}, {z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter:"brightness(.33)", ease: 'power2.out', duration: timeAnim}, "<=0")
+                            gsap.set('.home-testi-content-item', {z: cvUnit(zUnit, 'rem'), yPercent: 150, filter:"brightness(1)"})
+
                         }
                         if (idx > 2) {
                             tlScrub
@@ -782,7 +782,7 @@ const home = {
                     let target = $('.footer-curtain-logo')
                     let tarCurrX = xGetter(target.get(0))
                     let tarCurrY = yGetter(target.get(0))
-                    let moveX = (pointerCurr().x/$(window).width() - 0.5) * 2 * (target.width()/2)
+                    let moveX = (pointerCurr().x/$(window).width() - 0.5) * ($(window).width() - target.width())
                     let moveY = (pointerCurr().y/$(window).height() - 0.5) * 2 * (target.height()/8)
                     xSetter(target.get(0))(lerp(tarCurrX, moveX, .01))
                     ySetter(target.get(0))(lerp(tarCurrY, moveY, .01))

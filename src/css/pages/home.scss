@@ -48,6 +48,10 @@
         &-title {
             // margin-bottom: calc(.04834377798 * var(--total-space));
             margin-bottom: 5.4rem;
+
+            @include md {
+                max-width: 62rem;
+            }
         }
         &-btn {
             width: 18rem;
@@ -295,7 +299,7 @@
 
             @include md {
                 padding-left: 2.4rem;
-                // width: 35vw;
+                width: 35vw;
                 // padding-right: 1.2rem;
             }
             @include sm {
@@ -615,10 +619,12 @@
 
             @include md {
                 grid-column: 9/-1;
+                margin-left: -3rem;
             }
 
             @include sm {
                 grid-column: 1/-1;
+                margin-left: 0;
             }
         }
         &-listing {
@@ -967,6 +973,10 @@
                     width: 100%;
                     display: flex;
                     justify-content: center;
+
+                    .txt-btn {
+                        padding: 1.9rem 2.7rem;
+                    }
                 }
             }
         }
@@ -1233,6 +1243,7 @@
                         max-width: 41.7rem;
                         --fs-20: 1.8rem;
                         --lh-20: 1em;
+                        max-width: 45.7rem;
                     }
 
                     @include sm {
@@ -1280,8 +1291,12 @@
         padding-bottom: 10rem;
         display: grid;
 
+        @include md {
+            padding-bottom: 5.5rem;
+        }
         @include sm {
             padding-bottom: 1rem;
+            padding-top: 10rem;
         }
 
         &-wrap {
@@ -1442,6 +1457,9 @@
         z-index: 3;
         margin-top: -2px;
 
+        @include md {
+            --block-height: 55rem;
+        }
         @include sm {
             --block-height: 40rem;
         }
@@ -1511,6 +1529,10 @@
             }
             &-sub {
                 max-width: 81.5rem;
+
+                @include md {
+                    --fs-20: 1.55rem;
+                }
             }
         }
         &-plan {
@@ -1549,8 +1571,12 @@
                     @include border-gradient(linear-gradient(180deg, rgba($cl-white, 0.20) 0%, rgba($cl-white, 0.00) 100%));
                 }
                 &-wrap {
+                    --btn-width: 12.6rem;
                     position: relative;
 
+                    @include md {
+                        --btn-width: 10.7rem;
+                    }
                     @include sm {
                         width: 100%;
                     }
@@ -1561,7 +1587,7 @@
                     }
                 }
                 &-overlay {
-                    width: 12.6rem;
+                    width: var(--btn-width);
                     position: absolute;
                     height: 100%;
                     top: 0;
@@ -1596,7 +1622,7 @@
                 }
                 &-btn {
                     color: $cl-heading;
-                    width: 12.6rem;
+                    width: var(--btn-width);
                     padding: 1.1rem 0;
                     cursor: pointer;
                     position: relative;
@@ -1608,6 +1634,7 @@
                     @include md {
                         --fs-16: 1.4rem;
                         --lh-16: 1.3rem;
+                        width: var(--btn-width);
                     }
                 }
             }
@@ -1625,7 +1652,8 @@
                 @include sm {
                     flex-direction: column;
                     gap: 2.4rem;
-                    padding: 0px 2.15rem
+                    padding: 0px 2.15rem;
+                    margin-bottom: 0;
                 }
             }
             &-item {
@@ -1633,11 +1661,17 @@
                 position: relative;
                 display: flex;
                 flex-direction: column;
-                box-shadow: 0rem 0rem 1rem 0rem rgba($cl-white, 0.05) inset;
+                box-shadow: inset 0 0 1rem 0 rgba($cl-white, 0.05);
                 border-radius: 2rem;
 
                 @include md {
                     padding: 2.45rem 1.6rem 3.2rem;
+                }
+
+                @include sm {
+                    background-color: rgba($cl-white, .001);
+                    box-shadow: inset 0 0 1.5rem 0 rgba($cl-white, 0.1);
+
                 }
 
                 &:before {
@@ -1669,6 +1703,9 @@
                     @include md {
                         margin-bottom: 1.5rem;
                     }
+                    @include sm {
+                        padding: 1rem 2rem;
+                    }
                 }
                 &-label {
                     margin-bottom: .4rem;
@@ -1676,11 +1713,19 @@
                     @include md {
                         margin-bottom: .2rem;
                     }
+                    @include sm {
+                        --fs-20: 1.8rem;
+                        --lh-20: 1.4em;
+                    }
                 }
                 &-benefit {
 
                     @include md {
                         --fs-14: 1.2rem;
+                    }
+                    @include sm {
+                        --fs-14: 1.4rem;
+                        --lh-14: 1.3em;
                     }
                 }
                 &-price {
@@ -1740,6 +1785,7 @@
                         --fs-14: 1.4rem;
                         --lh-14: 1.3em;
                         margin-bottom: 1.6rem;
+                        color: rgba($cl-white, 1);
                     }
                 }
                 &-detail {
@@ -1768,11 +1814,18 @@
 
                         @include sm {
                             gap: 0 1rem;
+                            --fs-18: 1.4rem;
+                            --lh-18: 1.3em;
+                            font-weight: 500;
                         }
 
                         img {
                             width: 2rem;
                             flex: none;
+
+                            @include md {
+                                width: 1.6rem;
+                            }
                         }
                     }
                 }
@@ -1807,6 +1860,10 @@
                 align-items: center;
                 flex-direction: column;
                 text-align: center;
+
+                @include sm {
+                    padding-top: 6rem;
+                }
                 &-heading {
                     max-width: 66rem;
                     margin-bottom: 2rem;
@@ -1842,7 +1899,7 @@
                     padding: 2.4rem 6.6rem;
 
                     @include md {
-                        padding: 1.4rem 2.7rem;
+                        padding: 1.4rem 3.2rem;
                     }
 
                     @include sm {
@@ -1925,10 +1982,13 @@
                     --fs-h6: 2rem;
                     --lh-h6: 1.2em;
                     margin-bottom: 8.1rem;
+                    max-width: 28rem;
                 }
 
                 @include sm {
                     margin-bottom: 4.318rem;
+                    --fs-h6: 1.8rem;
+                    --lh-h6: 1.4em;
                 }
             }
             &-wrap {
@@ -2171,10 +2231,12 @@
 
         @include md {
             margin-top: 0;
-            margin-bottom: 17.2rem;
+            margin-bottom: 0;
         }
         @include sm {
             overflow: hidden;
+            margin-bottom: 12rem;
+
         }
 
         &-sticky {
@@ -2217,6 +2279,15 @@
         }
         &-heading {
             margin-bottom: 6rem;
+
+            @include md {
+                padding-right: 1rem;
+            }
+            @include sm {
+                --fs-h1: 5rem;
+                --lh-h1: 1em;
+                margin-bottom: 3.2rem;
+            }
         }
         &-content {
             grid-column: 8/17;
@@ -2279,6 +2350,7 @@
                     height: 46rem;
                     flex: none;
                     max-height: 46rem;
+                    border-radius: 1rem;
                 }
 
                 &.active {
@@ -2449,6 +2521,9 @@
                 position: relative;
                 overflow: hidden;
 
+                @include md {
+                    --widthOrdinal: 7rem;
+                }
                 @include sm {
                     --widthOrdinal: 6.2rem;
                 }
@@ -2515,6 +2590,10 @@
                     padding-bottom: 4rem;
                     margin-top: -1.6rem;
 
+                    @include md {
+                        padding-bottom: 3.2rem;
+                    }
+
                     @include sm {
                         --fs-20: 1.4rem;
                         --lh-20: 1.3em;
@@ -2532,6 +2611,10 @@
                     width: calc(100% - var(--widthOrdinal));
                     height: 1.5px;
                     @include transition(transform .65s cubic-bezier(.6,0,.3,1) .15s);
+
+                    @include sm {
+                        height: 1px;
+                    }
                 }
                 &:before {
                     opacity: 0;
