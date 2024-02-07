@@ -588,7 +588,7 @@ const home = {
                         start: `top top`,
                         end: 'bottom bottom',
                         scrub: true,
-                        markers: true,
+                        // markers: true,
                         onUpdate: (timeline) => {
                             gsap.set('.home-testi-content-progress-inner', {y: timeline.progress * parseRem(160)})
                         }

@@ -317,7 +317,9 @@
                     @include size(100%);
                     @include border-gradient();
                 }
-
+                &:nth-child(1) {
+                    top: calc(3.7rem + 3.6rem * 1.1 * 3 + 2.4rem + 1.6rem * 1.4 * 2 + 5.4rem - 1px);   
+                }
                 &:nth-child(n+2) {
                     &::before {
                         content: none
@@ -326,9 +328,7 @@
                     @include transform(translateX(1px));
                 }
             }
-            &:nth-child(1) {
-                top: calc(3.7rem + 3.6rem * 1.1 * 3 + 2.4rem + 1.6rem * 1.4 * 2 + 5.4rem - 1px);   
-            }
+            
             
             
             &-img {
@@ -2380,7 +2380,7 @@
                     flex: none;
                     border-radius: 1rem;
                     transform-origin: center center;
-                    @include transition(all .5s ease-in-out);
+                    @include transition(all .5s ease-out);
 
                     &.swiper-slide:has(+ .swiper-slide.swiper-slide-active) {
                         // transform: translateX(.2rem) scale(.95);
