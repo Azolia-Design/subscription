@@ -147,10 +147,21 @@
         background-color: rgba($cl-bg, 1);
         height: 400vh;
         position: relative;
+
+        @include sm {
+            height: auto;
+            margin-bottom: 8.2rem;
+        }
         &-stick {
             position: sticky;
             top: 15.4rem;
             height: calc(100vh - 15.4rem);
+
+            @include sm {
+                position: static;
+                top: auto;
+                height: auto;
+            }
         }
         .container {
             height: 100%;
@@ -165,6 +176,10 @@
                 inset: -1px;
                 @include size(100%);
                 @include border-gradient();
+
+                @include sm {
+                    content: none;
+                }
             }
         }
         &-list {
@@ -175,6 +190,14 @@
             padding-bottom: 12rem;
             border-radius: 2rem;
             overflow: hidden;
+
+            @include sm {
+                overflow: visible;
+                flex-direction: column;
+                border-radius: 0;
+                padding-bottom: 0;
+            }
+
             // &.benefit--switch {
             //     .home-benefit-item {
             //         grid-area: 1 / 1 / 2 / 2;
@@ -206,6 +229,10 @@
                 right: 0;
                 @include size(calc(100% - 12rem), 100%);
                 background: linear-gradient(270deg, $cl-bg 11.76%, rgba($cl-bg, 0) 95.72%);
+
+                @include sm {
+                    display: none;
+                }
             }
         }
         &-main {
@@ -220,9 +247,24 @@
                 padding-right: 1.2rem;
             }
 
+            @include sm {
+                width: 100%;
+                padding-top: 0rem;
+                padding-left: 0rem;
+                padding-right: 0rem;
+                position: sticky;
+                top: 3.7rem;
+                margin-bottom: 5.4rem;
+            }
+
             &-sub {
                 margin-top: 6.4rem;
                 color: $cl-heading;
+
+                @include sm {
+                    margin-top: 2.4rem;
+                    font-weight: 400;
+                }
             }
         }
         &-other-wrap {
@@ -232,6 +274,11 @@
             z-index: 2;
             display: grid;
             grid-template-columns: repeat($benefitItem, 1fr);
+
+            @include sm {
+                display: flex;
+                flex-direction: column;
+            }
         }
         &-other {
             display: flex;
@@ -251,6 +298,23 @@
                 // width: 35vw;
                 // padding-right: 1.2rem;
             }
+            @include sm {
+                width: calc(100% - 2px);
+                border: none;
+                border-radius: 2rem;
+                padding: 3.2rem 2.4rem;
+                position: sticky;
+                top: calc(3.7rem + 3.6rem * 1.1 * 3 + 2.4rem + 1.6rem * 1.4 * 2 + 5.4rem);
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    inset: 0px;
+                    @include size(100%);
+                    @include border-gradient();
+                }
+            }
+            
             &-img {
                 @include size(40rem, auto);
                 margin-top: -1.6rem;
@@ -323,6 +387,10 @@
         position: relative;
         height: 200vh;
         contain: paint;
+
+        @include sm {
+            height: auto;
+        }
         &--wrap {
             position: relative;
             display: flex;
@@ -332,6 +400,13 @@
             height: calc(100vh - 15.4rem - 4rem);
             margin: 0 auto;
             padding: 0 var(--container-padding);
+
+            @include sm {
+                height: auto;
+                position: relative;
+                top: auto;
+                --container-padding: 2rem;
+            }
         }
         &-main--inner {
             overflow: hidden;
@@ -339,12 +414,20 @@
             position: relative;
             height: 100%;
             width: 100%;
+            
+            @include sm {
+                border-radius: 1rem;
+            }
         }
         &-other--inner {
             position: absolute;
             display: flex;
             align-items: center;
             gap: 0 1.75vw;
+
+            @include sm {
+                display: none;
+            }
             &:first-child {
                 left: 4rem;
             }
@@ -417,6 +500,10 @@
                 @include size(100%);
                 background-color: rgba($cl-bg, 1);
                 z-index: 4;
+
+                @include sm {
+                    display: none;
+                }
             }
         }
         &-thumb {
@@ -449,6 +536,10 @@
                 align-items: center;
                 flex: none;
                 width: 65%;
+
+                @include sm {
+                    width: 20%;
+                }
                 svg {
                     margin-left: 38%;
                     width: 32%;
@@ -473,6 +564,10 @@
                 @include md {
                     --fs-h0: 4.4rem;
                 }
+                @include sm {
+                    --fs-h0: 2.4rem;
+                    --lh-h0: 1.2rem;
+                }
             }
             &-first {
                 pointer-events: none;
@@ -481,13 +576,16 @@
                 @include md {
                     right: calc(90%);
                 }
+                @include sm {
+                    right: calc(65%);
+                }
             }
             &-last {
                 pointer-events: none;
                 left: calc(100%);
 
                 @include md {
-                    left: calc(90%);
+                    left: calc(65%);
                 }
             }
         }
@@ -495,6 +593,10 @@
     &-skill {
         padding-top: 15rem;
         // overflow: hidden;
+
+        @include sm {
+            padding-top: 11.8rem; 
+        }
 
         &-title {
             grid-column: 2/10;
@@ -1338,15 +1440,20 @@
         }
     }
     &-curtain {
-        height: 70rem;
+        --block-height: 70rem;
+        height: var(--block-height);
         background-color: rgba($cl-primary, 1);
         position: relative;
         z-index: 3;
         margin-top: -2px;
 
+        @include sm {
+            --block-height: 40rem;
+        }
+
         &-inner {
             width: 100%;
-            height: calc(7rem + 2px);
+            height: calc(var(--block-height)/10 + 2px);
             margin-bottom: -2px;
             background-color: rgba($cl-bg, 1);
             @include transform(scaleY(0));
@@ -1758,6 +1865,10 @@
             padding-bottom: 14rem;
         }
 
+        @include sm {
+            padding-bottom: 9.5rem;
+        }
+
         &-heading {
             grid-area: 1/1/2/17;
             max-width: 144rem;
@@ -2061,7 +2172,6 @@
         }
     }
     &-testi {
-        height: 100vh;
         margin-top: 20rem;
         margin-bottom: 25rem;
         // background: linear-gradient(to top, blue 0%, red 100%);
@@ -2070,7 +2180,9 @@
             margin-top: 0;
             margin-bottom: 17.2rem;
         }
-
+        @include sm {
+            overflow: hidden;
+        }
 
         &-sticky {
             position: sticky;
@@ -2079,10 +2191,16 @@
             padding-bottom: 4rem;
             // background-color: orangered;
 
-
             @include md {
                 top: 15.4rem;
                 height: calc(100vh - 15.4rem);
+            }
+
+            @include sm {
+                position: static;
+                top: auto;
+                height: auto;
+                padding-bottom: 0;
             }
         }
         &-text-wrap {
@@ -2096,6 +2214,12 @@
 
             @include md {
                 grid-column: 1/6;
+            }
+
+            @include sm {
+                grid-column: 1/-1;
+                @include transform(translateY(0));
+                margin-bottom: 6rem;
             }
         }
         &-heading {
@@ -2112,6 +2236,11 @@
                 grid-template-columns: repeat(1, 1fr);
             }
 
+            @include sm {
+                grid-column: 1/-1;
+                display: block;
+            }
+
             &-wrap {
                 grid-column: span 8;
 
@@ -2126,7 +2255,12 @@
                 align-items: center;
                 perspective: 5000px;
                 pointer-events: none;
+
+                @include sm {
+                    align-items: start;
+                }
             }
+
             &-item {
                 // opacity: 0;
                 // z-index: calc(var(--i) * -1);
@@ -2146,6 +2280,12 @@
                 @include md {
                     padding: 3.2rem;
                     height: 46.4rem;
+                }
+                @include sm {
+                    position: relative;
+                    height: 46rem;
+                    flex: none;
+                    max-height: 46rem;
                 }
 
                 &.active {
@@ -2178,6 +2318,11 @@
                         --fs-h6: 2rem;
                         --lh-h6: 1.2em;
                     }
+                    @include sm {
+                        --fs-h6: 1.8rem;
+                        --lh-h6: 1.4em;
+                        margin-bottom: 2.4rem;
+                    }
                 }
                 &-author {
                     margin-top: 4.3rem;
@@ -2186,6 +2331,9 @@
 
                     @include md {
                         margin-top: 3.2rem;
+                    }
+                    @include sm {
+                        margin-top: 2.4rem;
                     }
                     &-avt {
                         border-radius: 50%;
@@ -2239,10 +2387,31 @@
                 background-color: rgba($cl-white, 0.10);
                 @include transform(translateY(-50%));
                 border-radius: 100vmax;
+
+                @include sm {
+                    grid-column: 1/-1;
+                    position: relative;
+                    top: auto;
+                    right: auto;
+                    margin: auto;
+                    margin-top: 2.4rem;
+                    @include size(20rem, .5rem);
+                }
                 &-inner {
                     background-color: $cl-primary;
                     border-radius: 100vmax;
                     height: 4rem;
+
+                    @include sm {
+                        display: none;
+                    }
+                }
+
+                .swiper-scrollbar-drag {
+                    height: 100%;
+                    background-color: $cl-primary;
+                    border-radius: 100vmax;
+                    @include size(4rem, 100%);
                 }
             }
         }
@@ -2253,6 +2422,10 @@
         @include md {
             padding-bottom: 16rem;
         }
+        @include sm {
+            padding-bottom: 10rem;
+        }
+
         &-heading {
             grid-column: 4/14;
             text-align: center;
@@ -2261,6 +2434,10 @@
             @include md {
                 grid-column: 3/11;
                 margin-bottom: 6rem;
+            }
+            @include sm {
+                grid-column: 1/-1;
+                margin-bottom: 4.6rem;
             }
         }
         &-content {
@@ -2278,6 +2455,10 @@
                 border-bottom: 1px solid rgba($cl-white, 0.10);
                 position: relative;
                 overflow: hidden;
+
+                @include sm {
+                    --widthOrdinal: 6.2rem;
+                }
                 &-ques {
                     display: flex;
                     align-items: center;
@@ -2286,6 +2467,10 @@
 
                     @include md {
                         padding-bottom: 3.2rem;
+                    }
+                    @include sm {
+                        align-items: flex-start;
+                        padding: 2.4rem 0;
                     }
                     &-ordinal {
                         color: rgba($cl-white, .2);
@@ -2298,6 +2483,9 @@
 
                         @include md {
                             --lh-h6: 1.2em;
+                        }
+                        @include sm {
+                            --fs-h6: 2rem;
                         }
                     }
                     &-dot {
@@ -2333,6 +2521,12 @@
                     margin-left: var(--widthOrdinal);
                     padding-bottom: 4rem;
                     margin-top: -1.6rem;
+
+                    @include sm {
+                        --fs-20: 1.4rem;
+                        --lh-20: 1.3em;
+                        margin-top: -.8rem;
+                    }
                 }
                 &:before,
                 &:after {

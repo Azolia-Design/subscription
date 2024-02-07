@@ -1030,9 +1030,9 @@
                             <p class="txt txt-20 testi-sub">Here's what people are saying about us</p>
                         </div>
                         <div class="home-testi-content">
-                            <div class="home-testi-content-wrap">
-                                <div class="home-testi-content-listing">
-                                    <div class="home-testi-content-item" style="--i: 1">
+                            <div class="home-testi-content-wrap" data-swiper="swiper">
+                                <div class="home-testi-content-listing" data-swiper="swiper-wrapper">
+                                    <div class="home-testi-content-item" data-swiper="swiper-slide" style="--i: 1">
                                         <div class="home-testi-content-item-fg"></div>
                                         <p class="h6 txt-reg home-testi-content-item-txt">“The items were delivered on time and in great quality. Bear Plus delivered great work. The project was managed well through clearly defined phases, and the team collaborated closely with the client through weekly touchpoints. This ensured the project stayed on track. Moreover, their members' design capabilities were impressive and exceeded expectations.”</p>
                                         <div class="home-testi-content-item-wrap">
@@ -1048,7 +1048,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="home-testi-content-item" style="--i: 2">
+                                    <div class="home-testi-content-item" data-swiper="swiper-slide" style="--i: 2">
                                         <div class="home-testi-content-item-fg"></div>
                                         <p class="h6 txt-reg home-testi-content-item-txt">“The items w and the team collaborated closely with the client through weekly touchpoints. This ensured the project stayed on track. Moreover, their members' design capabilities were impressive and exceeded expectations.”</p>
                                         <div class="home-testi-content-item-wrap">
@@ -1064,7 +1064,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="home-testi-content-item" style="--i: 3">
+                                    <div class="home-testi-content-item" data-swiper="swiper-slide" style="--i: 3">
                                         <div class="home-testi-content-item-fg"></div>
                                         <p class="h6 txt-reg home-testi-content-item-txt">“The items were delivered on time and in great quality. Bear Plus delivered great ir members' design capabilities were impressive and exceeded expectations.”</p>
                                         <div class="home-testi-content-item-wrap">
@@ -1080,7 +1080,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="home-testi-content-item" style="--i: 4">
+                                    <div class="home-testi-content-item" data-swiper="swiper-slide" style="--i: 4">
                                         <div class="home-testi-content-item-fg"></div>
                                         <p class="h6 txt-reg home-testi-content-item-txt">“The items were delivered on time and in great quality. Bear Plus delivered great work. The project was managed well through weekly touchpoints. This ensured the project stayed on track. Moreover, their members' design capabilities were impressive and exceeded expectations.”</p>
                                         <div class="home-testi-content-item-wrap">
@@ -1171,7 +1171,7 @@
                                 </div>
                                 <div class="home-faq-content-item" data-cursor="dotstick">
                                     <div class="home-faq-content-item-ques">
-                                        <p class="txt txt-20 home-faq-content-item-ques-ordinal">0007</p>
+                                        <p class="txt txt-20 home-faq-content-item-ques-ordinal">007</p>
                                         <h4 class="h6 txt-reg home-faq-content-item-ques-title">Are there any refunds?</h4>
                                         <span class="home-faq-content-item-ques-dot" data-cursor-dotpos=""></span>
                                     </div>
@@ -1196,8 +1196,9 @@
                     <span class="txt txt-18 txt-btn">Check our Pricing</span>
                 </a>
                 <div class="footer-cta-sub3">
-                    <p class="txt txt-18">If you need any support, feel free to contact us via email</p>
-                    <a class="txt txt-18 txt-med hover-line" href="mailto:halo@bearink.design">halo@bearink.design</a>
+                    <p class="txt txt-18">If you need any support, feel free to contact us via email <a href="mailto:halo@bearink.design" class="txt-med hover-line">halo@bearink.design</a></p>
+                    <!-- <p class="txt txt-18">If you need any support, feel free to contact us via email</p>
+                    <a class="txt txt-18 txt-med hover-line" href="mailto:halo@bearink.design">halo@bearink.design</a> -->
                 </div>
             </div>
         </div>
@@ -1288,6 +1289,7 @@
     <script src="js/libs/gsap-3.11.3.js" type="text/javascript"></script>
     <script src="js/libs/gsap-scrollTrigger-3.11.4.js" type="text/javascript"></script>
     <script src="js/libs/SplitText.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script src="js/main.js" type="module"></script>
 </body>
 </html>
