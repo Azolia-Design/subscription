@@ -30,6 +30,10 @@ const initCursor = () => {
                     xSetter(cursor.find('.cursor-dot').get(0))(lerp(dotX, 0, .1))
                     ySetter(cursor.find('.cursor-dot').get(0))(lerp(dotY, 0, .1))
                 }
+                // xSetter(cursor.find('.cursor-border').get(0))(lerp(borderX, 0, .15))
+                // ySetter(cursor.find('.cursor-border').get(0))(lerp(borderY, 0, .15))
+                // xSetter(cursor.find('.cursor-glow').get(0))(lerp(glowX, 0, .1))
+                // ySetter(cursor.find('.cursor-glow').get(0))(lerp(glowY, 0, .1))
             }
             xSetter(cursor.find('.cursor-border').get(0))(lerp(-(pointerCurr().x - cursorX)/20, 0, .15))
             ySetter(cursor.find('.cursor-border').get(0))(lerp(-(pointerCurr().y - cursorY)/20, 0, .15))
@@ -43,6 +47,16 @@ const initCursor = () => {
             let target = $('[data-cursor]:hover')
             let targetOffsetLeft = target.get(0).getBoundingClientRect().left
             let targetOffsetTop = target.get(0).getBoundingClientRect().top
+
+            if (target.find('.txt').length) {
+                txtOffsetLeft = target.find('.txt').get(0).getBoundingClientRect().left
+                txtOffsetTop = target.find('.txt').get(0).getBoundingClientRect().top
+            }
+
+            if (target.find('[data-cursor-dotpos]').length) {
+                dotOffsetLeft = target.find('[data-cursor-dotpos]').get(0).getBoundingClientRect().left
+                dotOffsetTop = target.find('[data-cursor-dotpos]').get(0).getBoundingClientRect().top
+            }
             let targetValue = {
                 w: $('[data-cursor]:hover').outerWidth(),
                 h: $('[data-cursor]:hover').outerHeight()
@@ -87,14 +101,11 @@ const initCursor = () => {
 
                     updatePos('free')
                     gsap.to(cursor.find('.cursor-dot'), {width: target.find('[data-cursor-dotpos]').width() + 6, height: target.find('[data-cursor-dotpos]').height() + 6, duration: .6, ease: 'power2.out', overwrite: true})
-                    let dotOffsetLeft = target.find('[data-cursor-dotpos]').get(0).getBoundingClientRect().left
-                    let dotOffsetTop = target.find('[data-cursor-dotpos]').get(0).getBoundingClientRect().top
+                    gsap.to(cursor.find('.cursor-border'), {scale: 1.5, autoAlpha: 0, duration: .4, ease: 'power2.out', overwrite: true})
+                    gsap.to(cursor.find('.cursor-glow'), {scale: 1.5, autoAlpha: 0, duration: .4, ease: 'power2.out', overwrite: true})
+                    
                     xSetter(cursor.find('.cursor-dot').get(0))(lerp(dotX, dotOffsetLeft + (target.find('[data-cursor-dotpos]').width()/2 + 1.5) - pointerCurr().x, .1))
                     ySetter(cursor.find('.cursor-dot').get(0))(lerp(dotY, dotOffsetTop + (target.find('[data-cursor-dotpos]').height()/2 + 1.5) - pointerCurr().y, .1))
-                    xSetter(cursor.find('.cursor-border').get(0))(lerp(dotX, dotOffsetLeft + (target.find('[data-cursor-dotpos]').width()/2 + 1.5) - pointerCurr().x, .1))
-                    ySetter(cursor.find('.cursor-border').get(0))(lerp(dotY, dotOffsetTop + (target.find('[data-cursor-dotpos]').height()/2 + 1.5) - pointerCurr().y, .1))
-                    xSetter(cursor.find('.cursor-glow').get(0))(lerp(dotX, dotOffsetLeft + (target.find('[data-cursor-dotpos]').width()/2 + 1.5) - pointerCurr().x, .1))
-                    ySetter(cursor.find('.cursor-glow').get(0))(lerp(dotY, dotOffsetTop + (target.find('[data-cursor-dotpos]').height()/2 + 1.5) - pointerCurr().y, .1))
                     break;
 
                 case 'txtstick':
@@ -110,6 +121,23 @@ const initCursor = () => {
                     xSetter(cursor.find('.cursor-glow').get(0))(lerp(glowX, pointerCurr().x - targetOffsetLeft , .2))
                     ySetter(cursor.find('.cursor-glow').get(0))(lerp(glowY, pointerCurr().y - targetOffsetTop, .2))
                     break;
+                
+                case 'halostick':
+                    dotstick = true
+
+                    updatePos('free')
+                    gsap.to(target, {x: cvUnit(30,'rem'), duration: .6, ease: 'power2.out', overwrite: true})
+                    gsap.to(cursor.find('.cursor-dot'), {width: cvUnit(5, "rem"), height: cvUnit(5, "rem"), scale: 1, duration: .6, ease: 'power2.out', overwrite: true})
+                    gsap.to(cursor.find('.cursor-border'), {scale: 1.5, autoAlpha: 0, duration: .4, ease: 'power2.out', overwrite: true})
+                    gsap.to(cursor.find('.cursor-glow'), {scale: 1.5, autoAlpha: 0, duration: .4, ease: 'power2.out', overwrite: true})
+
+
+                    xSetter(cursor.get(0))(lerp(cursorX, targetOffsetLeft + cvUnit(-15, "rem"), .1))
+                    ySetter(cursor.get(0))(lerp(cursorY, targetOffsetTop + targetValue.h/2, .1))
+                    xSetter(cursor.find('.cursor-glow').get(0))(lerp(glowX, pointerCurr().x - targetOffsetLeft , .2))
+                    ySetter(cursor.find('.cursor-glow').get(0))(lerp(glowY, pointerCurr().y - targetOffsetTop, .2))
+
+                    break;
 
                 case 'btnstick':
                     dotstick = true
@@ -117,13 +145,12 @@ const initCursor = () => {
                     updatePos('free')
                     gsap.to(target.find('.txt'), {x: cvUnit(15, 'rem')/2, duration: .6, ease: 'power2.out', overwrite: true})
 
-                    let txtOffsetLeft = target.find('.txt').get(0).getBoundingClientRect().left
-                    let txtOffsetTop = target.find('.txt').get(0).getBoundingClientRect().top
+                    
                     gsap.set(cursor.find('.cursor-dot'), {width: cvUnit(10, "rem"), height: cvUnit(10, "rem"), scale: 1, duration: .6, ease: 'power2.out', overwrite: true})
                     gsap.to(cursor.find('.cursor-border'), {scale: 1.5, autoAlpha: 0, duration: .4, ease: 'power2.out', overwrite: true})
 
                     xSetter(cursor.get(0))(lerp(cursorX, txtOffsetLeft + cvUnit(-15, "rem") + parseInt(target.find('.txt').css('paddingLeft')), .1))
-                    ySetter(cursor.get(0))(lerp(cursorY, txtOffsetTop + targetValue.h/2, .1))
+                    ySetter(cursor.get(0))(lerp(cursorY, txtOffsetTop + target.height()/2, .1))
                     xSetter(cursor.find('.cursor-glow').get(0))(lerp(glowX, pointerCurr().x - targetOffsetLeft , .2))
                     ySetter(cursor.find('.cursor-glow').get(0))(lerp(glowY, pointerCurr().y - targetOffsetTop, .2))
 
@@ -150,9 +177,11 @@ const initCursor = () => {
                     break;
             }
         } else {
-            cursor.closest('.cursor-wrap').removeClass('mixBlendMode')
-            gsap.to('[data-cursor="btnstick"] .txt', {x: 0, duration: .6, ease: 'power2.out'})
             if (cursorChange == true) {
+                cursor.closest('.cursor-wrap').removeClass('mixBlendMode')
+                gsap.to('[data-cursor="btnstick"] .txt', {x: 0, duration: .6, ease: 'power2.out'})
+                gsap.to('[data-cursor="halostick"]', {x: 0, duration: .6, ease: 'power2.out'})
+
                 gsap.to(cursor.find('.cursor-dot'), {width: cusrorDotWidth, height: cusrorDotWidth, scale: 1, autoAlpha: 1, backgroundColor: '#f5450d', duration: .6, ease: 'power2.out'})
                 gsap.to(cursor.find('.cursor-border'), {width: cusrorBorderWidth, height: cusrorBorderWidth, scale: 1, autoAlpha: 1, duration: .6, ease: 'power2.out'})
                 gsap.to(cursor.find('.cursor-glow'), {width: cusroGlowWidth, height: cusroGlowWidth, scale: 1, autoAlpha: 1, duration: .6, ease: 'power2.out'})

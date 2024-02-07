@@ -317,7 +317,19 @@
                     @include size(100%);
                     @include border-gradient();
                 }
+
+                &:nth-child(n+2) {
+                    &::before {
+                        content: none
+                    }
+                    width: calc(100% - 4px);
+                    @include transform(translateX(1px));
+                }
             }
+            &:nth-child(1) {
+                top: calc(3.7rem + 3.6rem * 1.1 * 3 + 2.4rem + 1.6rem * 1.4 * 2 + 5.4rem - 1px);   
+            }
+            
             
             &-img {
                 @include size(40rem, auto);
@@ -1385,9 +1397,15 @@
                     display: flex;
                     align-items: flex-end;
                     justify-content: flex-end;
-
+                    height: 4.8rem;
+                    padding: 1.2rem;
+                    margin-right: -1.2rem;
+                    margin-bottom: -1.2rem;
+                    align-self: end;
+                    justify-self: end;
                     img {
-                        width: 2.4rem;
+                        height: 100%;
+                        width: auto;
                         filter: invert(1);
                     }
                 }
@@ -2244,6 +2262,7 @@
             top: 15.4rem;
             height: calc(100vh - 15.4rem);
             padding-bottom: 4rem;
+            overflow: hidden;
             // background-color: orangered;
 
             @include md {
@@ -2301,8 +2320,12 @@
             }
 
             @include sm {
+                padding-inline: 2rem;
                 grid-column: 1/-1;
                 display: block;
+                // margin-left: calc(-1 * var(--container-padding));
+                // margin-right: calc(-1 * var(--container-padding));
+                // padding-right: 0;
             }
 
             &-wrap {
@@ -2310,6 +2333,11 @@
                 
                 @include md {
                     grid-column: span 1;
+                }
+
+                @include sm {
+                    // margin-left: calc(-1 * var(--container-padding));
+                    // padding-left: var(--container-padding);
                 }
             }
             &-listing {
@@ -2347,10 +2375,24 @@
                 }
                 @include sm {
                     position: relative;
-                    height: 46rem;
+                    height: 55rem;
+                    max-height: 60rem;
                     flex: none;
-                    max-height: 46rem;
                     border-radius: 1rem;
+                    transform-origin: center center;
+                    @include transition(all .5s ease-in-out);
+
+                    &.swiper-slide:has(+ .swiper-slide.swiper-slide-active) {
+                        // transform: translateX(.2rem) scale(.95);
+                        @include transform(translateX(1rem) scale(.95))
+                    }
+                    &.swiper-slide.swiper-slide-active+.swiper-slide {
+                        // transform: translateX(-.2rem) scale(.95);
+                        @include transform(translateX(-1rem) scale(.95))
+                    }
+                    &.swiper-slide-active {
+                        @include transform(scale(1) translateX(0));
+                    }
                 }
 
                 &.active {
