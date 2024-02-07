@@ -75,7 +75,7 @@ const updateProgressByScroll = () => {
     DOM.progWrap.on('click', function (e) {
         e.preventDefault();
         let target = $(this).attr('data-header-id');
-        let offset = -100;
+        let offset = viewportBreak({ desktop: -100, mobile: -30 });
         if (!isTouchDevice()) {
             lenis.scrollTo(`[data-section-id="${target}"]`, {
                 offset: offset

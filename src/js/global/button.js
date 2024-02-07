@@ -1,15 +1,16 @@
 import { lenis } from "./lenis";
-import { isTouchDevice } from "../helper/viewport";
+import { isTouchDevice, viewportBreak } from "../helper/viewport";
 
 const initButton = () => {
     $('.btn').each((_, el) => {
         let bgOverlay = $('<div></div>').addClass('btnoverlay');
         $(el).append(bgOverlay)
     })
+
     $('a').on('click', function (e) {
         if ($(this).attr('href').includes('#')) {
             let target = $(this).attr('href').slice(1);
-            let offset = -100;
+            let offset = viewportBreak({ desktop: -100, mobile: -20 });
 
             if (target) {
                 e.preventDefault();
