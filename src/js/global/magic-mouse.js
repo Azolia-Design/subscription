@@ -7,7 +7,7 @@ const initCursor = () => {
     const cusroGlowWidth = parseFloat($('.cursor-glow').css('width'))
 
     let cursorChange = false
-    const velChange = .11
+    const velChange = .15
 
     function initMouseMove() {
         let cursor = $('.cursor')
@@ -107,24 +107,25 @@ const initCursor = () => {
 
                     xSetter(cursor.get(0))(lerp(cursorX, targetOffsetLeft + cvUnit(-10, "rem"), .1))
                     ySetter(cursor.get(0))(lerp(cursorY, targetOffsetTop + targetValue.h/2, .1))
-                    xSetter(cursor.find('.cursor-glow').get(0))(lerp(glowX, cursorX - targetOffsetLeft, .1))
-                    ySetter(cursor.find('.cursor-glow').get(0))(lerp(glowY, cursorY - targetOffsetTop, .1))
+                    xSetter(cursor.find('.cursor-glow').get(0))(lerp(glowX, pointerCurr().x - targetOffsetLeft , .2))
+                    ySetter(cursor.find('.cursor-glow').get(0))(lerp(glowY, pointerCurr().y - targetOffsetTop, .2))
                     break;
 
                 case 'btnstick':
                     dotstick = true
 
                     updatePos('free')
-                    let sizeDot = target.attr('data-size')
-                    let distanceDot = target.attr('data-distance')
-                    gsap.to(target.find('.txt'), {x: cvUnit(sizeDot, 'rem')/2, duration: .6, ease: 'power2.out', overwrite: true})
+                    gsap.to(target.find('.txt'), {x: cvUnit(15, 'rem')/2, duration: .6, ease: 'power2.out', overwrite: true})
 
-                    let txtOffsetLeft = target.get(0).getBoundingClientRect().left
-                    let txtOffsetTop = target.get(0).getBoundingClientRect().top
-                    xSetter(cursor.find('.cursor-dot').get(0))(lerp(dotX, txtOffsetLeft + target.outerWidth()/2 - target.find('.txt').width()/2 - cvUnit(distanceDot, 'rem') - pointerCurr().x, .1))
-                    ySetter(cursor.find('.cursor-dot').get(0))(lerp(dotY, txtOffsetTop + target.outerHeight()/2 - pointerCurr().y, .1))
-                    gsap.set(cursor.find('.cursor-dot'), {width: cvUnit(sizeDot, "rem"), height: cvUnit(sizeDot, "rem"), scale: 1, duration: .6, ease: 'power2.out', overwrite: true})
+                    let txtOffsetLeft = target.find('.txt').get(0).getBoundingClientRect().left
+                    let txtOffsetTop = target.find('.txt').get(0).getBoundingClientRect().top
+                    gsap.set(cursor.find('.cursor-dot'), {width: cvUnit(10, "rem"), height: cvUnit(10, "rem"), scale: 1, duration: .6, ease: 'power2.out', overwrite: true})
                     gsap.to(cursor.find('.cursor-border'), {scale: 1.5, autoAlpha: 0, duration: .4, ease: 'power2.out', overwrite: true})
+
+                    xSetter(cursor.get(0))(lerp(cursorX, txtOffsetLeft + cvUnit(-15, "rem") + parseInt(target.find('.txt').css('paddingLeft')), .1))
+                    ySetter(cursor.get(0))(lerp(cursorY, txtOffsetTop + targetValue.h/2, .1))
+                    xSetter(cursor.find('.cursor-glow').get(0))(lerp(glowX, pointerCurr().x - targetOffsetLeft , .2))
+                    ySetter(cursor.find('.cursor-glow').get(0))(lerp(glowY, pointerCurr().y - targetOffsetTop, .2))
 
                     if (target.hasClass('btn-white')) {
                         gsap.set(cursor.find('.cursor-dot'), {backgroundColor: '#fff', duration: .6, ease: 'power2.out', overwrite: true})
@@ -162,7 +163,9 @@ const initCursor = () => {
         }
         requestAnimationFrame(initMouseMove)
     }
-    requestAnimationFrame(initMouseMove)
+    if ($(window).width() > 991) {
+        requestAnimationFrame(initMouseMove)
+    }
 }
 
 export default initCursor;

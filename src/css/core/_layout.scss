@@ -196,12 +196,12 @@ button {
             @include transform(scale(1));
             border-radius: 50%;
             will-change: width, height, background-color;
-            @include transition(
-                background-color .3s ease-in-out,
-                width .3s ease-in-out,
-                height .3s ease-in-out,
-                transform .3s ease,
-            );
+            // @include transition(
+            //     background-color .3s ease-in-out,
+            //     width .3s ease-in-out,
+            //     height .3s ease-in-out,
+            //     transform .3s ease,
+            // );
 
             &.blackdot {
                 background-color: $cl-black;
@@ -236,7 +236,7 @@ button {
                 @include transform(scale(1));
                 @include animation(rotate 20s linear infinite);
                 will-change: rotate;
-                @include transition(all .4s ease);
+                // @include transition(all .4s ease);
             }
 
             &.hide {
@@ -260,7 +260,7 @@ button {
             height: $cs-lg;
             @include transform(scale(1));
             will-change: width, height;
-            @include transition(all .4s ease);
+            // @include transition(all .4s ease);
 
             &.hide {
                 @include transform(scale(1.5));
