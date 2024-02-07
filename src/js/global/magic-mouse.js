@@ -15,6 +15,10 @@ const initCursor = () => {
         let cursorY = yGetter(cursor.get(0))
         let dotX = xGetter(cursor.find('.cursor-dot').get(0))
         let dotY = yGetter(cursor.find('.cursor-dot').get(0))
+        let borderX = xGetter(cursor.find('.cursor-border').get(0))
+        let borderY = yGetter(cursor.find('.cursor-border').get(0))
+        let glowX = xGetter(cursor.find('.cursor-glow').get(0))
+        let glowY = yGetter(cursor.find('.cursor-glow').get(0))
 
         let dotstick = false
 
@@ -39,12 +43,12 @@ const initCursor = () => {
             let target = $('[data-cursor]:hover')
             let targetOffsetLeft = target.get(0).getBoundingClientRect().left
             let targetOffsetTop = target.get(0).getBoundingClientRect().top
-
-            let type = target.attr('data-cursor')
             let targetValue = {
                 w: $('[data-cursor]:hover').outerWidth(),
                 h: $('[data-cursor]:hover').outerHeight()
             }
+
+            let type = target.attr('data-cursor')
 
             switch (type) {
                 case 'stick':
@@ -100,8 +104,11 @@ const initCursor = () => {
                     gsap.set(cursor.find('.cursor-dot'), {width: cvUnit(5, "rem"), height: cvUnit(5, "rem"), scale: 1, duration: .6, ease: 'power2.out', overwrite: true})
                     gsap.to(cursor.find('.cursor-border'), {scale: 1.5, autoAlpha: 0, duration: .4, ease: 'power2.out', overwrite: true})
                     gsap.set(cursor.find('.cursor-dot'), {backgroundColor: '#fff', duration: .6, ease: 'power2.out', overwrite: true})
-                    xSetter(cursor.find('.cursor-dot').get(0))(lerp(dotX, targetOffsetLeft - pointerCurr().x + cvUnit(-10, "rem"), .1))
-                    ySetter(cursor.find('.cursor-dot').get(0))(lerp(dotY, targetOffsetTop + targetValue.h/2 - pointerCurr().y, .1))
+
+                    xSetter(cursor.get(0))(lerp(cursorX, targetOffsetLeft + cvUnit(-10, "rem"), .1))
+                    ySetter(cursor.get(0))(lerp(cursorY, targetOffsetTop + targetValue.h/2, .1))
+                    xSetter(cursor.find('.cursor-glow').get(0))(lerp(glowX, cursorX - targetOffsetLeft, .1))
+                    ySetter(cursor.find('.cursor-glow').get(0))(lerp(glowY, cursorY - targetOffsetTop, .1))
                     break;
 
                 case 'btnstick':

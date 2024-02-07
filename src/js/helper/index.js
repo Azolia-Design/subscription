@@ -84,13 +84,13 @@ class FloatingAnimation {
 		gsap.set(this.target, {
 			x: this.randomX(Math.random() < 0.5 ? 1 : -1),
 			y: this.randomY(Math.random() < 0.5 ? 1 : -1),
-			// rotation: this.randomAngle(Math.random() < 0.5 ? 1 : -1),
+			rotation: this.randomAngle(Math.random() < 0.5 ? 1 : -1),
 			transformOrigin: "center center",
 		}, 0);
 
 		this.moveX(this.target, Math.random() < 0.5 ? 1 : -1);
 		this.moveY(this.target, Math.random() < 0.5 ? 1 : -1);
-		// this.rotate(this.target, Math.random() < 0.5 ? 1 : -1);
+		this.rotate(this.target, Math.random() < 0.5 ? 1 : -1);
 	}
 
 	random(min, max) {
