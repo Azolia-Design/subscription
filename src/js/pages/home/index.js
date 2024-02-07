@@ -517,14 +517,18 @@ const home = {
                 }
                 requestAnimationFrame(parallaxLogo)
             } else {
-                gsap.to('.home-explore-img img', {
+                gsap.fromTo('.home-explore-img img', {
+                    yPercent: 150
+                }, {
                     scrollTrigger: {
                         trigger: '.home-explore-heading',
                         start: 'top top+=90%',
-                        end: 'bottom top+=0%',
+                        end: 'bottom top+=30%',
                         scrub: .2,
+                        // markers: true,
                     },
-                    yPercent: -150
+                    yPercent: -120,
+                    ease: 'none'
                 })
             }
             
@@ -584,6 +588,7 @@ const home = {
                         start: `top top`,
                         end: 'bottom bottom',
                         scrub: true,
+                        markers: true,
                         onUpdate: (timeline) => {
                             gsap.set('.home-testi-content-progress-inner', {y: timeline.progress * parseRem(160)})
                         }
@@ -617,7 +622,6 @@ const home = {
                     zUnit = 1200
                     yUnit = 100
                 }
-        
                 $('.home-testi-content-item').each((idx, el) => {
                     if (idx == 0) {
                         tlScrub
@@ -630,8 +634,6 @@ const home = {
                         if (idx > 1) {
                             tlScrub
                             .fromTo($(el).prev().prev(), {z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter:"brightness(.67)"}, {z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter:"brightness(.33)", ease: 'power2.out', duration: timeAnim}, "<=0")
-                            gsap.set('.home-testi-content-item', {z: cvUnit(zUnit, 'rem'), yPercent: 150, filter:"brightness(1)"})
-
                         }
                         if (idx > 2) {
                             tlScrub
@@ -645,6 +647,7 @@ const home = {
                         .fromTo($(el).prev().prev(), {z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter:"brightness(.33)"}, {z: cvUnit(-zUnit * 3, 'rem'), y: cvUnit(-yUnit * 3, 'rem'), filter:"brightness(0)", ease: 'power3.out', duration: timeAnim}, "<=0")
                     }
                 })
+                gsap.set('.home-testi-content-item', {z: 0, y: 0, filter:"brightness(1)"})
             } else {
                 let parent = $('.home-testi-content')
                 parent.find('[data-swiper="swiper"]').addClass('swiper')
@@ -770,6 +773,20 @@ const home = {
         }
         faqAccordion();
 
+        function triggerScrollTo() {
+            $('[data-scroll]').on('click', function(e) {
+                e.preventDefault()
+                let targetSc = $(this).attr('data-scroll')
+                lenis.scrollTo(`.home-${targetSc}`, {offset: cvUnit(-80, 'rem'), duration:4})
+                console.log(`home-${targetSc}`);
+            })
+
+            $('[data-action="scrollTop"]').on('click', function(e) {
+                e.preventDefault()
+                lenis.scrollTo(0, {duration:5})
+            })
+        }
+        triggerScrollTo()
 
         function footer() {
             if ($(window).width() > 991) {
