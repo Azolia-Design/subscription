@@ -161,6 +161,9 @@
             top: 15.4rem;
             height: calc(100vh - 15.4rem);
 
+            @include md {
+                height: 60vh;
+            }
             @include sm {
                 position: static;
                 top: auto;
@@ -223,7 +226,6 @@
             @include md {
                 padding-top: 3.2rem;
                 padding-left: 2.4rem;
-                padding-right: 1.2rem;
             }
 
             &-overlay {
@@ -244,13 +246,9 @@
             padding-left: 4rem;
             z-index: 1;
             flex: none;
-
             @include md {
-                padding-top: 3.2rem;
-                padding-left: 2.4rem;
-                padding-right: 1.2rem;
+                width: 45.6vw;
             }
-
             @include sm {
                 width: 100%;
                 padding-top: 0rem;
@@ -289,7 +287,7 @@
             flex-direction: column;
             justify-content: space-between;
             padding-inline: 6rem;
-            width: 28vw;
+            width: 28.38vw;
             border-width: 1px;
             border-style: solid;
             border-image: linear-gradient(180deg, rgba($cl-heading, 0.2) 0%, rgba($cl-heading, 0) 100%) 1 100%;
@@ -298,9 +296,8 @@
             border-bottom: 0;
 
             @include md {
-                padding-left: 2.4rem;
                 width: 35vw;
-                // padding-right: 1.2rem;
+                padding-inline: 2.4rem 1.2rem;
             }
             @include sm {
                 width: calc(100% - 2px);
@@ -318,7 +315,7 @@
                     @include border-gradient();
                 }
             }
-            
+
             &-img {
                 @include size(40rem, auto);
                 margin-top: -1.6rem;
@@ -418,7 +415,7 @@
             position: relative;
             height: 100%;
             width: 100%;
-            
+
             @include sm {
                 border-radius: 1rem;
             }
@@ -599,7 +596,7 @@
         // overflow: hidden;
 
         @include sm {
-            padding-top: 11.8rem; 
+            padding-top: 11.8rem;
         }
 
         &-title {

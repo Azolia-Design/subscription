@@ -36,12 +36,11 @@ const home = {
 
             let mainItemSelect = selector(BENEFIT.mainItem);
             let totalDistance = BENEFIT.mainItem.width() + (BENEFIT.otherItem.width() * BENEFIT.otherItem.length);
-            let otherWrapDistance
-            if ($(window).width() > 991) {
-                otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem") + cvUnit(11, 'rem');
-            } else {
-                otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem") + cvUnit(15, 'rem');
-            }
+            let otherWrapDistance = viewportBreak({
+                desktop: BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem") + cvUnit(11, 'rem'),
+                tablet: BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem") + cvUnit(1, 'rem')
+            });
+
             const ITEM_WIDTH = ($('.container').width() - percentage(25, $('.container').width())) / 5;
 
             gsap.set(BENEFIT.stage, { height: totalDistance * 1.2 + cvUnit(100, "rem") });
@@ -84,7 +83,7 @@ const home = {
                     duration: 1
                 }, 0)
                 .to(mainItemSelect('p'), {
-                    marginTop: "-6rem",
+                    marginTop: -cvUnit(6, "rem"),
                     duration: 1
                 }, 0)
                 .to(BENEFIT.otherWrap, {
@@ -115,21 +114,12 @@ const home = {
 
                     BENEFIT.otherItem.each((idx, el) => {
                         if (idx > index) {
-                            if ($(window).width() > 991) {
-                                scrollerTl
+                            scrollerTl
                                 .to(el, {
                                     x: -(ITEM_WIDTH * ( 1 + index )),
-                                    paddingLeft: cvUnit(40, 'rem'),
+                                    paddingLeft: viewportBreak({ desktop: cvUnit(40, 'rem'), tablet: cvUnit(24, 'rem') }),
                                     duration: 1
                                 }, '<=0')
-                            } else if ($(window).width() > 767) {
-                                scrollerTl
-                                .to(el, {
-                                    x: -(ITEM_WIDTH * ( 1 + index )),
-                                    paddingLeft: cvUnit(30, 'rem'),
-                                    duration: 1
-                                }, '<=0')
-                            }
                         }
                     })
             })
@@ -596,7 +586,7 @@ const home = {
                     y: cvUnit(-90, 'rem'),
                     ease: 'none'
                 })
-    
+
                 let tlScrub = gsap.timeline({
                     scrollTrigger: {
                         trigger: '.home-testi',
@@ -605,7 +595,7 @@ const home = {
                         scrub: .2,
                     }
                 })
-    
+
                 let timeDelay = 1
                 let timeAnim = 1
                 let zUnit
@@ -617,7 +607,7 @@ const home = {
                     zUnit = 1200
                     yUnit = 100
                 }
-        
+
                 $('.home-testi-content-item').each((idx, el) => {
                     if (idx == 0) {
                         tlScrub

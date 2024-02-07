@@ -11,13 +11,13 @@ const viewportBreak = (callbacks) => {
     let result;
     switch (true) {
         case viewport.width >= device.tablet:
-            result = callbacks.desktop && callbacks.desktop();
+            result = callbacks.desktop;
             break;
         case viewport.width >= device.mobile:
-            result = callbacks.tablet && callbacks.tablet();
+            result = callbacks.tablet;
             break;
         default:
-            result = callbacks.mobile && callbacks.mobile();
+            result = callbacks.mobile;
             break;
     }
     return (result instanceof Function) ? result() : result;
