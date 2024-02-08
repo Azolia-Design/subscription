@@ -98,6 +98,7 @@ const initCursor = () => {
 
                 case 'dotstick':
                     dotstick = true
+                    let dotSize
 
                     updatePos('free')
                     gsap.to(cursor.find('.cursor-dot'), {width: target.find('[data-cursor-dotpos]').width() + 6, height: target.find('[data-cursor-dotpos]').height() + 6, duration: .6, ease: 'power2.out', overwrite: true})
@@ -166,7 +167,9 @@ const initCursor = () => {
                 case 'menuprog':
                     dotstick = true
                     updatePos('free')
-                    gsap.to(cursor.find('.cursor-dot'), {scale: targetValue.h / cusrorDotWidth, duration: .6, ease: 'power2.out', overwrite: true})
+
+                    console.log(targetValue.h / cusrorDotWidth);
+                    gsap.to(cursor.find('.cursor-dot'), {scale: target.find('.header-menu-prog-item').height() / cusrorDotWidth, duration: .6, ease: 'power2.out', overwrite: true})
                     gsap.to(cursor.find('.cursor-border'), {scale: 1.5, autoAlpha: 0, duration: .4, ease: 'power2.out', overwrite: true})
                     xSetter(cursor.find('.cursor-dot').get(0))(lerp(dotX, targetOffsetLeft - pointerCurr().x + targetValue.w/2, .1))
                     ySetter(cursor.find('.cursor-dot').get(0))(lerp(dotY, targetOffsetTop - pointerCurr().y + targetValue.h/2, .1))
