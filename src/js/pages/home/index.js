@@ -348,23 +348,37 @@ const home = {
                             }
                         })
                     } else {
+                        let idx = 0
+                        const target = $('.home-skill-thumb')
+                        function clickMobileThumb() {
+                            if (target.hasClass('active')) {
+                                let tarCurrY = yGetter(target.get(0))
+                                let tarY = cvUnit(60, 'rem') - $('.home-skill-thumb').outerHeight()*2.5/4 + ($('.home-skill-item').eq(idx).get(0).getBoundingClientRect().top - $('.home-skill-item').eq(0).get(0).getBoundingClientRect().top)
+
+                                ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
+                            }
+                            requestAnimationFrame(clickMobileThumb)
+                        }
+                        clickMobileThumb()
                         $('.home-skill-item').on('click', function(e) {
                             e.preventDefault()
                             if (!$(this).hasClass('active')) {
-                                let idx = $(this).index()
+                                idx = $(this).index()
 
                                 $('.home-skill-item').removeClass('active')
                                 $('.home-skill-item .home-skill-item-desc').slideUp(300, 'linear')
                                 $(this).addClass('active')
                                 $(this).find('.home-skill-item-desc').slideDown(300, 'linear')
                                 gsap.to('.home-skill-item', {paddingTop: cvUnit( 60.5, 'rem'), paddingBottom: cvUnit( 60.5, 'rem'), duration: .3, ease: 'none'})
+                                gsap.to('.home-skill-item .home-skill-item-title', {marginBottom: 0, duration: .3, ease: 'none'})
                                 gsap.to(this, {paddingTop: cvUnit( 27.5, 'rem'), paddingBottom: cvUnit( 27.5, 'rem'), duration: .3, ease: 'none', overwrite: true})
                                 gsap.to($(this).find('.home-skill-item-title'), {marginBottom: cvUnit(12, 'rem'), duration: .3, ease: 'none', overwrite: true})
                                 $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
                                 $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
-                                requestAnimationFrame(() => {
-                                    gsap.to('.home-skill-thumb', {y: cvUnit(80, 'rem') - $('.home-skill-thumb').outerHeight()*3/4 + ($(this).outerHeight()) + (idx - 1) * $('.home-skill-item:not(.active)').outerHeight(), duration: 1})
-                                })
+
+                                // requestAnimationFrame(() => {
+                                //     gsap.to('.home-skill-thumb', {y: cvUnit(60, 'rem') - $('.home-skill-thumb').outerHeight()*3/4 + ($(this).outerHeight()) + (idx - 1) * $('.home-skill-item:not(.active)').outerHeight(), duration: 1})
+                                // })
                             } else {
                                 $('.home-skill-item').removeClass('active')
                                 $('.home-skill-item .home-skill-item-desc').slideUp(300, 'linear')
@@ -511,10 +525,11 @@ const home = {
                     toggleClass: {targets: target, className: "active"},
                 })
 
-                function projectClippath(index) {
-                    let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
-                    let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
-                    gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
+                function projectClippath(index, action) {
+                        let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
+                        let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
+                        gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
+
                 }
 
                 const targetMove = $('.home-project-wrap-top')
@@ -553,7 +568,7 @@ const home = {
                         }
 
                     })
-                    requestAnimationFrame(initMouseMove)
+                    initMouseMove()
                 } else {
                     $('.home-project-wrap-bot .home-project-item').on('click', function(e) {
                         let nameSpace = $(this).find('[data-project-name]').attr('data-project-name')
@@ -585,7 +600,7 @@ const home = {
                 }
 
                 function initClickThumb(idx) {
-                    gsap.to(target, {y: (cvUnit(80, 'rem') + ($('.home-project-item').eq(0).outerHeight() - target.outerHeight())/2) + idx * $('.home-project-item').eq(0).outerHeight()})
+                    gsap.to(target, {y: (cvUnit( viewportBreak({tablet: 80, mobile: 100}), 'rem') + ($('.home-project-item').eq(0).outerHeight() - target.outerHeight())/2) + idx * $('.home-project-item').eq(0).outerHeight()})
                 }
             }
             hoverProject();
@@ -650,20 +665,27 @@ const home = {
                             discountTxt.revert()
                         }
                     })
-
                     tlSplitHead
                     .from(labelTxt.chars, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: 'power2.out'}, 0)
                     .from(titleTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: 'power2.out'}, '<=.4')
                     .from(subTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: 'power2.out'}, '<=.4')
                     .from(discountTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: 'power2.out'}, '<=.6')
-                    .from('.home-pricing-plan-switch', {yPercent: 60, autoAlpha: 0, duration: .8, ease: 'power2.out'}, '<=.4')
-                    .from('.home-pricing-plan-item.popular', {y: cvUnit(60, 'rem'), autoAlpha: 0, duration: .8, ease: 'power2.out'}, '<=.4')
-                    .from('.home-pricing-plan-item:not(.popular)', {y: cvUnit(60, 'rem'), autoAlpha: 0, duration: .8, ease: 'power2.out'}, '<=.2')
+                    .from('.home-pricing-plan-switch', {yPercent: 60, autoAlpha: 0, duration: .8, ease: 'power2.out', clearProps: 'all'}, '<=.2')
 
+                    let tlPricing = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: '.home-pricing--wrap',
+                            start: 'top top+=70%',
+                            // markers: true,
+                        }
+                    })
+
+                    tlPricing
+                    .from('.home-pricing-plan-item.popular', {y: cvUnit(60, 'rem'), autoAlpha: 0, duration: .8, ease: 'power2.out', clearProps: 'all'}, '<=1')
+                    .from('.home-pricing-plan-item:not(.popular)', {y: cvUnit(60, 'rem'), autoAlpha: 0, duration: .8, ease: 'power2.out', clearProps: 'all'}, '<=.2')
 
                     let ctaHeadingTxt = new SplitText('.home-pricing-plan-cta-heading', typeOpts.lines)
                     let ctaDescTxt = new SplitText('.home-pricing-plan-cta-desc', typeOpts.lines)
-
 
                     let tlCTAHead = gsap.timeline({
                         scrollTrigger: {
@@ -672,13 +694,15 @@ const home = {
                             // markers: true,
                         },
                         onComplete: () => {
+                            ctaHeadingTxt.revert()
+                            ctaDescTxt.revert()
                         }
                     })
 
                     tlCTAHead
                     .from(ctaHeadingTxt.lines, {yPercent: 60, autoAlpha: 0, stagger: .3, duration: .6, ease: 'power2.out'}, 0)
-                    .from(ctaDescTxt.lines, {yPercent: 60, autoAlpha: 0, stagger: .3, duration: .6, ease: 'power2.out'}, '<=.3')
-
+                    .from(ctaDescTxt.lines, {yPercent: 60, autoAlpha: 0, stagger: .2, duration: .6, ease: 'power2.out'}, '<=.3')
+                    .from('.home-pricing-plan-cta .btn', {yPercent: 60, autoAlpha: 0, stagger: .3, duration: .6, ease: 'power2.out', clearProps: 'all'}, '<=.3')
                 }
             })
 
@@ -774,77 +798,109 @@ const home = {
 
         /** (💡)  - INDUSTRIES */
         function homeIndustries() {
-            if ($(window).width() > 991) {
-                function parallaxLogo() {
-                    let target = $('.home-explore-img img')
-                    let tarCurrX = xGetter(target.get(0))
-                    let tarCurrY = yGetter(target.get(0))
-                    let moveX = (pointerCurr().x/$(window).width() - 0.5) * 2 * (target.width()/4)
-                    let moveY = (pointerCurr().y/$(window).height() - 0.5) * 2 * (target.height()/8)
-                    xSetter(target.get(0))(lerp(tarCurrX, moveX, .01))
-                    ySetter(target.get(0))(lerp(tarCurrY, moveY, .01))
 
-                    requestAnimationFrame(parallaxLogo)
-                }
-                requestAnimationFrame(parallaxLogo)
-            } else {
-                gsap.fromTo('.home-explore-img img', {
-                    yPercent: viewportBreak({ tablet: 20, mobile: 40 })
-                }, {
-                    scrollTrigger: {
-                        trigger: '.home-explore-heading',
-                        start: 'top bottom',
-                        end: 'bottom top',
-                        scrub: .2
-                    },
-                    yPercent: -50,
-                    ease: 'none'
-                })
-            }
+            ScrollTrigger.create({
+                trigger: '.home-explore',
+                start: 'top bottom',
+                once: true,
+                onEnter: () => {
+                    let headTxt = new SplitText('.home-explore-heading h3', typeOpts.chars)
 
+                    let tlSplitHead = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: '.home-explore-heading',
+                            start: 'top top+=90%',
+                            end: 'bottom top+=20%',
+                            scrub: .1
+                        }
+                    })
+                    tlSplitHead
+                    .from(headTxt.chars, {color: '#121212', stagger: .05, duration: .6, ease: 'none'}, 0)
 
-            const DOM = {
-                radarScan: $('.home-explore-industries-radar-scan'),
-                lineItem: $('.home-explore-industries-radar-wrapper-item-line'),
-                dot: $('.home-explore-industries-radar-wrapper-item-line-dot-wrap')
-            }
-            gsap.set(DOM.radarScan, {rotate: -10})
-            let lifeCycleTime = 8
+                    let titleTxt = new SplitText('.home-explore-industries-title', typeOpts.words)
 
-            let tl = gsap.timeline({
-                repeat: -1,
-                defaults: {
-                    ease: 'none'
-                }
-            })
+                    let tlSplitTitle = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: '.home-explore-industries-title',
+                            start: 'top top+=95%',
+                        }
+                    })
 
-            tl
-            .fromTo(DOM.radarScan, {
-                rotate: 0 - 10,
-            }, {
-                rotate: 270 - 10,
-                duration: lifeCycleTime,
-                ease: 'none',
-            }, 0)
-            DOM.lineItem.each((idx, el) => {
-                tl
-                .to($(el).find(DOM.dot), {
-                    onStart: () => {
-                        $(el).find(DOM.dot).addClass('active')
+                    tlSplitTitle
+                    .from(titleTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: 'power2.out'}, 0)
+
+                    if ($(window).width() > 991) {
+                        function parallaxLogo() {
+                            let target = $('.home-explore-img img')
+                            let tarCurrX = xGetter(target.get(0))
+                            let tarCurrY = yGetter(target.get(0))
+                            let moveX = (pointerCurr().x/$(window).width() - 0.5) * 2 * (target.width()/4)
+                            let moveY = (pointerCurr().y/$(window).height() - 0.5) * 2 * (target.height()/8)
+                            xSetter(target.get(0))(lerp(tarCurrX, moveX, .01))
+                            ySetter(target.get(0))(lerp(tarCurrY, moveY, .01))
+        
+                            requestAnimationFrame(parallaxLogo)
+                        }
+                        requestAnimationFrame(parallaxLogo)
+                    } else {
+                        gsap.fromTo('.home-explore-img img', {
+                            yPercent: viewportBreak({ tablet: 20, mobile: 40 })
+                        }, {
+                            scrollTrigger: {
+                                trigger: '.home-explore-heading',
+                                start: 'top bottom',
+                                end: 'bottom top',
+                                scrub: .2
+                            },
+                            yPercent: -50,
+                            ease: 'none'
+                        })
                     }
-                }, `${ (0.1254480287 * lifeCycleTime) + (0.1111111111 * idx * lifeCycleTime)}`)
-                .to($(el).find(DOM.dot), {
-                    onStart: () => {
-                        $(el).find(DOM.dot).removeClass('active')
-                    }
-                }, '<=2')
-            })
 
-            $('.home-explore-industries-radar-wrapper-item-line-dot-wrap').on('pointerenter', function(e) {
-                $(this).addClass('on-hover')
-            })
-            $('.home-explore-industries-radar-wrapper-item-line-dot-wrap').on('pointerleave', function(e) {
-                $(this).removeClass('on-hover')
+                    const DOM = {
+                        radarScan: $('.home-explore-industries-radar-scan'),
+                        lineItem: $('.home-explore-industries-radar-wrapper-item-line'),
+                        dot: $('.home-explore-industries-radar-wrapper-item-line-dot-wrap')
+                    }
+                    gsap.set(DOM.radarScan, {rotate: -10})
+                    let lifeCycleTime = 8
+        
+                    let tl = gsap.timeline({
+                        repeat: -1,
+                        defaults: {
+                            ease: 'none'
+                        }
+                    })
+        
+                    tl
+                    .fromTo(DOM.radarScan, {
+                        rotate: 0 - 10,
+                    }, {
+                        rotate: 270 - 10,
+                        duration: lifeCycleTime,
+                        ease: 'none',
+                    }, 0)
+                    DOM.lineItem.each((idx, el) => {
+                        tl
+                        .to($(el).find(DOM.dot), {
+                            onStart: () => {
+                                $(el).find(DOM.dot).addClass('active')
+                            }
+                        }, `${ (0.1254480287 * lifeCycleTime) + (0.1111111111 * idx * lifeCycleTime)}`)
+                        .to($(el).find(DOM.dot), {
+                            onStart: () => {
+                                $(el).find(DOM.dot).removeClass('active')
+                            }
+                        }, '<=2')
+                    })
+        
+                    $('.home-explore-industries-radar-wrapper-item-line-dot-wrap').on('pointerenter', function(e) {
+                        $(this).addClass('on-hover')
+                    })
+                    $('.home-explore-industries-radar-wrapper-item-line-dot-wrap').on('pointerleave', function(e) {
+                        $(this).removeClass('on-hover')
+                    })
+                }
             })
         }
         homeIndustries()
