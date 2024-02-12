@@ -25,7 +25,7 @@ const initFooter = () => {
             ease: 'power1.inOut'
         })
     }
-    curtainFooter();
+    // curtainFooter();
 
     const parallaxBear = () => {
         let target = $('.footer-curtain-logo')
