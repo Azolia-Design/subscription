@@ -671,7 +671,8 @@
         &-item {
             padding: 5.8rem 0;
             align-items: center;
-            border-top: 1px solid rgba($cl-heading, 0.1);
+            position: relative;
+            // border-top: 1px solid rgba($cl-heading, 0.1);
 
             @include md {
                 padding: 5.5rem 0;
@@ -721,6 +722,11 @@
                     display: none;
                     overflow: hidden;
                 }
+            }
+
+            .line {
+                position: absolute;
+                top: 0;
             }
             @media (hover:hover) {
                 &:hover {
@@ -1626,6 +1632,7 @@
                     }
                     @include sm {
                         width: 100%;
+                        --btn-width: calc(100% / 3);
                     }
 
                     &-btn {
@@ -1650,7 +1657,7 @@
                     pointer-events: none;
 
                     @include sm {
-                        width: 10.7rem;
+                        width: calc(100% / 3);
                     }
 
                     &:first-of-type {
@@ -1662,7 +1669,7 @@
                         }
                     }
                     &:last-of-type {
-                        mix-blend-mode: color;
+                        mix-blend-mode: lighten;
                         .btn {
                         }
                     }
