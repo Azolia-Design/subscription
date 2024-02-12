@@ -918,7 +918,7 @@ const home = {
                         scrub: true,
                         // markers: true,
                         onUpdate: (timeline) => {
-                            gsap.set('.home-testi-content-progress-inner', {y: timeline.progress * parseRem(160)})
+                            gsap.set('.home-testi-content-progress-inner', {y: timeline.progress * cvUnit(180, 'rem')})
                         }
                     }
                 })
@@ -936,10 +936,16 @@ const home = {
                         start: `top+=0% bottom`,
                         end: 'bottom top',
                         scrub: .2,
-                    }
+                        snap: {
+                            // To update exact position and check directional
+                            snapTo: [0.2521, 0.4767, 0.6257, 0.7632, 1],
+                            duration: { min: 0.15, max: 1 },
+                            delay: 0.01,
+                        },
+                    },
                 })
 
-                let timeDelay = 1
+                let timeDelay = .5
                 let timeAnim = 1
                 let zUnit
                 let yUnit
@@ -953,11 +959,11 @@ const home = {
                 $('.home-testi-content-item').each((idx, el) => {
                     if (idx == 0) {
                         tlScrub
-                        .fromTo($(el), {z: cvUnit(zUnit * 2, 'rem'), yPercent: 75, filter:"brightness(1)"}, {z: 0, yPercent: 0, filter:"brightness(1)", ease: 'power1.out', duration: timeAnim}, 0)
+                        .fromTo($(el), {z: cvUnit(zUnit * 2, 'rem'), yPercent: 75, filter:"brightness(1)"}, {z: 0, yPercent: 0, filter:"brightness(1)", ease: 'power1.out', duration: timeAnim * 2}, 0)
                     }
                     if (idx > 0 && idx < ($('.home-testi-content-item').length)) {
                         tlScrub
-                        .fromTo($(el), {z: cvUnit(zUnit, 'rem'), yPercent: 150, filter:"brightness(1)"}, {z: 0, yPercent: 0, filter:"brightness(1)", ease: 'power3.out', duration: timeAnim}, `0 + ${timeAnim + timeDelay + idx * (timeAnim + timeDelay)}`)
+                        .fromTo($(el), {z: cvUnit(zUnit, 'rem'), yPercent: 150, filter:"brightness(1)"}, {z: 0, yPercent: 0, filter:"brightness(1)", ease: 'power3.out', duration: timeAnim}, `>=${(timeDelay)}`)
                         .fromTo($(el).prev(), {z: 0, y: 0, filter:"brightness(1)"}, {z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter:"brightness(.67)", ease: 'power2.out', duration: timeAnim}, "<=0")
                         if (idx > 1) {
                             tlScrub
@@ -968,9 +974,9 @@ const home = {
                             .fromTo($(el).prev().prev().prev(), {z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter:"brightness(.33)"}, {z: cvUnit(-zUnit * 3, 'rem'), y: cvUnit(-yUnit * 3, 'rem'), filter:"brightness(0)", ease: 'power2.out', duration: timeAnim}, "<=0")
                         }
                     }
-                    if (idx == ($('.home-testi-content-item').length -1)) {
+                    if (idx == ($('.home-testi-content-item').length - 1)) {
                         tlScrub
-                        .fromTo($(el), {z: 0, y: 0, filter:"brightness(1)"}, {z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter:"brightness(.67)", ease: 'power3.out', duration: timeAnim}, `>=${timeAnim * .1}`)
+                        .fromTo($(el), {z: 0, y: 0, filter:"brightness(1)"}, {z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter:"brightness(.67)", ease: 'power3.out', duration: timeAnim}, `>=${timeDelay}`)
                         .fromTo($(el).prev(), {z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter:"brightness(.67)"}, {z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter:"brightness(.33)", ease: 'power3.out', duration: timeAnim}, "<=0")
                         .fromTo($(el).prev().prev(), {z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter:"brightness(.33)"}, {z: cvUnit(-zUnit * 3, 'rem'), y: cvUnit(-yUnit * 3, 'rem'), filter:"brightness(0)", ease: 'power3.out', duration: timeAnim}, "<=0")
                     }

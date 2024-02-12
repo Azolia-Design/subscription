@@ -1,7 +1,7 @@
 import { selector, lerp, xGetter, xSetter, yGetter, ySetter, pointerCurr, FloatingAnimation } from '../helper/index';
 import { marqueeCSS } from '../common/marquee';
 import { lenis } from './lenis';
-import { isTouchDevice } from '../helper/viewport';
+import { cvUnit, isTouchDevice } from '../helper/viewport';
 
 const initFooter = () => {
     marqueeCSS({
@@ -31,7 +31,7 @@ const initFooter = () => {
         let target = $('.footer-curtain-logo')
         let tarCurrX = xGetter(target.get(0))
         let tarCurrY = yGetter(target.get(0))
-        let moveX = (pointerCurr().x/$(window).width() - 0.5) * ($(window).width() - target.width())
+        let moveX = (pointerCurr().x/$(window).width() - 0.5) * ($(window).width() - target.width() - cvUnit(60, 'rem'))
         let moveY = (pointerCurr().y/$(window).height() - 0.5) * 2 * (target.height()/8)
         xSetter(target.get(0))(lerp(tarCurrX, moveX, .01))
         ySetter(target.get(0))(lerp(tarCurrY, moveY, .01))

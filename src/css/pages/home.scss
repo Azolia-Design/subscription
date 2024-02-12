@@ -1,5 +1,6 @@
 .home {
     --height-header: 15.4rem;
+
     &-hero {
         .container {
             height: 100%;
@@ -2293,16 +2294,22 @@
         @include sm {
             overflow: hidden;
             margin-bottom: 12rem;
-
         }
 
         &-sticky {
             position: sticky;
-            top: var(--height-header);
-            height: calc(100vh - var(--height-header));
+            // top: var(--height-header);
+            // height: calc(100vh - var(--height-header));
+            top: 0;
+            height: 100vh;
+            padding-top: var(--height-header);
             padding-bottom: 4rem;
             overflow: hidden;
             // background-color: orangered;
+
+            .grid {
+                height: 100%;
+            }
 
             @include sm {
                 position: static;
