@@ -20,7 +20,6 @@ const initLenis = () => {
 
 const scrollTop = () => {
     return (onComplete) => {
-        console.log('scrolltop');
         lenis.scrollTo('top', {
             duration: .0001,
             lock: true,

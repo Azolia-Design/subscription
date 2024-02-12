@@ -220,7 +220,6 @@ const home = {
                 }
                 DOM.link_vid.on('click', function(e) {
                     e.preventDefault();
-                    console.log("click")
                     if ($(this).attr('data-video') == 'to-play') {
                         $(this).attr('data-video', 'to-pause')
                         /** -NOTE-
@@ -774,7 +773,6 @@ const home = {
             function testPayment() {
                 $('.btn-purchase').on('click', function(e) {
                     e.preventDefault()
-                    console.log('clicked')
                     let planId = $(this).attr('data-button-id')
                     fetch('http://localhost:4000/create-checkout-session', {
                         method: 'POST',
@@ -790,7 +788,6 @@ const home = {
                         if (res.ok) return res.json()
                         return res.json().then(json => Promise.reject(json))
                     }).then(({ url }) => {
-                        console.log(url)
                         window.location = url
                     }).catch(e => {
                         console.error(e.message)
