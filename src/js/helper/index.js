@@ -30,7 +30,7 @@ let pointer = { x: $(window).width() / 2, y: $(window).height() / 2 };
 $(window).on('pointermove', function (e) {
     pointer.x = e.clientX;
     pointer.y = e.clientY;
-    if ($('.cursor-wrap').hasClass('on-hidden') && !isTouchDevice()) {
+    if ($('.cursor-wrap').hasClass('on-hidden') && !isTouchDevice() && $(window).width() > 991) {
         $('.cursor-wrap').removeClass('on-hidden')
     }
 })
