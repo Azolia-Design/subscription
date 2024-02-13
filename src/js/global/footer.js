@@ -10,22 +10,30 @@ const initFooter = () => {
     });
 
     const curtainFooter = () => {
-        gsap.to('.footer-curtain-inner', {
+        let curtainHeight = $('.footer-curtain').height()
+
+        gsap.from('.footer-curtain--inner', {
             scrollTrigger: {
                 trigger: '.footer-curtain',
                 start: 'top bottom',
-                end: 'bottom top+=60%',
-                scrub: true,
+                endTrigger: '.footer',
+                end: `bottom bottom+=${-(curtainHeight)}`,
+                // markers: true,
+                scrub: .2,
+                // onUpdate: (timeline) => {
+                //     console.log(timeline.progress);
+                // }
             },
-            scaleY: .0,
-            transformOrigin: 'bottom',
+            scaleY: 0,
+            y: -curtainHeight/20,
             stagger: {
-                amount: .25
+                amount: -.35
             },
+            delay: .2,
             ease: 'power1.inOut'
         })
     }
-    // curtainFooter();
+    curtainFooter();
 
     const parallaxBear = () => {
         let target = $('.footer-curtain-logo')
