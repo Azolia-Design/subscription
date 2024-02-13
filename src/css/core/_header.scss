@@ -11,7 +11,7 @@
     pointer-events: none;
 
     @include md {
-        display: none;
+        // display: none;
     }
     &-container {
         display: flex;
@@ -89,6 +89,7 @@
             @include md {
                 margin-left: 2.4rem;
                 align-items: center;
+                padding: .8rem .8rem .8rem .8rem;
             }
 
             .btn {
@@ -97,6 +98,12 @@
                 @include md {
                     display: flex;
                     align-items: center;
+                }
+
+                .txt {
+                    @include md {
+                        padding: 1.9rem 2.7rem;
+                    }
                 }
             }
         }
@@ -174,6 +181,10 @@
         }
         &-label {
             display: grid;
+
+            @include md {
+                margin-bottom: .1rem;
+            }
             &-item {
                 grid-area: 1/1/2/2;
                 align-self: center;
@@ -182,6 +193,11 @@
                 opacity: 0;
                 @include transform(scale(.8));
                 @include transition(all ease 600ms);
+
+                @include md {
+                    --fs-16: 1.4rem;
+                    --lh-16: 1.3em;
+                }
             }
         }
         &-prog {
@@ -230,6 +246,11 @@
         }
         &.active {
             padding-left: 2.6rem;
+
+            @include md {
+                padding-left: 1.2rem;
+                margin-right: 3.2rem;
+            }
             .header-menu {
                 &-label {
                     &-item {
@@ -260,6 +281,10 @@
                             }
                             .header-menu-prog-item-link {
                                 width: 7.2rem;
+
+                                @include md {
+                                    width: 3.1rem;
+                                }
                             }
                         }
                     }

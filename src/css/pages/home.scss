@@ -116,6 +116,10 @@
             bottom: 0;
             margin-left: var(--container-padding);
             margin-bottom: 3rem;
+
+            @include md {
+                margin-bottom: 5rem;
+            }
         }
         &-mouse {
             position: relative;
@@ -169,6 +173,7 @@
 
             @include md {
                 height: 60vh;
+                top: calc((40vh - var(--height-header))/2 + var(--height-header));
             }
             @include sm {
                 position: static;
@@ -940,6 +945,8 @@
             top: -86.1rem;
             bottom: -93rem;
         }
+        overflow-x: hidden;
+        overflow-y: visible;
 
         @include md {
             @include size(100%, 97.5rem);
@@ -958,8 +965,32 @@
         }
 
         img {
+            overflow: visible;
+            @include animation(gradientNoiseAnim 20s linear infinite);
+
             @include sm {
                 // @include transform(rotate(-8.73deg));
+            }
+        }
+
+        @keyframes gradientNoiseAnim {
+            0% {
+                @include transform(rotate(0deg) scale(1));
+            };
+            25% {
+                @include transform(rotate(90deg) scale(.68));
+            };
+            50% {
+                @include transform(rotate(180deg) scale(.7));
+            };
+            75% {
+                @include transform(rotate(270deg) scale(.68));
+            };
+            87% {
+                @include transform(rotate(315deg) scale(.8));
+            };
+            100% {
+                @include transform(rotate(360deg) scale(1));
             }
         }
     }

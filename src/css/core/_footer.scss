@@ -1,6 +1,7 @@
 .footer {
     position: relative;
     padding-top: 6rem;
+    overflow: hidden;
     // padding-bottom: 2rem;
 
     @include sm {
@@ -113,7 +114,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        @include transform(translateY(1px));
+        // @include transform(translateY(px));
         z-index: 1;
 
         .footer-curtain-line {
@@ -124,6 +125,9 @@
             background: url("../../public/imgs/ft-line1.svg");
             background-repeat: repeat-x;
             background-size: auto 100%;
+
+            /* Test*/
+            display: none;
         }
         .footer-curtain-line2 {
             position: absolute;
@@ -133,6 +137,21 @@
             background-repeat: repeat-x;
             background-size: auto 100%;
             z-index: 3;
+        }
+
+        /* Test*/
+        &--inner {
+            z-index: 1;
+            position: absolute;
+            top: calc((var(--zindex) - 1) * (100%/10));
+            display: block;
+            @include size(100%, calc(100% / 10));
+            background-color: rgba($cl-primary, 1);
+            transform-origin: top;
+
+            &:nth-of-type(n + 7) {
+                z-index: 4;
+            }
         }
 
         &-logo {
@@ -151,7 +170,7 @@
         }
         &-hide {
             position: absolute;
-            opacity: 0;
+            opacity: 1;
             bottom: 0;
             height: 30%;
             width: 100%;
@@ -164,6 +183,12 @@
         padding-bottom: 2rem;
         z-index: 1;
 
+        @include md {
+            padding-bottom: 2.6rem;
+            padding-top: 2.6rem;
+            background-color: rgba($cl-primary, 1);
+            margin-top: -3.5rem;
+        }
         @include sm {
             margin-top: 0;
             padding-bottom: .6rem;
@@ -240,5 +265,14 @@
         &:last-child:after {
             display: none;
         }
+    }
+    &-overlap {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1rem;
+        background-color: rgba($cl-primary, 1);
+        z-index: 4;
     }
 }
