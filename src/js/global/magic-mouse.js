@@ -39,7 +39,7 @@ const initCursor = () => {
             if (target.find('[data-cursor-dotpos]').length) {
                 dotOffsetLeft = target.find('[data-cursor-dotpos]').get(0).getBoundingClientRect().left
                 dotOffsetTop = target.find('[data-cursor-dotpos]').get(0).getBoundingClientRect().top
-            } 
+            }
             let targetValue = {
                 w: $('[data-cursor]:hover').outerWidth(),
                 h: $('[data-cursor]:hover').outerHeight()
@@ -47,7 +47,7 @@ const initCursor = () => {
 
             let type = target.attr('data-cursor')
 
-            switch (type) {    
+            switch (type) {
                 case 'stick':
                     cursor.closest('.cursor-wrap').addClass('mixBlendMode')
 
@@ -100,7 +100,7 @@ const initCursor = () => {
                     xSetter(cursor.find('.cursor-glow').get(0))(lerp(glowX, pointerCurr().x - targetOffsetLeft , velChange))
                     ySetter(cursor.find('.cursor-glow').get(0))(lerp(glowY, pointerCurr().y - targetOffsetTop, velChange))
                     break;
-                
+
                 case 'halostick':
                     cursor.find('.cursor-dot').addClass('smdot')
                     cursor.find('.cursor-border').addClass('hide')

@@ -25,7 +25,7 @@ const initFooter = () => {
                 // }
             },
             scaleY: 0,
-            y: -curtainHeight/20,
+            // y: -curtainHeight/20,
             stagger: {
                 amount: -.35
             },

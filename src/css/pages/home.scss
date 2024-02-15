@@ -966,7 +966,7 @@
 
         img {
             overflow: visible;
-            @include animation(gradientNoiseAnim 20s linear infinite);
+            // @include animation(gradientNoiseAnim 20s linear infinite);
 
             @include sm {
                 // @include transform(rotate(-8.73deg));
