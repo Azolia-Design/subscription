@@ -139,6 +139,7 @@ const home = {
                     toLabel(1, scrollerTl, `label${target}`)
                 })
                 function toLabel(duration, timeline, label) {
+                    lenis.stop()
                     const yStart = $('.home-benefit').offset().top - $('.header').outerHeight()
                     const now = timeline.progress()
                     timeline.seek(label)
@@ -146,7 +147,7 @@ const home = {
                     timeline.progress(now)
                     lenis.scrollTo(yStart + ( timeline.scrollTrigger.end - timeline.scrollTrigger.start ) * goToProgress, {
                         duration: duration,
-                        force: true
+                        force: true,
                     })
                 }
             }
