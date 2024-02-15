@@ -26,7 +26,6 @@ const initCursor = () => {
 
         function updatePos(mode) {
             if (mode == "force") {
-                console.log("forcing");
                 xSetter(cursor.get(0))(lerp(cursorX, targetPos.x, 1))
                 ySetter(cursor.get(0))(lerp(cursorY, targetPos.y, 1))
             } else {
