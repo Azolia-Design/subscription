@@ -1,6 +1,6 @@
 import { xGetter, xSetter, lerp } from "../helper/index";
 import { lenis } from "../global/lenis";
-import { isTouchDevice } from "../helper/viewport";
+import { isTouchDevice, viewportBreak } from "../helper/viewport";
 
 const setupDot = () => {
     let allSections = $('[data-section]');
@@ -134,7 +134,7 @@ const updateHeaderBarByScroll = () => {
                 $('.header-hamburger').removeClass('active')
                 if ($(window).width() <= 991) {
                     gsap.to('.header-main-schedule', {width: 'auto', overwrite: true})
-                    gsap.to('.header-hamburger', {width: 'auto', overwrite: true})
+                    gsap.to('.header-hamburger', {width: '6rem', overwrite: true})
                 }
             }
         }

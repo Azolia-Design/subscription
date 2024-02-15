@@ -1,5 +1,6 @@
 .home {
     --height-header: 15.4rem;
+
     &-hero {
         .container {
             height: 100%;
@@ -115,6 +116,10 @@
             bottom: 0;
             margin-left: var(--container-padding);
             margin-bottom: 3rem;
+
+            @include md {
+                margin-bottom: 5rem;
+            }
         }
         &-mouse {
             position: relative;
@@ -168,6 +173,7 @@
 
             @include md {
                 height: 60vh;
+                top: calc((40vh - var(--height-header))/2 + var(--height-header));
             }
             @include sm {
                 position: static;
@@ -301,6 +307,7 @@
                 top: calc(3.7rem + 3.6rem * 1.1 * 3 + 2.4rem + 1.6rem * 1.4 * 2 + 5.4rem);
 
                 &::before {
+                    pointer-events: none;
                     content: '';
                     position: absolute;
                     inset: 0px;
@@ -671,7 +678,8 @@
         &-item {
             padding: 5.8rem 0;
             align-items: center;
-            border-top: 1px solid rgba($cl-heading, 0.1);
+            position: relative;
+            // border-top: 1px solid rgba($cl-heading, 0.1);
 
             @include md {
                 padding: 5.5rem 0;
@@ -721,6 +729,11 @@
                     display: none;
                     overflow: hidden;
                 }
+            }
+
+            .line {
+                position: absolute;
+                top: 0;
             }
             @media (hover:hover) {
                 &:hover {
@@ -932,6 +945,8 @@
             top: -86.1rem;
             bottom: -93rem;
         }
+        overflow-x: hidden;
+        overflow-y: visible;
 
         @include md {
             @include size(100%, 97.5rem);
@@ -950,8 +965,32 @@
         }
 
         img {
+            overflow: visible;
+            @include animation(gradientNoiseAnim 20s linear infinite);
+
             @include sm {
                 // @include transform(rotate(-8.73deg));
+            }
+        }
+
+        @keyframes gradientNoiseAnim {
+            0% {
+                @include transform(rotate(0deg) scale(1));
+            };
+            25% {
+                @include transform(rotate(90deg) scale(.68));
+            };
+            50% {
+                @include transform(rotate(180deg) scale(.7));
+            };
+            75% {
+                @include transform(rotate(270deg) scale(.68));
+            };
+            87% {
+                @include transform(rotate(315deg) scale(.8));
+            };
+            100% {
+                @include transform(rotate(360deg) scale(1));
             }
         }
     }
@@ -1626,6 +1665,7 @@
                     }
                     @include sm {
                         width: 100%;
+                        --btn-width: calc(100% / 3);
                     }
 
                     &-btn {
@@ -1650,7 +1690,7 @@
                     pointer-events: none;
 
                     @include sm {
-                        width: 10.7rem;
+                        width: calc(100% / 3);
                     }
 
                     &:first-of-type {
@@ -1662,7 +1702,7 @@
                         }
                     }
                     &:last-of-type {
-                        mix-blend-mode: color;
+                        mix-blend-mode: lighten;
                         .btn {
                         }
                     }
@@ -2285,16 +2325,22 @@
         @include sm {
             overflow: hidden;
             margin-bottom: 12rem;
-
         }
 
         &-sticky {
             position: sticky;
-            top: var(--height-header);
-            height: calc(100vh - var(--height-header));
+            // top: var(--height-header);
+            // height: calc(100vh - var(--height-header));
+            top: 0;
+            height: 100vh;
+            padding-top: var(--height-header);
             padding-bottom: 4rem;
             overflow: hidden;
             // background-color: orangered;
+
+            .grid {
+                height: 100%;
+            }
 
             @include sm {
                 position: static;
