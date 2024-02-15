@@ -933,7 +933,7 @@ const home = {
                 let tlScrub = gsap.timeline({
                     scrollTrigger: {
                         trigger: '.home-testi',
-                        start: `top+=0% bottom`,
+                        start: `top bottom`,
                         end: 'bottom top',
                         scrub: .2,
                         snap: {
