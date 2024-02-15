@@ -1,3 +1,7 @@
+*::-webkit-scrollbar {
+    position: absolute;
+    // display: none;
+}
 .header {
     display: flex;
     align-items: center;
@@ -249,6 +253,7 @@
             width: 34.8rem;
 
             @include md {
+                width: auto;
                 padding-left: 1.2rem;
                 margin-right: 3.2rem;
             }
