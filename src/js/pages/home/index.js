@@ -913,8 +913,7 @@ const home = {
                         trigger: '.home-testi',
                         start: `top top`,
                         end: 'bottom bottom',
-                        scrub: true,
-                        // markers: true,
+                        scrub: .1,
                         onUpdate: (timeline) => {
                             gsap.set('.home-testi-content-progress-inner', {y: timeline.progress * cvUnit(180, 'rem')})
                         }
@@ -931,7 +930,7 @@ const home = {
                 let tlScrub = gsap.timeline({
                     scrollTrigger: {
                         trigger: '.home-testi',
-                        start: `top+=0% bottom`,
+                        start: `top bottom`,
                         end: 'bottom top',
                         scrub: .2,
                         snap: {
