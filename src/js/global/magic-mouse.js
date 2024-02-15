@@ -5,9 +5,11 @@ const initCursor = () => {
     let cursorChange = false
     let insideBgSc = false
     const velChange = .12
+    let cursor = $('.cursor')
+    let targetPos
+    let forcing = false
 
     function initMouseMove() {
-        let cursor = $('.cursor')
         let cursorX = xGetter(cursor.get(0))
         let cursorY = yGetter(cursor.get(0))
         let dotX = xGetter(cursor.find('.cursor-dot').get(0))
@@ -17,13 +19,25 @@ const initCursor = () => {
         let glowX = xGetter(cursor.find('.cursor-glow').get(0))
         let glowY = yGetter(cursor.find('.cursor-glow').get(0))
 
+        targetPos = {
+            x: pointerCurr().x,
+            y: pointerCurr().y
+        }
+
         function updatePos(mode) {
-            xSetter(cursor.get(0))(lerp(cursorX, pointerCurr().x, .1))
-            ySetter(cursor.get(0))(lerp(cursorY, pointerCurr().y, .1))
-            xSetter(cursor.find('.cursor-border').get(0))(lerp(borderX, -(pointerCurr().x - cursorX)/20, .15))
-            ySetter(cursor.find('.cursor-border').get(0))(lerp(borderY, -(pointerCurr().y - cursorY)/20, .15))
-            xSetter(cursor.find('.cursor-glow').get(0))(lerp(glowX, -(pointerCurr().x - cursorX)/4, .1))
-            ySetter(cursor.find('.cursor-glow').get(0))(lerp(glowY, -(pointerCurr().y - cursorY)/4, .1))
+            if (mode == "force") {
+                console.log("forcing");
+                xSetter(cursor.get(0))(lerp(cursorX, targetPos.x, 1))
+                ySetter(cursor.get(0))(lerp(cursorY, targetPos.y, 1))
+            } else {
+                xSetter(cursor.get(0))(lerp(cursorX, targetPos.x, .1))
+                ySetter(cursor.get(0))(lerp(cursorY, targetPos.y, .1))
+            }
+            
+            xSetter(cursor.find('.cursor-border').get(0))(lerp(borderX, -(targetPos.x - cursorX)/20, .15))
+            ySetter(cursor.find('.cursor-border').get(0))(lerp(borderY, -(targetPos.y - cursorY)/20, .15))
+            xSetter(cursor.find('.cursor-glow').get(0))(lerp(glowX, -(targetPos.x - cursorX)/4, .1))
+            ySetter(cursor.find('.cursor-glow').get(0))(lerp(glowY, -(targetPos.y - cursorY)/4, .1))
         }
 
         if ($('[data-cursor]:hover').length) {
@@ -54,6 +68,11 @@ const initCursor = () => {
                     cursor.find('.cursor-dot').addClass('stickstepdot')
                     cursor.find('.cursor-border').addClass('stickstepdot')
 
+                    targetPos = {
+                        x: targetOffsetLeft + target.outerWidth()/2,
+                        y: targetOffsetTop + target.outerHeight()/2
+                    }
+
                     xSetter(cursor.get(0))(lerp(cursorX, targetOffsetLeft + target.outerWidth()/2, velChange))
                     ySetter(cursor.get(0))(lerp(cursorY, targetOffsetTop + target.outerHeight()/2, velChange))
                     xSetter(cursor.find('.cursor-border').get(0))(lerp(borderX, 0, velChange))
@@ -63,8 +82,14 @@ const initCursor = () => {
                 case 'radar':
                     cursor.find('.cursor-dot').addClass('hide')
 
-                    xSetter(cursor.get(0))(lerp(cursorX, targetOffsetLeft + target.outerWidth()/2, velChange))
-                    ySetter(cursor.get(0))(lerp(cursorY, targetOffsetTop + target.outerHeight()/2, velChange))
+                    targetPos = {
+                        x: targetOffsetLeft + target.outerWidth()/2,
+                        y: targetOffsetTop + target.outerHeight()/2
+                    }
+
+                    updatePos()
+                    xSetter(cursor.find('.cursor-border').get(0))(lerp(borderX, 0, .15))
+                    ySetter(cursor.find('.cursor-border').get(0))(lerp(borderY, 0, .15))
                     break;
 
                 case 'hidden':
@@ -77,40 +102,53 @@ const initCursor = () => {
 
                 case 'dotstick':
                     cursor.find('.cursor-dot').addClass('stickfaq')
+                    targetPos = {
+                        x: dotOffsetLeft + target.find('[data-cursor-dotpos]').outerWidth()/2,
+                        y: dotOffsetTop + target.find('[data-cursor-dotpos]').outerHeight()/2
+                    }
+                    updatePos()
 
-                    xSetter(cursor.get(0))(lerp(cursorX, dotOffsetLeft + target.find('[data-cursor-dotpos]').outerWidth()/2, velChange))
-                    ySetter(cursor.get(0))(lerp(cursorY, dotOffsetTop + target.find('[data-cursor-dotpos]').outerHeight()/2, velChange))
-                    xSetter(cursor.find('.cursor-border').get(0))(lerp(borderX, 0, velChange))
-                    ySetter(cursor.find('.cursor-border').get(0))(lerp(borderY, 0, velChange))
-                    xSetter(cursor.find('.cursor-glow').get(0))(lerp(glowX, pointerCurr().x - (dotOffsetLeft + target.find('[data-cursor-dotpos]').outerWidth()/2), .15))
-                    ySetter(cursor.find('.cursor-glow').get(0))(lerp(glowY, pointerCurr().y - (dotOffsetTop + target.find('[data-cursor-dotpos]').outerHeight()/2), .15))
-
+                    if (target.hasClass('hovered')) {
+                        if (Math.abs(cursorY - targetPos.y) <= 1 || forcing == true) {
+                            updatePos('force')
+                            forcing = true
+                        }
+                    } else {
+                        forcing = false
+                        
+                        $(`[data-cursor="dotstick"]`).removeClass('hovered')
+                        target.addClass('hovered')
+                    }
                     break;
 
                 case 'txtstick':
                     cursor.find('.cursor-dot').addClass('smdot')
                     cursor.find('.cursor-border').addClass('hide')
+                    cursor.find('.cursor-glow').addClass('hide')
 
                     if (target.hasClass('footer-link')) {
                         cursor.find('.cursor-dot').addClass('whitedot')
                     }
 
-                    xSetter(cursor.get(0))(lerp(cursorX, targetOffsetLeft + cvUnit(-10, "rem"), velChange))
-                    ySetter(cursor.get(0))(lerp(cursorY, targetOffsetTop + targetValue.h/2, velChange))
-                    xSetter(cursor.find('.cursor-glow').get(0))(lerp(glowX, pointerCurr().x - targetOffsetLeft , velChange))
-                    ySetter(cursor.find('.cursor-glow').get(0))(lerp(glowY, pointerCurr().y - targetOffsetTop, velChange))
+                    targetPos = {
+                        x: targetOffsetLeft + cvUnit(-10, "rem"),
+                        y: targetOffsetTop + targetValue.h/2
+                    }
+                    updatePos()
                     break;
 
                 case 'halostick':
                     cursor.find('.cursor-dot').addClass('smdot')
                     cursor.find('.cursor-border').addClass('hide')
+                    cursor.find('.cursor-glow').addClass('hide')
 
-                    gsap.to(target, {x: cvUnit(30,'rem'), duration: .6, ease: 'power2.out', overwrite: true})
+                    gsap.to(target, {x: cvUnit(15,'rem'), duration: .6, ease: 'power2.out', overwrite: true})
 
-                    xSetter(cursor.get(0))(lerp(cursorX, targetOffsetLeft + cvUnit(-15, "rem"), velChange))
-                    ySetter(cursor.get(0))(lerp(cursorY, targetOffsetTop + targetValue.h/2, velChange))
-                    xSetter(cursor.find('.cursor-glow').get(0))(lerp(glowX, pointerCurr().x - targetOffsetLeft , velChange))
-                    ySetter(cursor.find('.cursor-glow').get(0))(lerp(glowY, pointerCurr().y - targetOffsetTop, velChange))
+                    targetPos = {
+                        x: targetOffsetLeft + cvUnit(-10, "rem"),
+                        y: targetOffsetTop + targetValue.h/2
+                    }
+                    updatePos()
 
                     break;
 
@@ -131,11 +169,11 @@ const initCursor = () => {
                         cursor.find('.cursor-dot').addClass('whitedot')
                     }
 
-                    xSetter(cursor.get(0))(lerp(cursorX, txtOffsetLeft + cvUnit(-15, "rem") + parseInt(target.find('.txt').css('paddingLeft')), velChange))
-                    ySetter(cursor.get(0))(lerp(cursorY, txtOffsetTop + target.height()/2, velChange))
-                    xSetter(cursor.find('.cursor-glow').get(0))(lerp(glowX, pointerCurr().x - cursorX , velChange))
-                    ySetter(cursor.find('.cursor-glow').get(0))(lerp(glowY, pointerCurr().y - cursorY, velChange))
-
+                    targetPos = {
+                        x: txtOffsetLeft + cvUnit(-15, "rem") + parseInt(target.find('.txt').css('paddingLeft')),
+                        y: txtOffsetTop + target.height()/2
+                    }
+                    updatePos()
                     break;
 
                 case 'menuprog':
@@ -143,23 +181,31 @@ const initCursor = () => {
                     cursor.find('.cursor-border').addClass('hide')
                     cursor.find('.cursor-glow').addClass('hide')
 
-                    xSetter(cursor.get(0))(lerp(cursorX, targetOffsetLeft + targetValue.w/2, velChange))
-                    ySetter(cursor.get(0))(lerp(cursorY, targetOffsetTop + targetValue.h/2, velChange))
+                    targetPos = {
+                        x: targetOffsetLeft + targetValue.w/2,
+                        y: targetOffsetTop + targetValue.h/2
+                    }
+                    updatePos()
                     break;
 
                 case 'hamburger':
                     cursor.find('.cursor-border').removeClass('hide')
 
                     cursor.find('.cursor-dot').addClass('hide')
+                    cursor.find('.cursor-border').addClass('mddot')
                     cursor.find('.cursor-glow').addClass('hide')
 
-                    xSetter(cursor.get(0))(lerp(cursorX, targetOffsetLeft + targetValue.w/2, velChange))
-                    ySetter(cursor.get(0))(lerp(cursorY, targetOffsetTop + targetValue.h/2, velChange))
+                    targetPos = {
+                        x: targetOffsetLeft + targetValue.w/2,
+                        y: targetOffsetTop + targetValue.h/2
+                    }
+                    updatePos()
                     xSetter(cursor.find('.cursor-border').get(0))(lerp(borderX, 0, velChange))
                     ySetter(cursor.find('.cursor-border').get(0))(lerp(borderY, 0, velChange))
                     break;
             }
             cursorChange = true
+
         } else {
             if (cursorChange == true) {
                 cursor.closest('.cursor-wrap').removeClass('mixBlendMode')
@@ -174,11 +220,13 @@ const initCursor = () => {
                 cursor.find('.cursor-dot').removeClass('stickfaq')
 
                 cursor.find('.cursor-border').removeClass('stickstepdot')
+                cursor.find('.cursor-border').removeClass('mddot')
                 cursor.find('.cursor-border').removeClass('hide')
 
                 cursor.find('.cursor-glow').removeClass('hide')
 
                 cursorChange = false
+                forcing = false
             }
             updatePos()
         }
