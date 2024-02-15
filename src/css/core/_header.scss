@@ -211,13 +211,11 @@
                 border-radius: 9.9rem;
                 position: relative;
                 background-color: rgba($cl-white, .1);
+                height: .6rem;
                 overflow: hidden;
                 opacity: 0;
-                @include size(.6rem);
-                @include transition(all 600ms ease);
                 &-wrap {
-                    overflow: hidden;
-                    @include transition(padding 400ms ease)
+                    @include transition(padding 450ms ease)
                 }
                 &-inner {
                     @include size(100%);
@@ -232,7 +230,9 @@
                 }
                 &-link {
                     display: block;
-                    @include size(100%);
+                    width: 0rem;
+                    height: .6rem;
+                    @include transition(all 600ms ease)
                 }
             }
             &-label {
@@ -244,7 +244,7 @@
                 background-color: rgba($cl-bg, 1);
                 border-radius: .6rem;
                 @include transform(translateY(-100%));
-                @include transition(opacity 0.35s ease-out .2s);
+                @include transition(opacity 0.35s ease-out .2);
             }
         }
         &.active {
@@ -256,11 +256,11 @@
             }
             .header-menu {
                 &-label {
-                    width: 9.5rem;
                     &-item {
                         &.active {
                             opacity: 1;
                             @include transform(scale(1));
+                            width: 9.5rem;
                             max-width: 9.5rem;
                         }
                     }
@@ -272,18 +272,23 @@
                         opacity: 1;
                         &-wrap {
                             padding: .6rem;
-                            @include transition(padding 400ms ease .1s);
                             &.active {
                                 pointer-events: none;
                             }
                         }
+                        &-link {
+                            width: .6rem;
+                        }
                         &.active {
-                            width: 7.2rem;
-                            @include md {
-                                width: 3.1rem;
-                            }
                             .header-menu-prog-item-inner {
                                 opacity: 1;
+                            }
+                            .header-menu-prog-item-link {
+                                width: 7.2rem;
+
+                                @include md {
+                                    width: 3.1rem;
+                                }
                             }
                         }
                     }
