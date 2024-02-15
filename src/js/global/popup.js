@@ -6,7 +6,7 @@ const popup = (name) => {
         open: () => {
             popupWrap.addClass('active');
             requestAnimationFrame(() => $('.header-bar').addClass('force'));
-            lenis.stop();
+            // lenis.stop();
         },
         close: () => {
             if (!popupWrap.hasClass('active')) return;
@@ -20,12 +20,12 @@ const popup = (name) => {
     $(`[data-popup-${name}]`).on('click', function (e) {
         if ($(this).attr(`data-popup-${name}`) === 'open') {
             e.preventDefault();
-            lenis.stop();
+            // lenis.stop();
             popupAction.open();
         }
         else if ($(this).attr(`data-popup-${name}`) === 'close') {
             e.preventDefault();
-            lenis.start();
+            // lenis.start();
             popupAction.close();
         }
         else return;

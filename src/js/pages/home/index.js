@@ -39,12 +39,9 @@ const home = {
 
                 let mainItemSelect = selector(BENEFIT.mainItem);
                 let totalDistance = BENEFIT.mainItem.width() + (BENEFIT.otherItem.width() * BENEFIT.otherItem.length);
-                let otherWrapDistance = viewportBreak({
-                    desktop: BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem") + cvUnit(15, 'rem'),
-                    tablet: BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem") + cvUnit(1, 'rem')
-                });
+                let otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem") + cvUnit(viewportBreak({ desktop: 15, tablet: 5 }), 'rem')
 
-                const ITEM_WIDTH = ($('.container').width() - percentage(25, $('.container').width())) / viewportBreak({ desktop: 5, tablet: 2.8 });
+                const ITEM_WIDTH = ($('.container').width() - percentage(24.2, $('.container').width())) / viewportBreak({ desktop: 5, tablet: 2.7 });
                 gsap.set(BENEFIT.stage, { height: totalDistance * 1.2 + cvUnit(100, "rem") });
 
                 let reqCheck;
@@ -104,7 +101,7 @@ const home = {
                                 duration: 1
                             })
                             .to(itemSelect('h3'), {
-                                scale: .75, transformOrigin: "top left", duration: 1
+                                scale: viewportBreak({ desktop: .75, tablet: .5 }), transformOrigin: "top left", duration: 1
                             }, '<=0')
                             .to(itemSelect('.home-benefit-item-overlay'), {
                                 scaleX: 1, transformOrigin: "right", duration: 1
@@ -136,8 +133,6 @@ const home = {
                         duration: 1
                     }, "<= .8")
 
-            }
-            function scrollToLabel() {
                 $('.home-benefit-other-sub-btn').on('click', function(e) {
                     e.preventDefault();
                     let target = $(this).closest('.home-benefit-item.home-benefit-other').index();
@@ -155,9 +150,9 @@ const home = {
                     })
                 }
             }
+
             if ($(window).width() > 767) {
                 stackScroll();
-                scrollToLabel();
             }
         }
         homeBenefit();
@@ -212,7 +207,7 @@ const home = {
             }
             function playShowreel() {
                 let DOM = {
-                    stage: $('.home-benefit'),
+                    stage: $('.home-showreel'),
                     vid_wrap: $('.home-showreel--wrap'),
                     link_vid: $('.home-showreel-thumb-link'),
                     thumbnail: $('.home-showreel-thumb img'),
@@ -223,12 +218,8 @@ const home = {
                     e.preventDefault();
                     if ($(this).attr('data-video') == 'to-play') {
                         $(this).attr('data-video', 'to-pause')
-                        /** -NOTE-
-                         *      DOM.stage.outerHeight() + DOM.stage.get(0).offsetTop -> vị trí hiện tại ở cuối DOM tổng
-                         *      + DOM.vid_wrap.height() -> vị trí hiện tại ở đầu vid_wrap
-                         *      + cvUnit(viewportBreak({ desktop: 60, tablet: 85 }), "vh") -> thêm vào vì ở trên đã section Benefit đã âm margin-top */
                         let heightVidWrap = viewportBreak({ desktop: DOM.vid_wrap.height(), tablet: $('.home-showreel-main--inner').height() })
-                        let scrollTarget = DOM.stage.outerHeight() + DOM.stage.get(0).offsetTop + heightVidWrap + cvUnit(viewportBreak({ desktop: 60, tablet: 85 }), "vh");
+                        let scrollTarget = DOM.stage.outerHeight() + DOM.stage.offset().top - $(window).height();
                         lenis.scrollTo(scrollTarget)
 
                         DOM.thumbnail.addClass('hidden');
@@ -447,7 +438,7 @@ const home = {
                             cloner.addClass('cloner')
                             $(el).find('.home-process-step-img').append(cloner)
                         }
-        
+
                         let tl = gsap.timeline({
                             scrollTrigger: {
                                 trigger: el,
@@ -830,7 +821,7 @@ const home = {
                             let moveY = (pointerCurr().y/$(window).height() - 0.5) * 2 * (target.height()/8)
                             xSetter(target.get(0))(lerp(tarCurrX, moveX, .01))
                             ySetter(target.get(0))(lerp(tarCurrY, moveY, .01))
-        
+
                             requestAnimationFrame(parallaxLogo)
                         }
                         requestAnimationFrame(parallaxLogo)
@@ -856,14 +847,14 @@ const home = {
                     }
                     gsap.set(DOM.radarScan, {rotate: -10})
                     let lifeCycleTime = 8
-        
+
                     let tl = gsap.timeline({
                         repeat: -1,
                         defaults: {
                             ease: 'none'
                         }
                     })
-        
+
                     tl
                     .fromTo(DOM.radarScan, {
                         rotate: 0 - 10,
@@ -885,7 +876,7 @@ const home = {
                             }
                         }, '<=2')
                     })
-        
+
                     $('.home-explore-industries-radar-wrapper-item-line-dot-wrap').on('pointerenter', function(e) {
                         $(this).addClass('on-hover')
                     })

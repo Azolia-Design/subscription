@@ -403,6 +403,7 @@
         position: relative;
         height: 200vh;
         contain: paint;
+        padding-bottom: 4rem;
 
         @include sm {
             height: auto;
@@ -627,7 +628,7 @@
         }
     }
     &-skill {
-        padding-top: 15rem;
+        padding-top: 11rem;
         // overflow: hidden;
         @include md {
             padding-top: 0;
