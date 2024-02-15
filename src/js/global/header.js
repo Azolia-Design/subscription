@@ -11,7 +11,8 @@ const setupDot = () => {
     $('.header-menu-prog').find('.header-menu-prog-item-wrap').remove();
     allSections.each((idx, el) => {
         let htmlLabel = tempLabel.clone();
-        htmlLabel.html(`${$(el).attr('data-section-id')}`).attr('data-header-id',`${$(el).attr('data-section-id')}`)
+        htmlLabel.attr('data-header-id', `${$(el).attr('data-section-id')}`);
+        htmlLabel.find('span').text(`${$(el).attr('data-section-id')}`);
         $('.header-menu-label').append(htmlLabel)
 
         let htmlProg = tempProg.clone();
@@ -71,7 +72,6 @@ const updateProgressByScroll = () => {
         })
     }, 100);
 
-
     DOM.progWrap.on('click', function (e) {
         e.preventDefault();
         let target = $(this).attr('data-header-id');
@@ -91,6 +91,17 @@ const updateProgressByScroll = () => {
         history.replaceState({}, '', `${window.location.pathname}#${target}`);
         return false;
     })
+
+    const checkMenuActive = () => {
+        if ($('.header-menu-label-item.active').length === 0) {
+            gsap.set('.header-menu-label', { '--d-width': '0px' });
+        }
+        else {
+            gsap.set('.header-menu-label', { '--d-width': `${$('.header-menu-label-item.active').eq(0).width()}px` });
+        }
+        requestAnimationFrame(checkMenuActive);
+    }
+    requestAnimationFrame(checkMenuActive);
 }
 
 const hoverDot = () => {
