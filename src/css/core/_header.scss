@@ -194,7 +194,7 @@
                 max-width: 0px;
                 opacity: 0;
                 @include transform(scale(.8));
-                @include transition(all ease 600ms);
+                @include transition(transform ease 600ms);
 
                 @include md {
                     text-align: left;
@@ -262,10 +262,10 @@
                 &-label {
                     &-item {
                         &.active {
+                            width: 9.8rem;
                             opacity: 1;
                             @include transform(scale(1));
-                            width: 9.5rem;
-                            max-width: 9.5rem;
+                            max-width: 9.8rem;
                         }
                     }
                 }
