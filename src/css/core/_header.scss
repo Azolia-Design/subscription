@@ -80,7 +80,7 @@
             padding: 1rem 1rem 1rem 0;
             border: 1px solid rgba($cl-white, .1);
             background-color: rgba(0,0,0,.8);
-            border-radius: 2rem;
+            border-radius: 2.5rem;
             margin-left: 3.2rem;
             -webkit-backdrop-filter: blur(1rem);
             backdrop-filter: blur(1rem);
@@ -178,12 +178,14 @@
 
         @include md {
             flex-direction: column;
+            align-items: flex-start;
         }
         &-label {
             display: grid;
 
             @include md {
                 margin-bottom: .1rem;
+                margin-left: 1rem;
             }
             &-item {
                 grid-area: 1/1/2/2;
@@ -195,6 +197,7 @@
                 @include transition(all ease 600ms);
 
                 @include md {
+                    text-align: left;
                     --fs-16: 1.4rem;
                     --lh-16: 1.3em;
                 }
