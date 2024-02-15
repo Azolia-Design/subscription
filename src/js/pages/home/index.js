@@ -526,10 +526,9 @@ const home = {
                 })
 
                 function projectClippath(index, action) {
-                        let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
-                        let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
-                        gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
-
+                    let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
+                    let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
+                    gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
                 }
 
                 const targetMove = $('.home-project-wrap-top')
@@ -566,7 +565,6 @@ const home = {
                                 gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
                             }
                         }
-
                     })
                     initMouseMove()
                 } else {
