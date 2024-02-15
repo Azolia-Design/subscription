@@ -181,8 +181,12 @@
             align-items: flex-start;
         }
         &-label {
-            display: grid;
+            --d-width: 0;
 
+            display: grid;
+            width: var(--d-width);
+
+            @include transition(width .6s ease);
             @include md {
                 margin-bottom: .1rem;
                 margin-left: 1rem;
@@ -191,11 +195,16 @@
                 grid-area: 1/1/2/2;
                 align-self: center;
                 text-align: center;
-                max-width: 0px;
+                justify-self: start;
                 opacity: 0;
-                @include transform(scale(.8));
-                @include transition(transform ease 600ms);
-
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                span {
+                    @include transform(scale(.8));
+                    @include transition(transform ease .6s);
+                }
                 @include md {
                     text-align: left;
                     --fs-16: 1.4rem;
@@ -208,7 +217,7 @@
             align-items: center;
             margin-left: 0rem;
             column-gap: 0rem;
-            @include transition(all 400ms ease);
+            @include transition(all .6s ease);
             position: relative;
             &-item {
                 border-radius: 9.9rem;
@@ -218,7 +227,7 @@
                 overflow: hidden;
                 opacity: 0;
                 &-wrap {
-                    @include transition(padding 450ms ease)
+                    @include transition(padding .6s ease)
                 }
                 &-inner {
                     @include size(100%);
@@ -229,13 +238,13 @@
                     background-color: rgba($cl-white, 1);
                     opacity: 0;
                     @include transform(translateX(-100%));
-                    @include transition(opacity 400ms ease)
+                    @include transition(opacity .6s ease)
                 }
                 &-link {
                     display: block;
                     width: 0rem;
                     height: .6rem;
-                    @include transition(all 600ms ease)
+                    @include transition(all .6s ease)
                 }
             }
             &-label {
@@ -262,10 +271,12 @@
                 &-label {
                     &-item {
                         &.active {
-                            width: 9.8rem;
                             opacity: 1;
-                            @include transform(scale(1));
-                            max-width: 9.8rem;
+                            span {
+                                @include transform(scale(1));
+                            }
+                            // width: 9.8rem;
+                            // max-width: 9.8rem;
                         }
                     }
                 }
@@ -297,6 +308,11 @@
                         }
                     }
                 }
+            }
+        }
+        &:not(.active) {
+            .header-menu-label {
+                --d-width: 0 !important;
             }
         }
     }
