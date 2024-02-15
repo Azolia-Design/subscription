@@ -64,7 +64,7 @@ html.lenis {
 }
 
 .lenis.lenis-stopped {
-    overflow: hidden;
+    // overflow: hidden;
 }
 
 .lenis.lenis-scrolling iframe {
@@ -245,6 +245,9 @@ button {
             }
             &.stickstepdot {
                 @include size(calc(3.2rem + 24px + 3rem))
+            }
+            &.mddot {
+                @include size(5rem);
             }
             &.hide {
                 opacity: 0;

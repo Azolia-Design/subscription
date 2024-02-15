@@ -139,6 +139,7 @@ const home = {
                     toLabel(1, scrollerTl, `label${target}`)
                 })
                 function toLabel(duration, timeline, label) {
+                    lenis.stop()
                     const yStart = $('.home-benefit').offset().top - $('.header').outerHeight()
                     const now = timeline.progress()
                     timeline.seek(label)
@@ -146,7 +147,7 @@ const home = {
                     timeline.progress(now)
                     lenis.scrollTo(yStart + ( timeline.scrollTrigger.end - timeline.scrollTrigger.start ) * goToProgress, {
                         duration: duration,
-                        force: true
+                        force: true,
                     })
                 }
             }
@@ -479,7 +480,7 @@ const home = {
                             trigger: item,
                             start: "top bottom",
                             end: "top top-=25%",
-                            scrub: gsap.utils.random(.4,2),
+                            scrub: gsap.utils.random(.3, 1.4),
                         }
                     })
                     requestAnimationFrame(() => {
@@ -596,7 +597,6 @@ const home = {
             function projectCurtain() {
                 let amount = 11;
                 let offset = $('.home-curtain').height() /  (amount - 1);
-                // $('.home-curtain-inner').css('height', ' ' + offset  + 'px')
 
                 const clone = $('.home-curtain-inner').eq(0)
                 for (let i = 1; i < amount; i++) {
@@ -626,7 +626,6 @@ const home = {
             projectCurtain()
         }
         homePortfolio()
-
 
         /** (💡)  - PRICING */
         function homePricing() {
@@ -693,7 +692,6 @@ const home = {
                     .from('.home-pricing-plan-cta .btn', {yPercent: 60, autoAlpha: 0, stagger: .3, duration: .6, ease: 'power2.out', clearProps: 'all'}, '<=.3')
                 }
             })
-
 
             function switchPlan() {
                 const DOM = {
@@ -923,14 +921,27 @@ const home = {
                         scrub: .2,
                         snap: {
                             // To update exact position and check directional
-                            snapTo: [0.2521, 0.4767, 0.6257, 0.7632, 1],
+                            snapTo(value) {
+                                if (value > 0.1822 && value <= 0.3644) {
+                                    return 0.2521;
+                                } else if (value > 0.3644 && value <= 0.5512)  {
+                                    return 0.4767;
+                                }  else if (value > 0.5512 && value <= 0.69445)  {
+                                    return 0.6257;
+                                } else if (value > 0.69445 && value <= 0.8816)  {
+                                    return 0.7632;
+                                } else {
+                                    return value;
+                                }
+                            },
+                            // snapTo: [0.2521, 0.4767, 0.6257, 0.7632],
                             duration: { min: 0.15, max: 1 },
                             delay: 0.01,
                         },
                     },
                 })
 
-                let timeDelay = .5
+                let timeDelay = 0
                 let timeAnim = 1
                 let zUnit
                 let yUnit
