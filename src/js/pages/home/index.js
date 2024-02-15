@@ -808,12 +808,12 @@ const home = {
                         scrollTrigger: {
                             trigger: '.home-explore-heading',
                             start: 'top top+=90%',
-                            end: 'bottom top+=20%',
+                            end: 'bottom top+=40%',
                             scrub: .1
                         }
                     })
                     tlSplitHead
-                    .from(headTxt.chars, {color: '#121212', stagger: .05, duration: .6, ease: 'none'}, 0)
+                    .from(headTxt.chars, {color: '#121212', stagger: .05, duration: .6, ease: 'power1.out'}, 0)
 
                     let titleTxt = new SplitText('.home-explore-industries-title', typeOpts.words)
 
