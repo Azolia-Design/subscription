@@ -169,8 +169,8 @@ button {
     &.on-hidden {
         opacity: 0;
     }
-    $cs-lg: 30rem;
-    $cs-md: 6.5rem;
+    $cs-lg: 14.1rem; // 30rem
+    $cs-md: 4.5rem; // 6.5rem
     $cs-sm: 1.5rem;
 
     &.mixBlendMode {

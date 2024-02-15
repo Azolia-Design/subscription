@@ -31,6 +31,7 @@
             @include sm {
                 justify-content: flex-start;
                 padding-top: 5.4rem;
+                padding-bottom: 0;
             }
         }
         &-logo {
@@ -85,7 +86,7 @@
 
                 @include sm {
                     margin-top: 0;
-                    @include size(100%, calc(100vh + 19rem + 7rem - 8.9rem - 53.1rem));
+                    @include size(100%, calc(100vh + 19rem + 7rem - 3.9rem - 53.1rem));
                 }
             }
             &-overlay {
@@ -119,6 +120,10 @@
 
             @include md {
                 margin-bottom: 5rem;
+            }
+
+            @include sm {
+                display: none;
             }
         }
         &-mouse {
@@ -997,6 +1002,7 @@
     }
     &-process {
         padding-bottom: 25rem;
+        overflow: hidden;
 
         @include md {
             padding-bottom: 18rem;
@@ -1198,6 +1204,7 @@
 
                     @include animation(glitch-anim-1 var(--time-anim) infinite linear alternate);
                     position: absolute;
+                    transform-origin: center;
 
                     &:nth-child(2) {
                         animation-name: glitch-anim-1;

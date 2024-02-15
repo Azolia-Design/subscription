@@ -26,8 +26,9 @@ const initCursor = () => {
 
         function updatePos(mode) {
             if (mode == "force") {
-                xSetter(cursor.get(0))(lerp(cursorX, targetPos.x, 1))
-                ySetter(cursor.get(0))(lerp(cursorY, targetPos.y, 1))
+                // xSetter(cursor.get(0))(lerp(cursorX, targetPos.x, .8))
+                // ySetter(cursor.get(0))(lerp(cursorY, targetPos.y, .8))
+                gsap.set(cursor, {x: targetPos.x, y: targetPos.y})
             } else {
                 xSetter(cursor.get(0))(lerp(cursorX, targetPos.x, .1))
                 ySetter(cursor.get(0))(lerp(cursorY, targetPos.y, .1))
@@ -114,7 +115,6 @@ const initCursor = () => {
                         }
                     } else {
                         forcing = false
-                        
                         $(`[data-cursor="dotstick"]`).removeClass('hovered')
                         target.addClass('hovered')
                     }
@@ -176,6 +176,9 @@ const initCursor = () => {
                     break;
 
                 case 'menuprog':
+                    cursor.find('.cursor-dot').removeClass('hide')
+                    cursor.find('.cursor-dot').removeClass('whitedot')
+
                     cursor.find('.cursor-dot').addClass('smdot')
                     cursor.find('.cursor-border').addClass('hide')
                     cursor.find('.cursor-glow').addClass('hide')
@@ -188,6 +191,7 @@ const initCursor = () => {
                     break;
 
                 case 'hamburger':
+                    cursor.find('.cursor-dot').removeClass('whitedot')
                     cursor.find('.cursor-border').removeClass('hide')
 
                     cursor.find('.cursor-dot').addClass('hide')
@@ -204,8 +208,8 @@ const initCursor = () => {
                     break;
             }
             cursorChange = true
-
         } else {
+            forcing = false
             if (cursorChange == true) {
                 cursor.closest('.cursor-wrap').removeClass('mixBlendMode')
                 gsap.to('[data-cursor="btnstick"] .txt', {x: 0, duration: .6, ease: 'power2.out'})
@@ -225,7 +229,6 @@ const initCursor = () => {
                 cursor.find('.cursor-glow').removeClass('hide')
 
                 cursorChange = false
-                forcing = false
             }
             updatePos()
         }
