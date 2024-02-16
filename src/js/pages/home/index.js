@@ -1032,7 +1032,7 @@ const home = {
                 })
             }
         }
-        homeTesti()
+        // homeTesti()
 
         /** (💡)  - FAQ */
         function homeFaq() {
