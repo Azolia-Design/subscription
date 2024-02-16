@@ -5,13 +5,12 @@ import initCursor from "./magic-mouse";
 import { initLenis } from "./lenis";
 import initButton from './button';
 import refreshOnBreakpoint from './refresh';
-import { viewport } from "../helper/viewport";
 
 const initGlobal = () => {
     initLenis();
-    // if (viewport.width > 991) {
-    //     initCursor();
-    // }
+    if ($(window).width() > 991) {
+        initCursor();
+    }
     // refreshOnBreakpoint();
     // initPopup();
     // initButton()
