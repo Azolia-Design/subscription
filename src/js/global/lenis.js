@@ -1,11 +1,13 @@
 gsap.registerPlugin(ScrollTrigger);
 
-const lenis = new Lenis({
-    lerp: false,
-    duration: 1.6
-})
+let lenis 
 
 const initLenis = () => {
+    lenis = new Lenis({
+        lerp: false,
+        duration: 1.6
+    })
+
     lenis.on("scroll", ({ scroll, limit, velocity, direction, progress }) => {
         ScrollTrigger.update
     });
@@ -31,5 +33,5 @@ const scrollTop = () => {
 export {
 	lenis,
     initLenis,
-    scrollTop
+    // scrollTop
 };
