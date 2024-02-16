@@ -14,7 +14,7 @@ const initGlobal = () => {
     // refreshOnBreakpoint();
     // initPopup();
     // initButton()
-    // initHeader();
+    initHeader();
     // initFooter();
 }
 
