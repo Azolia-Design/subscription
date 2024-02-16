@@ -152,6 +152,9 @@ button {
         @include animation(noise 2s steps(4) infinite);
         background-image: url(../../public/imgs/bg-noise-grain.png?as=webp);
     }
+    @include md {
+        display: none;
+    }
 }
 .cursor-wrap {
     z-index: 999999;
