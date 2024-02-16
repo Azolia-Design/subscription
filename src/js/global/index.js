@@ -12,11 +12,11 @@ const initGlobal = () => {
     if (viewport.width > 991) {
         initCursor();
     }
-    refreshOnBreakpoint();
-    initPopup();
-    initButton()
-    initHeader();
-    initFooter();
+    // refreshOnBreakpoint();
+    // initPopup();
+    // initButton()
+    // initHeader();
+    // initFooter();
 }
 
 export default initGlobal;
