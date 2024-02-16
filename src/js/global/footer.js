@@ -52,15 +52,15 @@ const initFooter = () => {
         new FloatingAnimation('.footer-curtain-logo img', 20, 10, 4, 15)
     }
 
-    $("[data-action='scrollTop']").on('click', function (e) {
-        e.preventDefault()
-        if (!isTouchDevice()) {
-            lenis.scrollTo(0);
-        }
-        else {
-            $('html').animate({ scrollTop: 0 }, 800);
-        }
-    })
+    // $("[data-action='scrollTop']").on('click', function (e) {
+    //     e.preventDefault()
+    //     if (!isTouchDevice()) {
+    //         lenis.scrollTo(0);
+    //     }
+    //     else {
+    //         $('html').animate({ scrollTop: 0 }, 800);
+    //     }
+    // })
 }
 
 export default initFooter;
