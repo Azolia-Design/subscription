@@ -31,5 +31,5 @@ const scrollTop = () => {
 export {
 	lenis,
     initLenis,
-    // scrollTop
+    scrollTop
 };
