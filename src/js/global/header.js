@@ -73,15 +73,13 @@ const updateProgressByScroll = () => {
     }, 100);
 
     DOM.progWrap.on('click', function (e) {
-        e.preventDefault();
         let target = $(this).attr('data-header-id');
         let offset = viewportBreak({ desktop: -100, mobile: -30 });
         if (!isTouchDevice()) {
             lenis.scrollTo(`[data-section-id="${target}"]`, {
                 offset: offset
             })
-        }
-        else {
+        } else {
             let targetTop = $(`[data-section-id="${target}"]`).get(0).offsetTop + $(window).height() + offset;
             $('html').animate({
                 scrollTop: targetTop
@@ -175,8 +173,10 @@ const header = {
 }
 
 const initHeader = () => {
-    header.setup();
-    header.init();
+    if ($(window).width() > 767) {
+        header.setup();
+        header.init();
+    }   
 }
 
 export default initHeader;

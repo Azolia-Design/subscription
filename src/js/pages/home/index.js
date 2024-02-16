@@ -27,6 +27,37 @@ const home = {
         /** (💡)  - BENEFIT */
         function homeBenefit() {
             function stackScroll() {
+
+                let mainTitleTxt = new SplitText('.home-benefit-main-title', typeOpts.words)
+                let mainSubTxt = new SplitText('.home-benefit-main-sub', typeOpts.words)
+
+                let tlSplitHead = gsap.timeline({
+                    scrollTrigger: {
+                        trigger : ".home-benefit-list",
+                        start: "top bottom-=10%",
+                        // markers: true
+                    },
+                    onComplete: () => {
+                        mainTitleTxt.revert()
+                        mainSubTxt.revert()
+                    }
+                })
+
+                tlSplitHead
+                .from(mainTitleTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out"}, 0)
+                .from(mainSubTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out"}, "<=.4")
+
+                $(".home-benefit-other").each((idx, el) => {
+                    if (idx < 3) {
+                        let otherTitleTxt = new SplitText($(el).find(".home-benefit-other-title"), typeOpts.chars)
+                        let otherSubTxt = new SplitText($(el).find(".home-benefit-other-sub-txt"), typeOpts.words)
+
+                        tlSplitHead
+                        .from(otherTitleTxt.chars, {yPercent: 60, autoAlpha: 0, stagger: .01, duration: .6, ease: "power2.out", onComplete: () => {otherTitleTxt.revert()}}, 0)
+                        .from(otherSubTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out", onComplete: () => {otherSubTxt.revert()}}, "<=.2")
+                    }
+                })
+
                 const BENEFIT = {
                     stage: $('.home-benefit'),
                     wrap: $('.home-benefit--wrap'),
@@ -323,61 +354,70 @@ const home = {
                             requestAnimationFrame(initMouseMove)
                         }
                         requestAnimationFrame(initMouseMove)
-                    } else if ($(window).width() > 767) {
-                        $('.home-skill-item').on('click', function(e) {
-                            e.preventDefault()
-                            if (!$(this).hasClass('active')) {
-                                $('.home-skill-item').removeClass('active')
-                                $(this).addClass('active')
-                                $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
-                                let idx = $(this).index()
-                                $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
-                                gsap.to('.home-skill-thumb', {y: (cvUnit(40, 'rem') + ($('.home-skill-item').eq(0).outerHeight() - $('.home-skill-thumb').outerHeight())/2) + idx * $('.home-skill-item').eq(0).outerHeight(), duration: 1})
-                            } else {
-                                $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
-                                $('.home-skill-item').removeClass('active')
-                            }
-                        })
                     } else {
                         let idx = 0
-                        const target = $('.home-skill-thumb')
-                        function clickMobileThumb() {
-                            if (target.hasClass('active')) {
-                                let tarCurrY = yGetter(target.get(0))
-                                let tarY = cvUnit(60, 'rem') - $('.home-skill-thumb').outerHeight()*2.5/4 + ($('.home-skill-item').eq(idx).get(0).getBoundingClientRect().top - $('.home-skill-item').eq(0).get(0).getBoundingClientRect().top)
 
-                                ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
+                        $('.home-skill-item').eq(idx).addClass('active')
+                        let skillSplitDes = new SplitText($('.home-skill-item').eq(idx).find('.home-skill-item-desc'), typeOpts.words)
+                        tlSplitHead
+                        .from(skillSplitDes.words, {yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: "power2.out", onComplete: () => {skillSplitDes.revert(), $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')}}, "<=-.55") 
+
+                        if ($(window).width() > 767) {
+                            $('.home-skill-item').on('click', function(e) {
+                                e.preventDefault()
+                                if (!$(this).hasClass('active')) {
+                                    $('.home-skill-item').removeClass('active')
+                                    $(this).addClass('active')
+                                    $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
+                                    let idx = $(this).index()
+                                    $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
+                                    gsap.to('.home-skill-thumb', {y: (cvUnit(40, 'rem') + ($('.home-skill-item').eq(0).outerHeight() - $('.home-skill-thumb').outerHeight())/2) + idx * $('.home-skill-item').eq(0).outerHeight(), duration: 1})
+                                } else {
+                                    $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
+                                    $('.home-skill-item').removeClass('active')
+                                }
+                            })
+                        } else {
+                            $('.home-skill-item').eq(idx).find('.home-skill-item-desc').slideDown(300, 'linear')
+                            gsap.to($('.home-skill-item').eq(idx), {paddingTop: cvUnit( 27.5, 'rem'), paddingBottom: cvUnit( 27.5, 'rem'), duration: .3, ease: 'none', overwrite: true})
+                            gsap.to($('.home-skill-item').eq(idx).find('.home-skill-item-title'), {marginBottom: cvUnit(12, 'rem'), duration: .3, ease: 'none', overwrite: true})
+
+                            const target = $('.home-skill-thumb')
+                            function clickMobileThumb() {
+                                if (target.hasClass('active')) {
+                                    let tarCurrY = yGetter(target.get(0))
+                                    let tarY = cvUnit(60, 'rem') - $('.home-skill-thumb').outerHeight()*2.5/4 + ($('.home-skill-item').eq(idx).get(0).getBoundingClientRect().top - $('.home-skill-item').eq(0).get(0).getBoundingClientRect().top)
+    
+                                    ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
+                                }
+                                requestAnimationFrame(clickMobileThumb)
                             }
-                            requestAnimationFrame(clickMobileThumb)
+                            clickMobileThumb()
+
+                            $('.home-skill-item').on('click', function(e) {
+                                e.preventDefault()
+                                if (!$(this).hasClass('active')) {
+                                    idx = $(this).index()
+    
+                                    $('.home-skill-item').removeClass('active')
+                                    $('.home-skill-item .home-skill-item-desc').slideUp(300, 'linear')
+                                    $(this).addClass('active')
+                                    $(this).find('.home-skill-item-desc').slideDown(300, 'linear')
+                                    gsap.to('.home-skill-item', {paddingTop: cvUnit( 60.5, 'rem'), paddingBottom: cvUnit( 60.5, 'rem'), duration: .3, ease: 'none'})
+                                    gsap.to('.home-skill-item .home-skill-item-title', {marginBottom: 0, duration: .3, ease: 'none'})
+                                    gsap.to(this, {paddingTop: cvUnit( 27.5, 'rem'), paddingBottom: cvUnit( 27.5, 'rem'), duration: .3, ease: 'none', overwrite: true})
+                                    gsap.to($(this).find('.home-skill-item-title'), {marginBottom: cvUnit(12, 'rem'), duration: .3, ease: 'none', overwrite: true})
+                                    $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
+                                    $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
+                                } else {
+                                    $('.home-skill-item').removeClass('active')
+                                    $('.home-skill-item .home-skill-item-desc').slideUp(300, 'linear')
+                                    gsap.to('.home-skill-item', {paddingTop: cvUnit( 60.5, 'rem'), paddingBottom: cvUnit( 60.5, 'rem'), duration: .3, ease: 'none'})
+                                    gsap.to('.home-skill-item .home-skill-item-title', {marginBottom: 0, duration: .3, ease: 'none'})
+                                    $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
+                                }
+                            })
                         }
-                        clickMobileThumb()
-                        $('.home-skill-item').on('click', function(e) {
-                            e.preventDefault()
-                            if (!$(this).hasClass('active')) {
-                                idx = $(this).index()
-
-                                $('.home-skill-item').removeClass('active')
-                                $('.home-skill-item .home-skill-item-desc').slideUp(300, 'linear')
-                                $(this).addClass('active')
-                                $(this).find('.home-skill-item-desc').slideDown(300, 'linear')
-                                gsap.to('.home-skill-item', {paddingTop: cvUnit( 60.5, 'rem'), paddingBottom: cvUnit( 60.5, 'rem'), duration: .3, ease: 'none'})
-                                gsap.to('.home-skill-item .home-skill-item-title', {marginBottom: 0, duration: .3, ease: 'none'})
-                                gsap.to(this, {paddingTop: cvUnit( 27.5, 'rem'), paddingBottom: cvUnit( 27.5, 'rem'), duration: .3, ease: 'none', overwrite: true})
-                                gsap.to($(this).find('.home-skill-item-title'), {marginBottom: cvUnit(12, 'rem'), duration: .3, ease: 'none', overwrite: true})
-                                $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
-                                $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
-
-                                // requestAnimationFrame(() => {
-                                //     gsap.to('.home-skill-thumb', {y: cvUnit(60, 'rem') - $('.home-skill-thumb').outerHeight()*3/4 + ($(this).outerHeight()) + (idx - 1) * $('.home-skill-item:not(.active)').outerHeight(), duration: 1})
-                                // })
-                            } else {
-                                $('.home-skill-item').removeClass('active')
-                                $('.home-skill-item .home-skill-item-desc').slideUp(300, 'linear')
-                                gsap.to('.home-skill-item', {paddingTop: cvUnit( 60.5, 'rem'), paddingBottom: cvUnit( 60.5, 'rem'), duration: .3, ease: 'none'})
-                                gsap.to('.home-skill-item .home-skill-item-title', {marginBottom: 0, duration: .3, ease: 'none'})
-                                $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
-                            }
-                        })
                     }
                 }
             })
@@ -889,7 +929,6 @@ const home = {
         }
         homeIndustries()
 
-
         /** (💡)  - TESTIMONIAL */
         function homeTesti() {
             if ($(window).width() > 767) {
@@ -919,25 +958,25 @@ const home = {
                         start: `top bottom`,
                         end: 'bottom top',
                         scrub: .2,
-                        // snap: {
-                        //     // To update exact position and check directional
-                        //     snapTo(value) {
-                        //         if (value > 0.1822 && value <= 0.3644) {
-                        //             return 0.2521;
-                        //         } else if (value > 0.3644 && value <= 0.5512)  {
-                        //             return 0.4767;
-                        //         }  else if (value > 0.5512 && value <= 0.69445)  {
-                        //             return 0.6257;
-                        //         } else if (value > 0.69445 && value <= 0.8816)  {
-                        //             return 0.7632;
-                        //         } else {
-                        //             return value;
-                        //         }
-                        //     },
-                        //     // snapTo: [0.2521, 0.4767, 0.6257, 0.7632],
-                        //     duration: { min: 0.15, max: 1 },
-                        //     delay: 0.01,
-                        // },
+                        snap: {
+                            // To update exact position and check directional
+                            snapTo(value) {
+                                if (value > 0.1822 && value <= 0.3644) {
+                                    return 0.2521;
+                                } else if (value > 0.3644 && value <= 0.5512)  {
+                                    return 0.4767;
+                                }  else if (value > 0.5512 && value <= 0.69445)  {
+                                    return 0.6257;
+                                } else if (value > 0.69445 && value <= 0.8816)  {
+                                    return 0.7632;
+                                } else {
+                                    return value;
+                                }
+                            },
+                            // snapTo: [0.2521, 0.4767, 0.6257, 0.7632],
+                            duration: { min: 0.15, max: 1 },
+                            delay: 0.01,
+                        },
                     },
                 })
 
@@ -1021,6 +1060,26 @@ const home = {
             accordion();
         }
         homeFaq();
+
+        function homeHeaderAnim() {
+            let headTxt = new SplitText(".home-hero-title", typeOpts.words)
+            let scheduTxt = new SplitText(".header-main-schedule", typeOpts.chars)
+            let tlSplitHead = gsap.timeline({
+                onComplete: () => {
+                    headTxt.revert()
+                    scheduTxt.revert()
+                }
+            })
+            tlSplitHead
+            .from(".home-hero-logo", {yPercent: 60, autoAlpha: 0, duration: 1, ease: "power2.out"}, 0)
+            .from(headTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out"}, "<=.2")
+            .from(".home-hero-btn", {yPercent: 60, autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.4")
+            .from(".home-hero-discover", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
+            .from(scheduTxt.chars, {yPercent: 60, autoAlpha: 0, stagger: .01, duration: .8, ease: "power2.out"}, "<=0")
+            .from(".header-main-inner", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
+
+        }
+        homeHeaderAnim()
     },
     beforeLeave() {
         console.log(`leave ${this.namespace}`);

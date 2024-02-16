@@ -1,7 +1,7 @@
 import { selector, lerp, xGetter, xSetter, yGetter, ySetter, pointerCurr, FloatingAnimation } from '../helper/index';
 import { marqueeCSS } from '../common/marquee';
 import { lenis } from './lenis';
-import { cvUnit, isTouchDevice } from '../helper/viewport';
+import { cvUnit, isTouchDevice, viewportBreak} from '../helper/viewport';
 
 const initFooter = () => {
     marqueeCSS({
@@ -17,7 +17,7 @@ const initFooter = () => {
                 trigger: '.footer-curtain',
                 start: 'top bottom',
                 endTrigger: '.footer',
-                end: `bottom bottom+=${-(curtainHeight)}`,
+                end: `bottom bottom+=${cvUnit(viewportBreak({desktop: 0, tablet: -36, mobile: -82}), "rem") - (curtainHeight)}`,
                 // markers: true,
                 scrub: .2,
                 // onUpdate: (timeline) => {
@@ -52,7 +52,8 @@ const initFooter = () => {
         new FloatingAnimation('.footer-curtain-logo img', 20, 10, 4, 15)
     }
 
-    $("[data-action='scrollTop']").on('click', function () {
+    $("[data-action='scrollTop']").on('click', function (e) {
+        e.preventDefault()
         if (!isTouchDevice()) {
             lenis.scrollTo(0);
         }
