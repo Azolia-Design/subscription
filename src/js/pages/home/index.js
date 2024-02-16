@@ -187,7 +187,7 @@ const home = {
                 stackScroll();
             }
         }
-        homeBenefit();
+        // homeBenefit();
 
         /** (💡)  - SHOWREEL */
         function homeShowreel() {
@@ -275,7 +275,7 @@ const home = {
                 galleryZoom()
             }
         }
-        homeShowreel()
+        // homeShowreel()
 
         /** (💡)  - SKILL */
         function homeSkill() {
@@ -422,7 +422,7 @@ const home = {
                 }
             })
         }
-        homeSkill()
+        // homeSkill()
 
         /** (💡)  - PROCESS */
         function homeProcess() {
@@ -1061,7 +1061,6 @@ const home = {
             accordion();
         }
         homeFaq();
-
 
         function homeHeaderAnim() {
             let headTxt = new SplitText(".home-hero-title", typeOpts.words)
