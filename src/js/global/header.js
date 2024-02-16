@@ -73,7 +73,6 @@ const updateProgressByScroll = () => {
     }, 100);
 
     DOM.progWrap.on('click', function (e) {
-        e.preventDefault();
         let target = $(this).attr('data-header-id');
         let offset = viewportBreak({ desktop: -100, mobile: -30 });
         if (!isTouchDevice()) {
