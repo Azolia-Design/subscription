@@ -3,7 +3,7 @@ import initGlobal from './global/index';
 
 const main = () => {
     // initScriptPage();
-    // initGlobal();
+    initGlobal();
 };
 
 window.onload = () => {

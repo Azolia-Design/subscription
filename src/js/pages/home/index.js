@@ -22,7 +22,7 @@ const home = {
             })
             tl.to(cont.find('.home-hero-bg img'), {y: '19rem', ease: 'none'})
         }
-        // heroParallax()
+        heroParallax()
 
         /** (💡)  - BENEFIT */
         function homeBenefit() {
@@ -187,7 +187,7 @@ const home = {
                 stackScroll();
             }
         }
-        // homeBenefit();
+        homeBenefit();
 
         /** (💡)  - SHOWREEL */
         function homeShowreel() {
@@ -275,7 +275,7 @@ const home = {
                 galleryZoom()
             }
         }
-        // homeShowreel()
+        homeShowreel()
 
         /** (💡)  - SKILL */
         function homeSkill() {
@@ -422,7 +422,7 @@ const home = {
                 }
             })
         }
-        // homeSkill()
+        homeSkill()
 
         /** (💡)  - PROCESS */
         function homeProcess() {
@@ -507,7 +507,7 @@ const home = {
                 }
             })
         }
-        // homeProcess()
+        homeProcess()
 
         /** (💡)  - PORTFOLIO */
         function homePortfolio() {
@@ -665,7 +665,7 @@ const home = {
             }
             projectCurtain()
         }
-        // homePortfolio()
+        homePortfolio()
 
         /** (💡)  - PRICING */
         function homePricing() {
@@ -818,7 +818,7 @@ const home = {
             }
             testPayment()
         }
-        // homePricing();
+        homePricing();
 
         /** (💡)  - INDUSTRIES */
         function homeIndustries() {
@@ -927,7 +927,7 @@ const home = {
                 }
             })
         }
-        // homeIndustries()
+        homeIndustries()
 
         /** (💡)  - TESTIMONIAL */
         function homeTesti() {
@@ -1032,7 +1032,7 @@ const home = {
                 })
             }
         }
-        // homeTesti()
+        homeTesti()
 
         /** (💡)  - FAQ */
         function homeFaq() {
