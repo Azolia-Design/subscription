@@ -9,14 +9,14 @@ import { viewport } from "../helper/viewport";
 
 const initGlobal = () => {
     initLenis();
-    if (viewport.width > 991) {
-        initCursor();
-    }
-    refreshOnBreakpoint();
-    initPopup();
-    initButton()
-    initHeader();
-    initFooter();
+    // if (viewport.width > 991) {
+    //     initCursor();
+    // }
+    // refreshOnBreakpoint();
+    // initPopup();
+    // initButton()
+    // initHeader();
+    // initFooter();
 }
 
 export default initGlobal;
