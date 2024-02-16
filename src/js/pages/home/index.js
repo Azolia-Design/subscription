@@ -927,7 +927,7 @@ const home = {
                 }
             })
         }
-        homeIndustries()
+        // homeIndustries()
 
         /** (💡)  - TESTIMONIAL */
         function homeTesti() {
