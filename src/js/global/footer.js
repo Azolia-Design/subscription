@@ -18,14 +18,9 @@ const initFooter = () => {
                 start: 'top bottom',
                 endTrigger: '.footer',
                 end: `bottom bottom+=${cvUnit(viewportBreak({desktop: 0, tablet: -36, mobile: -82}), "rem") - (curtainHeight)}`,
-                // markers: true,
                 scrub: .2,
-                // onUpdate: (timeline) => {
-                //     console.log(timeline.progress);
-                // }
             },
             scaleY: 0,
-            // y: -curtainHeight/20,
             stagger: {
                 amount: -.35
             },

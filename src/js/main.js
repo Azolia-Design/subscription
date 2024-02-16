@@ -7,5 +7,5 @@ const main = () => {
 };
 
 window.onload = () => {
-	main();
+	main(); 
 };

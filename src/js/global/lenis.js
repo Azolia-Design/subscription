@@ -1,24 +1,15 @@
 gsap.registerPlugin(ScrollTrigger);
 
-let lenis 
+let lenis;
 
 const initLenis = () => {
-    
-    lenis = new Lenis({
-        lerp: false,
-        duration: 1.6
-    })
-
-    lenis.on("scroll", ({ scroll, limit, velocity, direction, progress }) => {
-        ScrollTrigger.update
-    });
+    lenis = new Lenis()
+    lenis.on('scroll', ScrollTrigger.update)
 
 	gsap.ticker.add((time)=>{
         lenis.raf(time * 1000)
     })
     gsap.ticker.lagSmoothing(0)
-
-    return lenis;
 }
 
 export {
