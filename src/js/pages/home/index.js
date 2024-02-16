@@ -350,6 +350,19 @@ const home = {
                             }
                             requestAnimationFrame(clickMobileThumb)
                         }
+
+                        $('.home-skill-item').eq(idx).addClass('active')
+                        $('.home-skill-item').eq(idx).find('.home-skill-item-desc').slideDown(300, 'linear')
+                        gsap.to($('.home-skill-item').eq(idx), {paddingTop: cvUnit( 27.5, 'rem'), paddingBottom: cvUnit( 27.5, 'rem'), duration: .3, ease: 'none', overwrite: true})
+                        gsap.to($('.home-skill-item').eq(idx).find('.home-skill-item-title'), {marginBottom: cvUnit(12, 'rem'), duration: .3, ease: 'none', overwrite: true})
+                        $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
+
+                        let skillSplitDes = new SplitText($('.home-skill-item').eq(idx).find('.home-skill-item-desc'), typeOpts.words)
+                        tlSplitHead
+                        .from(skillSplitDes.words, {yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: "power2.out", onComplete: () => {skillSplitDes.revert()}}, "<=-.55") 
+
+
+
                         clickMobileThumb()
                         $('.home-skill-item').on('click', function(e) {
                             e.preventDefault()
@@ -1021,6 +1034,22 @@ const home = {
             accordion();
         }
         homeFaq();
+
+
+        function homeHeaderAnim() {
+            let headTxt = new SplitText(".home-hero-title", typeOpts.words)
+            let tlSplitHead = gsap.timeline({
+                onComplete: () => {
+                    headTxt.revert()
+                }
+            })
+            tlSplitHead
+            .from(".home-hero-logo", {yPercent: 60, autoAlpha: 0, duration: 1, ease: "power2.out"}, 0)
+            .from(headTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out"}, "<=.2")
+            .from(".home-hero-btn", {yPercent: 60, autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.4")
+
+        }
+        homeHeaderAnim()
     },
     beforeLeave() {
         console.log(`leave ${this.namespace}`);

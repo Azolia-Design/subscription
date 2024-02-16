@@ -175,8 +175,10 @@ const header = {
 }
 
 const initHeader = () => {
-    header.setup();
-    header.init();
+    if ($(window).width() > 767) {
+        header.setup();
+        header.init();
+    }   
 }
 
 export default initHeader;
