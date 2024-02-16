@@ -11,7 +11,7 @@ const initGlobal = () => {
     if ($(window).width() > 991) {
         initCursor();
     }
-    // refreshOnBreakpoint();
+    refreshOnBreakpoint();
     initPopup();
     initButton()
     initHeader();
