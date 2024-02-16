@@ -1416,7 +1416,7 @@
             .home-project-item-industry, .home-project-item-name, .home-project-item-view {
                 color: rgba($cl-white, 1);
             }
-            .home-project-item-arrow {
+            .home-project-item-view {
                 img {
                     filter: invert(0);
                 }
@@ -1471,16 +1471,10 @@
                 color: rgba($cl-sub, 1);
 
                 @include md {
+                    grid-column: 8/12;
                     --fs-18: 1.6rem;
                     --lh-18: 1em;
                 }
-
-                @include sm {
-                    display: none;
-                }
-            }
-            &-arrow {
-                display: none;
 
                 @include sm {
                     display: flex;
@@ -1492,10 +1486,21 @@
                     margin-bottom: -1.2rem;
                     align-self: end;
                     justify-self: end;
-                    img {
-                        height: 100%;
-                        width: auto;
-                        filter: invert(1);
+                }
+                
+                p {
+                    @include sm {
+                        display: none;
+                    }
+                }
+                img {
+                    display: none;
+                    height: 100%;
+                    width: auto;
+                    filter: invert(1);
+
+                    @include sm {
+                        display: inline;
                     }
                 }
             }
