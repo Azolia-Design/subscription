@@ -26,8 +26,8 @@ const initButton = () => {
                 //         scrollTop: targetTop
                 //     }, 800);
                 // }
-                history.replaceState({}, '', `${window.location.pathname}#${target}`);
-                return false;
+                // history.replaceState({}, '', `${window.location.pathname}#${target}`);
+                // return false;
             }
         }
     })

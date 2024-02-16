@@ -19,13 +19,13 @@ const initLenis = () => {
 }
 
 const scrollTop = () => {
-    return (onComplete) => {
-        lenis.scrollTo('top', {
-            duration: .0001,
-            lock: true,
-            onComplete: onComplete?.()
-        })
-    }
+    // return (onComplete) => {
+    //     lenis.scrollTo('top', {
+    //         duration: .0001,
+    //         lock: true,
+    //         onComplete: onComplete?.()
+    //     })
+    // }
 }
 
 export {

@@ -75,19 +75,19 @@ const updateProgressByScroll = () => {
     DOM.progWrap.on('click', function (e) {
         let target = $(this).attr('data-header-id');
         let offset = viewportBreak({ desktop: -100, mobile: -30 });
-        if (!isTouchDevice()) {
-            lenis.scrollTo(`[data-section-id="${target}"]`, {
-                offset: offset
-            })
-        } else {
-            let targetTop = $(`[data-section-id="${target}"]`).get(0).offsetTop + $(window).height() + offset;
-            $('html').animate({
-                scrollTop: targetTop
-            }, 800);
-        }
+        // if (!isTouchDevice()) {
+        //     lenis.scrollTo(`[data-section-id="${target}"]`, {
+        //         offset: offset
+        //     })
+        // } else {
+        //     let targetTop = $(`[data-section-id="${target}"]`).get(0).offsetTop + $(window).height() + offset;
+        //     $('html').animate({
+        //         scrollTop: targetTop
+        //     }, 800);
+        // }
 
-        history.replaceState({}, '', `${window.location.pathname}#${target}`);
-        return false;
+        // history.replaceState({}, '', `${window.location.pathname}#${target}`);
+        // return false;
     })
 
     const checkMenuActive = () => {

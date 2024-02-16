@@ -176,10 +176,10 @@ const home = {
                     timeline.seek(label)
                     const goToProgress = timeline.progress()
                     timeline.progress(now)
-                    lenis.scrollTo(yStart + ( timeline.scrollTrigger.end - timeline.scrollTrigger.start ) * goToProgress, {
-                        duration: duration,
-                        force: true,
-                    })
+                    // lenis.scrollTo(yStart + ( timeline.scrollTrigger.end - timeline.scrollTrigger.start ) * goToProgress, {
+                    //     duration: duration,
+                    //     force: true,
+                    // })
                 }
             }
 
