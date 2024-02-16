@@ -60,6 +60,7 @@ const initFooter = () => {
         else {
             $('html').animate({ scrollTop: 0 }, 800);
         }
+        console.log("scrollTop btn");
     })
 }
 

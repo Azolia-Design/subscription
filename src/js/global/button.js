@@ -28,9 +28,8 @@ const initButton = () => {
                 history.replaceState({}, '', `${window.location.pathname}#${target}`);
                 return false;
             }
-
-            console.log("scroll ne");
-            console.log(target);
+            // console.log("scroll ne");
+            // console.log(target);
         }
     })
 }
