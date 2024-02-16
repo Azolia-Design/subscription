@@ -9,6 +9,12 @@
         height: 100vh;
         min-height: 100vh;
         position: relative;
+
+        @include sm{
+            height: 100svh;
+            min-height: auto;
+        }
+
         &-content {
             --total-space: calc(100vh - 54rem);
             grid-column: 1/-1;
@@ -305,13 +311,14 @@
                 padding-inline: 2.4rem 1.2rem;
             }
             @include sm {
-                width: calc(100% - 2px);
+                // width: calc(100% - 2px);
+                width: 100%;
                 border: none;
                 border-radius: 2rem;
                 padding: 3.2rem 2.4rem;
-                position: sticky;
+                position: relative;
                 // top: calc(3.7rem + 3.6rem * 1.1 * 3 + 2.4rem + 1.6rem * 1.4 * 2 + 5.4rem);
-                top: 13.6rem;
+                // top: 13.6rem;
 
                 &::before {
                     pointer-events: none;
@@ -320,21 +327,24 @@
                     inset: 0px;
                     @include size(100%);
                     @include border-gradient();
+
+
+                    // background: linear-gradient(#fff3 100%, #fff0 100%) border-box;
                 }
-                &:nth-child(1) {
-                    // top: calc(3.7rem + 3.6rem * 1.1 * 3 + 2.4rem + 1.6rem * 1.4 * 2 + 5.4rem - 1px);
-                    top: calc(13.6rem - 1px);
-                }
-                &:nth-child(n+2) {
-                    // border-top: 1px solid rgba($cl-heading, 0.2);
-                    border-radius: 1.5rem;
-                    box-shadow: inset 0 1px .2rem rgba($cl-heading, 0.2);
-                    &::before {
-                        content: none
-                    }
-                    width: calc(100% - 2px);
-                    @include transform(translateX(1px));
-                }
+                // &:nth-child(1) {
+                //     top: calc(3.7rem + 3.6rem * 1.1 * 3 + 2.4rem + 1.6rem * 1.4 * 2 + 5.4rem - 1px);
+                //     top: calc(13.6rem - 1px);
+                // }
+                // &:nth-child(n+2) {
+                //     border-top: 1px solid rgba($cl-heading, 0.2);
+                //     border-radius: 1.5rem;
+                //     box-shadow: inset 0 1px .2rem rgba($cl-heading, 0.2);
+                //     &::before {
+                //         content: none
+                //     }
+                //     width: calc(100% - 2px);
+                //     @include transform(translateX(1px));
+                // }
             }
             &-img {
                 @include size(40rem, auto);

@@ -44,7 +44,7 @@ const initFooter = () => {
     if ($(window).width() > 991) {
         parallaxBear();
     } else {
-        new FloatingAnimation('.footer-curtain-logo img', 20, 10, 4, 15)
+        // new FloatingAnimation('.footer-curtain-logo img', 20, 10, 4, 15)
     }
 
     $("[data-action='scrollTop']").on('click', function (e) {
@@ -53,7 +53,7 @@ const initFooter = () => {
             lenis.scrollTo(0);
         }
         else {
-            // $('html').animate({ scrollTop: 0 }, 800);
+            $('html').animate({ scrollTop: 0}, 800);
         }
     })
 }

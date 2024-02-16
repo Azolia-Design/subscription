@@ -26,8 +26,6 @@ const initCursor = () => {
 
         function updatePos(mode) {
             if (mode == "force") {
-                // xSetter(cursor.get(0))(lerp(cursorX, targetPos.x, .8))
-                // ySetter(cursor.get(0))(lerp(cursorY, targetPos.y, .8))
                 gsap.set(cursor, {x: targetPos.x, y: targetPos.y})
             } else {
                 xSetter(cursor.get(0))(lerp(cursorX, targetPos.x, .1))

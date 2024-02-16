@@ -14,7 +14,6 @@ const initButton = () => {
 
             if (target) {
                 e.preventDefault();
-                console.log("scroll");
                 if (!isTouchDevice()) {
                     lenis.scrollTo(`[data-section-id="${target}"]`, {
                         offset: offset
@@ -22,9 +21,9 @@ const initButton = () => {
                 }
                 else {
                     let targetTop = $(`[data-section-id="${target}"]`).get(0).offsetTop + $(window).height() + offset;
-                    // $('html').animate({
-                    //     scrollTop: targetTop
-                    // }, 800);
+                    $('html').animate({
+                        scrollTop: targetTop
+                    }, 800);
                 }
                 history.replaceState({}, '', `${window.location.pathname}#${target}`);
                 return false;
