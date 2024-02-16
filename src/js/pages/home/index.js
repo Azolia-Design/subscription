@@ -1093,4 +1093,20 @@ const home = {
         console.log(`leave ${this.namespace}`);
     }
 }
-export default home;
+
+const termAndPolicy = {
+    namespace: "termAndPolicy",
+    afterEnter(data) {
+        console.log(`enter ${this.namespace}`);
+        let cont = $('body');
+
+
+    },
+    beforeLeave() {
+        console.log(`leave ${this.namespace}`);
+    }
+}
+export {
+    home,
+    termAndPolicy
+};

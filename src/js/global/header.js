@@ -123,31 +123,34 @@ function checkHoverDot() {
 }
 
 const updateHeaderBarByScroll = () => {
-    let tlHeaderTrigger = gsap.timeline({
-        scrollTrigger: {
-            trigger: '.home-main',
-            start: `top+=${$('.header').outerHeight()} top`,
-            onEnter: () => {
-                $('.header-logo').addClass('active')
-                $('.header-menu').addClass('active')
-                $('.header-hamburger').addClass('active')
-
-                if ($(window).width() <= 991) {
-                    gsap.to('.header-main-schedule', {width: 0, overwrite: true})
-                    gsap.to('.header-hamburger', {width: 0, overwrite: true})
-                }
-            },
-            onLeaveBack: () => {
-                $('.header-logo').removeClass('active')
-                $('.header-menu').removeClass('active')
-                $('.header-hamburger').removeClass('active')
-                if ($(window).width() <= 991) {
-                    gsap.to('.header-main-schedule', {width: 'auto', overwrite: true})
-                    gsap.to('.header-hamburger', {width: '6rem', overwrite: true})
+    if ($('.home-main').length) {
+        let tlHeaderTrigger = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.home-main',
+                start: `top+=${$('.header').outerHeight()} top`,
+                onEnter: () => {
+                    $('.header-logo').addClass('active')
+                    $('.header-menu').addClass('active')
+                    $('.header-hamburger').addClass('active')
+    
+                    if ($(window).width() <= 991) {
+                        gsap.to('.header-main-schedule', {width: 0, overwrite: true})
+                        gsap.to('.header-hamburger', {width: 0, overwrite: true})
+                    }
+                },
+                onLeaveBack: () => {
+                    $('.header-logo').removeClass('active')
+                    $('.header-menu').removeClass('active')
+                    $('.header-hamburger').removeClass('active')
+                    if ($(window).width() <= 991) {
+                        gsap.to('.header-main-schedule', {width: 'auto', overwrite: true})
+                        gsap.to('.header-hamburger', {width: '6rem', overwrite: true})
+                    }
                 }
             }
-        }
-    })
+        })
+    }
+    
     $('.header-hamburger').on('click', function(e) {
         e.preventDefault();
         if (!$(this).hasClass('active')) {

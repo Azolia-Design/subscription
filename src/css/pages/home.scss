@@ -2318,6 +2318,21 @@
                                     }
                                 }
                             }
+
+                            &:nth-child(2) {       
+                                .home-explore-industries-radar-wrapper-item-line-content {
+                                    @include sm {
+                                        translate: 0 -2.5rem;
+                                    }
+                                }
+                            }
+                            &:nth-child(4) {
+                                .home-explore-industries-radar-wrapper-item-line-content {
+                                    @include sm {
+                                        translate: 0 -2.3rem;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
