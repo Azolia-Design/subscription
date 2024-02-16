@@ -22,7 +22,7 @@ const home = {
             })
             tl.to(cont.find('.home-hero-bg img'), {y: '19rem', ease: 'none'})
         }
-        heroParallax()
+        // heroParallax()
 
         /** (💡)  - BENEFIT */
         function homeBenefit() {
@@ -928,7 +928,6 @@ const home = {
             })
         }
         homeIndustries()
-
 
         /** (💡)  - TESTIMONIAL */
         function homeTesti() {
