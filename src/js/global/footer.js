@@ -52,7 +52,8 @@ const initFooter = () => {
         new FloatingAnimation('.footer-curtain-logo img', 20, 10, 4, 15)
     }
 
-    $("[data-action='scrollTop']").on('click', function () {
+    $("[data-action='scrollTop']").on('click', function (e) {
+        e.preventDefault()
         if (!isTouchDevice()) {
             lenis.scrollTo(0);
         }
