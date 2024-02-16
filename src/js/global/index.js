@@ -12,7 +12,7 @@ const initGlobal = () => {
         initCursor();
     }
     // refreshOnBreakpoint();
-    // initPopup();
+    initPopup();
     initButton()
     initHeader();
     initFooter();
