@@ -3,6 +3,7 @@ gsap.registerPlugin(ScrollTrigger);
 let lenis 
 
 const initLenis = () => {
+    
     lenis = new Lenis({
         lerp: false,
         duration: 1.6
@@ -20,18 +21,7 @@ const initLenis = () => {
     return lenis;
 }
 
-const scrollTop = () => {
-    return (onComplete) => {
-        lenis.scrollTo('top', {
-            duration: .0001,
-            lock: true,
-            onComplete: onComplete?.()
-        })
-    }
-}
-
 export {
 	lenis,
     initLenis,
-    // scrollTop
 };
