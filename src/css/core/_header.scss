@@ -11,7 +11,9 @@
     pointer-events: none;
 
     @include sm {
-        position: static;
+        // position: static;
+        padding-top: 1.2rem;
+        padding-bottom: 3rem;
     }
 
     &-container {

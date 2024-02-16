@@ -19,7 +19,6 @@ const initFooter = () => {
                 endTrigger: '.footer',
                 end: `bottom bottom+=${cvUnit(viewportBreak({desktop: 0, tablet: -36, mobile: -82}), "rem") - (curtainHeight)}`,
                 scrub: .2,
-                // markers: true
             },
             scaleY: 0,
             stagger: {

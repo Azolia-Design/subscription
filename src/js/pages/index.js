@@ -1,6 +1,6 @@
-import home from './home'
+import {home, termAndPolicy} from './home'
 
-const VIEWS = [home];
+const VIEWS = [home, termAndPolicy];
 
 const initScriptPage = () => {
     const dataNamespace = $('[data-barba-namespace]').attr('data-barba-namespace');
