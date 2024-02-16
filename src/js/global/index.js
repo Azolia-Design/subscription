@@ -15,7 +15,7 @@ const initGlobal = () => {
     // initPopup();
     // initButton()
     initHeader();
-    // initFooter();
+    initFooter();
 }
 
 export default initGlobal;
