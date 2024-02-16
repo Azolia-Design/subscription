@@ -919,25 +919,25 @@ const home = {
                         start: `top bottom`,
                         end: 'bottom top',
                         scrub: .2,
-                        snap: {
-                            // To update exact position and check directional
-                            snapTo(value) {
-                                if (value > 0.1822 && value <= 0.3644) {
-                                    return 0.2521;
-                                } else if (value > 0.3644 && value <= 0.5512)  {
-                                    return 0.4767;
-                                }  else if (value > 0.5512 && value <= 0.69445)  {
-                                    return 0.6257;
-                                } else if (value > 0.69445 && value <= 0.8816)  {
-                                    return 0.7632;
-                                } else {
-                                    return value;
-                                }
-                            },
-                            // snapTo: [0.2521, 0.4767, 0.6257, 0.7632],
-                            duration: { min: 0.15, max: 1 },
-                            delay: 0.01,
-                        },
+                        // snap: {
+                        //     // To update exact position and check directional
+                        //     snapTo(value) {
+                        //         if (value > 0.1822 && value <= 0.3644) {
+                        //             return 0.2521;
+                        //         } else if (value > 0.3644 && value <= 0.5512)  {
+                        //             return 0.4767;
+                        //         }  else if (value > 0.5512 && value <= 0.69445)  {
+                        //             return 0.6257;
+                        //         } else if (value > 0.69445 && value <= 0.8816)  {
+                        //             return 0.7632;
+                        //         } else {
+                        //             return value;
+                        //         }
+                        //     },
+                        //     // snapTo: [0.2521, 0.4767, 0.6257, 0.7632],
+                        //     duration: { min: 0.15, max: 1 },
+                        //     delay: 0.01,
+                        // },
                     },
                 })
 
