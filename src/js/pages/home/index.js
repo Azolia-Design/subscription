@@ -507,7 +507,7 @@ const home = {
                 }
             })
         }
-        homeProcess()
+        // homeProcess()
 
         /** (💡)  - PORTFOLIO */
         function homePortfolio() {
@@ -665,7 +665,7 @@ const home = {
             }
             projectCurtain()
         }
-        homePortfolio()
+        // homePortfolio()
 
         /** (💡)  - PRICING */
         function homePricing() {
@@ -818,7 +818,7 @@ const home = {
             }
             testPayment()
         }
-        homePricing();
+        // homePricing();
 
         /** (💡)  - INDUSTRIES */
         function homeIndustries() {
