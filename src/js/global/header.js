@@ -80,8 +80,7 @@ const updateProgressByScroll = () => {
             lenis.scrollTo(`[data-section-id="${target}"]`, {
                 offset: offset
             })
-        }
-        else {
+        } else {
             let targetTop = $(`[data-section-id="${target}"]`).get(0).offsetTop + $(window).height() + offset;
             $('html').animate({
                 scrollTop: targetTop

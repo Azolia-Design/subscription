@@ -25,6 +25,7 @@ const scrollTop = () => {
             lock: true,
             onComplete: onComplete?.()
         })
+        console.log("scrollTop ne");
     }
 }
 
