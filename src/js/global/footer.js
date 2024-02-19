@@ -1,7 +1,7 @@
 import { selector, lerp, xGetter, xSetter, yGetter, ySetter, pointerCurr, FloatingAnimation } from '../helper/index';
 import { marqueeCSS } from '../common/marquee';
 import { lenis } from './lenis';
-import { cvUnit, isTouchDevice } from '../helper/viewport';
+import { cvUnit, isTouchDevice, viewportBreak} from '../helper/viewport';
 
 const initFooter = () => {
     marqueeCSS({
@@ -17,15 +17,10 @@ const initFooter = () => {
                 trigger: '.footer-curtain',
                 start: 'top bottom',
                 endTrigger: '.footer',
-                end: `bottom bottom+=${-(curtainHeight)}`,
-                // markers: true,
+                end: `bottom bottom+=${cvUnit(viewportBreak({desktop: 0, tablet: -36, mobile: -82}), "rem") - (curtainHeight)}`,
                 scrub: .2,
-                // onUpdate: (timeline) => {
-                //     console.log(timeline.progress);
-                // }
             },
             scaleY: 0,
-            // y: -curtainHeight/20,
             stagger: {
                 amount: -.35
             },
@@ -49,15 +44,16 @@ const initFooter = () => {
     if ($(window).width() > 991) {
         parallaxBear();
     } else {
-        new FloatingAnimation('.footer-curtain-logo img', 20, 10, 4, 15)
+        // new FloatingAnimation('.footer-curtain-logo img', 20, 10, 4, 15)
     }
 
-    $("[data-action='scrollTop']").on('click', function () {
+    $("[data-action='scrollTop']").on('click', function (e) {
+        e.preventDefault()
         if (!isTouchDevice()) {
             lenis.scrollTo(0);
         }
         else {
-            $('html').animate({ scrollTop: 0 }, 800);
+            $('html').animate({ scrollTop: 0}, 800);
         }
     })
 }

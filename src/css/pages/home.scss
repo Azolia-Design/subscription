@@ -9,6 +9,12 @@
         height: 100vh;
         min-height: 100vh;
         position: relative;
+
+        @include sm{
+            height: 100svh;
+            min-height: auto;
+        }
+
         &-content {
             --total-space: calc(100vh - 54rem);
             grid-column: 1/-1;
@@ -31,6 +37,7 @@
             @include sm {
                 justify-content: flex-start;
                 padding-top: 5.4rem;
+                padding-bottom: 0;
             }
         }
         &-logo {
@@ -85,7 +92,7 @@
 
                 @include sm {
                     margin-top: 0;
-                    @include size(100%, calc(100vh + 19rem + 7rem - 8.9rem - 53.1rem));
+                    @include size(100%, calc(100vh + 19rem + 7rem - 3.9rem - 53.1rem));
                 }
             }
             &-overlay {
@@ -119,6 +126,10 @@
 
             @include md {
                 margin-bottom: 5rem;
+            }
+
+            @include sm {
+                display: none;
             }
         }
         &-mouse {
@@ -253,8 +264,8 @@
                 padding-top: 0rem;
                 padding-left: 0rem;
                 padding-right: 0rem;
-                position: sticky;
-                top: 3.7rem;
+                // position: sticky;
+                // top: 3.7rem;
                 margin-bottom: 5.4rem;
             }
 
@@ -279,6 +290,7 @@
             @include sm {
                 display: flex;
                 flex-direction: column;
+                row-gap: 1.6rem;
             }
         }
         &-other {
@@ -299,12 +311,14 @@
                 padding-inline: 2.4rem 1.2rem;
             }
             @include sm {
-                width: calc(100% - 2px);
+                // width: calc(100% - 2px);
+                width: 100%;
                 border: none;
                 border-radius: 2rem;
                 padding: 3.2rem 2.4rem;
-                position: sticky;
-                top: calc(3.7rem + 3.6rem * 1.1 * 3 + 2.4rem + 1.6rem * 1.4 * 2 + 5.4rem);
+                position: relative;
+                // top: calc(3.7rem + 3.6rem * 1.1 * 3 + 2.4rem + 1.6rem * 1.4 * 2 + 5.4rem);
+                // top: 13.6rem;
 
                 &::before {
                     pointer-events: none;
@@ -313,20 +327,24 @@
                     inset: 0px;
                     @include size(100%);
                     @include border-gradient();
+
+
+                    // background: linear-gradient(#fff3 100%, #fff0 100%) border-box;
                 }
-                &:nth-child(1) {
-                    top: calc(3.7rem + 3.6rem * 1.1 * 3 + 2.4rem + 1.6rem * 1.4 * 2 + 5.4rem - 1px);
-                }
-                &:nth-child(n+2) {
-                    // border-top: 1px solid rgba($cl-heading, 0.2);
-                    border-radius: 1.5rem;
-                    box-shadow: inset 0 1px .2rem rgba($cl-heading, 0.2);
-                    &::before {
-                        content: none
-                    }
-                    width: calc(100% - 4px);
-                    @include transform(translateX(1px));
-                }
+                // &:nth-child(1) {
+                //     top: calc(3.7rem + 3.6rem * 1.1 * 3 + 2.4rem + 1.6rem * 1.4 * 2 + 5.4rem - 1px);
+                //     top: calc(13.6rem - 1px);
+                // }
+                // &:nth-child(n+2) {
+                //     border-top: 1px solid rgba($cl-heading, 0.2);
+                //     border-radius: 1.5rem;
+                //     box-shadow: inset 0 1px .2rem rgba($cl-heading, 0.2);
+                //     &::before {
+                //         content: none
+                //     }
+                //     width: calc(100% - 2px);
+                //     @include transform(translateX(1px));
+                // }
             }
             &-img {
                 @include size(40rem, auto);
@@ -997,6 +1015,7 @@
     }
     &-process {
         padding-bottom: 25rem;
+        overflow: hidden;
 
         @include md {
             padding-bottom: 18rem;
@@ -1198,6 +1217,7 @@
 
                     @include animation(glitch-anim-1 var(--time-anim) infinite linear alternate);
                     position: absolute;
+                    transform-origin: center;
 
                     &:nth-child(2) {
                         animation-name: glitch-anim-1;
@@ -1396,7 +1416,7 @@
             .home-project-item-industry, .home-project-item-name, .home-project-item-view {
                 color: rgba($cl-white, 1);
             }
-            .home-project-item-arrow {
+            .home-project-item-view {
                 img {
                     filter: invert(0);
                 }
@@ -1451,16 +1471,10 @@
                 color: rgba($cl-sub, 1);
 
                 @include md {
+                    grid-column: 8/12;
                     --fs-18: 1.6rem;
                     --lh-18: 1em;
                 }
-
-                @include sm {
-                    display: none;
-                }
-            }
-            &-arrow {
-                display: none;
 
                 @include sm {
                     display: flex;
@@ -1472,10 +1486,21 @@
                     margin-bottom: -1.2rem;
                     align-self: end;
                     justify-self: end;
-                    img {
-                        height: 100%;
-                        width: auto;
-                        filter: invert(1);
+                }
+                
+                p {
+                    @include sm {
+                        display: none;
+                    }
+                }
+                img {
+                    display: none;
+                    height: 100%;
+                    width: auto;
+                    filter: invert(1);
+
+                    @include sm {
+                        display: inline;
                     }
                 }
             }
@@ -2298,6 +2323,21 @@
                                     }
                                 }
                             }
+
+                            &:nth-child(2) {       
+                                .home-explore-industries-radar-wrapper-item-line-content {
+                                    @include sm {
+                                        translate: 0 -2.5rem;
+                                    }
+                                }
+                            }
+                            &:nth-child(4) {
+                                .home-explore-industries-radar-wrapper-item-line-content {
+                                    @include sm {
+                                        translate: 0 -2.3rem;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -2348,6 +2388,7 @@
                 top: auto;
                 height: auto;
                 padding-bottom: 0;
+                padding-top: 0;
             }
         }
         &-text-wrap {

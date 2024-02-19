@@ -1,6 +1,8 @@
-import { xGetter, xSetter, lerp } from "../helper/index";
+import { xGetter, xSetter, lerp, typeOpts } from "../helper/index";
 import { lenis } from "../global/lenis";
 import { isTouchDevice, viewportBreak } from "../helper/viewport";
+import { SplitText } from "../libs/SplitText";
+
 
 const setupDot = () => {
     let allSections = $('[data-section]');
@@ -73,19 +75,17 @@ const updateProgressByScroll = () => {
     }, 100);
 
     DOM.progWrap.on('click', function (e) {
-        e.preventDefault();
         let target = $(this).attr('data-header-id');
         let offset = viewportBreak({ desktop: -100, mobile: -30 });
-        if (!isTouchDevice()) {
+        if ($('html').hasClass('lenis-smooth')) {
             lenis.scrollTo(`[data-section-id="${target}"]`, {
                 offset: offset
             })
-        }
-        else {
+        } else {
             let targetTop = $(`[data-section-id="${target}"]`).get(0).offsetTop + $(window).height() + offset;
             $('html').animate({
                 scrollTop: targetTop
-            }, 800);
+            });
         }
 
         history.replaceState({}, '', `${window.location.pathname}#${target}`);
@@ -127,31 +127,34 @@ function checkHoverDot() {
 }
 
 const updateHeaderBarByScroll = () => {
-    let tlHeaderTrigger = gsap.timeline({
-        scrollTrigger: {
-            trigger: '.home-main',
-            start: `top+=${$('.header').outerHeight()} top`,
-            onEnter: () => {
-                $('.header-logo').addClass('active')
-                $('.header-menu').addClass('active')
-                $('.header-hamburger').addClass('active')
+    if ($('.home-main').length) {
+        let tlHeaderTrigger = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.home-main',
+                start: `top+=${$('.header').outerHeight()} top`,
+                onEnter: () => {
+                    $('.header-logo').addClass('active')
+                    $('.header-menu').addClass('active')
+                    $('.header-hamburger').addClass('active')
 
-                if ($(window).width() <= 991) {
-                    gsap.to('.header-main-schedule', {width: 0, overwrite: true})
-                    gsap.to('.header-hamburger', {width: 0, overwrite: true})
-                }
-            },
-            onLeaveBack: () => {
-                $('.header-logo').removeClass('active')
-                $('.header-menu').removeClass('active')
-                $('.header-hamburger').removeClass('active')
-                if ($(window).width() <= 991) {
-                    gsap.to('.header-main-schedule', {width: 'auto', overwrite: true})
-                    gsap.to('.header-hamburger', {width: '6rem', overwrite: true})
+                    if ($(window).width() <= 991) {
+                        gsap.to('.header-main-schedule', {width: 0, overwrite: true})
+                        gsap.to('.header-hamburger', {width: 0, overwrite: true})
+                    }
+                },
+                onLeaveBack: () => {
+                    $('.header-logo').removeClass('active')
+                    $('.header-menu').removeClass('active')
+                    $('.header-hamburger').removeClass('active')
+                    if ($(window).width() <= 991) {
+                        gsap.to('.header-main-schedule', {width: 'auto', overwrite: true})
+                        gsap.to('.header-hamburger', {width: '6rem', overwrite: true})
+                    }
                 }
             }
-        }
-    })
+        })
+    }
+
     $('.header-hamburger').on('click', function(e) {
         e.preventDefault();
         if (!$(this).hasClass('active')) {
@@ -164,11 +167,38 @@ const updateHeaderBarByScroll = () => {
     })
 }
 
+const textAnim = () => {
+    let headTxt = new SplitText(".home-hero-title", typeOpts.words)
+    let scheduleTxt = new SplitText(".header-main-schedule", typeOpts.chars)
+    let tlSplitHead = gsap.timeline({
+        onComplete: () => {
+            headTxt.revert()
+            scheduleTxt.revert()
+        }
+    })
+
+    tlSplitHead
+        .from(".home-hero-logo", {yPercent: 60, autoAlpha: 0, duration: 1, ease: "power2.out"}, 0)
+        .from(headTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out"}, "<=.2")
+
+    if ($(window).width > 767) {
+        tlSplitHead
+        .from(".home-hero-btn", {yPercent: 60, autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.4")
+        .from(".home-hero-discover", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
+        .from(scheduleTxt.chars, {yPercent: 60, autoAlpha: 0, stagger: .01, duration: .8, ease: "power2.out"}, "<=0")
+        .from(".header-main-inner", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
+    } else {
+        tlSplitHead
+        .from(".header-main-inner", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
+    }
+}
+
 const header = {
     setup() {
         setupDot();
     },
     init() {
+        textAnim();
         hoverDot();
         checkHoverDot();
         updateProgressByScroll();
@@ -177,8 +207,10 @@ const header = {
 }
 
 const initHeader = () => {
-    header.setup();
-    header.init();
+    if ($(window).width() > 767) {
+        header.setup();
+        header.init();
+    }
 }
 
 export default initHeader;

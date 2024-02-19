@@ -152,6 +152,9 @@ button {
         @include animation(noise 2s steps(4) infinite);
         background-image: url(../../public/imgs/bg-noise-grain.png?as=webp);
     }
+    @include md {
+        display: none;
+    }
 }
 .cursor-wrap {
     z-index: 999999;
@@ -169,8 +172,8 @@ button {
     &.on-hidden {
         opacity: 0;
     }
-    $cs-lg: 30rem;
-    $cs-md: 6.5rem;
+    $cs-lg: 14.1rem; // 30rem
+    $cs-md: 4.5rem; // 6.5rem
     $cs-sm: 1.5rem;
 
     &.mixBlendMode {
@@ -327,7 +330,20 @@ button {
         // margin-left: auto;
         margin-top: -3rem;
         margin-right: -3rem;
-        @include size(2.4rem);
+        padding: 1rem;
+        @include size(4rem);
+        background-color: rgba($cl-black, 0.05);
+        border-radius: 50%;
+
+        @include md {
+            margin-top: -1rem;
+            margin-right: -1rem;      
+        }
+
+        @include sm {
+            margin-top: -2.2rem;
+            margin-right: -1.4rem;      
+        }
     }
     &--sidebar {
         display: flex;
@@ -346,6 +362,17 @@ button {
 
         @include transition(transform .5s ease-in-out);
         @include transform(translateX(100%));
+
+        @include md {
+            width: 100%;
+            padding: 3rem;
+            max-width: none;
+        }
+
+        @include sm {
+            padding: 3.2rem 2.4rem;
+        }
+
         &-header {
             display: flex;
             justify-content: space-between;
@@ -363,6 +390,11 @@ button {
             padding: 3rem 2rem 3rem 0;
             margin: -3rem -2rem -3rem 0;
             mask-image: linear-gradient(180deg, transparent 0.5rem, $cl-white 6rem, $cl-white calc(100% - 6rem), transparent calc(100% - 0.5rem));
+
+            @include sm {
+                padding: 3rem 1rem 3rem 0;
+                margin: -3rem -1rem -3.2rem 0;
+            }
         }
     }
 }

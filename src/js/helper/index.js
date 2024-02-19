@@ -81,12 +81,7 @@ class FloatingAnimation {
 		this.randomMoveTime = this.random(this.duration * 0.5, this.duration);
 		this.randomRotateTime = this.random(this.duration, this.duration * 2);
 
-		gsap.set(this.target, {
-			x: this.randomX(Math.random() < 0.5 ? 1 : -1),
-			y: this.randomY(Math.random() < 0.5 ? 1 : -1),
-			rotation: this.randomAngle(Math.random() < 0.5 ? 1 : -1),
-			transformOrigin: "center center",
-		}, 0);
+		gsap.set(this.target, {transformOrigin: "center center"});
 
 		this.moveX(this.target, Math.random() < 0.5 ? 1 : -1);
 		this.moveY(this.target, Math.random() < 0.5 ? 1 : -1);
@@ -94,15 +89,14 @@ class FloatingAnimation {
 	}
 
 	random(min, max) {
-		const delta = max - min;
-		return (direction = 1) => (max - delta * Math.random()) * direction;
+		return (direction = 1) => (max - Math.random() * (max - min)) * direction;
 	}
 
 	moveX(selector, direction) {
 		gsap.to(selector, {
-			duration: this.randomMoveTime(),
-			x: this.randomX(direction),
-			ease: 'Sine.inOut',
+			duration: this.random(this.duration * 0.5, this.duration),
+			x: this.random(this.x * 0.1, this.x),
+			ease: 'sine.inOut',
 			onComplete: this.moveX.bind(this),
 			onCompleteParams: [selector, direction * -1],
 		});
@@ -110,9 +104,9 @@ class FloatingAnimation {
 
 	moveY(selector, direction) {
 		gsap.to(selector, {
-			duration:this.randomMoveTime(),
-			y: this.randomY(direction),
-			ease: 'Sine.inOut',
+			duration: this.random(this.y * 0.1, this.y),
+			y: this.random(this.y * 0.1, this.y),
+			ease: 'sine.inOut',
 			onComplete: this.moveY.bind(this),
 			onCompleteParams: [selector, direction * -1],
 		});
@@ -120,9 +114,9 @@ class FloatingAnimation {
 
 	rotate(selector, direction) {
 		gsap.to(selector, {
-			duration: this.randomRotateTime(),
-			rotation: this.randomAngle(direction),
-			ease: 'Sine.inOut',
+			duration: this.random(this.x * 0.1, this.x),
+			rotation: this.random(this.angle * 0.1, this.angle),
+			ease: 'sine.inOut',
 			onComplete: this.rotate.bind(this),
 			onCompleteParams: [selector, direction * -1],
 		});

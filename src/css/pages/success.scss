@@ -73,6 +73,11 @@
                 }
                 &.shape-mid {
                     height: 7.5rem;
+                    backdrop-filter: blur(1rem);
+
+                    img {
+                        backdrop-filter: blur(1rem);
+                    }
                 }
             }
             &-circle {
