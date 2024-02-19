@@ -1099,8 +1099,6 @@ const termAndPolicy = {
     afterEnter(data) {
         console.log(`enter ${this.namespace}`);
         let cont = $('body');
-
-
     },
     beforeLeave() {
         console.log(`leave ${this.namespace}`);
