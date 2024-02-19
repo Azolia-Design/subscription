@@ -10,7 +10,7 @@ const initButton = () => {
     $('a').on('click', function (e) {
         if ($(this).attr('href').includes('#')) {
             let target = $(this).attr('href').slice(1);
-            let offset = viewportBreak({ desktop: 490, tablet: 300, mobile: 0 });
+            let offset = viewportBreak({ desktop: 490, tablet: 300, mobile: 500 });
             if (target) {
                 e.preventDefault();
                 if (!isTouchDevice()) {
@@ -22,7 +22,7 @@ const initButton = () => {
                     let targetTop = $(`[data-section-id="${target}"]`).get(0).offsetTop + $(window).height() + offset;
                     $('html').animate({
                         scrollTop: targetTop
-                    }, 800);
+                    }, 100);
                 }
                 history.replaceState({}, '', `${window.location.pathname}#${target}`);
                 return false;
