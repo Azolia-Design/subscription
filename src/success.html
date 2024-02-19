@@ -28,7 +28,7 @@
             </div>
         </div>
     </div>
-    <main class="main success" data-barba-namespace="payment-success">
+    <main class="main success" data-barba-namespace="payment_success">
         <div class="success-bg">
             <div class="success-bg-blur">
                 <img class="img" src='../public/imgs/success-bg-noise.png?as=webp&width=1434.75' width='1913' alt=''/>
@@ -56,18 +56,18 @@
                             Details of the subscription are included below
                         </p>
                         <div class="success-popup-plan">
-                            <h2 class="txt txt-20 txt-med txt-hl success-popup-plan-label">Pro</h2>
-                            <p class="txt txt-14 success-popup-plan-scope">Design & Development</p>
+                            <h2 class="txt txt-20 txt-med txt-hl success-popup-plan-label" data-payment-plan></h2>
+                            <p class="txt txt-14 success-popup-plan-scope" data-payment-scope></p>
                             <div class="success-popup-plan-price-wrap">
                                 <div class="success-popup-plan-price">
                                     <span class="txt txt-16">$</span>
-                                    <h4 class="h5">8,999</h4>
+                                    <h4 class="h5" data-payment-price></h4>
                                 </div>
-                                <p class="txt txt-16 success-popup-plan-periodic">/month</p>
+                                <p class="txt txt-16 success-popup-plan-periodic" data-payment-periodic></p>
                             </div>
                             <div class="success-popup-plan-renewa">
                                 <p class="txt txt-16">Next renewal date: </p>
-                                <p class="txt txt-16 txt-med success-popup-plan-renewa-date">25 Feb, 2024</p>
+                                <p class="txt txt-16 txt-med success-popup-plan-renewa-date" data-payment-expires></p>
                             </div>
                         </div>
                     </div>

@@ -93,13 +93,15 @@ const updateProgressByScroll = () => {
     })
 
     const checkMenuActive = () => {
-        if ($('.header-menu-label-item.active').length === 0) {
-            gsap.set('.header-menu-label', { '--d-width': '0px' });
+        if ($('.header-menu-label').length) {
+            if ($('.header-menu-label-item.active').length === 0) {
+                gsap.set('.header-menu-label', { '--d-width': '0px' });
+            }
+            else {
+                gsap.set('.header-menu-label', { '--d-width': `${$('.header-menu-label-item.active').eq(0).width()}px` });
+            }
+            requestAnimationFrame(checkMenuActive);
         }
-        else {
-            gsap.set('.header-menu-label', { '--d-width': `${$('.header-menu-label-item.active').eq(0).width()}px` });
-        }
-        requestAnimationFrame(checkMenuActive);
     }
     requestAnimationFrame(checkMenuActive);
 }

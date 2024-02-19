@@ -2,7 +2,7 @@ import { parseRem, selector } from "../../helper/index";
 import { cvUnit, percentage, viewport, viewportBreak } from "../../helper/viewport";
 import { lenis } from "../../global/lenis";
 import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, findClosestEdge, FloatingAnimation, pointerCurr, typeOpts } from "../../helper/index";
-import { planListing } from '../../../../plan-data';
+import planListing from '../../../../plan-data.json';
 import { SplitText } from "../../libs/SplitText";
 
 const home = {
@@ -733,8 +733,9 @@ const home = {
                         else if ($(item).attr('data-purchase-method') === 'subscription') {
                             let currLabel = $(item).siblings('.home-pricing-plan-item-label').text();
                             let planItemName = `${currLabel} ${currPlan}`
+
                             planListing.forEach((_, idx) => {
-                                if (planListing.get(idx).name.toLowerCase() === planItemName.toLowerCase()) {
+                                if (planListing[idx].name.toLowerCase() === planItemName.toLowerCase()) {
                                     $(item).attr('data-purchase-id', idx);
                                 }
                             })
@@ -755,7 +756,7 @@ const home = {
             function testPayment() {
                 $('.btn-purchase').on('click', function(e) {
                     e.preventDefault()
-                    let planId = $(this).attr('data-button-id')
+                    let planId = $(this).attr('data-purchase-id')
                     fetch('http://localhost:4000/create-checkout-session', {
                         method: 'POST',
                         headers: {
@@ -763,7 +764,7 @@ const home = {
                         },
                         body: JSON.stringify({
                             items: [
-                                {id: 1}
+                                {id: planId}
                             ]
                         })
                     }).then(res => {
