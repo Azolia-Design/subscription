@@ -605,6 +605,41 @@ const home = {
                     })
                     initMouseMove()
                 } else {
+                    $('.home-project-wrap-bot .home-project-item').each((idx, el) => {
+                        ScrollTrigger.create({
+                            trigger: el,
+                            start: 'top center-=5%',
+                            end: 'bottom center-=5%',
+                            // markers: true,
+                            onLeave: () => {
+                                if (idx == ($('.home-project-wrap-bot .home-project-item').length - 1)) {
+                                    $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
+                                    let index = $('.home-project-wrap-bot .home-project-item').length
+                                    let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
+                                    let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
+                                    gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
+                                }
+                            },
+                            onLeaveBack: () => {
+                                if (idx == 0) {
+                                    $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
+                                    let index = -1;
+                                    let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
+                                    let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
+                                    gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
+                                }
+                            },
+                            onUpdate: () => {
+                                let nameSpace = $(el).find('[data-project-name]').attr('data-project-name')
+                                $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
+                                $(".home-project-thumb").find(`[data-thumb-name="${nameSpace}"]`).addClass('active')
+
+                                let index = $(el).index()
+                                projectClippath(index)
+                                initClickThumb(index)
+                            }
+                        })
+                    })
                     $('.home-project-wrap-bot .home-project-item').on('click', function(e) {
                         let nameSpace = $(this).find('[data-project-name]').attr('data-project-name')
 
@@ -635,7 +670,7 @@ const home = {
                 }
 
                 function initClickThumb(idx) {
-                    gsap.to(target, {y: (cvUnit( viewportBreak({tablet: 80, mobile: 100}), 'rem') + ($('.home-project-item').eq(0).outerHeight() - target.outerHeight())/2) + idx * $('.home-project-item').eq(0).outerHeight()})
+                    gsap.to(target, {y: (cvUnit( viewportBreak({tablet: 80, mobile: 100}), 'rem') + ($('.home-project-item').eq(0).outerHeight() - target.outerHeight())/2) + idx * $('.home-project-item').eq(0).outerHeight(), overwrite: true})
                 }
             }
             hoverProject();

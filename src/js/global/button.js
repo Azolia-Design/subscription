@@ -1,5 +1,5 @@
 import { lenis } from "./lenis";
-import { isTouchDevice, viewportBreak } from "../helper/viewport";
+import { cvUnit, isTouchDevice, viewportBreak } from "../helper/viewport";
 
 const initButton = () => {
     $('.btn').each((_, el) => {
@@ -10,7 +10,7 @@ const initButton = () => {
     $('a').on('click', function (e) {
         if ($(this).attr('href').includes('#')) {
             let target = $(this).attr('href').slice(1);
-            let offset = viewportBreak({ desktop: 490, tablet: 300, mobile: 500 });
+            let offset = viewportBreak({ desktop: 100, tablet: 30, mobile: 50});
             if (target) {
                 e.preventDefault();
                 if (!isTouchDevice()) {
