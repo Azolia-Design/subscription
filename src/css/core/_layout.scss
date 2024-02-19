@@ -179,6 +179,9 @@ button {
     &.mixBlendMode {
         mix-blend-mode: lighten;
     }
+    @include sm {
+        display: none;
+    }
 
     .cursor {
         position: absolute;
