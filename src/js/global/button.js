@@ -10,8 +10,7 @@ const initButton = () => {
     $('a').on('click', function (e) {
         if ($(this).attr('href').includes('#')) {
             let target = $(this).attr('href').slice(1);
-            let offset = viewportBreak({ desktop: -100, mobile: -20 });
-
+            let offset = viewportBreak({ desktop: 490, tablet: 300, mobile: 0 });
             if (target) {
                 e.preventDefault();
                 if (!isTouchDevice()) {

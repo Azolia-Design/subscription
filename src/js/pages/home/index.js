@@ -176,10 +176,10 @@ const home = {
                     timeline.seek(label)
                     const goToProgress = timeline.progress()
                     timeline.progress(now)
-                    // lenis.scrollTo(yStart + ( timeline.scrollTrigger.end - timeline.scrollTrigger.start ) * goToProgress, {
-                    //     duration: duration,
-                    //     force: true,
-                    // })
+                    lenis.scrollTo(yStart + ( timeline.scrollTrigger.end - timeline.scrollTrigger.start ) * goToProgress, {
+                        duration: duration,
+                        force: true,
+                    })
                 }
             }
 
@@ -232,6 +232,7 @@ const home = {
                     .to(getOtherItem({ wrap: 1, item: 1 }), { xPercent: 460, duration: 1 }, "<=0")
                     .to(getOtherItem({ wrap: 1, item: 0 }), { xPercent: 760, duration: 1 }, "<=0")
                     .from(GALLERY.thumbPlay, { autoAlpha: 0, y: 0, duration: .5 }, ">=-1")
+                    .from('.home-showreel-play-wrapper', { autoAlpha: 0, y: 0, duration: .5 }, "<=0")
                     .from('.home-showreel-play-ic', { scale: 0.8, duration: 1 }, "<=0")
                     .from('.home-showreel-play-ic svg', { scale: 1.4, duration: 1 }, "<=0")
                     .from('.home-showreel-play-first', {x: -cvUnit(200, 'rem'), duration: 1}, '<=0')
@@ -267,6 +268,11 @@ const home = {
                         DOM.play.removeClass('hidden');
                         DOM.video.get(0).pause();
                     }
+                })
+
+                $('.home-showreel-play-wrapper').on('click', function(e) {
+                    e.preventDefault()
+                    DOM.link_vid.trigger('click')
                 })
             }
 
@@ -578,7 +584,7 @@ const home = {
                     })
 
                     $('.home-project-wrap-bot .home-project-item').on('pointerenter', function(e) {
-                        let index = $(this).index()
+                        let index = $(this).index();
                         projectClippath(index)
                     })
                     $('.home-project-wrap-bot .home-project-item').on('pointerleave', function(e) {

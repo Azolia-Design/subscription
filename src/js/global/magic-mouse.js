@@ -48,6 +48,24 @@ const initCursor = () => {
         // scaleYSetter(cursor.get(0))(lerp(scaleY, 1 - scaleOffset, .15))
         // rotZSetter(cursor.get(0))((Math.atan2(pointerCurr().y - cursorY, pointerCurr().x - cursorX) * 180) / Math.PI)
 
+        let showreelIc = $('.home-showreel-play-ic')
+        let showreelIcX = xGetter(showreelIc.get(0))
+        let showreelIcY = yGetter(showreelIc.get(0))
+        let targetX, targetY
+
+        if ($('[data-video="to-pause"]').length && $('.home-showreel-thumb:hover').length) {
+            if (showreelIc.has) {
+
+            }
+            targetX = (pointerCurr().x/$(window).width() - .5) * 2 * ($('.home-showreel-thumb').width() - showreelIc.width())/2
+            targetY = ((pointerCurr().y - $('.home-showreel-thumb').get(0).getBoundingClientRect().top)/($('.home-showreel-thumb').height()) - 0.5) * ($('.home-showreel-thumb').height() - showreelIc.width())
+        } else {
+            targetX = 0
+            targetY = 0
+        }
+        xSetter(showreelIc.get(0))(lerp(showreelIcX, targetX, .1))
+        ySetter(showreelIc.get(0))(lerp(showreelIcY, targetY, .1))
+
         if ($('[data-cursor]:hover').length) {
             let target = $('[data-cursor]:hover')
             let targetOffsetLeft = target.get(0).getBoundingClientRect().left
@@ -70,6 +88,7 @@ const initCursor = () => {
             let type = target.attr('data-cursor')
 
             switch (type) {
+
                 case 'stick':
                     cursor.closest('.cursor-wrap').addClass('mixBlendMode')
 
