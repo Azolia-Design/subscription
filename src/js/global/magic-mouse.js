@@ -1,4 +1,4 @@
-import { lerp, xSetter, ySetter, xGetter, yGetter, pointerCurr } from "../helper/index";
+import { lerp, xSetter, ySetter, rotZSetter, scaleXSetter, scaleYSetter, xGetter,  yGetter, rotZGetter, scaleXGetter, scaleYGetter, pointerCurr } from "../helper/index";
 import { cvUnit, isTouchDevice } from '../helper/viewport'
 
 const initCursor = () => {
@@ -12,12 +12,17 @@ const initCursor = () => {
     function initMouseMove() {
         let cursorX = xGetter(cursor.get(0))
         let cursorY = yGetter(cursor.get(0))
+        let zRot = rotZGetter(cursor.get(0))
+        let scaleX = scaleXGetter(cursor.get(0))
+        let scaleY = scaleYGetter(cursor.get(0))
+        
         let dotX = xGetter(cursor.find('.cursor-dot').get(0))
         let dotY = yGetter(cursor.find('.cursor-dot').get(0))
         let borderX = xGetter(cursor.find('.cursor-border').get(0))
         let borderY = yGetter(cursor.find('.cursor-border').get(0))
         let glowX = xGetter(cursor.find('.cursor-glow').get(0))
         let glowY = yGetter(cursor.find('.cursor-glow').get(0))
+
 
         targetPos = {
             x: pointerCurr().x,
@@ -26,7 +31,7 @@ const initCursor = () => {
 
         function updatePos(mode) {
             if (mode == "force") {
-                gsap.set(cursor, {x: targetPos.x, y: targetPos.y})
+                // gsap.set(cursor, {x: targetPos.x, y: targetPos.y})
             } else {
                 xSetter(cursor.get(0))(lerp(cursorX, targetPos.x, .1))
                 ySetter(cursor.get(0))(lerp(cursorY, targetPos.y, .1))
@@ -37,6 +42,29 @@ const initCursor = () => {
             xSetter(cursor.find('.cursor-glow').get(0))(lerp(glowX, -(targetPos.x - cursorX)/4, .1))
             ySetter(cursor.find('.cursor-glow').get(0))(lerp(glowY, -(targetPos.y - cursorY)/4, .1))
         }
+
+        // let scaleOffset = Math.min(Math.sqrt(((pointerCurr().x - cursorX)**2 + (pointerCurr().y - cursorY)**2), 2) / 500, .5)
+        // scaleXSetter(cursor.get(0))(lerp(scaleX, 1 + scaleOffset, .15))
+        // scaleYSetter(cursor.get(0))(lerp(scaleY, 1 - scaleOffset, .15))
+        // rotZSetter(cursor.get(0))((Math.atan2(pointerCurr().y - cursorY, pointerCurr().x - cursorX) * 180) / Math.PI)
+
+        let showreelIc = $('.home-showreel-play-ic')
+        let showreelIcX = xGetter(showreelIc.get(0))
+        let showreelIcY = yGetter(showreelIc.get(0))
+        let targetX, targetY
+
+        if ($('[data-video="to-pause"]').length && $('.home-showreel-thumb:hover').length) {
+            if (showreelIc.has) {
+
+            }
+            targetX = (pointerCurr().x/$(window).width() - .5) * 2 * ($('.home-showreel-thumb').width() - showreelIc.width())/2
+            targetY = ((pointerCurr().y - $('.home-showreel-thumb').get(0).getBoundingClientRect().top)/($('.home-showreel-thumb').height()) - 0.5) * ($('.home-showreel-thumb').height() - showreelIc.width())
+        } else {
+            targetX = 0
+            targetY = 0
+        }
+        xSetter(showreelIc.get(0))(lerp(showreelIcX, targetX, .1))
+        ySetter(showreelIc.get(0))(lerp(showreelIcY, targetY, .1))
 
         if ($('[data-cursor]:hover').length) {
             let target = $('[data-cursor]:hover')
@@ -60,6 +88,7 @@ const initCursor = () => {
             let type = target.attr('data-cursor')
 
             switch (type) {
+
                 case 'stick':
                     cursor.closest('.cursor-wrap').addClass('mixBlendMode')
 

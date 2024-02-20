@@ -10,10 +10,14 @@ const parseRem = (input) => {
 
 const xSetter = (el) => gsap.quickSetter(el, 'x', `px`);
 const ySetter = (el) => gsap.quickSetter(el, 'y', `px`);
+const scaleXSetter = (el) => gsap.quickSetter(el, 'scaleX');
+const scaleYSetter = (el) => gsap.quickSetter(el, 'scaleY');
 const rotZSetter = (el) => gsap.quickSetter(el, 'rotateZ', `deg`);
 
 const xGetter = (el) => gsap.getProperty(el, 'x');
 const yGetter = (el) => gsap.getProperty(el, 'y');
+const scaleXGetter = (el) => gsap.getProperty(el, 'scaleX');
+const scaleYGetter = (el) => gsap.getProperty(el, 'scaleY');
 const rotZGetter = (el) => gsap.getProperty(el, 'rotateZ')
 
 const selector = (parent) => {
@@ -128,9 +132,13 @@ export {
     parseRem,
     xSetter,
     ySetter,
+	scaleXSetter,
+	scaleYSetter,
     rotZSetter,
     xGetter,
     yGetter,
+	scaleXGetter,
+	scaleYGetter,
     selector,
     rotZGetter,
     typeOpts,

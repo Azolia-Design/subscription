@@ -84,6 +84,7 @@
             @include md {
                 --fs-16: 1.4rem;
                 --lh-16: 1.3em;
+                display: none;
             }
             @include sm {
                 display: none;

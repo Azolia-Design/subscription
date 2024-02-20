@@ -76,13 +76,11 @@ const updateProgressByScroll = () => {
 
     DOM.progWrap.on('click', function (e) {
         let target = $(this).attr('data-header-id');
-        let offset = viewportBreak({ desktop: -100, mobile: -30 });
+        // let offset = viewportBreak({ desktop: -100, mobile: -30 });
         if ($('html').hasClass('lenis-smooth')) {
-            lenis.scrollTo(`[data-section-id="${target}"]`, {
-                offset: offset
-            })
+            lenis.scrollTo(`[data-section-id="${target}"]`)
         } else {
-            let targetTop = $(`[data-section-id="${target}"]`).get(0).offsetTop + $(window).height() + offset;
+            let targetTop = $(`[data-section-id="${target}"]`).get(0).offsetTop + $(window).height();
             $('html').animate({
                 scrollTop: targetTop
             });
@@ -199,10 +197,12 @@ const header = {
     },
     init() {
         textAnim();
-        hoverDot();
-        checkHoverDot();
         updateProgressByScroll();
         updateHeaderBarByScroll();
+        if ($(window).width() > 991) {
+            hoverDot();
+            checkHoverDot();
+        }
     }
 }
 

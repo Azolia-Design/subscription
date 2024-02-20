@@ -21,7 +21,7 @@
     <link rel="preload" href="css/style.scss" as="style"/>
     <link rel="stylesheet" href="css/style.scss">
     <link rel="stylesheet" href="../public/fonts/font.css">
-    <link rel="preload" href="../public/imgs/hero-banner-full.jpg?as=webp&width=5044" as="image">
+    <link rel="preload" href="../public/imgs/hero-banner-full.jpg" as="image">
     <link rel="preload" href="../public/fonts/Saans-Bold.woff" as="font" type="font/woff" crossorigin>
     <link rel="preload" href="../public/fonts/Saans-Regular.woff" as="font" type="font/woff" crossorigin>
     <link rel="preload" href="../public/fonts/Saans-Medium.woff" as="font" type="font/woff" crossorigin>
@@ -46,7 +46,7 @@
                     <div class="popup--sidebar">
                         <div class="popup--sidebar-header">
                             <h2 class="h5 popup--sidebar-header-heading">This is a heading</h2>
-                            <a href="#" class="popup-close" data-popup-benefit="close">
+                            <a href="#" class="popup-close" data-popup-benefit="close" aria-label="close-popup">
                                 <img src="../public/imgs/close.svg" alt="">
                             </a>
                         </div>
@@ -78,7 +78,7 @@
                         <img class="img" src='../public/imgs/logo.svg' width='65' height="92" alt='bear logo'/>
                     </div>
                     <h1 class="h0 home-hero-title">Reliable design partner committed to your company's growth</h1>
-                    <a href="#Pricing" class="btn home-hero-btn" data-cursor="btnstick">
+                    <a href="./#Pricing" class="btn home-hero-btn" data-cursor="btnstick">
                         <span class="txt txt-16 txt-btn">
                             See all plans
                         </span>
@@ -90,10 +90,11 @@
                         <span class="home-hero-mouse-wheel"></span>
                     </div>
                     <p class="txt txt-16 txt-med home-hero-discover-txt">Scroll down to discover how it works</p>
+                    <p class="txt txt-16 txt-med home-hero-discover-txt mod-tablet">Scroll down to discover</p>
                 </div>
             </div>
             <div class="home-hero-bg">
-                <img class="img" src='../public/imgs/hero-banner-full.jpg?as=webp&width=5044' width='2522' alt='A Black Bear'/>
+                <img class="img" src='../public/imgs/hero-banner-full.jpg' width='2522' alt='A Black Bear'/>
                 <div class="home-hero-bg-overlay"></div>
                 <div class="home-hero-bg-grad"></div>
             </div>
@@ -129,20 +130,20 @@
                                     <span class="txt txt-12 txt-med header-menu-prog-label">abc</span>
                                 </div>
                             </div>
-                            <button class="header-hamburger" data-cursor="hamburger">
+                            <a href="#" class="header-hamburger" data-cursor="hamburger">
                                 <span class="header-hamburger-line"></span>
                                 <span class="header-hamburger-line"></span>
                                 <span class="header-hamburger-line"></span>
-                            </button>
-                            <a class="btn" href="#Pricing" data-cursor="btnstick">
+                            </a>
+                            <a class="btn" href="./#Pricing" data-cursor="btnstick">
                                 <span class="txt txt-16 txt-btn" data-cursor="txtstick">Get Started</span>
                             </a>
                         </div>
                     </div>
                 </div>
             </header>
-            <div class="home-main-inner">
-                <section class="home-benefit" data-section="#" data-section-id="Benefit">
+            <div class="home-main-inner" data-section="#" data-section-id="Benefit">
+                <section class="home-benefit">
                     <div class="home-benefit-stick">
                         <div class="container">
                             <div class="home-benefit--wrap">
@@ -270,14 +271,23 @@
                                     <img class="img img-fill" src='../public/imgs/showreal-thumb.jpg?as=webp&width=3294' width='1647' alt='a man wearing a orange coat'/>
                                 </div>
                                 <div class="home-showreel-play">
-                                    <p class="h0 home-showreel-play-first">Play the</p>
-                                    <button class="home-showreel-play-ic">
-                                        <svg width="100%" viewBox="0 0 46 53" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M43.5 22.1147C46.8333 24.0392 46.8333 28.8505 43.5 30.775L7.49999 51.5596C4.16666 53.4841 -2.36385e-06 51.0785 -2.1956e-06 47.2295L-3.78551e-07 5.66025C-2.10306e-07 1.81124 4.16667 -0.594376 7.5 1.33012L43.5 22.1147Z" fill="white"/>
-                                            <path d="M43.5 22.1147C46.8333 24.0392 46.8333 28.8505 43.5 30.775L7.49999 51.5596C4.16666 53.4841 -2.36385e-06 51.0785 -2.1956e-06 47.2295L-3.78551e-07 5.66025C-2.10306e-07 1.81124 4.16667 -0.594376 7.5 1.33012L43.5 22.1147Z" fill="white"/>
-                                        </svg>
-                                    </button>
-                                    <p class="h0 home-showreel-play-last">showreel</p>
+                                    <div class="h0 home-showreel-play-first">
+                                        <span>Play the</span>
+                                    </div>
+                                    <div class="home-showreel-play-wrapper">
+                                        <button class="home-showreel-play-ic">
+                                            <svg class="home-showreel-play-ic-play" width="100%" viewBox="0 0 46 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M43.5 22.1147C46.8333 24.0392 46.8333 28.8505 43.5 30.775L7.49999 51.5596C4.16666 53.4841 -2.36385e-06 51.0785 -2.1956e-06 47.2295L-3.78551e-07 5.66025C-2.10306e-07 1.81124 4.16667 -0.594376 7.5 1.33012L43.5 22.1147Z" fill="white"/>
+                                                <path d="M43.5 22.1147C46.8333 24.0392 46.8333 28.8505 43.5 30.775L7.49999 51.5596C4.16666 53.4841 -2.36385e-06 51.0785 -2.1956e-06 47.2295L-3.78551e-07 5.66025C-2.10306e-07 1.81124 4.16667 -0.594376 7.5 1.33012L43.5 22.1147Z" fill="white"/>
+                                            </svg>
+                                            <svg class="home-showreel-play-ic-pause" width="100%" viewBox="0 0 43 51" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                                <path d="M6.375 0C1.41667 0 0 1.41667 0 6.375V44.625C0 49.5833 1.41667 51 6.375 51H10.625C15.5833 51 17 49.5833 17 44.625V6.375C17 1.41667 15.5833 0 10.625 0H6.375ZM31.875 0C26.9167 0 25.5 1.41667 25.5 6.375V44.625C25.5 49.5833 26.9167 51 31.875 51H36.125C41.0833 51 42.5 49.5833 42.5 44.625V6.375C42.5 1.41667 41.0833 0 36.125 0H31.875Z" fill="white"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="h0 home-showreel-play-last">
+                                        <span>showreel</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -360,7 +370,7 @@
                     </div>
                 </section>
                 <div class="home-gradientNoise">
-                    <img class="img img-fill home-gradientNoise-img" src='../public/imgs/gradient-noise.png?as=webp&width=3270.5' width='3270.5' alt='gradient noise with orange and blue color'/>
+                    <img class="img img-fill home-gradientNoise-img" src='../public/imgs/gradient-noise.png' width='2453' alt='gradient noise with orange and blue color'/>
                 </div>
                 <section class="home-process" data-section="#" data-section-id="Process">
                     <div class="container grid">
@@ -368,7 +378,7 @@
                             <h2 class="h1 home-process-title">Working process is extremely simple</h2>
                         </div>
                         <div class="home-process-btn--wrapper">
-                            <a class="btn home-process-btn" href="#Pricing" data-cursor="btnstick"><span class="txt txt-16 txt-btn">Get Started Today</span></a>
+                            <a class="btn home-process-btn" href="./#Pricing" data-cursor="btnstick"><span class="txt txt-16 txt-btn">Get Started Today</span></a>
                         </div>
                         <p class="txt txt-20 home-process-desc">With just one personnel cost, we provide all the necessary skills for you to operate your business at a high quality With just one personnel cost, we provide all the necessary skills for you to operate.</p>
                         <div class="home-process-step-listing">
@@ -514,7 +524,11 @@
                         <div class="home-portfolio-content-stickywrap">
                             <div class="home-portfolio-content-intro">
                                 <h2 class="h0 home-portfolio-content-title">Our Portfolio</h2>
-                                <p class="txt txt-20 txt-med home-portfolio-content-desc">With over 10 years of experience, we always do our best to provide the best quality products to our customers.</p>
+                                <div class="txt txt-20 txt-med home-portfolio-content-desc">
+                                    <p>With over 10 years of experience, we always do our best to provide the best quality products to our customers.</p>
+                                    <p>With over 10 years of experience, we always do our best to provide the best quality products to our customers.</p>
+                                    <p>With over 10 years of experience, we always do our best to provide the best quality products to our customers.</p>
+                                </div>
                             </div>
                             <div class="home-portfolio-content-award">
                                 <p class="txt txt-16 txt-med">Our work featured on</p>
@@ -551,132 +565,132 @@
                             </div>
                         </div>
                         <div class="home-project-wrap home-project-wrap-bot">
-                            <div class="home-project-item">
+                            <a href="#" class="home-project-item">
                                 <div class="line"></div>
                                 <div class="container grid">
                                     <p class="txt txt-20 home-project-item-industry">eCommerce</p>
                                     <h3 class="h2 txt-med home-project-item-name" data-project-name="artbook">Artbook</h3>
-                                    <a class="txt txt-18 home-project-item-view" data-cursor="txtstick">
-                                        <p>View case study</p>
+                                    <div class="txt txt-18 home-project-item-view" data-cursor="txtstick">
+                                        <p class="hover-line">View case study</p>
                                         <img src="../public/imgs/arrow-up-right.svg" alt="arrow up to right" class="imgs">
-                                    </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="home-project-item">
+                            </a>
+                            <a href="#" class="home-project-item">
                                 <div class="line"></div>
                                 <div class="container grid">
                                     <p class="txt txt-20 home-project-item-industry">Fintech</p>
                                     <h3 class="h2 txt-med home-project-item-name" data-project-name="ryalize">Ryalize</h3>
-                                    <a class="txt txt-18 home-project-item-view" data-cursor="txtstick">
-                                        <p>View case study</p>
+                                    <div class="txt txt-18 home-project-item-view" data-cursor="txtstick">
+                                        <p class="hover-line">View case study</p>
                                         <img src="../public/imgs/arrow-up-right.svg" alt="arrow up to right" class="imgs">
-                                    </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="home-project-item">
+                            </a>
+                            <a href="#" class="home-project-item">
                                 <div class="line"></div>
                                 <div class="container grid">
                                     <p class="txt txt-20 home-project-item-industry">Crypto & Web3</p>
                                     <h3 class="h2 txt-med home-project-item-name" data-project-name="crytopie">Crytopie</h3>
-                                    <a class="txt txt-18 home-project-item-view" data-cursor="txtstick">
-                                        <p>View case study</p>
+                                    <div class="txt txt-18 home-project-item-view" data-cursor="txtstick">
+                                        <p class="hover-line">View case study</p>
                                         <img src="../public/imgs/arrow-up-right.svg" alt="arrow up to right" class="imgs">
-                                    </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="home-project-item">
+                            </a>
+                            <a href="#" class="home-project-item">
                                 <div class="line"></div>
                                 <div class="container grid">
                                     <p class="txt txt-20 home-project-item-industry">eCommerce</p>
                                     <h3 class="h2 txt-med home-project-item-name" data-project-name="zenliving">Zen Living</h3>
-                                    <a class="txt txt-18 home-project-item-view" data-cursor="txtstick">
-                                        <p>View case study</p>
+                                    <div class="txt txt-18 home-project-item-view" data-cursor="txtstick">
+                                        <p class="hover-line">View case study</p>
                                         <img src="../public/imgs/arrow-up-right.svg" alt="arrow up to right" class="imgs">
-                                    </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="home-project-item">
+                            </a>
+                            <a href="https://www.bear.plus/works/cargokite" target="_blank" class="home-project-item">
                                 <div class="line"></div>
                                 <div class="container grid">
                                     <p class="txt txt-20 home-project-item-industry">B2B & Enterprise Software</p>
                                     <h3 class="h2 txt-med home-project-item-name" data-project-name="cargokite">CargoKite</h3>
-                                    <a class="txt txt-18 home-project-item-view" data-cursor="txtstick" href="https://www.bear.plus/works/cargokite" target="_blank">
-                                        <p>View case study</p>
+                                    <div class="txt txt-18 home-project-item-view" data-cursor="txtstick">
+                                        <p class="hover-line">View case study</p>
                                         <img src="../public/imgs/arrow-up-right.svg" alt="arrow up to right" class="imgs">
-                                    </a>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                         <div class="home-project-wrap home-project-wrap-top">
-                            <div class="home-project-item">
+                            <a href="#" class="home-project-item">
                                 <div class="line"></div>
                                 <div class="container grid">
                                     <p class="txt txt-20 home-project-item-industry">eCommerce</p>
                                     <h3 class="h2 txt-med home-project-item-name" data-project-name="artbook">Artbook</h3>
-                                    <a class="txt txt-18 home-project-item-view" data-cursor="txtstick">
-                                        <p>View case study</p>
+                                    <div class="txt txt-18 home-project-item-view" data-cursor="txtstick">
+                                        <p class="hover-line">View case study</p>
                                         <img src="../public/imgs/arrow-up-right.svg" alt="arrow up to right" class="imgs">
-                                    </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="home-project-item">
+                            </a>
+                            <a href="#" class="home-project-item">
                                 <div class="line"></div>
                                 <div class="container grid">
                                     <p class="txt txt-20 home-project-item-industry">Fintech</p>
                                     <h3 class="h2 txt-med home-project-item-name" data-project-name="ryalize">Ryalize</h3>
-                                    <a class="txt txt-18 home-project-item-view" data-cursor="txtstick">
-                                        <p>View case study</p>
+                                    <div class="txt txt-18 home-project-item-view" data-cursor="txtstick">
+                                        <p class="hover-line">View case study</p>
                                         <img src="../public/imgs/arrow-up-right.svg" alt="arrow up to right" class="imgs">
-                                    </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="home-project-item">
+                            </a>
+                            <a href="#" class="home-project-item">
                                 <div class="line"></div>
                                 <div class="container grid">
                                     <p class="txt txt-20 home-project-item-industry">Crypto & Web3</p>
                                     <h3 class="h2 txt-med home-project-item-name" data-project-name="crytopie">Crytopie</h3>
-                                    <a class="txt txt-18 home-project-item-view" data-cursor="txtstick">
-                                        <p>View case study</p>
+                                    <div class="txt txt-18 home-project-item-view" data-cursor="txtstick">
+                                        <p class="hover-line">View case study</p>
                                         <img src="../public/imgs/arrow-up-right.svg" alt="arrow up to right" class="imgs">
-                                    </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="home-project-item">
+                            </a>
+                            <a href="#" class="home-project-item">
                                 <div class="line"></div>
                                 <div class="container grid">
                                     <p class="txt txt-20 home-project-item-industry">eCommerce</p>
                                     <h3 class="h2 txt-med home-project-item-name" data-project-name="zenliving">Zen Living</h3>
-                                    <a class="txt txt-18 home-project-item-view" data-cursor="txtstick">
-                                        <p>View case study</p>
+                                    <div class="txt txt-18 home-project-item-view" data-cursor="txtstick">
+                                        <p class="hover-line">View case study</p>
                                         <img src="../public/imgs/arrow-up-right.svg" alt="arrow up to right" class="imgs">
-                                    </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="home-project-item">
+                            </a>
+                            <a href="#" class="home-project-item">
                                 <div class="line"></div>
                                 <div class="container grid">
                                     <p class="txt txt-20 home-project-item-industry">B2B & Enterprise Software</p>
                                     <h3 class="h2 txt-med home-project-item-name" data-project-name="cargokite">CargoKite</h3>
-                                    <a class="txt txt-18 home-project-item-view" data-cursor="txtstick">
-                                        <p>View case study</p>
+                                    <div class="txt txt-18 home-project-item-view" data-cursor="txtstick">
+                                        <p class="hover-line">View case study</p>
                                         <img src="../public/imgs/arrow-up-right.svg" alt="arrow up to right" class="imgs">
-                                    </a>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </section>
                 <div class="home-curtain">
                     <div class="home-curtain-inner"></div>
                 </div>
-                <section class="home-pricing" data-section="#" data-section-id="Pricing">
+                <section class="home-pricing">
                     <div class="container grid">
                         <div class="home-pricing-text">
                             <p class="txt txt-20 txt-hl txt-med home-pricing-text-label">Pricing Plans</p>
                             <h2 class="h1 home-pricing-text-title">Choose the service package that suits your business</h2>
                             <p class="txt txt-20 home-pricing-text-sub">Every plan includes a dedicated design team, unlimited requests and revisions, a frictionless DesignOps platform, and a project manager to keep you posted at every step.</p>
                         </div>
-                        <div class="home-pricing--wrap">
+                        <div class="home-pricing--wrap" id="Pricing" data-section="#" data-section-id="Pricing">
                             <div class="home-pricing-plan">
                                 <p class="txt txt-16 home-pricing-plan-discount">Discount <span class="txt-hl">5%</span> for the Quarter & <span class="txt-hl">10%</span> for the Yearly</p>
                                 <div class="home-pricing-plan-switch">
@@ -1182,7 +1196,7 @@
                 <p class="txt txt-20 txt-med footer-cta-sub1">Learn more about how BearInk works and how it can help?</p>
                 <h3 class="h0 footer-cta-title">Schedule a call</h3>
                 <p class="txt txt-18 footer-cta-sub2">Or pick the plan that suits your business</p>
-                <a class="btn btn-border btn-dark footer-cta-btn" href="#Pricing" data-cursor="btnstick">
+                <a class="btn btn-border btn-dark footer-cta-btn" href="./#Pricing" data-cursor="btnstick">
                     <span class="txt txt-18 txt-btn">Check our Pricing</span>
                 </a>
                 <div class="footer-cta-sub3">
