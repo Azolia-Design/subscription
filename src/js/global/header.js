@@ -1,6 +1,7 @@
-import { xGetter, xSetter, lerp } from "../helper/index";
+import { xGetter, xSetter, lerp, typeOpts } from "../helper/index";
 import { lenis } from "../global/lenis";
-import { cvUnit, isTouchDevice, viewportBreak } from "../helper/viewport";
+import { cvUnit, viewportBreak } from "../helper/viewport";
+import { SplitText } from "../libs/SplitText";
 
 const setupDot = () => {
     let allSections = $('[data-section]');
@@ -49,13 +50,13 @@ const updateProgressByScroll = () => {
                     if ($(window).width() > 767) {
                         DOM.labelById(id).addClass('active');
                         DOM.labelItem.not(DOM.labelById(id)).removeClass('active');
-    
+
                         DOM.progById(id).addClass('active');
                         DOM.progWrap.not(DOM.progById(id)).removeClass('active');
-    
+
                         DOM.progById(id).find(DOM.progItem).addClass('active');
                         DOM.progWrap.not(DOM.progById(id)).find(DOM.progItem).removeClass('active');
-    
+
                         let percent = Math.ceil((self.progress * 100) - 100);
                         gsap.to(DOM.progById(id).find('.header-menu-prog-item-inner'), {xPercent: percent, duration: .3, overwrite: true})
                     } else {
@@ -83,16 +84,13 @@ const updateProgressByScroll = () => {
 
     DOM.progWrap.on('click', function (e) {
         let target = $(this).attr('data-header-id');
-        let offset = viewportBreak({ desktop: -100, mobile: -30 });
-        if (!isTouchDevice()) {
-            lenis.scrollTo(`[data-section-id="${target}"]`, {
-                offset: offset
-            })
+        if ($('html').hasClass('lenis-smooth')) {
+            lenis.scrollTo(`[data-section-id="${target}"]`)
         } else {
-            let targetTop = $(`[data-section-id="${target}"]`).get(0).offsetTop + $(window).height() + offset;
+            let targetTop = $(`[data-section-id="${target}"]`).get(0).offsetTop + $(window).height();
             $('html').animate({
                 scrollTop: targetTop
-            }, 800);
+            });
         }
 
         history.replaceState({}, '', `${window.location.pathname}#${target}`);
@@ -100,13 +98,15 @@ const updateProgressByScroll = () => {
     })
 
     const checkMenuActive = () => {
-        if ($('.header-menu-label-item.active').length === 0) {
-            gsap.set('.header-menu-label', { '--d-width': '0px' });
+        if ($('.header-menu-label').length) {
+            if ($('.header-menu-label-item.active').length === 0) {
+                gsap.set('.header-menu-label', { '--d-width': '0px' });
+            }
+            else {
+                gsap.set('.header-menu-label', { '--d-width': `${$('.header-menu-label-item.active').eq(0).width()}px` });
+            }
+            requestAnimationFrame(checkMenuActive);
         }
-        else {
-            gsap.set('.header-menu-label', { '--d-width': `${$('.header-menu-label-item.active').eq(0).width()}px` });
-        }
-        requestAnimationFrame(checkMenuActive);
     }
     requestAnimationFrame(checkMenuActive);
 }
@@ -143,14 +143,14 @@ const updateHeaderBarByScroll = () => {
                     if ($(window).width() > 767) {
                         $('.header-menu').addClass('active')
                         $('.header-hamburger').addClass('active')
-                        
+
                         if ($(window).width() <= 991) {
                             gsap.to('.header-main-schedule', {width: 0, overwrite: true})
                             gsap.to('.header-hamburger', {width: 0, overwrite: true})
                             gsap.to('.header-menu-label', {marginLeft: '1rem'})
                         }
                     }
-                    
+
                     if ($(window).width() <= 767) {
                         gsap.to('.header-main', {marginRight: 0})
                         gsap.to('.header-logo', {width: 'auto', marginRight: cvUnit(32, "rem")})
@@ -211,10 +211,12 @@ const header = {
         setupDot();
     },
     init() {
-        hoverDot();
-        checkHoverDot();
         updateProgressByScroll();
         updateHeaderBarByScroll();
+        if ($(window).width() > 991) {
+            hoverDot();
+            checkHoverDot();
+        }
     }
 }
 
