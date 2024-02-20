@@ -147,6 +147,7 @@ const updateHeaderBarByScroll = () => {
                         if ($(window).width() <= 991) {
                             gsap.to('.header-main-schedule', {width: 0, overwrite: true})
                             gsap.to('.header-hamburger', {width: 0, overwrite: true})
+                            gsap.to('.header-menu-label', {marginLeft: '1rem'})
                         }
                     }
                     
@@ -166,6 +167,7 @@ const updateHeaderBarByScroll = () => {
                     if ($(window).width() <= 991) {
                         gsap.to('.header-main-schedule', {width: 'auto', overwrite: true})
                         gsap.to('.header-hamburger', {width: cvUnit(60, "rem"), overwrite: true})
+                        gsap.to('.header-menu-label', {marginLeft: '0'})
                     }
                     if ($(window).width() <= 767) {
                         gsap.to('.header-main', {marginRight: 'auto'})
@@ -181,6 +183,10 @@ const updateHeaderBarByScroll = () => {
         if (!$(this).hasClass('active')) {
             if  ($(window).width() > 767) {
                 $('.header-menu').addClass('active')
+
+                if ($(window).width() <= 991) {
+                    gsap.to('.header-menu-label', {marginLeft: '1rem'})
+                }
             } else {
                 $('.header-menu-sm').slideDown(400)
             }
@@ -188,6 +194,10 @@ const updateHeaderBarByScroll = () => {
         } else {
             if  ($(window).width() > 767) {
                 $('.header-menu').removeClass('active')
+
+                if ($(window).width() <= 991) {
+                    gsap.to('.header-menu-label', {marginLeft: '0'})
+                }
             } else {
                 $('.header-menu-sm').slideUp(400)
             }
