@@ -1,8 +1,7 @@
 import { xGetter, xSetter, lerp, typeOpts } from "../helper/index";
 import { lenis } from "../global/lenis";
-import { isTouchDevice, viewportBreak } from "../helper/viewport";
+import { cvUnit, viewportBreak } from "../helper/viewport";
 import { SplitText } from "../libs/SplitText";
-
 
 const setupDot = () => {
     let allSections = $('[data-section]');
@@ -26,9 +25,12 @@ const setupDot = () => {
 
 const updateProgressByScroll = () => {
     let allSections = $('[data-section]');
+    let curIdx
+
     const DOM = {
         labelItem: $('.header-menu-label-item'),
         labelById: (id) => $(`.header-menu-label-item[data-header-id="${id}"]`),
+        labelSMById: (id) => $(`.header-menu-sm-list [data-header-id="${id}"]`),
         progWrap: $(`.header-menu-prog-item-wrap`),
         progItem: $(`.header-menu-prog-item`),
         progById: (id) => $(`.header-menu-prog-item-wrap[data-header-id="${id}"]`)
@@ -45,17 +47,23 @@ const updateProgressByScroll = () => {
                     let currSection = allSections.eq(idx);
                     let id = currSection.attr('data-section-id')
 
-                    DOM.labelById(id).addClass('active');
-                    DOM.labelItem.not(DOM.labelById(id)).removeClass('active');
+                    if ($(window).width() > 767) {
+                        DOM.labelById(id).addClass('active');
+                        DOM.labelItem.not(DOM.labelById(id)).removeClass('active');
 
-                    DOM.progById(id).addClass('active');
-                    DOM.progWrap.not(DOM.progById(id)).removeClass('active');
+                        DOM.progById(id).addClass('active');
+                        DOM.progWrap.not(DOM.progById(id)).removeClass('active');
 
-                    DOM.progById(id).find(DOM.progItem).addClass('active');
-                    DOM.progWrap.not(DOM.progById(id)).find(DOM.progItem).removeClass('active');
+                        DOM.progById(id).find(DOM.progItem).addClass('active');
+                        DOM.progWrap.not(DOM.progById(id)).find(DOM.progItem).removeClass('active');
 
-                    let percent = Math.ceil((self.progress * 100) - 100);
-                    gsap.to(DOM.progById(id).find('.header-menu-prog-item-inner'), {xPercent: percent, duration: .3, overwrite: true})
+                        let percent = Math.ceil((self.progress * 100) - 100);
+                        gsap.to(DOM.progById(id).find('.header-menu-prog-item-inner'), {xPercent: percent, duration: .3, overwrite: true})
+                    } else {
+                        $('.header-menu-sm-list a').removeClass('active');
+                        DOM.labelSMById(id).addClass('active');
+                        gsap.set('.header-menu-sm-process-inner-line', {y: `${idx * ($('.header-menu-sm-process-inner').height() - $('.header-menu-sm-process-inner-line').height()) / (allSections.length - 1)}`})
+                    }
                 }
             })
         })
@@ -76,7 +84,6 @@ const updateProgressByScroll = () => {
 
     DOM.progWrap.on('click', function (e) {
         let target = $(this).attr('data-header-id');
-        // let offset = viewportBreak({ desktop: -100, mobile: -30 });
         if ($('html').hasClass('lenis-smooth')) {
             lenis.scrollTo(`[data-section-id="${target}"]`)
         } else {
@@ -132,34 +139,57 @@ const updateHeaderBarByScroll = () => {
                 start: `top+=${$('.header').outerHeight()} top`,
                 onEnter: () => {
                     $('.header-logo').addClass('active')
-                    $('.header-menu').addClass('active')
-                    $('.header-hamburger').addClass('active')
 
-                    if ($(window).width() <= 991) {
-                        gsap.to('.header-main-schedule', {width: 0, overwrite: true})
-                        gsap.to('.header-hamburger', {width: 0, overwrite: true})
+                    if ($(window).width() > 767) {
+                        $('.header-menu').addClass('active')
+                        $('.header-hamburger').addClass('active')
+
+                        if ($(window).width() <= 991) {
+                            gsap.to('.header-main-schedule', {width: 0, overwrite: true})
+                            gsap.to('.header-hamburger', {width: 0, overwrite: true})
+                        }
+                    }
+
+                    if ($(window).width() <= 767) {
+                        gsap.to('.header-main', {marginRight: 0})
+                        gsap.to('.header-logo', {width: 'auto', marginRight: cvUnit(32, "rem")})
                     }
                 },
                 onLeaveBack: () => {
                     $('.header-logo').removeClass('active')
-                    $('.header-menu').removeClass('active')
                     $('.header-hamburger').removeClass('active')
+
+                    if ($(window).width() > 767) {
+                        $('.header-menu').removeClass('active')
+                    }
                     if ($(window).width() <= 991) {
                         gsap.to('.header-main-schedule', {width: 'auto', overwrite: true})
-                        gsap.to('.header-hamburger', {width: '6rem', overwrite: true})
+                        gsap.to('.header-hamburger', {width: cvUnit(60, "rem"), overwrite: true})
+                    }
+                    if ($(window).width() <= 767) {
+                        gsap.to('.header-main', {marginRight: 'auto'})
+                        gsap.to('.header-logo', {width: 0, marginRight: 0})
                     }
                 }
             }
         })
     }
-
+    $('.header-menu-sm').slideUp(50)
     $('.header-hamburger').on('click', function(e) {
         e.preventDefault();
         if (!$(this).hasClass('active')) {
-            $('.header-menu').addClass('active')
+            if  ($(window).width() > 767) {
+                $('.header-menu').addClass('active')
+            } else {
+                $('.header-menu-sm').slideDown(400)
+            }
             $(this).addClass('active')
         } else {
-            $('.header-menu').removeClass('active')
+            if  ($(window).width() > 767) {
+                $('.header-menu').removeClass('active')
+            } else {
+                $('.header-menu-sm').slideUp(400)
+            }
             $(this).removeClass('active')
         }
     })
@@ -207,10 +237,8 @@ const header = {
 }
 
 const initHeader = () => {
-    if ($(window).width() > 767) {
-        header.setup();
-        header.init();
-    }
+    header.setup();
+    header.init();
 }
 
 export default initHeader;
