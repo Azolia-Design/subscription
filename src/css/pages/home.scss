@@ -1343,13 +1343,24 @@
                 }
 
                 .home-portfolio-content-title {
-                    color: $cl-heading-dark;
-                    font-weight: bold;
                     margin-bottom: 2rem;
+                    display: grid;
 
                     @include md {
                         margin-bottom: 1.6rem;
-                        font-weight: 500;
+                    }
+
+                    .h0 {
+                        grid-row: 1/-1;
+                        grid-column: 1/-1;
+                        color: $cl-heading-dark;
+                        font-weight: bold;
+                        opacity: 0;
+                        @include transition(opacity .5s ease-in);
+                    }
+                    .h0.active {
+                        opacity: 1;
+                        @include transition(opacity .5s ease-in .2s);
                     }
                 }
                 .home-portfolio-content-desc {
@@ -1357,6 +1368,7 @@
                     max-width: 65rem;
                     width: 100%;
                     margin: 0 auto;
+                    display: grid;
 
                     @include md {
                         max-width: 41.7rem;
@@ -1369,9 +1381,13 @@
                         max-width: 31.7rem;
                     }
 
+                    p {
+                        grid-row: 1/-1;
+                        grid-column: 1/-1;
+                    }
+
                     p:nth-child(n + 2) {
-                        position: absolute;
-                        top: 0;
+                        opacity: 0;
                     }
                 }
             }

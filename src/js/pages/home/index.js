@@ -158,7 +158,6 @@ const home = {
                         scale: viewportBreak({ desktop: 0.5, tablet: 0.8 }), autoAlpha: 0,
                         duration: 2,
                     }, '>=-.8')
-
                     .to(BENEFIT.wrap, {
                         yPercent: -8,
                         duration: 1
@@ -549,6 +548,23 @@ const home = {
             }
             scrollAnimationGrid();
 
+            function changeTxtScrollAnim() {
+                $('.home-portfolio-content-title .h0').each((idx, el) => {
+                    let tlChangeTxtScrollAnim = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: '.home-portfolio-project',
+                            start: `${(idx + 0) * $('.home-portfolio-project').height() / $('.home-portfolio-content-title .h0').length} top`,
+                            end: `${(idx + 1) * $('.home-portfolio-project').height() / $('.home-portfolio-content-title .h0').length} top`,
+                            onUpdate: () => {
+                                $('.home-portfolio-content-title .h0').removeClass('active')
+                                $(el).addClass('active')
+                            }
+                        }
+                    })
+                })
+            }
+            changeTxtScrollAnim()
+
             function hoverProject() {
                 const line = document.createElement('div')
                 $(line).addClass('line')
@@ -589,13 +605,13 @@ const home = {
                     })
                     $('.home-project-wrap-bot .home-project-item').on('pointerleave', function(e) {
                         if (!$('.home-project-wrap-bot:hover').length) {
-                            if ($(this).is(':first-child')){
+                            if ($(this).is(':first-child')) {
                                 let index = -1;
                                 let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
                                 let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
                                 gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
                             }
-                            if ($(this).is(':last-child')){
+                            if ($(this).is(':last-child')) {
                                 let index = $('.home-project-wrap-bot .home-project-item').length
                                 let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
                                 let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
