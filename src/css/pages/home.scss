@@ -1653,8 +1653,8 @@
         }
     }
     &-pricing {
-        margin-top: -5rem;
-        padding-top: 5rem;
+        margin-top: calc(var(--height-header) * -1);
+        padding-top: var(--height-header);
         padding-bottom: calc(23rem - var(--height-header));
 
         @include md {
