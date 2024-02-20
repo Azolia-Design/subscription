@@ -1,5 +1,7 @@
 .home {
     --height-header: 15.4rem;
+    position: relative;
+    z-index: 5;
 
     &-hero {
         .container {
