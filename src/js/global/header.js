@@ -158,6 +158,7 @@ const updateHeaderBarByScroll = () => {
                 onLeaveBack: () => {
                     $('.header-logo').removeClass('active')
                     $('.header-hamburger').removeClass('active')
+                    $('.header-menu-sm').slideUp(400)
 
                     if ($(window).width() > 767) {
                         $('.header-menu').removeClass('active')
