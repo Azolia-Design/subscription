@@ -30,10 +30,9 @@ const home = {
                 .from(".home-hero-btn", {yPercent: 60, autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.4")
                 .from(".home-hero-discover", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
                 .from(scheduleTxt.chars, {yPercent: 60, autoAlpha: 0, stagger: .01, duration: .8, ease: "power2.out"}, "<=0")
-                .from(".header-main-inner", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
             }
             tlSplitHead
-                .from(".header-main-inner", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
+            .from(".header-main-inner", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
         }
 
         headerAnim()
