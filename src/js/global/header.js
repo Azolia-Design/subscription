@@ -1,6 +1,7 @@
-import { xGetter, xSetter, lerp } from "../helper/index";
+import { xGetter, xSetter, lerp, typeOpts } from "../helper/index";
 import { lenis } from "../global/lenis";
-import { isTouchDevice, viewportBreak } from "../helper/viewport";
+import { cvUnit, viewportBreak } from "../helper/viewport";
+import { SplitText } from "../libs/SplitText";
 
 const setupDot = () => {
     let allSections = $('[data-section]');
@@ -24,9 +25,12 @@ const setupDot = () => {
 
 const updateProgressByScroll = () => {
     let allSections = $('[data-section]');
+    let curIdx
+
     const DOM = {
         labelItem: $('.header-menu-label-item'),
         labelById: (id) => $(`.header-menu-label-item[data-header-id="${id}"]`),
+        labelSMById: (id) => $(`.header-menu-sm-list [data-header-id="${id}"]`),
         progWrap: $(`.header-menu-prog-item-wrap`),
         progItem: $(`.header-menu-prog-item`),
         progById: (id) => $(`.header-menu-prog-item-wrap[data-header-id="${id}"]`)
@@ -43,17 +47,23 @@ const updateProgressByScroll = () => {
                     let currSection = allSections.eq(idx);
                     let id = currSection.attr('data-section-id')
 
-                    DOM.labelById(id).addClass('active');
-                    DOM.labelItem.not(DOM.labelById(id)).removeClass('active');
+                    if ($(window).width() > 767) {
+                        DOM.labelById(id).addClass('active');
+                        DOM.labelItem.not(DOM.labelById(id)).removeClass('active');
 
-                    DOM.progById(id).addClass('active');
-                    DOM.progWrap.not(DOM.progById(id)).removeClass('active');
+                        DOM.progById(id).addClass('active');
+                        DOM.progWrap.not(DOM.progById(id)).removeClass('active');
 
-                    DOM.progById(id).find(DOM.progItem).addClass('active');
-                    DOM.progWrap.not(DOM.progById(id)).find(DOM.progItem).removeClass('active');
+                        DOM.progById(id).find(DOM.progItem).addClass('active');
+                        DOM.progWrap.not(DOM.progById(id)).find(DOM.progItem).removeClass('active');
 
-                    let percent = Math.ceil((self.progress * 100) - 100);
-                    gsap.to(DOM.progById(id).find('.header-menu-prog-item-inner'), {xPercent: percent, duration: .3, overwrite: true})
+                        let percent = Math.ceil((self.progress * 100) - 100);
+                        gsap.to(DOM.progById(id).find('.header-menu-prog-item-inner'), {xPercent: percent, duration: .3, overwrite: true})
+                    } else {
+                        $('.header-menu-sm-list a').removeClass('active');
+                        DOM.labelSMById(id).addClass('active');
+                        gsap.set('.header-menu-sm-process-inner-line', {y: `${idx * ($('.header-menu-sm-process-inner').height() - $('.header-menu-sm-process-inner-line').height()) / (allSections.length - 1)}`})
+                    }
                 }
             })
         })
@@ -74,16 +84,13 @@ const updateProgressByScroll = () => {
 
     DOM.progWrap.on('click', function (e) {
         let target = $(this).attr('data-header-id');
-        let offset = viewportBreak({ desktop: -100, mobile: -30 });
-        if (!isTouchDevice()) {
-            lenis.scrollTo(`[data-section-id="${target}"]`, {
-                offset: offset
-            })
+        if ($('html').hasClass('lenis-smooth')) {
+            lenis.scrollTo(`[data-section-id="${target}"]`)
         } else {
-            let targetTop = $(`[data-section-id="${target}"]`).get(0).offsetTop + $(window).height() + offset;
-            // $('html').animate({
-            //     scrollTop: targetTop
-            // }, 800);
+            let targetTop = $(`[data-section-id="${target}"]`).get(0).offsetTop + $(window).height();
+            $('html').animate({
+                scrollTop: targetTop
+            });
         }
 
         history.replaceState({}, '', `${window.location.pathname}#${target}`);
@@ -91,13 +98,15 @@ const updateProgressByScroll = () => {
     })
 
     const checkMenuActive = () => {
-        if ($('.header-menu-label-item.active').length === 0) {
-            gsap.set('.header-menu-label', { '--d-width': '0px' });
+        if ($('.header-menu-label').length) {
+            if ($('.header-menu-label-item.active').length === 0) {
+                gsap.set('.header-menu-label', { '--d-width': '0px' });
+            }
+            else {
+                gsap.set('.header-menu-label', { '--d-width': `${$('.header-menu-label-item.active').eq(0).width()}px` });
+            }
+            requestAnimationFrame(checkMenuActive);
         }
-        else {
-            gsap.set('.header-menu-label', { '--d-width': `${$('.header-menu-label-item.active').eq(0).width()}px` });
-        }
-        requestAnimationFrame(checkMenuActive);
     }
     requestAnimationFrame(checkMenuActive);
 }
@@ -130,37 +139,87 @@ const updateHeaderBarByScroll = () => {
                 start: `top+=${$('.header').outerHeight()} top`,
                 onEnter: () => {
                     $('.header-logo').addClass('active')
-                    $('.header-menu').addClass('active')
-                    $('.header-hamburger').addClass('active')
-    
-                    if ($(window).width() <= 991) {
-                        gsap.to('.header-main-schedule', {width: 0, overwrite: true})
-                        gsap.to('.header-hamburger', {width: 0, overwrite: true})
+
+                    if ($(window).width() > 767) {
+                        $('.header-menu').addClass('active')
+                        $('.header-hamburger').addClass('active')
+
+                        if ($(window).width() <= 991) {
+                            gsap.to('.header-main-schedule', {width: 0, overwrite: true})
+                            gsap.to('.header-hamburger', {width: 0, overwrite: true})
+                        }
+                    }
+
+                    if ($(window).width() <= 767) {
+                        gsap.to('.header-main', {marginRight: 0})
+                        gsap.to('.header-logo', {width: 'auto', marginRight: cvUnit(32, "rem")})
                     }
                 },
                 onLeaveBack: () => {
                     $('.header-logo').removeClass('active')
-                    $('.header-menu').removeClass('active')
                     $('.header-hamburger').removeClass('active')
+                    $('.header-menu-sm').slideUp(400)
+
+                    if ($(window).width() > 767) {
+                        $('.header-menu').removeClass('active')
+                    }
                     if ($(window).width() <= 991) {
                         gsap.to('.header-main-schedule', {width: 'auto', overwrite: true})
-                        gsap.to('.header-hamburger', {width: '6rem', overwrite: true})
+                        gsap.to('.header-hamburger', {width: cvUnit(60, "rem"), overwrite: true})
+                    }
+                    if ($(window).width() <= 767) {
+                        gsap.to('.header-main', {marginRight: 'auto'})
+                        gsap.to('.header-logo', {width: 0, marginRight: 0})
                     }
                 }
             }
         })
     }
-    
+    $('.header-menu-sm').slideUp(50)
     $('.header-hamburger').on('click', function(e) {
         e.preventDefault();
         if (!$(this).hasClass('active')) {
-            $('.header-menu').addClass('active')
+            if  ($(window).width() > 767) {
+                $('.header-menu').addClass('active')
+            } else {
+                $('.header-menu-sm').slideDown(400)
+            }
             $(this).addClass('active')
         } else {
-            $('.header-menu').removeClass('active')
+            if  ($(window).width() > 767) {
+                $('.header-menu').removeClass('active')
+            } else {
+                $('.header-menu-sm').slideUp(400)
+            }
             $(this).removeClass('active')
         }
     })
+}
+
+const textAnim = () => {
+    let headTxt = new SplitText(".home-hero-title", typeOpts.words)
+    let scheduleTxt = new SplitText(".header-main-schedule", typeOpts.chars)
+    let tlSplitHead = gsap.timeline({
+        onComplete: () => {
+            headTxt.revert()
+            scheduleTxt.revert()
+        }
+    })
+
+    tlSplitHead
+        .from(".home-hero-logo", {yPercent: 60, autoAlpha: 0, duration: 1, ease: "power2.out"}, 0)
+        .from(headTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out"}, "<=.2")
+
+    if ($(window).width > 767) {
+        tlSplitHead
+        .from(".home-hero-btn", {yPercent: 60, autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.4")
+        .from(".home-hero-discover", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
+        .from(scheduleTxt.chars, {yPercent: 60, autoAlpha: 0, stagger: .01, duration: .8, ease: "power2.out"}, "<=0")
+        .from(".header-main-inner", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
+    } else {
+        tlSplitHead
+        .from(".header-main-inner", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
+    }
 }
 
 const header = {
@@ -168,18 +227,19 @@ const header = {
         setupDot();
     },
     init() {
-        hoverDot();
-        checkHoverDot();
+        textAnim();
         updateProgressByScroll();
         updateHeaderBarByScroll();
+        if ($(window).width() > 991) {
+            hoverDot();
+            checkHoverDot();
+        }
     }
 }
 
 const initHeader = () => {
-    if ($(window).width() > 767) {
-        header.setup();
-        header.init();
-    }   
+    header.setup();
+    header.init();
 }
 
 export default initHeader;

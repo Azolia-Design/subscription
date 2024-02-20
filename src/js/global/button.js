@@ -7,27 +7,12 @@ const initButton = () => {
         $(el).append(bgOverlay)
     })
 
-    $('a').on('click', function (e) {
-        if ($(this).attr('href').includes('#')) {
-            let target = $(this).attr('href').slice(1);
-            let offset = viewportBreak({ desktop: 100, tablet: 30, mobile: 50});
-            if (target) {
-                e.preventDefault();
-                if (!isTouchDevice()) {
-                    lenis.scrollTo(`[data-section-id="${target}"]`, {
-                        offset: offset
-                    })
-                }
-                else {
-                    let targetTop = $(`[data-section-id="${target}"]`).get(0).offsetTop + $(window).height() + offset;
-                    $('html').animate({
-                        scrollTop: targetTop
-                    }, 100);
-                }
-                history.replaceState({}, '', `${window.location.pathname}#${target}`);
-                return false;
-            }
+    $('a').each((_, item) => {
+        let href = $(item).attr('href');
+        if (href.startsWith("./")) {
+            href = href.slice(2);
         }
+        $(item).attr('href', `${origin}/${href}`)
     })
 }
 

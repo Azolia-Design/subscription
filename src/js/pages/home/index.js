@@ -2,7 +2,7 @@ import { parseRem, selector } from "../../helper/index";
 import { cvUnit, percentage, viewport, viewportBreak } from "../../helper/viewport";
 import { lenis } from "../../global/lenis";
 import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, findClosestEdge, FloatingAnimation, pointerCurr, typeOpts } from "../../helper/index";
-import { planListing } from '../../../../plan-data';
+import planListing from '../../../../plan-data.json';
 import { SplitText } from "../../libs/SplitText";
 
 const home = {
@@ -27,37 +27,6 @@ const home = {
         /** (💡)  - BENEFIT */
         function homeBenefit() {
             function stackScroll() {
-
-                let mainTitleTxt = new SplitText('.home-benefit-main-title', typeOpts.words)
-                let mainSubTxt = new SplitText('.home-benefit-main-sub', typeOpts.words)
-
-                let tlSplitHead = gsap.timeline({
-                    scrollTrigger: {
-                        trigger : ".home-benefit-list",
-                        start: "top bottom-=10%",
-                        // markers: true
-                    },
-                    onComplete: () => {
-                        mainTitleTxt.revert()
-                        mainSubTxt.revert()
-                    }
-                })
-
-                tlSplitHead
-                .from(mainTitleTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out"}, 0)
-                .from(mainSubTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out"}, "<=.4")
-
-                $(".home-benefit-other").each((idx, el) => {
-                    if (idx < 3) {
-                        let otherTitleTxt = new SplitText($(el).find(".home-benefit-other-title"), typeOpts.chars)
-                        let otherSubTxt = new SplitText($(el).find(".home-benefit-other-sub-txt"), typeOpts.words)
-
-                        tlSplitHead
-                        .from(otherTitleTxt.chars, {yPercent: 60, autoAlpha: 0, stagger: .01, duration: .6, ease: "power2.out", onComplete: () => {otherTitleTxt.revert()}}, 0)
-                        .from(otherSubTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out", onComplete: () => {otherSubTxt.revert()}}, "<=.2")
-                    }
-                })
-
                 const BENEFIT = {
                     stage: $('.home-benefit'),
                     wrap: $('.home-benefit--wrap'),
@@ -158,7 +127,6 @@ const home = {
                         scale: viewportBreak({ desktop: 0.5, tablet: 0.8 }), autoAlpha: 0,
                         duration: 2,
                     }, '>=-.8')
-
                     .to(BENEFIT.wrap, {
                         yPercent: -8,
                         duration: 1
@@ -183,6 +151,39 @@ const home = {
                 }
             }
 
+            function animText() {
+                let mainTitleTxt = new SplitText('.home-benefit-main-title', typeOpts.words)
+                let mainSubTxt = new SplitText('.home-benefit-main-sub', typeOpts.words)
+
+                let tlSplitHead = gsap.timeline({
+                    scrollTrigger: {
+                        trigger : ".home-benefit-list",
+                        start: "top bottom-=10%",
+                        // markers: true
+                    },
+                    onComplete: () => {
+                        mainTitleTxt.revert()
+                        mainSubTxt.revert()
+                    }
+                })
+
+                tlSplitHead
+                .from(mainTitleTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out"}, 0)
+                .from(mainSubTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out"}, "<=.4")
+
+                $(".home-benefit-other").each((idx, el) => {
+                    if (idx < 3) {
+                        let otherTitleTxt = new SplitText($(el).find(".home-benefit-other-title"), typeOpts.chars)
+                        let otherSubTxt = new SplitText($(el).find(".home-benefit-other-sub-txt"), typeOpts.words)
+
+                        tlSplitHead
+                        .from(otherTitleTxt.chars, {yPercent: 60, autoAlpha: 0, stagger: .01, duration: .6, ease: "power2.out", onComplete: () => {otherTitleTxt.revert()}}, 0)
+                        .from(otherSubTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out", onComplete: () => {otherSubTxt.revert()}}, "<=.2")
+                    }
+                })
+            }
+
+            animText();
             if ($(window).width() > 767) {
                 stackScroll();
             }
@@ -366,7 +367,7 @@ const home = {
                         $('.home-skill-item').eq(idx).addClass('active')
                         let skillSplitDes = new SplitText($('.home-skill-item').eq(idx).find('.home-skill-item-desc'), typeOpts.words)
                         tlSplitHead
-                        .from(skillSplitDes.words, {yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: "power2.out", onComplete: () => {skillSplitDes.revert(), $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')}}, "<=-.55") 
+                        .from(skillSplitDes.words, {yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: "power2.out", onComplete: () => {skillSplitDes.revert(), $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')}}, "<=-.55")
 
                         if ($(window).width() > 767) {
                             $('.home-skill-item').on('click', function(e) {
@@ -393,7 +394,7 @@ const home = {
                                 if (target.hasClass('active')) {
                                     let tarCurrY = yGetter(target.get(0))
                                     let tarY = cvUnit(60, 'rem') - $('.home-skill-thumb').outerHeight()*2.5/4 + ($('.home-skill-item').eq(idx).get(0).getBoundingClientRect().top - $('.home-skill-item').eq(0).get(0).getBoundingClientRect().top)
-    
+
                                     ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
                                 }
                                 requestAnimationFrame(clickMobileThumb)
@@ -404,7 +405,7 @@ const home = {
                                 e.preventDefault()
                                 if (!$(this).hasClass('active')) {
                                     idx = $(this).index()
-    
+
                                     $('.home-skill-item').removeClass('active')
                                     $('.home-skill-item .home-skill-item-desc').slideUp(300, 'linear')
                                     $(this).addClass('active')
@@ -432,7 +433,6 @@ const home = {
 
         /** (💡)  - PROCESS */
         function homeProcess() {
-
             ScrollTrigger.create({
                 trigger: '.home-process',
                 start: 'top bottom',
@@ -549,6 +549,23 @@ const home = {
             }
             scrollAnimationGrid();
 
+            function changeTxtScrollAnim() {
+                $('.home-portfolio-content-title .h0').each((idx, el) => {
+                    let tlChangeTxtScrollAnim = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: '.home-portfolio-project',
+                            start: `${(idx + 0) * $('.home-portfolio-project').height() / $('.home-portfolio-content-title .h0').length} top`,
+                            end: `${(idx + 1) * $('.home-portfolio-project').height() / $('.home-portfolio-content-title .h0').length} top`,
+                            onUpdate: () => {
+                                $('.home-portfolio-content-title .h0').removeClass('active')
+                                $(el).addClass('active')
+                            }
+                        }
+                    })
+                })
+            }
+            changeTxtScrollAnim()
+
             function hoverProject() {
                 const line = document.createElement('div')
                 $(line).addClass('line')
@@ -588,14 +605,14 @@ const home = {
                         projectClippath(index)
                     })
                     $('.home-project-wrap-bot .home-project-item').on('pointerleave', function(e) {
-                        if (!$('.home-project-wrap-bot:hover').length) {
-                            if ($(this).is(':first-child')){
+                        if (!$('.home-project-wrap-bot:hover').length && !$('.home-project-wrap-top:hover').length) {
+                            if ($(this).is(':first-child')) {
                                 let index = -1;
                                 let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
                                 let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
                                 gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
                             }
-                            if ($(this).is(':last-child')){
+                            if ($(this).is(':last-child')) {
                                 let index = $('.home-project-wrap-bot .home-project-item').length
                                 let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
                                 let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
@@ -814,8 +831,9 @@ const home = {
                         else if ($(item).attr('data-purchase-method') === 'subscription') {
                             let currLabel = $(item).siblings('.home-pricing-plan-item-label').text();
                             let planItemName = `${currLabel} ${currPlan}`
+
                             planListing.forEach((_, idx) => {
-                                if (planListing.get(idx).name.toLowerCase() === planItemName.toLowerCase()) {
+                                if (planListing[idx].name.toLowerCase() === planItemName.toLowerCase()) {
                                     $(item).attr('data-purchase-id', idx);
                                 }
                             })
@@ -836,7 +854,7 @@ const home = {
             function testPayment() {
                 $('.btn-purchase').on('click', function(e) {
                     e.preventDefault()
-                    let planId = $(this).attr('data-button-id')
+                    let planId = $(this).attr('data-purchase-id')
                     fetch('http://localhost:4000/create-checkout-session', {
                         method: 'POST',
                         headers: {
@@ -844,7 +862,7 @@ const home = {
                         },
                         body: JSON.stringify({
                             items: [
-                                {id: 1}
+                                {id: planId}
                             ]
                         })
                     }).then(res => {
@@ -969,6 +987,7 @@ const home = {
             })
         }
         homeIndustries()
+
 
         /** (💡)  - TESTIMONIAL */
         function homeTesti() {
@@ -1101,50 +1120,9 @@ const home = {
             accordion();
         }
         homeFaq();
-
-        function homeHeaderAnim() {
-            let headTxt = new SplitText(".home-hero-title", typeOpts.words)
-            let scheduTxt = new SplitText(".header-main-schedule", typeOpts.chars)
-            let tlSplitHead = gsap.timeline({
-                onComplete: () => {
-                    headTxt.revert()
-                    scheduTxt.revert()
-                }
-            })
-
-            tlSplitHead
-            .fromTo(".home-hero-logo", {yPercent: 60, autoAlpha: 0}, {yPercent: 0, autoAlpha: 1, duration: 1, ease: "power2.out"}, 0)
-            .fromTo(headTxt.words, {yPercent: 60, autoAlpha: 0}, {yPercent: 0, autoAlpha: 1, stagger: .03, duration: .6, ease: "power2.out"}, "<=.2")
-            
-            if ($(window).width() > 767) {
-                tlSplitHead
-                .from(".home-hero-btn", {yPercent: 60, autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.4")
-                .from(".home-hero-discover", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
-                .from(scheduTxt.chars, {yPercent: 60, autoAlpha: 0, stagger: .01, duration: .8, ease: "power2.out"}, "<=0")
-            }
-            
-            tlSplitHead
-            .from(".header-main-inner", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
-
-        }
-        homeHeaderAnim()
     },
     beforeLeave() {
         console.log(`leave ${this.namespace}`);
     }
 }
-
-const termAndPolicy = {
-    namespace: "termAndPolicy",
-    afterEnter(data) {
-        console.log(`enter ${this.namespace}`);
-        let cont = $('body');
-    },
-    beforeLeave() {
-        console.log(`leave ${this.namespace}`);
-    }
-}
-export {
-    home,
-    termAndPolicy
-};
+export default home;

@@ -1,0 +1,9 @@
+[
+    { "priceId": "price_1OgOlkAyaaWxy2CsqsoJipuR", "name": "Trial 7 days", "method": "payment", "scope": "Design Only" },
+    { "priceId": "price_1OfJjyAyaaWxy2CsH7LieoXV", "name": "Standard Monthly", "method": "subscription", "scope": "Design Only" },
+    { "priceId": "price_1OgOfAAyaaWxy2CsHMFYrhRS", "name": "Standard Quarterly", "method": "subscription", "scope": "Design Only" },
+    { "priceId": "price_1OgOgRAyaaWxy2CsaQOuzcu3", "name": "Standard Yearly", "method": "subscription", "scope": "Design Only" },
+    { "priceId": "price_1OgOibAyaaWxy2CsxHJUR1MI", "name": "Pro Monthly", "method": "subscription", "scope": "Design & Development" },
+    { "priceId": "price_1OgOkKAyaaWxy2Cs6A2eJGKE", "name": "Pro Quarterly", "method": "subscription", "scope": "Design & Development" },
+    { "priceId": "price_1OgOl3AyaaWxy2Csxdyz1Lbn", "name": "Pro Yearly", "method": "subscription", "scope": "Design & Development" }
+]

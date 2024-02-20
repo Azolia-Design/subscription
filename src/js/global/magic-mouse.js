@@ -54,14 +54,26 @@ const initCursor = () => {
         let targetX, targetY
 
         if ($('[data-video="to-pause"]').length && $('.home-showreel-thumb:hover').length) {
-            if (showreelIc.has) {
 
+            // targetX = (pointerCurr().x/$(window).width() - .5) * 2 * ($('.home-showreel-thumb').width() - showreelIc.width())/2
+            // targetY = ((pointerCurr().y - $('.home-showreel-thumb').get(0).getBoundingClientRect().top)/($('.home-showreel-thumb').height()) - 0.5) * ($('.home-showreel-thumb').height() - showreelIc.width())
+
+            targetX = (pointerCurr().x/$(window).width() - .5) * 2 * ($(window).width())/2
+            targetY = ((pointerCurr().y - $('.home-showreel-thumb').get(0).getBoundingClientRect().top)/($('.home-showreel-thumb').height()) - 0.5) * ($('.home-showreel-thumb').height())
+
+            if (!showreelIc.hasClass('pause')) {
+                showreelIc.addClass('pause')
+                gsap.to(showreelIc, {scale: .5, autoAlpha: 1, overwrite: true})
             }
-            targetX = (pointerCurr().x/$(window).width() - .5) * 2 * ($('.home-showreel-thumb').width() - showreelIc.width())/2
-            targetY = ((pointerCurr().y - $('.home-showreel-thumb').get(0).getBoundingClientRect().top)/($('.home-showreel-thumb').height()) - 0.5) * ($('.home-showreel-thumb').height() - showreelIc.width())
         } else {
             targetX = 0
             targetY = 0
+            showreelIc.removeClass('pause')
+            gsap.to(showreelIc, {scale: 1, autoAlpha: 1, overwrite: true})
+        }
+
+        if ($('[data-video="to-pause"]').length && !$('.home-showreel-thumb:hover').length) {
+            gsap.to(showreelIc, {scale: 1, autoAlpha: 0, overwrite: true})
         }
         xSetter(showreelIc.get(0))(lerp(showreelIcX, targetX, .1))
         ySetter(showreelIc.get(0))(lerp(showreelIcY, targetY, .1))
