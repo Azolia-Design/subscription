@@ -1,5 +1,5 @@
 import { lenis } from "./lenis";
-import { isTouchDevice, viewportBreak } from "../helper/viewport";
+import { cvUnit, isTouchDevice, viewportBreak } from "../helper/viewport";
 
 const initButton = () => {
     $('.btn').each((_, el) => {
