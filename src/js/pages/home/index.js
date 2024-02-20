@@ -332,8 +332,6 @@ const home = {
                             start: 'top top+=80%',
                             endTrigger: '.home-skill-title',
                             end: 'bottom top+=40%',
-                            // markers: true,
-                            // scrub: true
                         },
                         onComplete: () => {
                             // titleTxt.revert()
