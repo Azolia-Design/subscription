@@ -1653,7 +1653,8 @@
         }
     }
     &-pricing {
-        padding-top: 0rem;
+        margin-top: -5rem;
+        padding-top: 5rem;
         padding-bottom: calc(23rem - var(--height-header));
 
         @include md {
@@ -1661,7 +1662,6 @@
         }
 
         @include sm {
-            padding-top: 0rem;
             padding-bottom: calc(6.8rem- var(--height-header));
         }
 
