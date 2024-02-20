@@ -604,7 +604,7 @@ const home = {
                         projectClippath(index)
                     })
                     $('.home-project-wrap-bot .home-project-item').on('pointerleave', function(e) {
-                        if (!$('.home-project-wrap-bot:hover').length) {
+                        if (!$('.home-project-wrap-bot:hover').length && !$('.home-project-wrap-top:hover').length) {
                             if ($(this).is(':first-child')) {
                                 let index = -1;
                                 let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
