@@ -204,6 +204,16 @@ const updateHeaderBarByScroll = () => {
             $(this).removeClass('active')
         }
     })
+
+    if ($(window).width() <= 767) {
+        $('html').on('click', function(e) {
+            if (!$('.header:hover').length) {
+                $('.header-menu').removeClass('active')
+                $('.header-menu-sm').slideUp(400)
+                $('.header-hamburger').removeClass('active')
+            }
+        })
+    }
 }
 
 const header = {
