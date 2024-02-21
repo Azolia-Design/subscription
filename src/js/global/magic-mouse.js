@@ -61,14 +61,20 @@ const initCursor = () => {
             targetX = (pointerCurr().x/$(window).width() - .5) * 2 * ($(window).width())/2
             targetY = ((pointerCurr().y - $('.home-showreel-thumb').get(0).getBoundingClientRect().top)/($('.home-showreel-thumb').height()) - 0.5) * ($('.home-showreel-thumb').height())
 
+            cursor.find('.cursor-dot').addClass('hide')
+            cursor.find('.cursor-border').addClass('hide')
+            cursor.find('.cursor-glow').addClass('hide')
             if (!showreelIc.hasClass('pause')) {
                 showreelIc.addClass('pause')
-                gsap.to(showreelIc, {scale: .5, autoAlpha: 1, overwrite: true})
+                gsap.to(showreelIc, {scale: .4, autoAlpha: 1, overwrite: true})
             }
         } else {
             targetX = 0
             targetY = 0
             showreelIc.removeClass('pause')
+            cursor.find('.cursor-dot').removeClass('hide')
+            cursor.find('.cursor-border').removeClass('hide')
+            cursor.find('.cursor-glow').removeClass('hide')
             gsap.to(showreelIc, {scale: 1, autoAlpha: 1, overwrite: true})
         }
 
