@@ -25,7 +25,6 @@ const setupDot = () => {
 
 const updateProgressByScroll = () => {
     let allSections = $('[data-section]');
-    let curIdx
 
     const DOM = {
         labelItem: $('.header-menu-label-item'),
@@ -62,7 +61,7 @@ const updateProgressByScroll = () => {
                     } else {
                         $('.header-menu-sm-list a').removeClass('active');
                         DOM.labelSMById(id).addClass('active');
-                        gsap.set('.header-menu-sm-process-inner-line', {y: `${idx * ($('.header-menu-sm-process-inner').height() - $('.header-menu-sm-process-inner-line').height()) / (allSections.length - 1)}`})
+                        gsap.set('.header-menu-sm-process-inner-line', {top: `${idx * ($('.header-menu-sm-process-inner').height() - $('.header-menu-sm-process-inner-line').height()) / (allSections.length - 1) / $('.header-menu-sm-process-inner').height() * 100}%`})
                     }
                 }
             })
@@ -189,6 +188,7 @@ const updateHeaderBarByScroll = () => {
                 }
             } else {
                 $('.header-menu-sm').slideDown(400)
+                gsap.set('.header-menu-sm-process-inner-line', {top: `${$('[data-section]').length/2 * ($('.header-menu-sm-process-inner').height() - $('.header-menu-sm-process-inner-line').height()) / ($('[data-section]').length - 1) / $('.header-menu-sm-process-inner').height() * 100}%`})
             }
             $(this).addClass('active')
         } else {

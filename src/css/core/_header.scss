@@ -388,11 +388,12 @@
                     overflow: hidden;
 
                     &-line {
+                        position: relative;
                         width: 100%;
                         height: calc(1.8rem * 1.2 + 1rem);
                         background: rgba($cl-white, 1);
                         border-radius: 100vmax;
-                        @include transition(transform .5s ease);
+                        @include transition(top .5s ease);
                     }
                 }
             }
