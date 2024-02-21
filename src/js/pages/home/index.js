@@ -591,6 +591,10 @@ const home = {
             changeTxtScrollAnim()
 
             function hoverProject() {
+                if ($(window).width() <= 991) {
+                    changeProjHtml()
+                }
+
                 const line = document.createElement('div')
                 $(line).addClass('line')
                 $('.home-project-item:last-child').append(line)
@@ -712,6 +716,27 @@ const home = {
 
                 function initClickThumb(idx) {
                     gsap.to(target, {y: (cvUnit( viewportBreak({tablet: 80, mobile: 100}), 'rem') + ($('.home-project-item').eq(0).outerHeight() - target.outerHeight())/2) + idx * $('.home-project-item').eq(0).outerHeight(), overwrite: true})
+                }
+
+                function changeProjHtml() {
+                    $('.home-project-item').each((idx, el) => {
+                        let targetItem = $(el)
+                        let linkItem = $(el).find('.home-project-item-view')
+
+                        let changeLink = $('<a>', {
+                            html: linkItem.html(),
+                            href: targetItem.attr('href'),
+                            target: '_blank',
+                            class: linkItem.attr('class')
+                        })
+                        linkItem.replaceWith(changeLink)
+
+                        let changeTarget = $('<div>', {
+                            html: targetItem.html(),
+                            class: targetItem.attr('class')
+                        })
+                        targetItem.replaceWith(changeTarget);
+                    })
                 }
             }
             hoverProject();

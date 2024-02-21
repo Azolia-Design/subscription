@@ -1481,6 +1481,7 @@
             align-items: flex-end;
             justify-content: space-between;
             @include transition(color .3s ease-out);
+            cursor: pointer;
             overflow: hidden;
 
             @include md {
