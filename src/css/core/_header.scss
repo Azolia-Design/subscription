@@ -159,7 +159,9 @@
         @include md {
             @include size(6rem);
         }
-
+        @include sm {
+            @include size(0, 6rem);
+        }
 
         &-line {
             width: 2.4rem;
