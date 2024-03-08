@@ -25,7 +25,6 @@ const setupDot = () => {
 
 const updateProgressByScroll = () => {
     let allSections = $('[data-section]');
-    let curIdx
 
     const DOM = {
         labelItem: $('.header-menu-label-item'),
@@ -62,7 +61,7 @@ const updateProgressByScroll = () => {
                     } else {
                         $('.header-menu-sm-list a').removeClass('active');
                         DOM.labelSMById(id).addClass('active');
-                        gsap.set('.header-menu-sm-process-inner-line', {y: `${idx * ($('.header-menu-sm-process-inner').height() - $('.header-menu-sm-process-inner-line').height()) / (allSections.length - 1)}`})
+                        gsap.set('.header-menu-sm-process-inner-line', {top: `${idx * ($('.header-menu-sm-process-inner').height() - $('.header-menu-sm-process-inner-line').height()) / (allSections.length - 1) / $('.header-menu-sm-process-inner').height() * 100}%`})
                     }
                 }
             })
@@ -147,6 +146,7 @@ const updateHeaderBarByScroll = () => {
                         if ($(window).width() <= 991) {
                             gsap.to('.header-main-schedule', {width: 0, overwrite: true})
                             gsap.to('.header-hamburger', {width: 0, overwrite: true})
+                            gsap.to('.header-menu-label', {marginLeft: '1rem'})
                         }
                     }
 
@@ -166,6 +166,7 @@ const updateHeaderBarByScroll = () => {
                     if ($(window).width() <= 991) {
                         gsap.to('.header-main-schedule', {width: 'auto', overwrite: true})
                         gsap.to('.header-hamburger', {width: cvUnit(60, "rem"), overwrite: true})
+                        gsap.to('.header-menu-label', {marginLeft: '0'})
                     }
                     if ($(window).width() <= 767) {
                         gsap.to('.header-main', {marginRight: 'auto'})
@@ -181,44 +182,37 @@ const updateHeaderBarByScroll = () => {
         if (!$(this).hasClass('active')) {
             if  ($(window).width() > 767) {
                 $('.header-menu').addClass('active')
+
+                if ($(window).width() <= 991) {
+                    gsap.to('.header-menu-label', {marginLeft: '1rem'})
+                }
             } else {
                 $('.header-menu-sm').slideDown(400)
+                gsap.set('.header-menu-sm-process-inner-line', {top: `${$('[data-section]').length/2 * ($('.header-menu-sm-process-inner').height() - $('.header-menu-sm-process-inner-line').height()) / ($('[data-section]').length - 1) / $('.header-menu-sm-process-inner').height() * 100}%`})
             }
             $(this).addClass('active')
         } else {
             if  ($(window).width() > 767) {
                 $('.header-menu').removeClass('active')
+
+                if ($(window).width() <= 991) {
+                    gsap.to('.header-menu-label', {marginLeft: '0'})
+                }
             } else {
                 $('.header-menu-sm').slideUp(400)
             }
             $(this).removeClass('active')
         }
     })
-}
 
-const textAnim = () => {
-    let headTxt = new SplitText(".home-hero-title", typeOpts.words)
-    let scheduleTxt = new SplitText(".header-main-schedule", typeOpts.chars)
-    let tlSplitHead = gsap.timeline({
-        onComplete: () => {
-            headTxt.revert()
-            scheduleTxt.revert()
-        }
-    })
-
-    tlSplitHead
-        .from(".home-hero-logo", {yPercent: 60, autoAlpha: 0, duration: 1, ease: "power2.out"}, 0)
-        .from(headTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out"}, "<=.2")
-
-    if ($(window).width > 767) {
-        tlSplitHead
-        .from(".home-hero-btn", {yPercent: 60, autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.4")
-        .from(".home-hero-discover", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
-        .from(scheduleTxt.chars, {yPercent: 60, autoAlpha: 0, stagger: .01, duration: .8, ease: "power2.out"}, "<=0")
-        .from(".header-main-inner", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
-    } else {
-        tlSplitHead
-        .from(".header-main-inner", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
+    if ($(window).width() <= 767) {
+        $('html').on('click', function(e) {
+            if (!$('.header:hover').length) {
+                $('.header-menu').removeClass('active')
+                $('.header-menu-sm').slideUp(400)
+                $('.header-hamburger').removeClass('active')
+            }
+        })
     }
 }
 
@@ -227,7 +221,6 @@ const header = {
         setupDot();
     },
     init() {
-        textAnim();
         updateProgressByScroll();
         updateHeaderBarByScroll();
         if ($(window).width() > 991) {

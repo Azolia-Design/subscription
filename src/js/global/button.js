@@ -7,7 +7,7 @@ const initButton = () => {
         $(el).append(bgOverlay)
     })
 
-    $('a').each((_, item) => {
+    $('a.btn').each((_, item) => {
         let href = $(item).attr('href');
         if (href.startsWith("./")) {
             href = href.slice(2);

@@ -11,6 +11,32 @@ const home = {
         console.log(`enter ${this.namespace}`);
         let cont = $('body');
 
+        function headerAnim() {
+            let headTxt = new SplitText(".home-hero-title", typeOpts.words)
+            let scheduleTxt = new SplitText(".header-main-schedule", typeOpts.chars)
+            let tlSplitHead = gsap.timeline({
+                onComplete: () => {
+                    headTxt.revert()
+                    scheduleTxt.revert()
+                }
+            })
+        
+            tlSplitHead
+                .from(".home-hero-logo", {yPercent: 60, autoAlpha: 0, duration: 1, ease: "power2.out"}, 0)
+                .from(headTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out"}, "<=.2")
+        
+            if ($(window).width() > 767) {
+                tlSplitHead
+                .from(".home-hero-btn", {yPercent: 60, autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.4")
+                .from(".home-hero-discover", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
+                .from(scheduleTxt.chars, {yPercent: 60, autoAlpha: 0, stagger: .01, duration: .8, ease: "power2.out"}, "<=0")
+            }
+            tlSplitHead
+            .from(".header-main-inner", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
+        }
+
+        headerAnim()
+
         function heroParallax() {
             let tl = gsap.timeline({
                 scrollTrigger: {
@@ -306,8 +332,6 @@ const home = {
                             start: 'top top+=80%',
                             endTrigger: '.home-skill-title',
                             end: 'bottom top+=40%',
-                            // markers: true,
-                            // scrub: true
                         },
                         onComplete: () => {
                             // titleTxt.revert()
@@ -567,6 +591,10 @@ const home = {
             changeTxtScrollAnim()
 
             function hoverProject() {
+                if ($(window).width() <= 991) {
+                    changeProjHtml()
+                }
+
                 const line = document.createElement('div')
                 $(line).addClass('line')
                 $('.home-project-item:last-child').append(line)
@@ -688,6 +716,27 @@ const home = {
 
                 function initClickThumb(idx) {
                     gsap.to(target, {y: (cvUnit( viewportBreak({tablet: 80, mobile: 100}), 'rem') + ($('.home-project-item').eq(0).outerHeight() - target.outerHeight())/2) + idx * $('.home-project-item').eq(0).outerHeight(), overwrite: true})
+                }
+
+                function changeProjHtml() {
+                    $('.home-project-item').each((idx, el) => {
+                        let targetItem = $(el)
+                        let linkItem = $(el).find('.home-project-item-view')
+
+                        let changeLink = $('<a>', {
+                            html: linkItem.html(),
+                            href: targetItem.attr('href'),
+                            target: '_blank',
+                            class: linkItem.attr('class')
+                        })
+                        linkItem.replaceWith(changeLink)
+
+                        let changeTarget = $('<div>', {
+                            html: targetItem.html(),
+                            class: targetItem.attr('class')
+                        })
+                        targetItem.replaceWith(changeTarget);
+                    })
                 }
             }
             hoverProject();
