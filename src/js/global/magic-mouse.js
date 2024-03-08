@@ -30,9 +30,11 @@ const initCursor = () => {
         }
 
         function updatePos(mode) {
-            if (!mode == "force") {
+            if (mode !== "force") {
                 xSetter(cursor.get(0))(lerp(cursorX, targetPos.x, .1))
                 ySetter(cursor.get(0))(lerp(cursorY, targetPos.y, .1))
+            } else {
+                
             }
             
             xSetter(cursor.find('.cursor-border').get(0))(lerp(borderX, -(targetPos.x - cursorX)/20, .15))
@@ -73,8 +75,7 @@ const initCursor = () => {
             targetX = 0
             targetY = 0
         }
-        console.log(targetX, targetY);
-
+        
         if ($('[data-video="to-pause"]').length && !$('.home-showreel-thumb:hover').length) {
             gsap.to(showreelIc, {scale: 1, autoAlpha: 0, overwrite: true})
         }
