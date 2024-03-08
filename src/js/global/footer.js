@@ -61,7 +61,7 @@ const initFooter = () => {
             }
         }
     })
-    
+
 
     $("[data-action='scrollTop']").on('click', function (e) {
         e.preventDefault()
@@ -69,7 +69,7 @@ const initFooter = () => {
             lenis.scrollTo(0);
         }
         else {
-            $('html').animate({ scrollTop: 0}, 800);
+            $('html').animate({ scrollTop: 0});
         }
     })
 }
