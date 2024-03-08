@@ -30,9 +30,7 @@ const initCursor = () => {
         }
 
         function updatePos(mode) {
-            if (mode == "force") {
-                // gsap.set(cursor, {x: targetPos.x, y: targetPos.y})
-            } else {
+            if (!mode == "force") {
                 xSetter(cursor.get(0))(lerp(cursorX, targetPos.x, .1))
                 ySetter(cursor.get(0))(lerp(cursorY, targetPos.y, .1))
             }
@@ -43,40 +41,39 @@ const initCursor = () => {
             ySetter(cursor.find('.cursor-glow').get(0))(lerp(glowY, -(targetPos.y - cursorY)/4, .1))
         }
 
-        // let scaleOffset = Math.min(Math.sqrt(((pointerCurr().x - cursorX)**2 + (pointerCurr().y - cursorY)**2), 2) / 500, .5)
-        // scaleXSetter(cursor.get(0))(lerp(scaleX, 1 + scaleOffset, .15))
-        // scaleYSetter(cursor.get(0))(lerp(scaleY, 1 - scaleOffset, .15))
-        // rotZSetter(cursor.get(0))((Math.atan2(pointerCurr().y - cursorY, pointerCurr().x - cursorX) * 180) / Math.PI)
-
         let showreelIc = $('.home-showreel-play-ic')
         let showreelIcX = xGetter(showreelIc.get(0))
         let showreelIcY = yGetter(showreelIc.get(0))
         let targetX, targetY
 
-        if ($('[data-video="to-pause"]').length && $('.home-showreel-thumb:hover').length) {
 
-            // targetX = (pointerCurr().x/$(window).width() - .5) * 2 * ($('.home-showreel-thumb').width() - showreelIc.width())/2
-            // targetY = ((pointerCurr().y - $('.home-showreel-thumb').get(0).getBoundingClientRect().top)/($('.home-showreel-thumb').height()) - 0.5) * ($('.home-showreel-thumb').height() - showreelIc.width())
-
-            targetX = (pointerCurr().x/$(window).width() - .5) * 2 * ($(window).width())/2
-            targetY = ((pointerCurr().y - $('.home-showreel-thumb').get(0).getBoundingClientRect().top)/($('.home-showreel-thumb').height()) - 0.5) * ($('.home-showreel-thumb').height())
-
-            cursor.find('.cursor-dot').addClass('hide')
-            cursor.find('.cursor-border').addClass('hide')
-            cursor.find('.cursor-glow').addClass('hide')
-            if (!showreelIc.hasClass('pause')) {
-                showreelIc.addClass('pause')
-                gsap.to(showreelIc, {scale: .4, autoAlpha: 1, overwrite: true})
+        if ($('.home-showreel--wrap:hover').length) {
+            
+            if ($('[data-video="to-pause"]').length && $('.home-showreel-thumb:hover').length) {
+                targetX = (pointerCurr().x/$(window).width() - .5) * 2 * ($(window).width())/2
+                targetY = ((pointerCurr().y - $('.home-showreel-thumb').get(0).getBoundingClientRect().top)/($('.home-showreel-thumb').height()) - 0.5) * ($('.home-showreel-thumb').height())
+    
+                cursor.find('.cursor-dot').addClass('hide')
+                cursor.find('.cursor-border').addClass('hide')
+                cursor.find('.cursor-glow').addClass('hide')
+                if (!showreelIc.hasClass('pause')) {
+                    showreelIc.addClass('pause')
+                    gsap.to(showreelIc, {scale: .4, autoAlpha: 1, overwrite: true})
+                }
+            } else {
+                targetX = 0
+                targetY = 0
+                showreelIc.removeClass('pause')
+                cursor.find('.cursor-dot').removeClass('hide')
+                cursor.find('.cursor-border').removeClass('hide')
+                cursor.find('.cursor-glow').removeClass('hide')
+                gsap.to(showreelIc, {scale: 1, autoAlpha: 1, overwrite: true})
             }
         } else {
             targetX = 0
             targetY = 0
-            showreelIc.removeClass('pause')
-            cursor.find('.cursor-dot').removeClass('hide')
-            cursor.find('.cursor-border').removeClass('hide')
-            cursor.find('.cursor-glow').removeClass('hide')
-            gsap.to(showreelIc, {scale: 1, autoAlpha: 1, overwrite: true})
         }
+        console.log(targetX, targetY);
 
         if ($('[data-video="to-pause"]').length && !$('.home-showreel-thumb:hover').length) {
             gsap.to(showreelIc, {scale: 1, autoAlpha: 0, overwrite: true})
@@ -147,6 +144,8 @@ const initCursor = () => {
 
                 case 'dotstick':
                     cursor.find('.cursor-dot').addClass('stickfaq')
+                    cursor.find('.cursor-border').addClass('hide')
+
                     targetPos = {
                         x: dotOffsetLeft + target.find('[data-cursor-dotpos]').outerWidth()/2,
                         y: dotOffsetTop + target.find('[data-cursor-dotpos]').outerHeight()/2

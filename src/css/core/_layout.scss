@@ -233,15 +233,15 @@ button {
             position: absolute;
             width: $cs-md;
             height: $cs-md;
-            will-change: width, height;
+            will-change: width, height, opacity;
             opacity: 1;
-
             @include transition(
                 background-color .3s ease-in-out,
                 width .3s ease-in-out,
                 height .3s ease-in-out,
                 opacity .3s ease,
             );
+
             &-inner {
                 @include size(100%);
                 border: dotted 2px rgba(255, 255, 255, .2);
