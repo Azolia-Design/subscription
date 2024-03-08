@@ -89,12 +89,12 @@
 
                 @include md {
                     margin-top: 0;
-                    @include size(100%, calc(100vh + 19rem + 7rem - 50.9rem));
+                    @include size(100%, calc(100vh - 6rem));
                 }
 
                 @include sm {
                     margin-top: 0;
-                    @include size(100%, calc(100vh + 19rem + 7rem - 3.9rem - 53.1rem));
+                    @include size(100%, calc(100vh - 10rem));
                 }
             }
             &-overlay {
