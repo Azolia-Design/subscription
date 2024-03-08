@@ -15,7 +15,7 @@ const initCursor = () => {
         let zRot = rotZGetter(cursor.get(0))
         let scaleX = scaleXGetter(cursor.get(0))
         let scaleY = scaleYGetter(cursor.get(0))
-        
+
         let dotX = xGetter(cursor.find('.cursor-dot').get(0))
         let dotY = yGetter(cursor.find('.cursor-dot').get(0))
         let borderX = xGetter(cursor.find('.cursor-border').get(0))
@@ -36,7 +36,7 @@ const initCursor = () => {
                 xSetter(cursor.get(0))(lerp(cursorX, targetPos.x, .1))
                 ySetter(cursor.get(0))(lerp(cursorY, targetPos.y, .1))
             }
-            
+
             xSetter(cursor.find('.cursor-border').get(0))(lerp(borderX, -(targetPos.x - cursorX)/20, .15))
             ySetter(cursor.find('.cursor-border').get(0))(lerp(borderY, -(targetPos.y - cursorY)/20, .15))
             xSetter(cursor.find('.cursor-glow').get(0))(lerp(glowX, -(targetPos.x - cursorX)/4, .1))
@@ -53,29 +53,30 @@ const initCursor = () => {
         let showreelIcY = yGetter(showreelIc.get(0))
         let targetX, targetY
 
-        if ($('[data-video="to-pause"]').length && $('.home-showreel-thumb:hover').length) {
+        if ($('.home-showreel-thumb').length) {
+            if ($('[data-video="to-pause"]').length && $('.home-showreel-thumb:hover').length) {
+                // targetX = (pointerCurr().x/$(window).width() - .5) * 2 * ($('.home-showreel-thumb').width() - showreelIc.width())/2
+                // targetY = ((pointerCurr().y - $('.home-showreel-thumb').get(0).getBoundingClientRect().top)/($('.home-showreel-thumb').height()) - 0.5) * ($('.home-showreel-thumb').height() - showreelIc.width())
 
-            // targetX = (pointerCurr().x/$(window).width() - .5) * 2 * ($('.home-showreel-thumb').width() - showreelIc.width())/2
-            // targetY = ((pointerCurr().y - $('.home-showreel-thumb').get(0).getBoundingClientRect().top)/($('.home-showreel-thumb').height()) - 0.5) * ($('.home-showreel-thumb').height() - showreelIc.width())
+                targetX = (pointerCurr().x/$(window).width() - .5) * 2 * ($(window).width())/2
+                targetY = ((pointerCurr().y - $('.home-showreel-thumb').get(0).getBoundingClientRect().top)/($('.home-showreel-thumb').height()) - 0.5) * ($('.home-showreel-thumb').height())
 
-            targetX = (pointerCurr().x/$(window).width() - .5) * 2 * ($(window).width())/2
-            targetY = ((pointerCurr().y - $('.home-showreel-thumb').get(0).getBoundingClientRect().top)/($('.home-showreel-thumb').height()) - 0.5) * ($('.home-showreel-thumb').height())
-
-            cursor.find('.cursor-dot').addClass('hide')
-            cursor.find('.cursor-border').addClass('hide')
-            cursor.find('.cursor-glow').addClass('hide')
-            if (!showreelIc.hasClass('pause')) {
-                showreelIc.addClass('pause')
-                gsap.to(showreelIc, {scale: .4, autoAlpha: 1, overwrite: true})
+                cursor.find('.cursor-dot').addClass('hide')
+                cursor.find('.cursor-border').addClass('hide')
+                cursor.find('.cursor-glow').addClass('hide')
+                if (!showreelIc.hasClass('pause')) {
+                    showreelIc.addClass('pause')
+                    gsap.to(showreelIc, {scale: .4, autoAlpha: 1, overwrite: true})
+                }
+            } else {
+                targetX = 0
+                targetY = 0
+                showreelIc.removeClass('pause')
+                cursor.find('.cursor-dot').removeClass('hide')
+                cursor.find('.cursor-border').removeClass('hide')
+                cursor.find('.cursor-glow').removeClass('hide')
+                gsap.to(showreelIc, {scale: 1, autoAlpha: 1, overwrite: true})
             }
-        } else {
-            targetX = 0
-            targetY = 0
-            showreelIc.removeClass('pause')
-            cursor.find('.cursor-dot').removeClass('hide')
-            cursor.find('.cursor-border').removeClass('hide')
-            cursor.find('.cursor-glow').removeClass('hide')
-            gsap.to(showreelIc, {scale: 1, autoAlpha: 1, overwrite: true})
         }
 
         if ($('[data-video="to-pause"]').length && !$('.home-showreel-thumb:hover').length) {
