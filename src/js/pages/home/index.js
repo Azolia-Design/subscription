@@ -20,19 +20,19 @@ const home = {
                     scheduleTxt.revert()
                 }
             })
-        
+
             tlSplitHead
-                .from(".home-hero-logo", {yPercent: 60, autoAlpha: 0, duration: 1, ease: "power2.out"}, 0)
-                .from(headTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out"}, "<=.2")
-        
+                .from(".home-hero-logo", { yPercent: 60, autoAlpha: 0, duration: 1, ease: "power2.out" }, 0)
+                .from(headTxt.words, { yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out" }, "<=.2")
+
             if ($(window).width() > 767) {
                 tlSplitHead
-                .from(".home-hero-btn", {yPercent: 60, autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.4")
-                .from(".home-hero-discover", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
-                .from(scheduleTxt.chars, {yPercent: 60, autoAlpha: 0, stagger: .01, duration: .8, ease: "power2.out"}, "<=0")
+                    .from(".home-hero-btn", { yPercent: 60, autoAlpha: 0, duration: .6, ease: "power2.out" }, "<=.4")
+                    .from(".home-hero-discover", { autoAlpha: 0, duration: .6, ease: "power2.out" }, "<=.2")
+                    .from(scheduleTxt.chars, { yPercent: 60, autoAlpha: 0, stagger: .01, duration: .8, ease: "power2.out" }, "<=0")
             }
             tlSplitHead
-            .from(".header-main-inner", {autoAlpha: 0, duration: .6, ease: "power2.out"}, "<=.2")
+                .from(".header-main-inner", { autoAlpha: 0, duration: .6, ease: "power2.out" }, "<=.2")
         }
 
         headerAnim()
@@ -46,7 +46,7 @@ const home = {
                     scrub: .3,
                 }
             })
-            tl.to(cont.find('.home-hero-bg img'), {y: '19rem', ease: 'none'})
+            tl.to(cont.find('.home-hero-bg img'), { y: '19rem', ease: 'none' })
         }
         heroParallax()
 
@@ -122,30 +122,30 @@ const home = {
                     $(item).attr('data-label', `${label}`)
 
                     scrollerTl
-                            .add(`label${index}`)
-                            .to(item, {
-                                duration: 1
-                            })
-                            .to(itemSelect('h3'), {
-                                scale: viewportBreak({ desktop: .75, tablet: .5 }), transformOrigin: "top left", duration: 1
-                            }, '<=0')
-                            .to(itemSelect('.home-benefit-item-overlay'), {
-                                scaleX: 1, transformOrigin: "right", duration: 1
-                            }, '<=0')
-                            .to(itemSelect('p'), {
-                                autoAlpha: 0, duration: 1
-                            }, '<=0.2')
-
-                        BENEFIT.otherItem.each((idx, el) => {
-                            if (idx > index) {
-                                scrollerTl
-                                    .to(el, {
-                                        x: -(ITEM_WIDTH * ( 1 + index )),
-                                        paddingLeft: viewportBreak({ desktop: cvUnit(40, 'rem'), tablet: cvUnit(24, 'rem') }),
-                                        duration: 1
-                                    }, '<=0')
-                            }
+                        .add(`label${index}`)
+                        .to(item, {
+                            duration: 1
                         })
+                        .to(itemSelect('h3'), {
+                            scale: viewportBreak({ desktop: .75, tablet: .5 }), transformOrigin: "top left", duration: 1
+                        }, '<=0')
+                        .to(itemSelect('.home-benefit-item-overlay'), {
+                            scaleX: 1, transformOrigin: "right", duration: 1
+                        }, '<=0')
+                        .to(itemSelect('p'), {
+                            autoAlpha: 0, duration: 1
+                        }, '<=0.2')
+
+                    BENEFIT.otherItem.each((idx, el) => {
+                        if (idx > index) {
+                            scrollerTl
+                                .to(el, {
+                                    x: -(ITEM_WIDTH * (1 + index)),
+                                    paddingLeft: viewportBreak({ desktop: cvUnit(40, 'rem'), tablet: cvUnit(24, 'rem') }),
+                                    duration: 1
+                                }, '<=0')
+                        }
+                    })
                 })
                 gsap.set('.home-showreel', { marginTop: -cvUnit(viewportBreak({ desktop: 60, tablet: 85 }), "vh") })
                 scrollerTl
@@ -158,7 +158,7 @@ const home = {
                         duration: 1
                     }, "<= .8")
 
-                $('.home-benefit-other-sub-btn').on('click', function(e) {
+                $('.home-benefit-other-sub-btn').on('click', function (e) {
                     e.preventDefault();
                     let target = $(this).closest('.home-benefit-item.home-benefit-other').index();
                     toLabel(1, scrollerTl, `label${target}`)
@@ -170,7 +170,7 @@ const home = {
                     timeline.seek(label)
                     const goToProgress = timeline.progress()
                     timeline.progress(now)
-                    lenis.scrollTo(yStart + ( timeline.scrollTrigger.end - timeline.scrollTrigger.start ) * goToProgress, {
+                    lenis.scrollTo(yStart + (timeline.scrollTrigger.end - timeline.scrollTrigger.start) * goToProgress, {
                         duration: duration,
                         force: true,
                     })
@@ -183,7 +183,7 @@ const home = {
 
                 let tlSplitHead = gsap.timeline({
                     scrollTrigger: {
-                        trigger : ".home-benefit-list",
+                        trigger: ".home-benefit-list",
                         start: "top bottom-=10%",
                         // markers: true
                     },
@@ -194,8 +194,8 @@ const home = {
                 })
 
                 tlSplitHead
-                .from(mainTitleTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out"}, 0)
-                .from(mainSubTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out"}, "<=.4")
+                    .from(mainTitleTxt.words, { yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out" }, 0)
+                    .from(mainSubTxt.words, { yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out" }, "<=.4")
 
                 $(".home-benefit-other").each((idx, el) => {
                     if (idx < 3) {
@@ -203,8 +203,8 @@ const home = {
                         let otherSubTxt = new SplitText($(el).find(".home-benefit-other-sub-txt"), typeOpts.words)
 
                         tlSplitHead
-                        .from(otherTitleTxt.chars, {yPercent: 60, autoAlpha: 0, stagger: .01, duration: .6, ease: "power2.out", onComplete: () => {otherTitleTxt.revert()}}, 0)
-                        .from(otherSubTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out", onComplete: () => {otherSubTxt.revert()}}, "<=.2")
+                            .from(otherTitleTxt.chars, { yPercent: 60, autoAlpha: 0, stagger: .01, duration: .6, ease: "power2.out", onComplete: () => { otherTitleTxt.revert() } }, 0)
+                            .from(otherSubTxt.words, { yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out", onComplete: () => { otherSubTxt.revert() } }, "<=.2")
                     }
                 })
             }
@@ -214,7 +214,7 @@ const home = {
                 stackScroll();
             }
         }
-        homeBenefit();
+        //homeBenefit();
 
         /** (💡)  - SHOWREEL */
         function homeShowreel() {
@@ -250,9 +250,9 @@ const home = {
                     .from([getOtherItem({ wrap: 0, item: 2 }), getOtherItem({ wrap: 1, item: 2 })], { y: 80, duration: .2 }, "<=0")
                     .from([getOtherItem({ wrap: 0, item: 1 }), getOtherItem({ wrap: 1, item: 1 })], { y: 200, duration: .2 }, "<=0")
                     .from([getOtherItem({ wrap: 0, item: 0 }), getOtherItem({ wrap: 1, item: 0 })], { y: 320, duration: .2 }, "<=0")
-                    .fromTo(GALLERY.mainWrap, { "clipPath": `inset(14% 37.35% 14% 37.35% round ${cvUnit(20, "rem")}px)`},{"clipPath": `inset(0% 0% 0% 0% round ${cvUnit(20, "rem")}px)`, duration: 1 }, ">=-0.1")
+                    .fromTo(GALLERY.mainWrap, { "clipPath": `inset(14% 37.35% 14% 37.35% round ${cvUnit(20, "rem")}px)` }, { "clipPath": `inset(0% 0% 0% 0% round ${cvUnit(20, "rem")}px)`, duration: 1 }, ">=-0.1")
                     .to(GALLERY.otherInner.find(".img"), { scale: 1.6, duration: 1 }, "<=0")
-                    .to(getOtherItem({ wrap: 0, item: 2 }), { xPercent:  -255, duration: 1 }, "<=0")
+                    .to(getOtherItem({ wrap: 0, item: 2 }), { xPercent: -255, duration: 1 }, "<=0")
                     .to(getOtherItem({ wrap: 0, item: 1 }), { xPercent: -460, duration: 1 }, "<=0")
                     .to(getOtherItem({ wrap: 0, item: 0 }), { xPercent: -760, duration: 1 }, "<=0")
                     .to(getOtherItem({ wrap: 1, item: 2 }), { xPercent: 255, duration: 1 }, "<=0")
@@ -262,8 +262,8 @@ const home = {
                     .from('.home-showreel-play-wrapper', { autoAlpha: 0, y: 0, duration: .5 }, "<=0")
                     .from('.home-showreel-play-ic', { scale: 0.8, duration: 1 }, "<=0")
                     .from('.home-showreel-play-ic svg', { scale: 1.4, duration: 1 }, "<=0")
-                    .from('.home-showreel-play-first', {x: -cvUnit(200, 'rem'), duration: 1}, '<=0')
-                    .from('.home-showreel-play-last', {x: cvUnit(200, 'rem'), duration: 1}, '<=0')
+                    .from('.home-showreel-play-first', { x: -cvUnit(200, 'rem'), duration: 1 }, '<=0')
+                    .from('.home-showreel-play-last', { x: cvUnit(200, 'rem'), duration: 1 }, '<=0')
             }
             function playShowreel() {
                 let DOM = {
@@ -274,7 +274,7 @@ const home = {
                     play: $('.home-showreel-play'),
                     video: $('.home-showreel-thumb-link-vid')
                 }
-                DOM.link_vid.on('click', function(e) {
+                DOM.link_vid.on('click', function (e) {
                     e.preventDefault();
                     if ($(this).attr('data-video') == 'to-play') {
                         $(this).attr('data-video', 'to-pause')
@@ -297,7 +297,7 @@ const home = {
                     }
                 })
 
-                $('.home-showreel-play-wrapper').on('click', function(e) {
+                $('.home-showreel-play-wrapper').on('click', function (e) {
                     e.preventDefault()
                     DOM.link_vid.trigger('click')
                 })
@@ -316,7 +316,7 @@ const home = {
                 trigger: '.home-skill',
                 start: 'top bottom',
                 end: 'bottom top',
-                toggleClass: {targets: '.home-skill-thumb', className: "active"},
+                toggleClass: { targets: '.home-skill-thumb', className: "active" },
             })
             ScrollTrigger.create({
                 trigger: '.home-skill',
@@ -334,20 +334,20 @@ const home = {
                             end: 'bottom top+=40%',
                         },
                         onComplete: () => {
-                            // titleTxt.revert()
-                            // desc.revert()
+                            titleTxt.revert()
+                            desc.revert()
                         }
                     })
 
                     tlSplitHead
-                    .from(titleTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .035, duration: .8, ease: 'power2.out'}, 0)
-                    .from(desc.words, {yPercent: 60, autoAlpha: 0, stagger: .025, duration: .8, ease: 'power2.out'}, '<=.2')
+                        .from(titleTxt.words, { yPercent: 60, autoAlpha: 0, stagger: .035, duration: .8, ease: 'power2.out' }, 0)
+                        .from(desc.words, { yPercent: 60, autoAlpha: 0, stagger: .025, duration: .8, ease: 'power2.out' }, '<=.2')
 
                     $('.home-skill-item').each((idx, el) => {
                         let itemTitleTxt = new SplitText($(el).find('.home-skill-item-title'), typeOpts.chars)
                         tlSplitHead
-                        .from($(el).find('.line'), {scaleX: 0, transformOrigin: 'left', duration: 1, ease: 'power2.out'}, `${.8 + idx * .2}`)
-                        .from(itemTitleTxt.chars, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: 'power2.out', onComplete: () => {itemTitleTxt.revert()}}, `${.8 + idx * .2}`)
+                            .from($(el).find('.line'), { scaleX: 0, transformOrigin: 'left', duration: 1, ease: 'power2.out' }, `${.8 + idx * .2}`)
+                            .from(itemTitleTxt.chars, { yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: 'power2.out', onComplete: () => { itemTitleTxt.revert() } }, `${.8 + idx * .2}`)
                     })
 
                     $('.home-skill-thumb-item').each((idx, el) => {
@@ -359,11 +359,11 @@ const home = {
                         }
                     })
                     if ($(window).width() > 991) {
-                        $('.home-skill-item').on('mouseenter', function(e) {
+                        $('.home-skill-item').on('mouseenter', function (e) {
                             let idx = $(this).index()
                             $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
                         })
-                        $('.home-skill-item').on('mouseleave', function(e) {
+                        $('.home-skill-item').on('mouseleave', function (e) {
                             let idx = $(this).index()
                             $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).removeClass('active')
                         })
@@ -375,12 +375,12 @@ const home = {
                                 let tarCurrY = yGetter(target.get(0))
                                 let tarCurrRot = rotZGetter(target.get(0))
 
-                                let tarX = -target.outerWidth()/4 + (pointerCurr().x - $('.home-skill-listing').get(0).getBoundingClientRect().left)/$('.home-skill-listing').outerWidth() * ($('.home-skill-listing').outerWidth() - $('.home-skill-item-desc').get(0).getBoundingClientRect().left - target.outerWidth()/2)
-                                let tarY =  -target.outerHeight()/4 + (pointerCurr().y - $('.home-skill-listing').get(0).getBoundingClientRect().top)/$('.home-skill-listing').outerHeight() * ($('.home-skill-listing').outerHeight() - target.outerHeight()/2)
+                                let tarX = -target.outerWidth() / 4 + (pointerCurr().x - $('.home-skill-listing').get(0).getBoundingClientRect().left) / $('.home-skill-listing').outerWidth() * ($('.home-skill-listing').outerWidth() - $('.home-skill-item-desc').get(0).getBoundingClientRect().left - target.outerWidth() / 2)
+                                let tarY = -target.outerHeight() / 4 + (pointerCurr().y - $('.home-skill-listing').get(0).getBoundingClientRect().top) / $('.home-skill-listing').outerHeight() * ($('.home-skill-listing').outerHeight() - target.outerHeight() / 2)
 
                                 xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
                                 ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
-                                rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX)/40, -7), 7)), .1))
+                                rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX) / 40, -7), 7)), .1))
                             }
                             requestAnimationFrame(initMouseMove)
                         }
@@ -391,10 +391,10 @@ const home = {
                         $('.home-skill-item').eq(idx).addClass('active')
                         let skillSplitDes = new SplitText($('.home-skill-item').eq(idx).find('.home-skill-item-desc'), typeOpts.words)
                         tlSplitHead
-                        .from(skillSplitDes.words, {yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: "power2.out", onComplete: () => {skillSplitDes.revert(), $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')}}, "<=-.55")
+                            .from(skillSplitDes.words, { yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: "power2.out", onComplete: () => { skillSplitDes.revert(), $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active') } }, "<=-.55")
 
                         if ($(window).width() > 767) {
-                            $('.home-skill-item').on('click', function(e) {
+                            $('.home-skill-item').on('click', function (e) {
                                 e.preventDefault()
                                 if (!$(this).hasClass('active')) {
                                     $('.home-skill-item').removeClass('active')
@@ -402,7 +402,7 @@ const home = {
                                     $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
                                     let idx = $(this).index()
                                     $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
-                                    gsap.to('.home-skill-thumb', {y: (cvUnit(40, 'rem') + ($('.home-skill-item').eq(0).outerHeight() - $('.home-skill-thumb').outerHeight())/2) + idx * $('.home-skill-item').eq(0).outerHeight(), duration: 1})
+                                    gsap.to('.home-skill-thumb', { y: (cvUnit(40, 'rem') + ($('.home-skill-item').eq(0).outerHeight() - $('.home-skill-thumb').outerHeight()) / 2) + idx * $('.home-skill-item').eq(0).outerHeight(), duration: 1 })
                                 } else {
                                     $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
                                     $('.home-skill-item').removeClass('active')
@@ -410,14 +410,14 @@ const home = {
                             })
                         } else {
                             $('.home-skill-item').eq(idx).find('.home-skill-item-desc').slideDown(300, 'linear')
-                            gsap.to($('.home-skill-item').eq(idx), {paddingTop: cvUnit( 27.5, 'rem'), paddingBottom: cvUnit( 27.5, 'rem'), duration: .3, ease: 'none', overwrite: true})
-                            gsap.to($('.home-skill-item').eq(idx).find('.home-skill-item-title'), {marginBottom: cvUnit(12, 'rem'), duration: .3, ease: 'none', overwrite: true})
+                            gsap.to($('.home-skill-item').eq(idx), { paddingTop: cvUnit(27.5, 'rem'), paddingBottom: cvUnit(27.5, 'rem'), duration: .3, ease: 'none', overwrite: true })
+                            gsap.to($('.home-skill-item').eq(idx).find('.home-skill-item-title'), { marginBottom: cvUnit(12, 'rem'), duration: .3, ease: 'none', overwrite: true })
 
                             const target = $('.home-skill-thumb')
                             function clickMobileThumb() {
                                 if (target.hasClass('active')) {
                                     let tarCurrY = yGetter(target.get(0))
-                                    let tarY = cvUnit(60, 'rem') - $('.home-skill-thumb').outerHeight()*2.5/4 + ($('.home-skill-item').eq(idx).get(0).getBoundingClientRect().top - $('.home-skill-item').eq(0).get(0).getBoundingClientRect().top)
+                                    let tarY = cvUnit(60, 'rem') - $('.home-skill-thumb').outerHeight() * 2.5 / 4 + ($('.home-skill-item').eq(idx).get(0).getBoundingClientRect().top - $('.home-skill-item').eq(0).get(0).getBoundingClientRect().top)
 
                                     ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
                                 }
@@ -425,7 +425,7 @@ const home = {
                             }
                             clickMobileThumb()
 
-                            $('.home-skill-item').on('click', function(e) {
+                            $('.home-skill-item').on('click', function (e) {
                                 e.preventDefault()
                                 if (!$(this).hasClass('active')) {
                                     idx = $(this).index()
@@ -434,17 +434,17 @@ const home = {
                                     $('.home-skill-item .home-skill-item-desc').slideUp(300, 'linear')
                                     $(this).addClass('active')
                                     $(this).find('.home-skill-item-desc').slideDown(300, 'linear')
-                                    gsap.to('.home-skill-item', {paddingTop: cvUnit( 60.5, 'rem'), paddingBottom: cvUnit( 60.5, 'rem'), duration: .3, ease: 'none'})
-                                    gsap.to('.home-skill-item .home-skill-item-title', {marginBottom: 0, duration: .3, ease: 'none'})
-                                    gsap.to(this, {paddingTop: cvUnit( 27.5, 'rem'), paddingBottom: cvUnit( 27.5, 'rem'), duration: .3, ease: 'none', overwrite: true})
-                                    gsap.to($(this).find('.home-skill-item-title'), {marginBottom: cvUnit(12, 'rem'), duration: .3, ease: 'none', overwrite: true})
+                                    gsap.to('.home-skill-item', { paddingTop: cvUnit(60.5, 'rem'), paddingBottom: cvUnit(60.5, 'rem'), duration: .3, ease: 'none' })
+                                    gsap.to('.home-skill-item .home-skill-item-title', { marginBottom: 0, duration: .3, ease: 'none' })
+                                    gsap.to(this, { paddingTop: cvUnit(27.5, 'rem'), paddingBottom: cvUnit(27.5, 'rem'), duration: .3, ease: 'none', overwrite: true })
+                                    gsap.to($(this).find('.home-skill-item-title'), { marginBottom: cvUnit(12, 'rem'), duration: .3, ease: 'none', overwrite: true })
                                     $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
                                     $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
                                 } else {
                                     $('.home-skill-item').removeClass('active')
                                     $('.home-skill-item .home-skill-item-desc').slideUp(300, 'linear')
-                                    gsap.to('.home-skill-item', {paddingTop: cvUnit( 60.5, 'rem'), paddingBottom: cvUnit( 60.5, 'rem'), duration: .3, ease: 'none'})
-                                    gsap.to('.home-skill-item .home-skill-item-title', {marginBottom: 0, duration: .3, ease: 'none'})
+                                    gsap.to('.home-skill-item', { paddingTop: cvUnit(60.5, 'rem'), paddingBottom: cvUnit(60.5, 'rem'), duration: .3, ease: 'none' })
+                                    gsap.to('.home-skill-item .home-skill-item-title', { marginBottom: 0, duration: .3, ease: 'none' })
                                     $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
                                 }
                             })
@@ -481,17 +481,17 @@ const home = {
                     })
 
                     tlSplitHead
-                    .from(titleTxt.chars, {yPercent: 60, autoAlpha: 0, stagger: .035, duration: .8, ease: 'power2.out'}, 0)
+                        .from(titleTxt.chars, { yPercent: 60, autoAlpha: 0, stagger: .035, duration: .8, ease: 'power2.out' }, 0)
                     if ($(window).width() > 767) {
                         tlSplitHead
-                        .from('.home-process-btn', {yPercent: 50, autoAlpha: 0, duration: .8, ease: 'power2.out'}, '<=.8')
+                            .from('.home-process-btn', { yPercent: 50, autoAlpha: 0, duration: .8, ease: 'power2.out' }, '<=.8')
                         tlSplitHead
-                        .from(descTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .025, duration: .8, ease: 'power2.out'}, '<=.2')
+                            .from(descTxt.words, { yPercent: 60, autoAlpha: 0, stagger: .025, duration: .8, ease: 'power2.out' }, '<=.2')
                     }
 
                     if ($(window).width() <= 767) {
                         tlSplitHead
-                        .from(descTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .025, duration: .8, ease: 'power2.out'}, '<=.5')
+                            .from(descTxt.words, { yPercent: 60, autoAlpha: 0, stagger: .025, duration: .8, ease: 'power2.out' }, '<=.5')
 
                         gsap.from('.home-process-btn', {
                             scrollTrigger: {
@@ -520,18 +520,18 @@ const home = {
                         })
                         if (idx % 2 == 0) {
                             tl
-                            .from($(el).find('.home-process-step-background'), {scale: 0, borderRadius: '8rem', ease: 'sine.out', duration: 4}, 0)
-                            .from($(el).find('.home-process-step-img'), {autoAlpha: 0, scale: .8, yPercent: 20, ease: 'sine.inOut', duration: 1}, 2)
-                            .from($(el).find('.home-process-step-label'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.2')
-                            .from($(el).find('.home-process-step-title'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.4')
-                            .from($(el).find('.home-process-step-desc'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.4')
+                                .from($(el).find('.home-process-step-background'), { scale: 0, borderRadius: '8rem', ease: 'sine.out', duration: 4 }, 0)
+                                .from($(el).find('.home-process-step-img'), { autoAlpha: 0, scale: .8, yPercent: 20, ease: 'sine.inOut', duration: 1 }, 2)
+                                .from($(el).find('.home-process-step-label'), { autoAlpha: 0, ease: 'sine.in', duration: 1 }, '<=.2')
+                                .from($(el).find('.home-process-step-title'), { autoAlpha: 0, ease: 'sine.in', duration: 1 }, '<=.4')
+                                .from($(el).find('.home-process-step-desc'), { autoAlpha: 0, ease: 'sine.in', duration: 1 }, '<=.4')
                         } else {
                             tl
-                            .from($(el).find('.home-process-step-background'), {scale: 0, borderRadius: '8rem', ease: 'sine.out', duration: 4}, 0)
-                            .from($(el).find('.home-process-step-img'), {autoAlpha: 0, scale: .8, yPercent: 20, ease: 'sine.inOut', duration: 1}, 2)
-                            .from($(el).find('.home-process-step-label'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=1.2')
-                            .from($(el).find('.home-process-step-title'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.2')
-                            .from($(el).find('.home-process-step-desc'), {autoAlpha: 0, ease: 'sine.in', duration: 1}, '<=.2')
+                                .from($(el).find('.home-process-step-background'), { scale: 0, borderRadius: '8rem', ease: 'sine.out', duration: 4 }, 0)
+                                .from($(el).find('.home-process-step-img'), { autoAlpha: 0, scale: .8, yPercent: 20, ease: 'sine.inOut', duration: 1 }, 2)
+                                .from($(el).find('.home-process-step-label'), { autoAlpha: 0, ease: 'sine.in', duration: 1 }, '<=1.2')
+                                .from($(el).find('.home-process-step-title'), { autoAlpha: 0, ease: 'sine.in', duration: 1 }, '<=.2')
+                                .from($(el).find('.home-process-step-desc'), { autoAlpha: 0, ease: 'sine.in', duration: 1 }, '<=.2')
                         }
                     })
                 }
@@ -544,7 +544,7 @@ const home = {
             function scrollAnimationGrid() {
                 const gridItems = $('.home-portfolio-project-item');
                 gridItems.each((idx, item) => {
-                    const yPercentRandomVal = gsap.utils.random(0,60);
+                    const yPercentRandomVal = gsap.utils.random(0, 60);
                     let tl = gsap.timeline({
                         scrollTrigger: {
                             trigger: item,
@@ -555,18 +555,18 @@ const home = {
                     })
                     requestAnimationFrame(() => {
                         tl
-                        .set(item, {
-                            transformOrigin: `50% 200%`
-                        })
-                        .fromTo(item, {
-                            scale: 1,
-                            yPercent: yPercentRandomVal,
-                        },{
-                            ease: 'none',
-                            scale: 0.5,
-                            yPercent: 0,
-                            borderRadius: '50%'
-                        })
+                            .set(item, {
+                                transformOrigin: `50% 200%`
+                            })
+                            .fromTo(item, {
+                                scale: 1,
+                                yPercent: yPercentRandomVal,
+                            }, {
+                                ease: 'none',
+                                scale: 0.5,
+                                yPercent: 0,
+                                borderRadius: '50%'
+                            })
                     })
 
                 });
@@ -604,47 +604,47 @@ const home = {
                     trigger: '.home-project',
                     start: 'top bottom',
                     end: 'bottom top',
-                    toggleClass: {targets: target, className: "active"},
+                    toggleClass: { targets: target, className: "active" },
                 })
 
                 function projectClippath(index, action) {
                     let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
                     let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
-                    gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
+                    gsap.set('.home-project-wrap-top', { clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)` });
                 }
 
                 const targetMove = $('.home-project-wrap-top')
-                gsap.set(targetMove, {clipPath: `polygon(0 0, 100% 0, 100% 0, 0 0)`})
+                gsap.set(targetMove, { clipPath: `polygon(0 0, 100% 0, 100% 0, 0 0)` })
 
                 if ($(window).width() > 991) {
-                    $('.home-project-item').on('pointerleave', function(e) {
+                    $('.home-project-item').on('pointerleave', function (e) {
                         $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
                     })
 
-                    $('.home-project-item').on('pointerenter', function(e) {
+                    $('.home-project-item').on('pointerenter', function (e) {
                         let nameSpace = $(this).find('[data-project-name]').attr('data-project-name')
 
                         $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
                         $(".home-project-thumb").find(`[data-thumb-name="${nameSpace}"]`).addClass('active')
                     })
 
-                    $('.home-project-wrap-bot .home-project-item').on('pointerenter', function(e) {
+                    $('.home-project-wrap-bot .home-project-item').on('pointerenter', function (e) {
                         let index = $(this).index();
                         projectClippath(index)
                     })
-                    $('.home-project-wrap-bot .home-project-item').on('pointerleave', function(e) {
+                    $('.home-project-wrap-bot .home-project-item').on('pointerleave', function (e) {
                         if (!$('.home-project-wrap-bot:hover').length && !$('.home-project-wrap-top:hover').length) {
                             if ($(this).is(':first-child')) {
                                 let index = -1;
                                 let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
                                 let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
-                                gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
+                                gsap.set('.home-project-wrap-top', { clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)` });
                             }
                             if ($(this).is(':last-child')) {
                                 let index = $('.home-project-wrap-bot .home-project-item').length
                                 let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
                                 let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
-                                gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
+                                gsap.set('.home-project-wrap-top', { clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)` });
                             }
                         }
                     })
@@ -662,7 +662,7 @@ const home = {
                                     let index = $('.home-project-wrap-bot .home-project-item').length
                                     let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
                                     let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
-                                    gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
+                                    gsap.set('.home-project-wrap-top', { clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)` });
                                 }
                             },
                             onLeaveBack: () => {
@@ -671,7 +671,7 @@ const home = {
                                     let index = -1;
                                     let t = index / $('.home-project-wrap-bot .home-project-item').length * 100
                                     let b = (index + 1) / $('.home-project-wrap-bot .home-project-item').length * 100;
-                                    gsap.set('.home-project-wrap-top', {clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)`});
+                                    gsap.set('.home-project-wrap-top', { clipPath: `polygon(0% ${t}%, 100% ${t}%, 100% ${b}%, 0% ${b}%)` });
                                 }
                             },
                             onUpdate: () => {
@@ -685,7 +685,7 @@ const home = {
                             }
                         })
                     })
-                    $('.home-project-wrap-bot .home-project-item').on('click', function(e) {
+                    $('.home-project-wrap-bot .home-project-item').on('click', function (e) {
                         let nameSpace = $(this).find('[data-project-name]').attr('data-project-name')
 
                         $(".home-project-thumb").find(`[data-thumb-name]`).removeClass('active')
@@ -698,24 +698,24 @@ const home = {
                 }
 
                 function initMouseMove() {
-                    let offsetL =  parseFloat(target.css('left'))
+                    let offsetL = parseFloat(target.css('left'))
                     if (target.hasClass('active')) {
                         let tarCurrX = xGetter(target.get(0))
                         let tarCurrY = yGetter(target.get(0))
                         let tarCurrRot = rotZGetter(target.get(0))
 
-                        let tarX = (pointerCurr().x/$('.home-project').outerWidth()) * ($('.home-project-item-view').get(0).getBoundingClientRect().left - offsetL - target.width())
-                        let tarY = -target.height()/4 + (pointerCurr().y - $('.home-project').get(0).getBoundingClientRect().top)/$('.home-project').height() * ($('.home-project').height() - target.height()/2)
+                        let tarX = (pointerCurr().x / $('.home-project').outerWidth()) * ($('.home-project-item-view').get(0).getBoundingClientRect().left - offsetL - target.width())
+                        let tarY = -target.height() / 4 + (pointerCurr().y - $('.home-project').get(0).getBoundingClientRect().top) / $('.home-project').height() * ($('.home-project').height() - target.height() / 2)
 
                         xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
                         ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
-                        rotZSetter(target.get(0))(lerp(tarCurrRot, Math.min(Math.max((tarX - tarCurrX)/20, -7), 7), .08))
+                        rotZSetter(target.get(0))(lerp(tarCurrRot, Math.min(Math.max((tarX - tarCurrX) / 20, -7), 7), .08))
                     }
                     requestAnimationFrame(initMouseMove)
                 }
 
                 function initClickThumb(idx) {
-                    gsap.to(target, {y: (cvUnit( viewportBreak({tablet: 80, mobile: 100}), 'rem') + ($('.home-project-item').eq(0).outerHeight() - target.outerHeight())/2) + idx * $('.home-project-item').eq(0).outerHeight(), overwrite: true})
+                    gsap.to(target, { y: (cvUnit(viewportBreak({ tablet: 80, mobile: 100 }), 'rem') + ($('.home-project-item').eq(0).outerHeight() - target.outerHeight()) / 2) + idx * $('.home-project-item').eq(0).outerHeight(), overwrite: true })
                 }
 
                 function changeProjHtml() {
@@ -743,7 +743,7 @@ const home = {
 
             function projectCurtain() {
                 let amount = 11;
-                let offset = $('.home-curtain').height() /  (amount - 1);
+                let offset = $('.home-curtain').height() / (amount - 1);
 
                 const clone = $('.home-curtain-inner').eq(0)
                 for (let i = 1; i < amount; i++) {
@@ -763,12 +763,12 @@ const home = {
                 })
 
                 tl
-                .to('.home-curtain-inner', {
-                    scaleY: 1,
-                    stagger: -.1,
-                    duration: 1,
-                    y:  -offset,
-                }, 0)
+                    .to('.home-curtain-inner', {
+                        scaleY: 1,
+                        stagger: -.1,
+                        duration: 1,
+                        y: -offset,
+                    }, 0)
             }
             projectCurtain()
         }
@@ -800,11 +800,11 @@ const home = {
                         }
                     })
                     tlSplitHead
-                    .from(labelTxt.chars, {yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: 'power2.out'}, 0)
-                    .from(titleTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: 'power2.out'}, '<=.4')
-                    .from(subTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: 'power2.out'}, '<=.4')
-                    .from(discountTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: 'power2.out'}, '<=.6')
-                    .from('.home-pricing-plan-switch', {yPercent: 60, autoAlpha: 0, duration: .8, ease: 'power2.out', clearProps: 'all'}, '<=.2')
+                        .from(labelTxt.chars, { yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: 'power2.out' }, 0)
+                        .from(titleTxt.words, { yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: 'power2.out' }, '<=.4')
+                        .from(subTxt.words, { yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: 'power2.out' }, '<=.4')
+                        .from(discountTxt.words, { yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: 'power2.out' }, '<=.6')
+                        .from('.home-pricing-plan-switch', { yPercent: 60, autoAlpha: 0, duration: .8, ease: 'power2.out', clearProps: 'all' }, '<=.2')
 
                     let tlPricing = gsap.timeline({
                         scrollTrigger: {
@@ -815,8 +815,8 @@ const home = {
                     })
 
                     tlPricing
-                    .from('.home-pricing-plan-item.popular', {y: cvUnit(60, 'rem'), autoAlpha: 0, duration: .8, ease: 'power2.out', clearProps: 'all'}, '<=1')
-                    .from('.home-pricing-plan-item:not(.popular)', {y: cvUnit(60, 'rem'), autoAlpha: 0, duration: .8, ease: 'power2.out', clearProps: 'all'}, '<=.2')
+                        .from('.home-pricing-plan-item.popular', { y: cvUnit(60, 'rem'), autoAlpha: 0, duration: .8, ease: 'power2.out', clearProps: 'all' }, '<=1')
+                        .from('.home-pricing-plan-item:not(.popular)', { y: cvUnit(60, 'rem'), autoAlpha: 0, duration: .8, ease: 'power2.out', clearProps: 'all' }, '<=.2')
 
                     let ctaHeadingTxt = new SplitText('.home-pricing-plan-cta-heading', typeOpts.lines)
                     let ctaDescTxt = new SplitText('.home-pricing-plan-cta-desc', typeOpts.lines)
@@ -834,9 +834,9 @@ const home = {
                     })
 
                     tlCTAHead
-                    .from(ctaHeadingTxt.lines, {yPercent: 60, autoAlpha: 0, stagger: .3, duration: .6, ease: 'power2.out'}, 0)
-                    .from(ctaDescTxt.lines, {yPercent: 60, autoAlpha: 0, stagger: .2, duration: .6, ease: 'power2.out'}, '<=.3')
-                    .from('.home-pricing-plan-cta .btn', {yPercent: 60, autoAlpha: 0, stagger: .3, duration: .6, ease: 'power2.out', clearProps: 'all'}, '<=.3')
+                        .from(ctaHeadingTxt.lines, { yPercent: 60, autoAlpha: 0, stagger: .3, duration: .6, ease: 'power2.out' }, 0)
+                        .from(ctaDescTxt.lines, { yPercent: 60, autoAlpha: 0, stagger: .2, duration: .6, ease: 'power2.out' }, '<=.3')
+                        .from('.home-pricing-plan-cta .btn', { yPercent: 60, autoAlpha: 0, stagger: .3, duration: .6, ease: 'power2.out', clearProps: 'all' }, '<=.3')
                 }
             })
 
@@ -848,6 +848,29 @@ const home = {
                     price: $('.home-pricing-plan-item-price-txt'),
                     btnPurchase: $('.home-pricing-plan-item-btn.btn-purchase')
                 }
+                const data = [
+                    {
+                        name: 'quarter-time',
+                        price_id: {
+                            monthly: 'https://buy.stripe.com/test_eVabJk3j0fEG9fa7st',
+                            quarterly: 'https://buy.stripe.com/test_7sIdRs8Dkakm9fa6oq',
+                        }
+                    },
+                    {
+                        name: 'part-time',
+                        price_id: {
+                            monthly: 'https://buy.stripe.com/test_8wM7t48DkfEG62Y5kn',
+                            quarterly: 'https://buy.stripe.com/test_eVafZA1aSgIK9fa7sw',
+                        }
+                    },
+                    {
+                        name: 'full-time',
+                        price_id: {
+                            monthly: 'https://buy.stripe.com/test_cN2cNodXEeAC2QMfZ4',
+                            quarterly: 'https://buy.stripe.com/test_5kAcNo06O8ceajedQV',
+                        }
+                    }
+                ]
 
                 function activePlan(index) {
                     gsap.to(DOM.btnOverlay, {
@@ -901,7 +924,7 @@ const home = {
             switchPlan();
 
             function testPayment() {
-                $('.btn-purchase').on('click', function(e) {
+                $('.btn-purchase').on('click', function (e) {
                     e.preventDefault()
                     let planId = $(this).attr('data-purchase-id')
                     fetch('http://localhost:4000/create-checkout-session', {
@@ -911,7 +934,7 @@ const home = {
                         },
                         body: JSON.stringify({
                             items: [
-                                {id: planId}
+                                { id: planId }
                             ]
                         })
                     }).then(res => {
@@ -947,7 +970,7 @@ const home = {
                         }
                     })
                     tlSplitHead
-                    .from(headTxt.chars, {color: '#121212', stagger: .05, duration: .6, ease: 'power1.out'}, 0)
+                        .from(headTxt.chars, { color: '#121212', stagger: .05, duration: .6, ease: 'power1.out' }, 0)
 
                     let titleTxt = new SplitText('.home-explore-industries-title', typeOpts.words)
 
@@ -959,15 +982,15 @@ const home = {
                     })
 
                     tlSplitTitle
-                    .from(titleTxt.words, {yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: 'power2.out'}, 0)
+                        .from(titleTxt.words, { yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: 'power2.out' }, 0)
 
                     if ($(window).width() > 991) {
                         function parallaxLogo() {
                             let target = $('.home-explore-img img')
                             let tarCurrX = xGetter(target.get(0))
                             let tarCurrY = yGetter(target.get(0))
-                            let moveX = (pointerCurr().x/$(window).width() - 0.5) * 2 * (target.width()/4)
-                            let moveY = (pointerCurr().y/$(window).height() - 0.5) * 2 * (target.height()/8)
+                            let moveX = (pointerCurr().x / $(window).width() - 0.5) * 2 * (target.width() / 4)
+                            let moveY = (pointerCurr().y / $(window).height() - 0.5) * 2 * (target.height() / 8)
                             xSetter(target.get(0))(lerp(tarCurrX, moveX, .01))
                             ySetter(target.get(0))(lerp(tarCurrY, moveY, .01))
 
@@ -994,7 +1017,7 @@ const home = {
                         lineItem: $('.home-explore-industries-radar-wrapper-item-line'),
                         dot: $('.home-explore-industries-radar-wrapper-item-line-dot-wrap')
                     }
-                    gsap.set(DOM.radarScan, {rotate: -10})
+                    gsap.set(DOM.radarScan, { rotate: -10 })
                     let lifeCycleTime = 8
 
                     let tl = gsap.timeline({
@@ -1005,31 +1028,31 @@ const home = {
                     })
 
                     tl
-                    .fromTo(DOM.radarScan, {
-                        rotate: 0 - 10,
-                    }, {
-                        rotate: 270 - 10,
-                        duration: lifeCycleTime,
-                        ease: 'none',
-                    }, 0)
+                        .fromTo(DOM.radarScan, {
+                            rotate: 0 - 10,
+                        }, {
+                            rotate: 270 - 10,
+                            duration: lifeCycleTime,
+                            ease: 'none',
+                        }, 0)
                     DOM.lineItem.each((idx, el) => {
                         tl
-                        .to($(el).find(DOM.dot), {
-                            onStart: () => {
-                                $(el).find(DOM.dot).addClass('active')
-                            }
-                        }, `${ (0.1254480287 * lifeCycleTime) + (0.1111111111 * idx * lifeCycleTime)}`)
-                        .to($(el).find(DOM.dot), {
-                            onStart: () => {
-                                $(el).find(DOM.dot).removeClass('active')
-                            }
-                        }, '<=2')
+                            .to($(el).find(DOM.dot), {
+                                onStart: () => {
+                                    $(el).find(DOM.dot).addClass('active')
+                                }
+                            }, `${(0.1254480287 * lifeCycleTime) + (0.1111111111 * idx * lifeCycleTime)}`)
+                            .to($(el).find(DOM.dot), {
+                                onStart: () => {
+                                    $(el).find(DOM.dot).removeClass('active')
+                                }
+                            }, '<=2')
                     })
 
-                    $('.home-explore-industries-radar-wrapper-item-line-dot-wrap').on('pointerenter', function(e) {
+                    $('.home-explore-industries-radar-wrapper-item-line-dot-wrap').on('pointerenter', function (e) {
                         $(this).addClass('on-hover')
                     })
-                    $('.home-explore-industries-radar-wrapper-item-line-dot-wrap').on('pointerleave', function(e) {
+                    $('.home-explore-industries-radar-wrapper-item-line-dot-wrap').on('pointerleave', function (e) {
                         $(this).removeClass('on-hover')
                     })
                 }
@@ -1049,17 +1072,17 @@ const home = {
                         end: 'bottom bottom',
                         scrub: .1,
                         onUpdate: (timeline) => {
-                            gsap.set('.home-testi-content-progress-inner', {y: timeline.progress * cvUnit(180, 'rem')})
+                            gsap.set('.home-testi-content-progress-inner', { y: timeline.progress * cvUnit(180, 'rem') })
                         }
                     }
                 })
                 tl
-                .fromTo('.home-testi-text-wrap', {
-                    y: cvUnit(-100, 'rem'),
-                }, {
-                    y: cvUnit(-90, 'rem'),
-                    ease: 'none'
-                })
+                    .fromTo('.home-testi-text-wrap', {
+                        y: cvUnit(-100, 'rem'),
+                    }, {
+                        y: cvUnit(-90, 'rem'),
+                        ease: 'none'
+                    })
 
                 let tlScrub = gsap.timeline({
                     scrollTrigger: {
@@ -1072,11 +1095,11 @@ const home = {
                             snapTo(value) {
                                 if (value > 0.1822 && value <= 0.3644) {
                                     return 0.2521;
-                                } else if (value > 0.3644 && value <= 0.5512)  {
+                                } else if (value > 0.3644 && value <= 0.5512) {
                                     return 0.4767;
-                                }  else if (value > 0.5512 && value <= 0.69445)  {
+                                } else if (value > 0.5512 && value <= 0.69445) {
                                     return 0.6257;
-                                } else if (value > 0.69445 && value <= 0.8816)  {
+                                } else if (value > 0.69445 && value <= 0.8816) {
                                     return 0.7632;
                                 } else {
                                     return value;
@@ -1103,29 +1126,29 @@ const home = {
                 $('.home-testi-content-item').each((idx, el) => {
                     if (idx == 0) {
                         tlScrub
-                        .fromTo($(el), {z: cvUnit(zUnit * 2, 'rem'), yPercent: 75, filter:"brightness(1)"}, {z: 0, yPercent: 0, filter:"brightness(1)", ease: 'power1.out', duration: timeAnim * 2}, 0)
+                            .fromTo($(el), { z: cvUnit(zUnit * 2, 'rem'), yPercent: 75, filter: "brightness(1)" }, { z: 0, yPercent: 0, filter: "brightness(1)", ease: 'power1.out', duration: timeAnim * 2 }, 0)
                     }
                     if (idx > 0 && idx < ($('.home-testi-content-item').length)) {
                         tlScrub
-                        .fromTo($(el), {z: cvUnit(zUnit, 'rem'), yPercent: 150, filter:"brightness(1)"}, {z: 0, yPercent: 0, filter:"brightness(1)", ease: 'power3.out', duration: timeAnim}, `>=${(timeDelay)}`)
-                        .fromTo($(el).prev(), {z: 0, y: 0, filter:"brightness(1)"}, {z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter:"brightness(.67)", ease: 'power2.out', duration: timeAnim}, "<=0")
+                            .fromTo($(el), { z: cvUnit(zUnit, 'rem'), yPercent: 150, filter: "brightness(1)" }, { z: 0, yPercent: 0, filter: "brightness(1)", ease: 'power3.out', duration: timeAnim }, `>=${(timeDelay)}`)
+                            .fromTo($(el).prev(), { z: 0, y: 0, filter: "brightness(1)" }, { z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter: "brightness(.67)", ease: 'power2.out', duration: timeAnim }, "<=0")
                         if (idx > 1) {
                             tlScrub
-                            .fromTo($(el).prev().prev(), {z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter:"brightness(.67)"}, {z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter:"brightness(.33)", ease: 'power2.out', duration: timeAnim}, "<=0")
+                                .fromTo($(el).prev().prev(), { z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter: "brightness(.67)" }, { z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter: "brightness(.33)", ease: 'power2.out', duration: timeAnim }, "<=0")
                         }
                         if (idx > 2) {
                             tlScrub
-                            .fromTo($(el).prev().prev().prev(), {z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter:"brightness(.33)"}, {z: cvUnit(-zUnit * 3, 'rem'), y: cvUnit(-yUnit * 3, 'rem'), filter:"brightness(0)", ease: 'power2.out', duration: timeAnim}, "<=0")
+                                .fromTo($(el).prev().prev().prev(), { z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter: "brightness(.33)" }, { z: cvUnit(-zUnit * 3, 'rem'), y: cvUnit(-yUnit * 3, 'rem'), filter: "brightness(0)", ease: 'power2.out', duration: timeAnim }, "<=0")
                         }
                     }
                     if (idx == ($('.home-testi-content-item').length - 1)) {
                         tlScrub
-                        .fromTo($(el), {z: 0, y: 0, filter:"brightness(1)"}, {z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter:"brightness(.67)", ease: 'power3.out', duration: timeAnim}, `>=${timeDelay}`)
-                        .fromTo($(el).prev(), {z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter:"brightness(.67)"}, {z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter:"brightness(.33)", ease: 'power3.out', duration: timeAnim}, "<=0")
-                        .fromTo($(el).prev().prev(), {z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter:"brightness(.33)"}, {z: cvUnit(-zUnit * 3, 'rem'), y: cvUnit(-yUnit * 3, 'rem'), filter:"brightness(0)", ease: 'power3.out', duration: timeAnim}, "<=0")
+                            .fromTo($(el), { z: 0, y: 0, filter: "brightness(1)" }, { z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter: "brightness(.67)", ease: 'power3.out', duration: timeAnim }, `>=${timeDelay}`)
+                            .fromTo($(el).prev(), { z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter: "brightness(.67)" }, { z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter: "brightness(.33)", ease: 'power3.out', duration: timeAnim }, "<=0")
+                            .fromTo($(el).prev().prev(), { z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter: "brightness(.33)" }, { z: cvUnit(-zUnit * 3, 'rem'), y: cvUnit(-yUnit * 3, 'rem'), filter: "brightness(0)", ease: 'power3.out', duration: timeAnim }, "<=0")
                     }
                 })
-                gsap.set('.home-testi-content-item', {z: 0, y: 0, filter:"brightness(1)"})
+                gsap.set('.home-testi-content-item', { z: 0, y: 0, filter: "brightness(1)" })
             } else {
                 let parent = $('.home-testi-content')
                 parent.find('[data-swiper="swiper"]').addClass('swiper')

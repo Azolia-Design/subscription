@@ -43,6 +43,7 @@
 
         &-img {
             height: 6.4rem;
+            pointer-events: auto;
         }
         &-line {
             width: 1px;
@@ -159,7 +160,9 @@
         @include md {
             @include size(6rem);
         }
-
+        @include sm {
+            @include size(0, 6rem);
+        }
 
         &-line {
             width: 2.4rem;

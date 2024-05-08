@@ -81,8 +81,10 @@ const updateProgressByScroll = () => {
         })
     }, 100);
 
-    DOM.progWrap.on('click', function (e) {
+
+    $('.header-main [data-header-id]').on('click', function (e) {
         let target = $(this).attr('data-header-id');
+
         if ($('html').hasClass('lenis-smooth')) {
             lenis.scrollTo(`[data-section-id="${target}"]`)
         } else {
@@ -132,6 +134,8 @@ function checkHoverDot() {
 
 const updateHeaderBarByScroll = () => {
     if ($('.home-main').length) {
+        let offsetHeaderMain = $('.header-main').offset().left;
+
         let tlHeaderTrigger = gsap.timeline({
             scrollTrigger: {
                 trigger: '.home-main',
@@ -151,7 +155,8 @@ const updateHeaderBarByScroll = () => {
                     }
 
                     if ($(window).width() <= 767) {
-                        gsap.to('.header-main', {marginRight: 0})
+                        gsap.to('.header-main', { marginRight: 0 })
+                        gsap.to('.header-hamburger', {width: cvUnit(60, "rem"), overwrite: true})
                         gsap.to('.header-logo', {width: 'auto', marginRight: cvUnit(32, "rem")})
                     }
                 },
@@ -169,7 +174,8 @@ const updateHeaderBarByScroll = () => {
                         gsap.to('.header-menu-label', {marginLeft: '0'})
                     }
                     if ($(window).width() <= 767) {
-                        gsap.to('.header-main', {marginRight: 'auto'})
+                        gsap.to('.header-main', { marginRight: offsetHeaderMain })
+                        gsap.to('.header-hamburger', {width: 0, overwrite: true})
                         gsap.to('.header-logo', {width: 0, marginRight: 0})
                     }
                 }

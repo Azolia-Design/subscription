@@ -14,6 +14,27 @@ const initButton = () => {
         }
         $(item).attr('href', `${origin}/${href}`)
     })
+
+    $('a.btn').on('click', function (e) {
+        const url = new URL($(this).attr('href'));
+        if (url.pathname === window.location.pathname) {
+            if (url.hash) {
+                e.preventDefault();
+                let target = url.hash.replace("#", "");
+                if ($('html').hasClass('lenis-smooth')) {
+                    lenis.scrollTo(`[id="${target}"]`)
+                } else {
+                    let targetTop = $(`[id="${target}"]`).get(0).offsetTop + $(window).height();
+                    $('html').animate({
+                        scrollTop: targetTop
+                    });
+                }
+
+                history.replaceState({}, '', `${window.location.pathname}${url.hash}`);
+                return false;
+            }
+        }
+    })
 }
 
 export default initButton;
