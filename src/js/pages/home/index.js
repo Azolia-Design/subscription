@@ -214,7 +214,7 @@ const home = {
                 stackScroll();
             }
         }
-        homeBenefit();
+        //homeBenefit();
 
         /** (💡)  - SHOWREEL */
         function homeShowreel() {
@@ -848,6 +848,29 @@ const home = {
                     price: $('.home-pricing-plan-item-price-txt'),
                     btnPurchase: $('.home-pricing-plan-item-btn.btn-purchase')
                 }
+                const data = [
+                    {
+                        name: 'quarter-time',
+                        price_id: {
+                            monthly: 'https://buy.stripe.com/test_eVabJk3j0fEG9fa7st',
+                            quarterly: 'https://buy.stripe.com/test_7sIdRs8Dkakm9fa6oq',
+                        }
+                    },
+                    {
+                        name: 'part-time',
+                        price_id: {
+                            monthly: 'https://buy.stripe.com/test_8wM7t48DkfEG62Y5kn',
+                            quarterly: 'https://buy.stripe.com/test_eVafZA1aSgIK9fa7sw',
+                        }
+                    },
+                    {
+                        name: 'full-time',
+                        price_id: {
+                            monthly: 'https://buy.stripe.com/test_cN2cNodXEeAC2QMfZ4',
+                            quarterly: 'https://buy.stripe.com/test_5kAcNo06O8ceajedQV',
+                        }
+                    }
+                ]
 
                 function activePlan(index) {
                     gsap.to(DOM.btnOverlay, {

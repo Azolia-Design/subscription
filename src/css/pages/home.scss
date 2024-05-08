@@ -185,6 +185,7 @@
         background-color: rgba($cl-bg, 1);
         height: 400vh;
         position: relative;
+        display: none;
 
         @include sm {
             height: auto;
@@ -436,6 +437,7 @@
     }
     &-showreel {
         position: relative;
+        background-color: rgba($cl-bg, 1);
         height: 200vh;
         contain: paint;
         padding-bottom: 4rem;
