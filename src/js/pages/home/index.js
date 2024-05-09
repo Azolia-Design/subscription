@@ -34,7 +34,6 @@ const home = {
             tlSplitHead
                 .from(".header-main-inner", { autoAlpha: 0, duration: .6, ease: "power2.out" }, "<=.2")
         }
-
         headerAnim()
 
         function heroParallax() {
@@ -147,7 +146,7 @@ const home = {
                         }
                     })
                 })
-                gsap.set('.home-showreel', { marginTop: -cvUnit(viewportBreak({ desktop: 60, tablet: 85 }), "vh") })
+                gsap.set('.home-testi', { marginTop: -cvUnit(viewportBreak({ desktop: 60, tablet: 85 }), "vh") })
                 scrollerTl
                     .to(BENEFIT.wrap, {
                         scale: viewportBreak({ desktop: 0.5, tablet: 0.8 }), autoAlpha: 0,
@@ -214,7 +213,7 @@ const home = {
                 stackScroll();
             }
         }
-        //homeBenefit();
+        homeBenefit();
 
         /** (💡)  - SHOWREEL */
         function homeShowreel() {
@@ -537,7 +536,7 @@ const home = {
                 }
             })
         }
-        homeProcess()
+        // homeProcess()
 
         /** (💡)  - PORTFOLIO */
         function homePortfolio() {
@@ -571,7 +570,7 @@ const home = {
 
                 });
             }
-            scrollAnimationGrid();
+            //scrollAnimationGrid();
 
             function changeTxtScrollAnim() {
                 $('.home-portfolio-content-title .h0').each((idx, el) => {
@@ -588,7 +587,7 @@ const home = {
                     })
                 })
             }
-            changeTxtScrollAnim()
+            //changeTxtScrollAnim()
 
             function hoverProject() {
                 if ($(window).width() <= 991) {
@@ -952,7 +951,7 @@ const home = {
         homePricing();
 
         /** (💡)  - INDUSTRIES */
-        function homeIndustries() {
+        function homeExplore() {
 
             ScrollTrigger.create({
                 trigger: '.home-explore',
@@ -1058,8 +1057,7 @@ const home = {
                 }
             })
         }
-        homeIndustries()
-
+        //homeExplore()
 
         /** (💡)  - TESTIMONIAL */
         function homeTesti() {
