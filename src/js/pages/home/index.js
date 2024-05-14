@@ -63,29 +63,10 @@ const home = {
 
                 let mainItemSelect = selector(BENEFIT.mainItem);
                 let totalDistance = BENEFIT.mainItem.width() + (BENEFIT.otherItem.width() * BENEFIT.otherItem.length);
-                let otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem") + cvUnit(viewportBreak({ desktop: 15, tablet: 5 }), 'rem')
+                let otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem") + cvUnit(viewportBreak({ desktop: .7, tablet: .5 }), 'vw')
 
-                const ITEM_WIDTH = ($('.container').width() - percentage(24.2, $('.container').width())) / viewportBreak({ desktop: 5, tablet: 2.7 });
+                const ITEM_WIDTH = ($('.container').width() - percentage(48.2, $('.container').width())) / viewportBreak({ desktop: 4, tablet: 2 });
                 gsap.set(BENEFIT.stage, { height: totalDistance * 1.2 + cvUnit(100, "rem") });
-
-                let reqCheck;
-                function checkHiddenImg() {
-                    BENEFIT.otherItem.each((idx, item) => {
-                        if (idx + 1 < BENEFIT.otherItem.length) {
-                            let rectCurrent = BENEFIT.otherItem.eq(idx).get(0).getBoundingClientRect();
-                            let rectNext = BENEFIT.otherItem.eq(idx + 1).get(0).getBoundingClientRect();
-                            let distanceItem = Math.abs(rectCurrent.left - rectNext.left);
-                            let img = $(item).find('.home-benefit-other-img');
-                            if (distanceItem <= ITEM_WIDTH) {
-                                img.addClass('hidden');
-                            }
-                            else {
-                                img.removeClass('hidden');
-                            }
-                        }
-                    })
-                    reqCheck = window.requestAnimationFrame(checkHiddenImg);
-                }
 
                 let scrollerTl = gsap.timeline({
                     defaults: { ease: 'none' },
@@ -93,11 +74,7 @@ const home = {
                         trigger: BENEFIT.stage,
                         start: `top-=${$('header').outerHeight()} top`,
                         end: 'bottom bottom',
-                        scrub: .6,
-                        onEnter: () => checkHiddenImg(),
-                        onEnterBack: () => checkHiddenImg(),
-                        onLeaveBack: () => window.cancelAnimationFrame(reqCheck),
-                        onLeave: () => window.cancelAnimationFrame(reqCheck)
+                        scrub: .6
                     }
                 })
                 scrollerTl
@@ -106,7 +83,12 @@ const home = {
                         duration: 1
                     }, 0)
                     .to(mainItemSelect('p'), {
-                        marginTop: -cvUnit(6, "rem"),
+                        marginTop: -cvUnit(viewportBreak({ desktop: 140, tablet: 50 }), "rem"),
+                        scale: .8,
+                        duration: 1
+                    }, 0)
+                    .to(mainItemSelect('.home-benefit-main-btn'), {
+                        scale: .8,
                         duration: 1
                     }, 0)
                     .to(BENEFIT.otherWrap, {
@@ -131,7 +113,10 @@ const home = {
                             scaleX: 1, transformOrigin: "right", duration: 1
                         }, '<=0')
                         .to(itemSelect('p'), {
-                            autoAlpha: 0, duration: 1
+                            autoAlpha: 0, duration: 1,
+                        }, '<=0.2')
+                        .to(itemSelect('.home-benefit-other-img'), {
+                            autoAlpha: 0, duration: 1, scale: 0.6
                         }, '<=0.2')
 
                     BENEFIT.otherItem.each((idx, el) => {
@@ -358,11 +343,13 @@ const home = {
                     })
                     if ($(window).width() > 991) {
                         $('.home-skill-item').on('mouseenter', function (e) {
-                            let idx = $(this).index()
+                            let idx = Number($(this).attr('data-thumb-image')) - 1;
+
+                            if ($('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).hasClass('active')) return;
                             $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
                         })
                         $('.home-skill-item').on('mouseleave', function (e) {
-                            let idx = $(this).index()
+                            let idx = Number($(this).attr('data-thumb-image')) - 1;
                             $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).removeClass('active')
                         })
 
