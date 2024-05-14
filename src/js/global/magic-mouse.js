@@ -77,8 +77,10 @@ const initCursor = () => {
         }
 
         if ($('[data-video="to-pause"]').length && !$('.home-showreel-thumb:hover').length) {
+            gsap.to(showreelIc, { scale: .4, autoAlpha: 0, overwrite: true })
+        } else {
             if (showreelIc.hasClass('pause')) {
-                gsap.to(showreelIc, { scale: 1, autoAlpha: 0, overwrite: true })
+                gsap.to(showreelIc, { scale: .4, autoAlpha: 1, overwrite: true })
             }
         }
         xSetter(showreelIc.get(0))(lerp(showreelIcX, targetX, .1))
