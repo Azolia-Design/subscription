@@ -66,7 +66,9 @@ const home = {
                 let otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem") + cvUnit(viewportBreak({ desktop: .7, tablet: .5 }), 'vw')
 
                 const ITEM_WIDTH = ($('.container').width() - percentage(48.2, $('.container').width())) / viewportBreak({ desktop: 4, tablet: 2 });
-                gsap.set(BENEFIT.stage, { height: totalDistance * 1.2 + cvUnit(100, "rem") });
+                if ($(window).width() > 991) {
+                    gsap.set(BENEFIT.stage, { height: totalDistance * 1.2 + cvUnit(100, "rem") });
+                }
 
                 let scrollerTl = gsap.timeline({
                     defaults: { ease: 'none' },
@@ -297,23 +299,21 @@ const home = {
         function homeService() {
             const WrapHeightRatio = parseInt(parseFloat($(".home-service").css("height")) / $(window).height())
 
-            // let tlImg = gsap.timeline({
-            //     scrollTrigger: {
-            //         trigger: ".home-service",
-            //         start: `top top`,
-            //         end: `bottom bottom`,
-            //         markers: true,
-            //         scrub: true,
-            //     }
-            // })
-            // tlImg.from('.home-service-bg-img', {yPercent: 100, duration: 2, ease: 'linear'})
+            let tlImg = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".home-service",
+                    start: `top+=${parseRem(190)} top`,
+                    end: `top+=${$(window).width()} top`,
+                    scrub: true,
+                }
+            })
+            tlImg.to('.home-service-bg', {autoAlpha: 1, duration: 1, ease: 'linear'})
 
             let tlItem = gsap.timeline({
                 scrollTrigger: {
                     trigger: ".home-service",
-                    start: `top+=${0} top`,
-                    end: `top+=${WrapHeightRatio * $(window).height()} bottom`,
-                    // markers: true,
+                    start: `top+=${$(window).width() * .5} top`,
+                    end: `bottom bottom`,
                     scrub: true,
                 }
             })
@@ -475,7 +475,7 @@ const home = {
                         requestAnimationFrame(initMouseMove)
                     } else {
                         let idx = 0
-
+                        let imgIdx = 0
                         $('.home-skill-item').eq(idx).addClass('active')
                         let skillSplitDes = new SplitText($('.home-skill-item').eq(idx).find('.home-skill-item-desc'), typeOpts.words)
                         tlSplitHead
@@ -489,7 +489,8 @@ const home = {
                                     $(this).addClass('active')
                                     $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
                                     let idx = $(this).index()
-                                    $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
+                                    let imgIdx = Number($(this).attr('data-thumb-image')) - 1;
+                                    $('.home-skill-thumb').find('.home-skill-thumb-item').eq(imgIdx).addClass('active')
                                     gsap.to('.home-skill-thumb', { y: (cvUnit(40, 'rem') + ($('.home-skill-item').eq(0).outerHeight() - $('.home-skill-thumb').outerHeight()) / 2) + idx * $('.home-skill-item').eq(0).outerHeight(), duration: 1 })
                                 } else {
                                     $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
@@ -517,7 +518,7 @@ const home = {
                                 e.preventDefault()
                                 if (!$(this).hasClass('active')) {
                                     idx = $(this).index()
-
+                                    imgIdx = Number($(this).attr('data-thumb-image')) - 1;
                                     $('.home-skill-item').removeClass('active')
                                     $('.home-skill-item .home-skill-item-desc').slideUp(300, 'linear')
                                     $(this).addClass('active')
@@ -527,7 +528,7 @@ const home = {
                                     gsap.to(this, { paddingTop: cvUnit(27.5, 'rem'), paddingBottom: cvUnit(27.5, 'rem'), duration: .3, ease: 'none', overwrite: true })
                                     gsap.to($(this).find('.home-skill-item-title'), { marginBottom: cvUnit(12, 'rem'), duration: .3, ease: 'none', overwrite: true })
                                     $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
-                                    $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
+                                    $('.home-skill-thumb').find('.home-skill-thumb-item').eq(imgIdx).addClass('active')
                                 } else {
                                     $('.home-skill-item').removeClass('active')
                                     $('.home-skill-item .home-skill-item-desc').slideUp(300, 'linear')
@@ -1097,19 +1098,12 @@ const home = {
                     }
 
                     let currPlan = DOM.btnPlan.eq(index).text();
+                    let subsType = index === 0 ? 'quarterly' : 'monthly';
                     DOM.btnPurchase.each((i, item) => {
-                        if ($(item).attr('data-purchase-method') === 'trial') {
-                            $(item).attr('data-purchase-id', 0);
-                        }
-                        else if ($(item).attr('data-purchase-method') === 'subscription') {
-                            let currLabel = $(item).siblings('.home-pricing-plan-item-label').text();
-                            let planItemName = `${currLabel} ${currPlan}`
-
-                            planListing.forEach((_, idx) => {
-                                if (planListing[idx].name.toLowerCase() === planItemName.toLowerCase()) {
-                                    $(item).attr('data-purchase-id', idx);
-                                }
-                            })
+                        if ($(item).attr('data-purchase-method') === 'subscription') {
+                            let priceId = $(item).attr('data-price');
+                            let dataSrc = data.filter((el) => el.name === priceId);
+                            $(item).attr('href', dataSrc[0].price_id[subsType])
                         }
                         else return;
                     })
@@ -1124,31 +1118,31 @@ const home = {
             }
             switchPlan();
 
-            function testPayment() {
-                $('.btn-purchase').on('click', function (e) {
-                    e.preventDefault()
-                    let planId = $(this).attr('data-purchase-id')
-                    fetch('http://localhost:4000/create-checkout-session', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            items: [
-                                { id: planId }
-                            ]
-                        })
-                    }).then(res => {
-                        if (res.ok) return res.json()
-                        return res.json().then(json => Promise.reject(json))
-                    }).then(({ url }) => {
-                        window.location = url
-                    }).catch(e => {
-                        console.error(e.message)
-                    })
-                })
-            }
-            testPayment()
+            // function testPayment() {
+            //     $('.btn-purchase').on('click', function (e) {
+            //         e.preventDefault()
+            //         let planId = $(this).attr('data-purchase-id')
+            //         fetch('http://localhost:4000/create-checkout-session', {
+            //             method: 'POST',
+            //             headers: {
+            //                 'Content-Type': 'application/json'
+            //             },
+            //             body: JSON.stringify({
+            //                 items: [
+            //                     { id: planId }
+            //                 ]
+            //             })
+            //         }).then(res => {
+            //             if (res.ok) return res.json()
+            //             return res.json().then(json => Promise.reject(json))
+            //         }).then(({ url }) => {
+            //             window.location = url
+            //         }).catch(e => {
+            //             console.error(e.message)
+            //         })
+            //     })
+            // }
+            // testPayment()
         }
         requestAnimationFrame(() => {
             homePricing()

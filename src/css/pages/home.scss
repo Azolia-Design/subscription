@@ -880,16 +880,16 @@
     }
     &-service {
         position: relative;
-        height: 450vh;
+        height: 550vh;
         z-index: 1;
-        margin-top: -100vh;
+        margin-top: -200vh;
 
         @include md {
-            height: 420vh;
+            height: 520vh;
         }
 
         @include sm {
-            height: 420vh;
+            height: 520vh;
             margin-top: unset;
         }
         
@@ -909,7 +909,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             overflow: hidden;
-    
+            opacity: 0;
             @include md {
                 @include size(100%, 137.3rem);
             }
@@ -1760,6 +1760,13 @@
                 // position: sticky;
                 // top: 3.7rem;
                 margin-bottom: 5.4rem;
+            }
+            &-title {
+                @include sm {
+                    &>br {
+                        display: none;
+                    }
+                }
             }
             &-btn {
                 transform-origin: left top;
