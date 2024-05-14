@@ -1719,12 +1719,16 @@
                 // top: 3.7rem;
                 margin-bottom: 5.4rem;
             }
+            &-btn {
+                transform-origin: left top;
+            }
 
             &-sub {
                 margin-top: 6.4rem;
                 color: rgba($cl-white,.8);
                 max-width: 44.1rem;
                 margin-bottom: 3.2rem;
+                transform-origin: left top;
                 // Update mb
                 @include sm {
                     margin-top: 2.4rem;
@@ -1808,12 +1812,13 @@
                 @include size(40rem, auto);
                 margin-top: -1.6rem;
                 flex: 1;
-                opacity: 0;
+                opacity: 1;
                 position: relative;
                 z-index: 3;
-                @include transform(scale(1.1));
-                @include transition(opacity .8s ease-out,
-                    transform 2.333s var(--spring-easing-1));
+                will-change: transform, opacity;
+                transform-origin: left top;
+                // @include transition(opacity .8s ease-out,
+                //     transform 2.333s var(--spring-easing-1));
 
                 img {
                     object-fit: contain;
@@ -1821,7 +1826,7 @@
                 }
 
                 &.hidden {
-                    opacity: 0;
+                    opacity: 0 !important;
                 }
 
                 @include md {
@@ -1831,7 +1836,7 @@
                 }
             }
             &-title-wrap {
-                
+
             }
             &-label {
                 margin-bottom: .4rem;
@@ -1881,14 +1886,13 @@
                     }
                 }
             }
-
-            &:hover,
-            &.active {
-                .home-benefit-other-img {
-                    opacity: 1;
-                    @include transform(scale(1));
-                }
-            }
+            // &:hover,
+            // &.active {
+            //     .home-benefit-other-img {
+            //         opacity: 1;
+            //         @include transform(scale(1));
+            //     }
+            // }
         }
     }
 
