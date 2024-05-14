@@ -63,29 +63,10 @@ const home = {
 
                 let mainItemSelect = selector(BENEFIT.mainItem);
                 let totalDistance = BENEFIT.mainItem.width() + (BENEFIT.otherItem.width() * BENEFIT.otherItem.length);
-                let otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem") + cvUnit(viewportBreak({ desktop: 15, tablet: 5 }), 'rem')
+                let otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem") + cvUnit(viewportBreak({ desktop: .7, tablet: .5 }), 'vw')
 
-                const ITEM_WIDTH = ($('.container').width() - percentage(24.2, $('.container').width())) / viewportBreak({ desktop: 6, tablet: 2.7 });
+                const ITEM_WIDTH = ($('.container').width() - percentage(48.2, $('.container').width())) / viewportBreak({ desktop: 4, tablet: 2 });
                 gsap.set(BENEFIT.stage, { height: totalDistance * 1.2 + cvUnit(100, "rem") });
-
-                let reqCheck;
-                function checkHiddenImg() {
-                    BENEFIT.otherItem.each((idx, item) => {
-                        if (idx + 1 < BENEFIT.otherItem.length) {
-                            let rectCurrent = BENEFIT.otherItem.eq(idx).get(0).getBoundingClientRect();
-                            let rectNext = BENEFIT.otherItem.eq(idx + 1).get(0).getBoundingClientRect();
-                            let distanceItem = Math.abs(rectCurrent.left - rectNext.left);
-                            let img = $(item).find('.home-benefit-other-img');
-                            if (distanceItem <= ITEM_WIDTH) {
-                                img.addClass('hidden');
-                            }
-                            else {
-                                img.removeClass('hidden');
-                            }
-                        }
-                    })
-                    reqCheck = window.requestAnimationFrame(checkHiddenImg);
-                }
 
                 let scrollerTl = gsap.timeline({
                     defaults: { ease: 'none' },
@@ -93,11 +74,7 @@ const home = {
                         trigger: BENEFIT.stage,
                         start: `top-=${$('header').outerHeight()} top`,
                         end: 'bottom bottom',
-                        scrub: .6,
-                        onEnter: () => checkHiddenImg(),
-                        onEnterBack: () => checkHiddenImg(),
-                        onLeaveBack: () => window.cancelAnimationFrame(reqCheck),
-                        onLeave: () => window.cancelAnimationFrame(reqCheck)
+                        scrub: .6
                     }
                 })
                 scrollerTl
@@ -106,7 +83,12 @@ const home = {
                         duration: 1
                     }, 0)
                     .to(mainItemSelect('p'), {
-                        marginTop: -cvUnit(6, "rem"),
+                        marginTop: -cvUnit(viewportBreak({ desktop: 140, tablet: 50 }), "rem"),
+                        scale: .8,
+                        duration: 1
+                    }, 0)
+                    .to(mainItemSelect('.home-benefit-main-btn'), {
+                        scale: .8,
                         duration: 1
                     }, 0)
                     .to(BENEFIT.otherWrap, {
@@ -131,7 +113,10 @@ const home = {
                             scaleX: 1, transformOrigin: "right", duration: 1
                         }, '<=0')
                         .to(itemSelect('p'), {
-                            autoAlpha: 0, duration: 1
+                            autoAlpha: 0, duration: 1,
+                        }, '<=0.2')
+                        .to(itemSelect('.home-benefit-other-img'), {
+                            autoAlpha: 0, duration: 1, scale: 0.6
                         }, '<=0.2')
 
                     BENEFIT.otherItem.each((idx, el) => {
@@ -310,25 +295,92 @@ const home = {
 
         /** (💡)  - SERVICE */
         function homeService() {
+            const WrapHeightRatio = parseInt(parseFloat($(".home-service").css("height")) / $(window).height())
+
+            // let tlImg = gsap.timeline({
+            //     scrollTrigger: {
+            //         trigger: ".home-service",
+            //         start: `top top`,
+            //         end: `bottom bottom`,
+            //         markers: true,
+            //         scrub: true,
+            //     }
+            // })
+            // tlImg.from('.home-service-bg-img', {yPercent: 100, duration: 2, ease: 'linear'})
+
+            let tlItem = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".home-service",
+                    start: `top+=${0} top`,
+                    end: `top+=${WrapHeightRatio * $(window).height()} bottom`,
+                    // markers: true,
+                    scrub: true,
+                }
+            })
+
             $('.home-service-inner-item').each((idx, el) => {
                 let toggleActiveClass = () => {
                     $('.home-service-inner-item').removeClass("active");
                     $(el).addClass("active");
                 }
 
-                let tlItem = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: ".home-service",
-                        start: `top+=${idx === 0 ? 0 : $(window).height() * (idx + 1)} top`,
-                        end: `top+=${$(window).height() * (idx + 2)} top`,
-                        markers: true,
-                        onEnter: toggleActiveClass,
-                        onEnterBack: toggleActiveClass,
-                        onLeaveBack: () => {
-                            $('.home-service-inner-item').removeClass("active");
-                        },
-                    }
-                })
+                // let tlItem = gsap.timeline({
+                //     scrollTrigger: {
+                //         trigger: ".home-service",
+                //         start: `top+=${idx === 0 ? 0 : WrapHeightRatio * $(window).height() / ($('.home-service-inner-item').length + 1) * (idx + 1)} top`,
+                //         end: `top+=${WrapHeightRatio * $(window).height() / ($('.home-service-inner-item').length + 1) * (idx + 2)} top`,
+                //         markers: true,
+                //         onEnter: toggleActiveClass,
+                //         onEnterBack: toggleActiveClass,
+                //         onLeaveBack: () => {
+                //             $('.home-service-inner-item').removeClass("active");
+                //         },
+                //         scrub: true,
+                //     }
+                // })
+                if (idx === 0) {
+                    tlItem
+                        .fromTo(el, {
+                            opacity: 0
+                        }, {
+                            opacity: 1,
+                            duration: 1,
+                            ease: "none"
+                        }, 0)
+                        .fromTo(el, {
+                            opacity: 1
+                        }, {
+                            opacity: 0,
+                            duration: 1,
+                            ease: "none"
+                        }, `>=2`)
+                } else if (idx < $('.home-service-inner-item').length - 1) {
+                    tlItem
+                        .fromTo(el, {
+                            opacity: 0
+                        }, {
+                            opacity: 1,
+                            duration: 1,
+                            ease: "none"
+                        }, `>=0`)
+                        .fromTo(el, {
+                            opacity: 1
+                        }, {
+                            opacity: 0,
+                            duration: 1,
+                            ease: "none"
+                        }, `>=2`)
+                } else {
+                    tlItem
+                    .fromTo(el, {
+                        opacity: 0
+                    }, {
+                        opacity: 1,
+                        duration: 1,
+                        ease: "none"
+                    }, `>=0`)
+                }
+                gsap.set(el, {opacity: 0})
             })
         }
         homeService()
@@ -394,11 +446,13 @@ const home = {
                     })
                     if ($(window).width() > 991) {
                         $('.home-skill-item').on('mouseenter', function (e) {
-                            let idx = $(this).index()
+                            let idx = Number($(this).attr('data-thumb-image')) - 1;
+
+                            if ($('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).hasClass('active')) return;
                             $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
                         })
                         $('.home-skill-item').on('mouseleave', function (e) {
-                            let idx = $(this).index()
+                            let idx = Number($(this).attr('data-thumb-image')) - 1;
                             $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).removeClass('active')
                         })
 
@@ -984,7 +1038,8 @@ const home = {
                     btnOverlay: $('.home-pricing-plan-switch-overlay'),
                     periodic: $('.home-pricing-plan-item-price-periodic'),
                     price: $('.home-pricing-plan-item-price-txt'),
-                    btnPurchase: $('.home-pricing-plan-item-btn.btn-purchase')
+                    btnPurchase: $('.home-pricing-plan-item-btn.btn-purchase'),
+                    priceOff: $('.home-pricing-plan-item-off'),
                 }
                 const data = [
                     {
@@ -1032,6 +1087,14 @@ const home = {
                         text.removeClass('active');
                         text.eq(index).addClass('active');
                     })
+
+                    if (index > 0) {
+                        // DOM.priceOff.removeClass('active')
+                        DOM.priceOff.slideUp(600, "swing")
+                    } else {
+                        // DOM.priceOff.addClass('active')
+                        DOM.priceOff.slideDown(600, "swing")
+                    }
 
                     let currPlan = DOM.btnPlan.eq(index).text();
                     DOM.btnPurchase.each((i, item) => {

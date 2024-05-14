@@ -525,11 +525,11 @@
     }
 
     &-skill {
-        padding-top: 11rem;
-
+        padding-block: 11rem 10rem;
         // overflow: hidden;
         @include md {
             padding-top: 0;
+            margin-top: -32rem;
         }
 
         @include sm {
@@ -879,14 +879,19 @@
         }
     }
     &-service {
-        --offset-top: 100vh;
-
         position: relative;
         height: 450vh;
         z-index: 1;
+        margin-top: -100vh;
 
-        // padding-top: var(--offset-top);
-        margin-top: calc(var(--offset-top) * -1);
+        @include md {
+            height: 420vh;
+        }
+
+        @include sm {
+            height: 420vh;
+            margin-top: unset;
+        }
         
         &-sticky {
             position: sticky;
@@ -903,26 +908,15 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            overflow-x: hidden;
-            overflow-y: visible;
+            overflow: hidden;
     
-            // @include md {
-            //     @include size(100%, 97.5rem);
+            @include md {
+                @include size(100%, 137.3rem);
+            }
     
-            //     margin: {
-            //         top: -29.1rem;
-            //         bottom: -46rem;
-            //     }
-            // }
-    
-            // @include sm {
-            //     @include size(100%, 61.5rem);
-    
-            //     margin: {
-            //         top: -32rem;
-            //         bottom: -19.5rem;
-            //     }
-            // }
+            @include sm {
+                @include size(100%, 61.5rem);
+            }
         }
         &-inner {
             position: relative;
@@ -939,6 +933,13 @@
                 text-align: center;
                 opacity: 0;
                 pointer-events: none;
+
+                @include md {
+                    max-width: 64.2rem;
+                }
+                @include sm {
+                    max-width: 30rem;
+                }
 
                 &.active {
                     opacity: 1;
@@ -1760,12 +1761,16 @@
                 // top: 3.7rem;
                 margin-bottom: 5.4rem;
             }
+            &-btn {
+                transform-origin: left top;
+            }
 
             &-sub {
                 margin-top: 6.4rem;
                 color: rgba($cl-white,.8);
                 max-width: 44.1rem;
                 margin-bottom: 3.2rem;
+                transform-origin: left top;
                 // Update mb
                 @include sm {
                     margin-top: 2.4rem;
@@ -1846,15 +1851,16 @@
             }
 
             &-img {
-                @include size(40rem, auto);
+                @include size(34rem, auto);
                 margin-top: -1.6rem;
                 flex: 1;
-                opacity: 0;
+                opacity: 1;
                 position: relative;
                 z-index: 3;
-                @include transform(scale(1.1));
-                @include transition(opacity .8s ease-out,
-                    transform 2.333s var(--spring-easing-1));
+                will-change: transform, opacity;
+                transform-origin: left top;
+                // @include transition(opacity .8s ease-out,
+                //     transform 2.333s var(--spring-easing-1));
 
                 img {
                     object-fit: contain;
@@ -1862,7 +1868,7 @@
                 }
 
                 &.hidden {
-                    opacity: 0;
+                    opacity: 0 !important;
                 }
 
                 @include md {
@@ -1872,7 +1878,7 @@
                 }
             }
             &-title-wrap {
-                
+
             }
             &-label {
                 margin-bottom: .4rem;
@@ -1922,14 +1928,13 @@
                     }
                 }
             }
-
-            &:hover,
-            &.active {
-                .home-benefit-other-img {
-                    opacity: 1;
-                    @include transform(scale(1));
-                }
-            }
+            // &:hover,
+            // &.active {
+            //     .home-benefit-other-img {
+            //         opacity: 1;
+            //         @include transform(scale(1));
+            //     }
+            // }
         }
     }
 
