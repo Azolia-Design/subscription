@@ -65,7 +65,7 @@ const home = {
                 let totalDistance = BENEFIT.mainItem.width() + (BENEFIT.otherItem.width() * BENEFIT.otherItem.length);
                 let otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem") + cvUnit(viewportBreak({ desktop: 15, tablet: 5 }), 'rem')
 
-                const ITEM_WIDTH = ($('.container').width() - percentage(24.2, $('.container').width())) / viewportBreak({ desktop: 5, tablet: 2.7 });
+                const ITEM_WIDTH = ($('.container').width() - percentage(40.2, $('.container').width())) / viewportBreak({ desktop: 5, tablet: 2.7 });
                 gsap.set(BENEFIT.stage, { height: totalDistance * 1.2 + cvUnit(100, "rem") });
 
                 let reqCheck;
