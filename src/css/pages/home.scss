@@ -2196,16 +2196,18 @@
     }
 
     &-pricing {
-        margin-top: calc(var(--height-header) * -1);
+        // margin-top: calc(var(--height-header) * -1);
         padding-top: var(--height-header);
-        padding-bottom: calc(23rem - var(--height-header));
+        // padding-bottom: calc(23rem - var(--height-header));
+        padding-bottom: 15rem;
 
         @include md {
             padding-bottom: calc(15.6rem - var(--height-header));
         }
 
         @include sm {
-            padding-bottom: calc(6.8rem- var(--height-header));
+            // padding-bottom: calc(6.8rem- var(--height-header));
+            margin-top: unset;
         }
 
         &--wrap {
@@ -2230,22 +2232,24 @@
             align-items: center;
 
             @include md {
-                grid-column: 2/12;
-                padding: 0px;
-            }
-
-            @include sm {
                 grid-column: 1/-1;
+                padding: 0px;
             }
 
             &-title {
                 margin-bottom: 3.2rem;
                 max-width: 125.3rem;
+
+                @include md {
+                    max-width: 62rem;
+                }
             }
 
             &-sub-wrap {
                 display: flex;
+                flex-wrap: wrap;
                 align-items: center;
+                justify-content: center;
                 column-gap: 3.2rem;
             }
             &-sub-item {
@@ -2253,12 +2257,13 @@
                 align-items: center;
                 column-gap: .8rem;
                 .dot {
+                    flex-shrink: 0;
                     @include size(1rem);
                     border-radius: 50%;
                     background-color: $cl-primary;
                 }
                 &-txt {
-                    color: rgba($cl-white,.6);
+                    color: rgba($cl-white, .6);
                 }
             }
         }
@@ -2308,7 +2313,7 @@
 
                     @include sm {
                         width: 100%;
-                        --btn-width: calc(100% / 3);
+                        --btn-width: calc(100% / 2);
                     }
 
                     &-btn {
@@ -2334,22 +2339,22 @@
                     pointer-events: none;
 
                     @include sm {
-                        width: calc(100% / 3);
+                        width: calc(100% / 2);
                     }
 
                     &:first-of-type {
                         mix-blend-mode: hard-light;
                         opacity: 0;
-
-                        .btn {
-                            // mix-blend-mode: hard-light;
-                        }
                     }
 
                     &:last-of-type {
                         mix-blend-mode: lighten;
+                    }
 
-                        .btn {}
+                    .btn {
+                        @include md {
+                            --border-radius: 1rem;
+                        }
                     }
                 }
 
@@ -2379,11 +2384,12 @@
             &-listing {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
-                grid-template-rows: auto;
+                grid-template-rows: 10rem 1fr;
                 gap: 0 2rem;
                 margin-bottom: 8rem;
 
                 @include md {
+                    grid-template-rows: 4.3rem 1fr;
                     gap: 0 1.6rem;
                     margin-bottom: 6rem;
                 }
@@ -2405,15 +2411,16 @@
                 flex-direction: column;
                 box-shadow: inset 0 0 1rem 0 rgba($cl-white, 0.05);
                 border-radius: 2rem;
+                background-color: rgba($cl-white, .05);
 
                 @include md {
-                    padding: 2.45rem 1.6rem 3.2rem;
+                    padding: 3.2rem 1.6rem;
                 }
 
                 @include sm {
+                    padding: 3.2rem 2.4rem;
                     background-color: rgba($cl-white, .001);
                     box-shadow: inset 0 0 1.5rem 0 rgba($cl-white, 0.1);
-
                 }
 
                 &:before {
@@ -2434,7 +2441,12 @@
                         pointer-events: none;
                         @include border-gradient(linear-gradient(180deg, rgba($cl-primary-hl, 1) 0%, rgba($cl-primary-hl, 0) 100%), 2rem);
                     }
-
+                    .home-pricing-plan-item-label {
+                        margin-top: 2rem;
+                    }
+                    .home-pricing-plan-item-time {
+                        color: rgba($cl-white, .8);
+                    }
                     .home-pricing-plan-item-detail-txt .img {
                         filter: brightness(0) saturate(100%) invert(99%) sepia(10%) saturate(7%) hue-rotate(132deg) brightness(103%) contrast(100%);
                     }
@@ -2449,7 +2461,7 @@
                     background: rgba($cl-white, 0.05);
 
                     @include md {
-                        margin-bottom: 1.5rem;
+                        margin-bottom: unset;
                     }
 
                     @include sm {
@@ -2461,17 +2473,21 @@
                     margin-bottom: 2rem;
 
                     @include md {
-                        margin-bottom: .2rem;
-                    }
-
-                    @include sm {
-                        --fs-20: 1.8rem;
-                        --lh-20: 1.4em;
+                        margin-bottom: 1.2rem;
                     }
                 }
+                &-time {
+                    margin-bottom: 2rem;
 
+                    @include md {
+                        margin-bottom: 1.2rem;
+                    }
+                }
                 &-off {
                     margin-bottom: .8rem;
+                    text-decoration: line-through;
+                    color: rgba($cl-white, .6);
+
                     @include md {
                         --fs-14: 1.2rem;
                     }
@@ -2489,7 +2505,8 @@
                     justify-content: center;
 
                     @include md {
-                        margin: 1.2rem 0;
+                        margin-top: unset;
+                        margin-bottom: 1.2rem;
                     }
 
                     &-inner {
@@ -2522,15 +2539,17 @@
                     &-periodic {
                         margin-bottom: .4rem;
                         margin-left: .4rem;
+                        color: rgba($cl-white, .6);
+
                         p {
-                            position: absolute;
-                            opacity: 0;
-                            pointer-events: none;
+                            // position: absolute;
+                            // opacity: 0;
+                            // pointer-events: none;
 
                             &.active {
-                                position: relative;
-                                opacity: 1;
-                                pointer-events: auto;
+                                // position: relative;
+                                // opacity: 1;
+                                // pointer-events: auto;
                             }
                         }
                     }
@@ -2538,9 +2557,11 @@
 
                 &-desc {
                     margin-bottom: 2rem;
-                    max-width: 25rem;
+                    max-width: 26rem;
                     margin-inline: auto;
                     text-align: center;
+                    color: rgba($cl-white, 1);
+                    opacity: .8;
 
                     @include md {
                         --fs-14: 1.2rem;
@@ -2560,18 +2581,19 @@
                     flex-direction: column;
                     gap: 1.2rem 0;
                     margin-top: 3.2rem;
-                    margin-bottom: 2rem;
+                    margin-bottom: 3.6rem;
                     text-align: left;
 
                     @include sm {
                         margin-top: 2rem;
-                        margin-bottom: 2.4rem;
+                        margin-bottom: 3.6rem;
                     }
 
                     &-txt {
                         display: flex;
-                        align-items: center;
+                        align-items: start;
                         gap: 0 .8rem;
+                        color: $cl-white;
 
                         @include md {
                             --fs-18: 1.2rem;
@@ -3054,7 +3076,8 @@
     }
 
     &-faq {
-        padding-top: var(--height-header);
+        // padding-top: var(--height-header);
+        padding-top: 15rem;
         padding-bottom: 25rem;
 
         @include md {

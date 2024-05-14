@@ -20,7 +20,6 @@ const home = {
                     scheduleTxt.revert()
                 }
             })
-
             tlSplitHead
                 .from(".home-hero-logo", { yPercent: 60, autoAlpha: 0, duration: 1, ease: "power2.out" }, 0)
                 .from(headTxt.words, { yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: "power2.out" }, "<=.2")
@@ -773,6 +772,111 @@ const home = {
         }
         homePortfolio()
 
+                /** (💡)  - TESTIMONIAL */
+        function homeTesti() {
+            if ($(window).width() > 767) {
+                $('.home-testi').css('height', + $(window).height() + ($('.home-testi-content-item').eq(0).height() * 1.5 * $('.home-testi-content-item').length) + 'px')
+                let tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: '.home-testi',
+                        start: `top top`,
+                        end: 'bottom bottom',
+                        scrub: .1,
+                        onUpdate: (timeline) => {
+                            gsap.set('.home-testi-content-progress-inner', { y: timeline.progress * cvUnit(180, 'rem') })
+                        }
+                    }
+                })
+                tl
+                    .fromTo('.home-testi-text-wrap', {
+                        y: cvUnit(-100, 'rem'),
+                    }, {
+                        y: cvUnit(-90, 'rem'),
+                        ease: 'none'
+                    })
+
+                let tlScrub = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: '.home-testi',
+                        start: `top bottom`,
+                        end: 'bottom top',
+                        scrub: .2,
+                        snap: {
+                            // To update exact position and check directional
+                            snapTo(value) {
+                                if (value > 0.1822 && value <= 0.3644) {
+                                    return 0.2521;
+                                } else if (value > 0.3644 && value <= 0.5512) {
+                                    return 0.4767;
+                                } else if (value > 0.5512 && value <= 0.69445) {
+                                    return 0.6257;
+                                } else if (value > 0.69445 && value <= 0.8816) {
+                                    return 0.7632;
+                                } else {
+                                    return value;
+                                }
+                            },
+                            // snapTo: [0.2521, 0.4767, 0.6257, 0.7632],
+                            duration: { min: 0.15, max: 1 },
+                            delay: 0.01,
+                        },
+                    },
+                })
+
+                let timeDelay = 0
+                let timeAnim = 1
+                let zUnit
+                let yUnit
+                if ($(window).width() > 991) {
+                    zUnit = 600
+                    yUnit = 90
+                } else {
+                    zUnit = 1200
+                    yUnit = 100
+                }
+                $('.home-testi-content-item').each((idx, el) => {
+                    if (idx == 0) {
+                        tlScrub
+                            .fromTo($(el), { z: cvUnit(zUnit * 2, 'rem'), yPercent: 75, filter: "brightness(1)" }, { z: 0, yPercent: 0, filter: "brightness(1)", ease: 'power1.out', duration: timeAnim * 2 }, 0)
+                    }
+                    if (idx > 0 && idx < ($('.home-testi-content-item').length)) {
+                        tlScrub
+                            .fromTo($(el), { z: cvUnit(zUnit, 'rem'), yPercent: 150, filter: "brightness(1)" }, { z: 0, yPercent: 0, filter: "brightness(1)", ease: 'power3.out', duration: timeAnim }, `>=${(timeDelay)}`)
+                            .fromTo($(el).prev(), { z: 0, y: 0, filter: "brightness(1)" }, { z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter: "brightness(.67)", ease: 'power2.out', duration: timeAnim }, "<=0")
+                        if (idx > 1) {
+                            tlScrub
+                                .fromTo($(el).prev().prev(), { z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter: "brightness(.67)" }, { z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter: "brightness(.33)", ease: 'power2.out', duration: timeAnim }, "<=0")
+                        }
+                        if (idx > 2) {
+                            tlScrub
+                                .fromTo($(el).prev().prev().prev(), { z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter: "brightness(.33)" }, { z: cvUnit(-zUnit * 3, 'rem'), y: cvUnit(-yUnit * 3, 'rem'), filter: "brightness(0)", ease: 'power2.out', duration: timeAnim }, "<=0")
+                        }
+                    }
+                    if (idx == ($('.home-testi-content-item').length - 1)) {
+                        tlScrub
+                            .fromTo($(el), { z: 0, y: 0, filter: "brightness(1)" }, { z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter: "brightness(.67)", ease: 'power3.out', duration: timeAnim }, `>=${timeDelay}`)
+                            .fromTo($(el).prev(), { z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter: "brightness(.67)" }, { z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter: "brightness(.33)", ease: 'power3.out', duration: timeAnim }, "<=0")
+                            .fromTo($(el).prev().prev(), { z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter: "brightness(.33)" }, { z: cvUnit(-zUnit * 3, 'rem'), y: cvUnit(-yUnit * 3, 'rem'), filter: "brightness(0)", ease: 'power3.out', duration: timeAnim }, "<=0")
+                    }
+                })
+                gsap.set('.home-testi-content-item', { z: 0, y: 0, filter: "brightness(1)" })
+            } else {
+                let parent = $('.home-testi-content')
+                parent.find('[data-swiper="swiper"]').addClass('swiper')
+                parent.find('[data-swiper="swiper-wrapper"]').addClass('swiper-wrapper')
+                parent.find('[data-swiper="swiper-slide"]').addClass('swiper-slide')
+
+                new Swiper('.home-testi-content-wrap', {
+                    spaceBetween: cvUnit(20, 'rem'),
+                    slidesPerView: 1,
+                    scrollbar: {
+                        el: ".home-testi-content-progress",
+                    },
+                })
+            }
+        }
+        homeTesti()
+
         /** (💡)  - PRICING */
         function homePricing() {
             ScrollTrigger.create({
@@ -780,36 +884,37 @@ const home = {
                 start: 'top bottom',
                 once: true,
                 onEnter: () => {
-                    let labelTxt = new SplitText('.home-pricing-text-label', typeOpts.chars)
                     let titleTxt = new SplitText('.home-pricing-text-title', typeOpts.words)
-                    let subTxt = new SplitText('.home-pricing-text-sub', typeOpts.words)
-                    let discountTxt = new SplitText('.home-pricing-plan-discount', typeOpts.chars)
+                    let subArray = []
 
                     let tlSplitHead = gsap.timeline({
                         scrollTrigger: {
                             trigger: '.home-pricing',
-                            start: 'top top+=60%',
-                            // markers: true,
+                            start: 'top top+=40%',
                         },
                         onComplete: () => {
                             titleTxt.revert()
-                            subTxt.revert()
-                            labelTxt.revert()
-                            discountTxt.revert()
+                            $(subArray).each((idx, el)=> el.revert())
                         }
                     })
                     tlSplitHead
-                        .from(labelTxt.chars, { yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: 'power2.out' }, 0)
-                        .from(titleTxt.words, { yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: 'power2.out' }, '<=.4')
-                        .from(subTxt.words, { yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: 'power2.out' }, '<=.4')
-                        .from(discountTxt.words, { yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: 'power2.out' }, '<=.6')
+                        .from(titleTxt.words, { yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: 'power2.out' }, .3)
                         .from('.home-pricing-plan-switch', { yPercent: 60, autoAlpha: 0, duration: .8, ease: 'power2.out', clearProps: 'all' }, '<=.2')
 
+
+                    $('.home-pricing-text-sub-item').each((idx, el) => {
+                        let subTxt = new SplitText($(el).find('.home-pricing-text-sub-item-txt'), typeOpts.words)
+
+                        tlSplitHead
+                        .from($(el).find(".dot"), { yPercent: 60, autoAlpha: 0, duration: .4, ease: 'power2.out', clearProps: 'all' }, .3 + idx * .1)
+                        .from(subTxt.words, { yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: 'power2.out' }, .35 + idx * .1)
+
+                        subArray.push(subTxt)
+                    })
                     let tlPricing = gsap.timeline({
                         scrollTrigger: {
                             trigger: '.home-pricing--wrap',
-                            start: 'top top+=70%',
-                            // markers: true,
+                            start: 'top top+=60%',
                         }
                     })
 
@@ -818,23 +923,19 @@ const home = {
                         .from('.home-pricing-plan-item:not(.popular)', { y: cvUnit(60, 'rem'), autoAlpha: 0, duration: .8, ease: 'power2.out', clearProps: 'all' }, '<=.2')
 
                     let ctaHeadingTxt = new SplitText('.home-pricing-plan-cta-heading', typeOpts.lines)
-                    let ctaDescTxt = new SplitText('.home-pricing-plan-cta-desc', typeOpts.lines)
 
                     let tlCTAHead = gsap.timeline({
                         scrollTrigger: {
                             trigger: '.home-pricing-plan-cta',
                             start: 'top top+=80%',
-                            // markers: true,
                         },
                         onComplete: () => {
                             ctaHeadingTxt.revert()
-                            ctaDescTxt.revert()
                         }
                     })
 
                     tlCTAHead
                         .from(ctaHeadingTxt.lines, { yPercent: 60, autoAlpha: 0, stagger: .3, duration: .6, ease: 'power2.out' }, 0)
-                        .from(ctaDescTxt.lines, { yPercent: 60, autoAlpha: 0, stagger: .2, duration: .6, ease: 'power2.out' }, '<=.3')
                         .from('.home-pricing-plan-cta .btn', { yPercent: 60, autoAlpha: 0, stagger: .3, duration: .6, ease: 'power2.out', clearProps: 'all' }, '<=.3')
                 }
             })
@@ -948,7 +1049,10 @@ const home = {
             }
             testPayment()
         }
-        homePricing();
+        requestAnimationFrame(() => {
+            homePricing()
+        })
+
 
         /** (💡)  - INDUSTRIES */
         function homeExplore() {
@@ -1058,111 +1162,6 @@ const home = {
             })
         }
         //homeExplore()
-
-        /** (💡)  - TESTIMONIAL */
-        function homeTesti() {
-            if ($(window).width() > 767) {
-                $('.home-testi').css('height', + $(window).height() + ($('.home-testi-content-item').eq(0).height() * 1.5 * $('.home-testi-content-item').length) + 'px')
-                let tl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: '.home-testi',
-                        start: `top top`,
-                        end: 'bottom bottom',
-                        scrub: .1,
-                        onUpdate: (timeline) => {
-                            gsap.set('.home-testi-content-progress-inner', { y: timeline.progress * cvUnit(180, 'rem') })
-                        }
-                    }
-                })
-                tl
-                    .fromTo('.home-testi-text-wrap', {
-                        y: cvUnit(-100, 'rem'),
-                    }, {
-                        y: cvUnit(-90, 'rem'),
-                        ease: 'none'
-                    })
-
-                let tlScrub = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: '.home-testi',
-                        start: `top bottom`,
-                        end: 'bottom top',
-                        scrub: .2,
-                        snap: {
-                            // To update exact position and check directional
-                            snapTo(value) {
-                                if (value > 0.1822 && value <= 0.3644) {
-                                    return 0.2521;
-                                } else if (value > 0.3644 && value <= 0.5512) {
-                                    return 0.4767;
-                                } else if (value > 0.5512 && value <= 0.69445) {
-                                    return 0.6257;
-                                } else if (value > 0.69445 && value <= 0.8816) {
-                                    return 0.7632;
-                                } else {
-                                    return value;
-                                }
-                            },
-                            // snapTo: [0.2521, 0.4767, 0.6257, 0.7632],
-                            duration: { min: 0.15, max: 1 },
-                            delay: 0.01,
-                        },
-                    },
-                })
-
-                let timeDelay = 0
-                let timeAnim = 1
-                let zUnit
-                let yUnit
-                if ($(window).width() > 991) {
-                    zUnit = 600
-                    yUnit = 90
-                } else {
-                    zUnit = 1200
-                    yUnit = 100
-                }
-                $('.home-testi-content-item').each((idx, el) => {
-                    if (idx == 0) {
-                        tlScrub
-                            .fromTo($(el), { z: cvUnit(zUnit * 2, 'rem'), yPercent: 75, filter: "brightness(1)" }, { z: 0, yPercent: 0, filter: "brightness(1)", ease: 'power1.out', duration: timeAnim * 2 }, 0)
-                    }
-                    if (idx > 0 && idx < ($('.home-testi-content-item').length)) {
-                        tlScrub
-                            .fromTo($(el), { z: cvUnit(zUnit, 'rem'), yPercent: 150, filter: "brightness(1)" }, { z: 0, yPercent: 0, filter: "brightness(1)", ease: 'power3.out', duration: timeAnim }, `>=${(timeDelay)}`)
-                            .fromTo($(el).prev(), { z: 0, y: 0, filter: "brightness(1)" }, { z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter: "brightness(.67)", ease: 'power2.out', duration: timeAnim }, "<=0")
-                        if (idx > 1) {
-                            tlScrub
-                                .fromTo($(el).prev().prev(), { z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter: "brightness(.67)" }, { z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter: "brightness(.33)", ease: 'power2.out', duration: timeAnim }, "<=0")
-                        }
-                        if (idx > 2) {
-                            tlScrub
-                                .fromTo($(el).prev().prev().prev(), { z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter: "brightness(.33)" }, { z: cvUnit(-zUnit * 3, 'rem'), y: cvUnit(-yUnit * 3, 'rem'), filter: "brightness(0)", ease: 'power2.out', duration: timeAnim }, "<=0")
-                        }
-                    }
-                    if (idx == ($('.home-testi-content-item').length - 1)) {
-                        tlScrub
-                            .fromTo($(el), { z: 0, y: 0, filter: "brightness(1)" }, { z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter: "brightness(.67)", ease: 'power3.out', duration: timeAnim }, `>=${timeDelay}`)
-                            .fromTo($(el).prev(), { z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter: "brightness(.67)" }, { z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter: "brightness(.33)", ease: 'power3.out', duration: timeAnim }, "<=0")
-                            .fromTo($(el).prev().prev(), { z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter: "brightness(.33)" }, { z: cvUnit(-zUnit * 3, 'rem'), y: cvUnit(-yUnit * 3, 'rem'), filter: "brightness(0)", ease: 'power3.out', duration: timeAnim }, "<=0")
-                    }
-                })
-                gsap.set('.home-testi-content-item', { z: 0, y: 0, filter: "brightness(1)" })
-            } else {
-                let parent = $('.home-testi-content')
-                parent.find('[data-swiper="swiper"]').addClass('swiper')
-                parent.find('[data-swiper="swiper-wrapper"]').addClass('swiper-wrapper')
-                parent.find('[data-swiper="swiper-slide"]').addClass('swiper-slide')
-
-                new Swiper('.home-testi-content-wrap', {
-                    spaceBetween: cvUnit(20, 'rem'),
-                    slidesPerView: 1,
-                    scrollbar: {
-                        el: ".home-testi-content-progress",
-                    },
-                })
-            }
-        }
-        homeTesti()
 
         /** (💡)  - FAQ */
         function homeFaq() {
