@@ -65,7 +65,7 @@ const home = {
                 let totalDistance = BENEFIT.mainItem.width() + (BENEFIT.otherItem.width() * BENEFIT.otherItem.length);
                 let otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem") + cvUnit(viewportBreak({ desktop: 15, tablet: 5 }), 'rem')
 
-                const ITEM_WIDTH = ($('.container').width() - percentage(40.2, $('.container').width())) / viewportBreak({ desktop: 5, tablet: 2.7 });
+                const ITEM_WIDTH = ($('.container').width() - percentage(24.2, $('.container').width())) / viewportBreak({ desktop: 6, tablet: 2.7 });
                 gsap.set(BENEFIT.stage, { height: totalDistance * 1.2 + cvUnit(100, "rem") });
 
                 let reqCheck;
@@ -308,6 +308,31 @@ const home = {
         }
         homeShowreel()
 
+        /** (💡)  - SERVICE */
+        function homeService() {
+            $('.home-service-inner-item').each((idx, el) => {
+                let toggleActiveClass = () => {
+                    $('.home-service-inner-item').removeClass("active");
+                    $(el).addClass("active");
+                }
+
+                let tlItem = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: ".home-service",
+                        start: `top+=${idx === 0 ? 0 : $(window).height() * (idx + 1)} top`,
+                        end: `top+=${$(window).height() * (idx + 2)} top`,
+                        markers: true,
+                        onEnter: toggleActiveClass,
+                        onEnterBack: toggleActiveClass,
+                        onLeaveBack: () => {
+                            $('.home-service-inner-item').removeClass("active");
+                        },
+                    }
+                })
+            })
+        }
+        homeService()
+
         /** (💡)  - SKILL */
         function homeSkill() {
             ScrollTrigger.create({
@@ -343,9 +368,20 @@ const home = {
 
                     $('.home-skill-item').each((idx, el) => {
                         let itemTitleTxt = new SplitText($(el).find('.home-skill-item-title'), typeOpts.chars)
-                        tlSplitHead
-                            .from($(el).find('.line'), { scaleX: 0, transformOrigin: 'left', duration: 1, ease: 'power2.out' }, `${.8 + idx * .2}`)
-                            .from(itemTitleTxt.chars, { yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: 'power2.out', onComplete: () => { itemTitleTxt.revert() } }, `${.8 + idx * .2}`)
+
+                        let tlItem = gsap.timeline({
+                            scrollTrigger: {
+                                trigger: el,
+                                start: 'top top+=80%',
+                                // markers: true
+                            },
+                            onComplete: () => {
+                                itemTitleTxt.revert()
+                            }
+                        })
+                        tlItem
+                            .from($(el).find('.line'), { scaleX: 0, transformOrigin: 'left', duration: 1, ease: 'power2.out' }, .8)
+                            .from(itemTitleTxt.chars, { yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: 'power2.out'}, .85)
                     })
 
                     $('.home-skill-thumb-item').each((idx, el) => {
@@ -451,7 +487,9 @@ const home = {
                 }
             })
         }
-        homeSkill()
+        requestAnimationFrame(() => {
+            homeSkill()
+        })
 
         /** (💡)  - PROCESS */
         function homeProcess() {
@@ -707,7 +745,7 @@ const home = {
 
                         xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
                         ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
-                        rotZSetter(target.get(0))(lerp(tarCurrRot, Math.min(Math.max((tarX - tarCurrX) / 20, -7), 7), .08))
+                        rotZSetter(target.get(0))(lerp(tarCurrRot, Math.min(Math.max((tarX - tarCurrX) / 100, -4), 4), .08))
                     }
                     requestAnimationFrame(initMouseMove)
                 }
