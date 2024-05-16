@@ -450,6 +450,21 @@ button {
         will-change: transform;
     }
 }
+[data-border-glow] {
+    position: relative;
+    
+    * {
+        z-index: 2;
+    }
+
+    .border-outer {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        @include size(100%);
+    }
+}
 
 
 @include md {

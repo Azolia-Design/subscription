@@ -524,59 +524,104 @@
         }
     }
 
-    &-skill {
-        padding-block: 11rem 10rem;
-        // overflow: hidden;
-        @include md {
-            padding-top: 0;
-            margin-top: -32rem;
-        }
-
-        @include sm {
-            padding-top: 11.8rem;
-        }
-
-        &-title {
-            grid-column: 2/10;
-            max-width: 81.4rem;
-            align-self: end;
+    &-service {
+        &-preamble {
+            position: relative;
+            height: 550vh;
+            z-index: 1;
+            margin-top: -200vh;
 
             @include md {
-                grid-column: 1/7;
+                height: 520vh;
+            }
+    
+            @include sm {
+                height: 520vh;
+                margin-top: unset;
+            }
+                    
+            &-sticky {
+                position: sticky;
+                top: 0;
+                height: 100vh;
             }
 
-            @include sm {
-                grid-column: 1/-1;
-                margin-bottom: 3.2rem;
+            &-bg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                pointer-events: none;
+                @include size(100%, 221.6rem);
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                overflow: hidden;
+                opacity: 0;
+                @include md {
+                    @include size(100%, 137.3rem);
+                }
+        
+                @include sm {
+                    @include size(100%, 61.5rem);
+                }
+            }
+            &-inner {
+                position: relative;
+                z-index: 2;
+                display: grid;
+                align-items: center;
+                justify-content: center;
+                @include size(100%);
+
+                &-item {
+                    grid-column: 1/2;
+                    grid-row: 1/2;
+                    max-width: 102.2rem;
+                    text-align: center;
+                    opacity: 0;
+                    pointer-events: none;
+
+                    @include md {
+                        max-width: 64.2rem;
+                    }
+                    @include sm {
+                        max-width: 30rem;
+                    }
+
+                    &.active {
+                        opacity: 1;
+                        pointer-events: auto;
+                    }
+                }
             }
         }
 
-        &-desc {
-            grid-column: 12/16;
-            align-self: end;
+        &-main {
+            position: relative;
+            grid-column: 1/-1;
 
             @include md {
-                grid-column: 9/-1;
-                margin-left: -3rem;
+                padding-top: 0;
             }
-
+    
             @include sm {
-                grid-column: 1/-1;
-                margin-left: 0;
+            }
+            &-wrap {
+                margin-top: -10vh;
+                padding-bottom: 10rem;
+
+                @include md {
+                    margin-top: -30vh;
+                }
+
+                @include sm {
+                    margin-top: -15vh;
+                }
             }
         }
 
         &-listing {
             grid-column: 1/-1;
-            margin-top: 12rem;
-
-            @include md {
-                margin-top: 8rem;
-            }
-
-            @include sm {
-                margin-top: 6rem;
-            }
         }
 
         &-item {
@@ -594,11 +639,11 @@
             }
 
             &.active {
-                .home-skill-item-title {
+                .home-service-item-title {
                     color: $cl-primary;
                 }
 
-                .home-skill-item-desc {
+                .home-service-item-desc {
                     opacity: 1;
                     @include transform(translate(0));
                 }
@@ -626,9 +671,7 @@
                 grid-column: 12/17;
                 opacity: 0;
                 @include transform(translate(0, .8rem));
-                @include transition(opacity .8s ease-in-out,
-                    transform 2.333s var(--spring-easing-1));
-
+                @include transition(opacity .8s ease-in-out, transform 2.333s var(--spring-easing-1));
 
                 @include md {
                     grid-column: 8/-1;
@@ -650,11 +693,11 @@
 
             @media (hover:hover) {
                 &:hover {
-                    .home-skill-item-title {
+                    .home-service-item-title {
                         color: $cl-primary;
                     }
 
-                    .home-skill-item-desc {
+                    .home-service-item-desc {
                         opacity: 1;
                         @include transform(translate(0));
                     }
@@ -878,77 +921,6 @@
             }
         }
     }
-    &-service {
-        position: relative;
-        height: 550vh;
-        z-index: 1;
-        margin-top: -200vh;
-
-        @include md {
-            height: 520vh;
-        }
-
-        @include sm {
-            height: 520vh;
-            margin-top: unset;
-        }
-        
-        &-sticky {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-        }
-
-        &-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            @include size(100%, 221.6rem);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            overflow: hidden;
-            opacity: 0;
-            @include md {
-                @include size(100%, 137.3rem);
-            }
-    
-            @include sm {
-                @include size(100%, 61.5rem);
-            }
-        }
-        &-inner {
-            position: relative;
-            z-index: 2;
-            display: grid;
-            align-items: center;
-            justify-content: center;
-            @include size(100%);
-
-            &-item {
-                grid-column: 1/2;
-                grid-row: 1/2;
-                max-width: 102.2rem;
-                text-align: center;
-                opacity: 0;
-                pointer-events: none;
-
-                @include md {
-                    max-width: 64.2rem;
-                }
-                @include sm {
-                    max-width: 30rem;
-                }
-
-                &.active {
-                    opacity: 1;
-                    pointer-events: auto;
-                }
-            }
-        }
-    }
-
 
     &-process {
         padding-bottom: 25rem;
@@ -1652,6 +1624,7 @@
         height: 400vh;
         position: relative;
         z-index: 4;
+        margin-top: -10vh;
         // display: none;
 
         @include sm {
@@ -1947,12 +1920,15 @@
         position: relative;
         z-index: 5;
         padding-bottom: calc(21rem - var(--height-header));
+        margin-top: -70vh;
 
         @include md {
             padding-bottom: 0;
+            margin-top: -120vh;
         }
 
         @include sm {
+            margin-top: unset;
             overflow: hidden;
             padding-bottom: calc(12rem - var(--height-header));
         }

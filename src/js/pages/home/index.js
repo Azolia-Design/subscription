@@ -18,7 +18,7 @@ const home = {
                 onComplete: () => {
                     headTxt.revert()
                     scheduleTxt.revert()
-                }
+                } 
             })
             tlSplitHead
                 .from(".home-hero-logo", { yPercent: 60, autoAlpha: 0, duration: 1, ease: "power2.out" }, 0)
@@ -132,7 +132,6 @@ const home = {
                         }
                     })
                 })
-                gsap.set('.home-testi', { marginTop: -cvUnit(viewportBreak({ desktop: 60, tablet: 85 }), "vh") })
                 scrollerTl
                     .to(BENEFIT.wrap, {
                         scale: viewportBreak({ desktop: 0.5, tablet: 0.8 }), autoAlpha: 0,
@@ -193,6 +192,7 @@ const home = {
                     }
                 })
             }
+            
 
             animText();
             if ($(window).width() > 767) {
@@ -297,254 +297,175 @@ const home = {
 
         /** (💡)  - SERVICE */
         function homeService() {
-            const WrapHeightRatio = parseInt(parseFloat($(".home-service").css("height")) / $(window).height())
+            function homeService_Preamble() {
+                const WrapHeightRatio = parseInt(parseFloat($(".home-service-preamble").css("height")) / $(window).height())
 
-            let tlImg = gsap.timeline({
-                scrollTrigger: {
-                    trigger: ".home-service",
-                    start: `top+=${parseRem(190)} top`,
-                    end: `top+=${$(window).width()} top`,
-                    scrub: true,
-                }
-            })
-            tlImg.to('.home-service-bg', {autoAlpha: 1, duration: 1, ease: 'linear'})
+                let tlImg = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: ".home-service-preamble",
+                        start: `top+=${parseRem(190)} top`,
+                        end: `top+=${$(window).width()} top`,
+                        scrub: true,
+                    }
+                })
+                tlImg.to('.home-service-preamble-bg', {autoAlpha: 1, duration: 1, ease: 'linear'})
+    
+                let tlItem = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: ".home-service-preamble",
+                        start: `top+=${$(window).width() * .5} top`,
+                        end: `bottom bottom`,
+                        scrub: true,
+                    }
+                })
+    
+                $('.home-service-preamble-inner-item').each((idx, el) => {
+                    if (idx === 0) {
+                        tlItem
+                            .fromTo(el, { opacity: 0}, {opacity: 1, duration: 1, ease: "none"}, 0)
+                            .fromTo(el, { opacity: 1 }, { opacity: 0, duration: 1, ease: "none"}, `>=2`)
+                    } else if (idx < $('.home-service-preamble-inner-item').length - 1) {
+                        tlItem
+                            .fromTo(el, { opacity: 0 }, { opacity: 1, duration: 1, ease: "none" }, `>=0`)
+                            .fromTo(el, { opacity: 1 }, { opacity: 0, duration: 1, ease: "none" }, `>=2`)
+                    } else {
+                        tlItem
+                            .fromTo(el, { opacity: 0 }, { opacity: 1, duration: 1, ease: "none"}, `>=0`)
+                    }
+                    gsap.set(el, {opacity: 0})
+                })
+            }
 
-            let tlItem = gsap.timeline({
-                scrollTrigger: {
-                    trigger: ".home-service",
-                    start: `top+=${$(window).width() * .5} top`,
-                    end: `bottom bottom`,
-                    scrub: true,
-                }
-            })
+            function homeService_Main() {
 
-            $('.home-service-inner-item').each((idx, el) => {
-                let toggleActiveClass = () => {
-                    $('.home-service-inner-item').removeClass("active");
-                    $(el).addClass("active");
-                }
+                $('.home-service-item').each((idx, el) => {
+                    let itemTitleTxt = new SplitText($(el).find('.home-service-item-title'), typeOpts.chars)
 
-                // let tlItem = gsap.timeline({
-                //     scrollTrigger: {
-                //         trigger: ".home-service",
-                //         start: `top+=${idx === 0 ? 0 : WrapHeightRatio * $(window).height() / ($('.home-service-inner-item').length + 1) * (idx + 1)} top`,
-                //         end: `top+=${WrapHeightRatio * $(window).height() / ($('.home-service-inner-item').length + 1) * (idx + 2)} top`,
-                //         markers: true,
-                //         onEnter: toggleActiveClass,
-                //         onEnterBack: toggleActiveClass,
-                //         onLeaveBack: () => {
-                //             $('.home-service-inner-item').removeClass("active");
-                //         },
-                //         scrub: true,
-                //     }
-                // })
-                if (idx === 0) {
+                    let tlItem = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: el,
+                            start: 'top top+=80%',
+                            // markers: true
+                        },
+                        onComplete: () => {
+                            itemTitleTxt.revert()
+                        }
+                    })
                     tlItem
-                        .fromTo(el, {
-                            opacity: 0
-                        }, {
-                            opacity: 1,
-                            duration: 1,
-                            ease: "none"
-                        }, 0)
-                        .fromTo(el, {
-                            opacity: 1
-                        }, {
-                            opacity: 0,
-                            duration: 1,
-                            ease: "none"
-                        }, `>=2`)
-                } else if (idx < $('.home-service-inner-item').length - 1) {
-                    tlItem
-                        .fromTo(el, {
-                            opacity: 0
-                        }, {
-                            opacity: 1,
-                            duration: 1,
-                            ease: "none"
-                        }, `>=0`)
-                        .fromTo(el, {
-                            opacity: 1
-                        }, {
-                            opacity: 0,
-                            duration: 1,
-                            ease: "none"
-                        }, `>=2`)
+                        .from($(el).find('.line'), { scaleX: 0, transformOrigin: 'left', duration: .6, ease: 'power2.out' }, 0)
+                        .from(itemTitleTxt.chars, { yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: 'power2.out'}, 0)
+                })
+
+                $('.home-service-thumb-item').each((idx, el) => {
+                    let clone = $(el).find('img')
+                    for (let i = 1; i <= 5; i++) {
+                        let cloner = clone.clone()
+                        cloner.addClass('cloner')
+                        $(el).append(cloner)
+                    }
+                })
+                if ($(window).width() > 991) {
+                    $('.home-service-item').on('mouseenter', function (e) {
+                        let idx = Number($(this).attr('data-thumb-image')) - 1;
+
+                        if ($('.home-service-thumb').find('.home-service-thumb-item').eq(idx).hasClass('active')) return;
+                        $('.home-service-thumb').find('.home-service-thumb-item').eq(idx).addClass('active')
+                    })
+                    $('.home-service-item').on('mouseleave', function (e) {
+                        let idx = Number($(this).attr('data-thumb-image')) - 1;
+                        $('.home-service-thumb').find('.home-service-thumb-item').eq(idx).removeClass('active')
+                    })
+
+                    function initMouseMove() {
+                        const target = $('.home-service-thumb')
+                        if (target.hasClass('active')) {
+                            let tarCurrX = xGetter(target.get(0))
+                            let tarCurrY = yGetter(target.get(0))
+                            let tarCurrRot = rotZGetter(target.get(0))
+
+                            let tarX = -target.outerWidth() / 4 + (pointerCurr().x - $('.home-service-listing').get(0).getBoundingClientRect().left) / $('.home-service-listing').outerWidth() * ($('.home-service-listing').outerWidth() - $('.home-service-item-desc').get(0).getBoundingClientRect().left - target.outerWidth() / 2)
+                            let tarY = -target.outerHeight() / 4 + (pointerCurr().y - $('.home-service-listing').get(0).getBoundingClientRect().top) / $('.home-service-listing').outerHeight() * ($('.home-service-listing').outerHeight() - target.outerHeight() / 2)
+
+                            xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
+                            ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
+                            rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX) / 40, -7), 7)), .1))
+                        }
+                        requestAnimationFrame(initMouseMove)
+                    }
+                    requestAnimationFrame(initMouseMove)
                 } else {
-                    tlItem
-                    .fromTo(el, {
-                        opacity: 0
-                    }, {
-                        opacity: 1,
-                        duration: 1,
-                        ease: "none"
-                    }, `>=0`)
-                }
-                gsap.set(el, {opacity: 0})
-            })
-        }
-        homeService()
+                    let idx = 0
+                    let imgIdx = 0
+                    $('.home-service-item').eq(idx).addClass('active')
 
-        /** (💡)  - SKILL */
-        function homeSkill() {
+                    if ($(window).width() > 767) {
+                        $('.home-service-item').on('click', function (e) {
+                            e.preventDefault()
+                            if (!$(this).hasClass('active')) {
+                                $('.home-service-item').removeClass('active')
+                                $(this).addClass('active')
+                                $('.home-service-thumb').find('.home-service-thumb-item').removeClass('active')
+                                let idx = $(this).index()
+                                let imgIdx = Number($(this).attr('data-thumb-image')) - 1;
+                                $('.home-service-thumb').find('.home-service-thumb-item').eq(imgIdx).addClass('active')
+                                gsap.to('.home-service-thumb', { y: -cvUnit(120, 'rem') + $(this).offset().top - $('.home-service-listing').offset().top, duration: 1 })
+                                console.log();
+                            } else {
+                                $('.home-service-thumb').find('.home-service-thumb-item').removeClass('active')
+                                $('.home-service-item').removeClass('active')
+                            }
+                        })
+                    } else {
+                        $('.home-service-item').eq(idx).find('.home-service-item-desc').slideDown(300, 'linear')
+                        gsap.to($('.home-service-item').eq(idx), { paddingTop: cvUnit(27.5, 'rem'), paddingBottom: cvUnit(27.5, 'rem'), duration: .3, ease: 'none', overwrite: true })
+                        gsap.to($('.home-service-item').eq(idx).find('.home-service-item-title'), { marginBottom: cvUnit(12, 'rem'), duration: .3, ease: 'none', overwrite: true })
+
+                        $('.home-service-item').on('click', function (e) {
+                            e.preventDefault()
+                            if (!$(this).hasClass('active')) {
+                                idx = $(this).index()
+                                imgIdx = Number($(this).attr('data-thumb-image')) - 1;
+                                $('.home-service-item').removeClass('active')
+                                $('.home-service-item .home-service-item-desc').slideUp(300, 'linear')
+                                $(this).addClass('active')
+                                $(this).find('.home-service-item-desc').slideDown(300, 'linear')
+                                gsap.to('.home-service-item', { paddingTop: cvUnit(60.5, 'rem'), paddingBottom: cvUnit(60.5, 'rem'), duration: .3, ease: 'none' })
+                                gsap.to('.home-service-item .home-service-item-title', { marginBottom: 0, duration: .3, ease: 'none' })
+                                gsap.to(this, { paddingTop: cvUnit(27.5, 'rem'), paddingBottom: cvUnit(27.5, 'rem'), duration: .3, ease: 'none', overwrite: true })
+                                gsap.to($(this).find('.home-service-item-title'), { marginBottom: cvUnit(12, 'rem'), duration: .3, ease: 'none', overwrite: true })
+                                $('.home-service-thumb').find('.home-service-thumb-item').removeClass('active')
+                                $('.home-service-thumb').find('.home-service-thumb-item').eq(imgIdx).addClass('active')
+                                gsap.to('.home-service-thumb', { y: -cvUnit(120, 'rem') + $(this).offset().top - $('.home-service-listing').offset().top, duration: 1 })
+                            } else {
+                                $('.home-service-item').removeClass('active')
+                                $('.home-service-item .home-service-item-desc').slideUp(300, 'linear')
+                                gsap.to('.home-service-item', { paddingTop: cvUnit(60.5, 'rem'), paddingBottom: cvUnit(60.5, 'rem'), duration: .3, ease: 'none' })
+                                gsap.to('.home-service-item .home-service-item-title', { marginBottom: 0, duration: .3, ease: 'none' })
+                                $('.home-service-thumb').find('.home-service-thumb-item').removeClass('active')
+                            }
+                        })
+                    }
+                }
+            }
             ScrollTrigger.create({
-                trigger: '.home-skill',
+                trigger: '.home-service',
                 start: 'top bottom',
                 end: 'bottom top',
-                toggleClass: { targets: '.home-skill-thumb', className: "active" },
+                toggleClass: { targets: '.home-service-thumb', className: "active" },
             })
             ScrollTrigger.create({
-                trigger: '.home-skill',
+                trigger: '.home-service',
                 start: 'top bottom',
                 once: true,
                 onEnter: () => {
-                    let titleTxt = new SplitText('.home-skill-title', typeOpts.words)
-                    let desc = new SplitText('.home-skill-desc', typeOpts.words)
-
-                    let tlSplitHead = gsap.timeline({
-                        scrollTrigger: {
-                            trigger: '.home-skill',
-                            start: 'top top+=80%',
-                            endTrigger: '.home-skill-title',
-                            end: 'bottom top+=40%',
-                        },
-                        onComplete: () => {
-                            titleTxt.revert()
-                            desc.revert()
-                        }
+                    homeService_Preamble()
+                    requestAnimationFrame(() => {
+                        homeService_Main()
                     })
-
-                    tlSplitHead
-                        .from(titleTxt.words, { yPercent: 60, autoAlpha: 0, stagger: .035, duration: .8, ease: 'power2.out' }, 0)
-                        .from(desc.words, { yPercent: 60, autoAlpha: 0, stagger: .025, duration: .8, ease: 'power2.out' }, '<=.2')
-
-                    $('.home-skill-item').each((idx, el) => {
-                        let itemTitleTxt = new SplitText($(el).find('.home-skill-item-title'), typeOpts.chars)
-
-                        let tlItem = gsap.timeline({
-                            scrollTrigger: {
-                                trigger: el,
-                                start: 'top top+=80%',
-                                // markers: true
-                            },
-                            onComplete: () => {
-                                itemTitleTxt.revert()
-                            }
-                        })
-                        tlItem
-                            .from($(el).find('.line'), { scaleX: 0, transformOrigin: 'left', duration: 1, ease: 'power2.out' }, .8)
-                            .from(itemTitleTxt.chars, { yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: 'power2.out'}, .85)
-                    })
-
-                    $('.home-skill-thumb-item').each((idx, el) => {
-                        let clone = $(el).find('img')
-                        for (let i = 1; i <= 5; i++) {
-                            let cloner = clone.clone()
-                            cloner.addClass('cloner')
-                            $(el).append(cloner)
-                        }
-                    })
-                    if ($(window).width() > 991) {
-                        $('.home-skill-item').on('mouseenter', function (e) {
-                            let idx = Number($(this).attr('data-thumb-image')) - 1;
-
-                            if ($('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).hasClass('active')) return;
-                            $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active')
-                        })
-                        $('.home-skill-item').on('mouseleave', function (e) {
-                            let idx = Number($(this).attr('data-thumb-image')) - 1;
-                            $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).removeClass('active')
-                        })
-
-                        function initMouseMove() {
-                            const target = $('.home-skill-thumb')
-                            if (target.hasClass('active')) {
-                                let tarCurrX = xGetter(target.get(0))
-                                let tarCurrY = yGetter(target.get(0))
-                                let tarCurrRot = rotZGetter(target.get(0))
-
-                                let tarX = -target.outerWidth() / 4 + (pointerCurr().x - $('.home-skill-listing').get(0).getBoundingClientRect().left) / $('.home-skill-listing').outerWidth() * ($('.home-skill-listing').outerWidth() - $('.home-skill-item-desc').get(0).getBoundingClientRect().left - target.outerWidth() / 2)
-                                let tarY = -target.outerHeight() / 4 + (pointerCurr().y - $('.home-skill-listing').get(0).getBoundingClientRect().top) / $('.home-skill-listing').outerHeight() * ($('.home-skill-listing').outerHeight() - target.outerHeight() / 2)
-
-                                xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
-                                ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
-                                rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX) / 40, -7), 7)), .1))
-                            }
-                            requestAnimationFrame(initMouseMove)
-                        }
-                        requestAnimationFrame(initMouseMove)
-                    } else {
-                        let idx = 0
-                        let imgIdx = 0
-                        $('.home-skill-item').eq(idx).addClass('active')
-                        let skillSplitDes = new SplitText($('.home-skill-item').eq(idx).find('.home-skill-item-desc'), typeOpts.words)
-                        tlSplitHead
-                            .from(skillSplitDes.words, { yPercent: 60, autoAlpha: 0, stagger: .02, duration: .6, ease: "power2.out", onComplete: () => { skillSplitDes.revert(), $('.home-skill-thumb').find('.home-skill-thumb-item').eq(idx).addClass('active') } }, "<=-.55")
-
-                        if ($(window).width() > 767) {
-                            $('.home-skill-item').on('click', function (e) {
-                                e.preventDefault()
-                                if (!$(this).hasClass('active')) {
-                                    $('.home-skill-item').removeClass('active')
-                                    $(this).addClass('active')
-                                    $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
-                                    let idx = $(this).index()
-                                    let imgIdx = Number($(this).attr('data-thumb-image')) - 1;
-                                    $('.home-skill-thumb').find('.home-skill-thumb-item').eq(imgIdx).addClass('active')
-                                    gsap.to('.home-skill-thumb', { y: (cvUnit(40, 'rem') + ($('.home-skill-item').eq(0).outerHeight() - $('.home-skill-thumb').outerHeight()) / 2) + idx * $('.home-skill-item').eq(0).outerHeight(), duration: 1 })
-                                } else {
-                                    $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
-                                    $('.home-skill-item').removeClass('active')
-                                }
-                            })
-                        } else {
-                            $('.home-skill-item').eq(idx).find('.home-skill-item-desc').slideDown(300, 'linear')
-                            gsap.to($('.home-skill-item').eq(idx), { paddingTop: cvUnit(27.5, 'rem'), paddingBottom: cvUnit(27.5, 'rem'), duration: .3, ease: 'none', overwrite: true })
-                            gsap.to($('.home-skill-item').eq(idx).find('.home-skill-item-title'), { marginBottom: cvUnit(12, 'rem'), duration: .3, ease: 'none', overwrite: true })
-
-                            const target = $('.home-skill-thumb')
-                            function clickMobileThumb() {
-                                if (target.hasClass('active')) {
-                                    let tarCurrY = yGetter(target.get(0))
-                                    let tarY = cvUnit(60, 'rem') - $('.home-skill-thumb').outerHeight() * 2.5 / 4 + ($('.home-skill-item').eq(idx).get(0).getBoundingClientRect().top - $('.home-skill-item').eq(0).get(0).getBoundingClientRect().top)
-
-                                    ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
-                                }
-                                requestAnimationFrame(clickMobileThumb)
-                            }
-                            clickMobileThumb()
-
-                            $('.home-skill-item').on('click', function (e) {
-                                e.preventDefault()
-                                if (!$(this).hasClass('active')) {
-                                    idx = $(this).index()
-                                    imgIdx = Number($(this).attr('data-thumb-image')) - 1;
-                                    $('.home-skill-item').removeClass('active')
-                                    $('.home-skill-item .home-skill-item-desc').slideUp(300, 'linear')
-                                    $(this).addClass('active')
-                                    $(this).find('.home-skill-item-desc').slideDown(300, 'linear')
-                                    gsap.to('.home-skill-item', { paddingTop: cvUnit(60.5, 'rem'), paddingBottom: cvUnit(60.5, 'rem'), duration: .3, ease: 'none' })
-                                    gsap.to('.home-skill-item .home-skill-item-title', { marginBottom: 0, duration: .3, ease: 'none' })
-                                    gsap.to(this, { paddingTop: cvUnit(27.5, 'rem'), paddingBottom: cvUnit(27.5, 'rem'), duration: .3, ease: 'none', overwrite: true })
-                                    gsap.to($(this).find('.home-skill-item-title'), { marginBottom: cvUnit(12, 'rem'), duration: .3, ease: 'none', overwrite: true })
-                                    $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
-                                    $('.home-skill-thumb').find('.home-skill-thumb-item').eq(imgIdx).addClass('active')
-                                } else {
-                                    $('.home-skill-item').removeClass('active')
-                                    $('.home-skill-item .home-skill-item-desc').slideUp(300, 'linear')
-                                    gsap.to('.home-skill-item', { paddingTop: cvUnit(60.5, 'rem'), paddingBottom: cvUnit(60.5, 'rem'), duration: .3, ease: 'none' })
-                                    gsap.to('.home-skill-item .home-skill-item-title', { marginBottom: 0, duration: .3, ease: 'none' })
-                                    $('.home-skill-thumb').find('.home-skill-thumb-item').removeClass('active')
-                                }
-                            })
-                        }
-                    }
                 }
             })
         }
-        requestAnimationFrame(() => {
-            homeSkill()
-        })
+        homeService()
 
         /** (💡)  - PROCESS */
         function homeProcess() {
@@ -844,9 +765,10 @@ const home = {
                 let tl = gsap.timeline({
                     scrollTrigger: {
                         trigger: '.home-curtain',
-                        start: 'top bottom',
+                        start: `top-=${$(window).width > 991 ? '-40%' : $(window).height()} bottom`,
                         end: 'top top-=70%',
-                        scrub: true
+                        scrub: true,
+                        // markers: true
                     },
                     defaults: {
                         ease: 'none'
@@ -865,7 +787,7 @@ const home = {
         }
         homePortfolio()
 
-                /** (💡)  - TESTIMONIAL */
+        /** (💡)  - TESTIMONIAL */
         function homeTesti() {
             if ($(window).width() > 767) {
                 $('.home-testi').css('height', + $(window).height() + ($('.home-testi-content-item').eq(0).height() * 1.5 * $('.home-testi-content-item').length) + 'px')
@@ -891,8 +813,8 @@ const home = {
                 let tlScrub = gsap.timeline({
                     scrollTrigger: {
                         trigger: '.home-testi',
-                        start: `top bottom`,
-                        end: 'bottom top',
+                        start: `top+=${$(window).height()} bottom`,
+                        end: `bottom-=${$(window).height()} top`,
                         scrub: .2,
                         snap: {
                             // To update exact position and check directional
@@ -909,32 +831,30 @@ const home = {
                                     return value;
                                 }
                             },
-                            // snapTo: [0.2521, 0.4767, 0.6257, 0.7632],
                             duration: { min: 0.15, max: 1 },
                             delay: 0.01,
                         },
+                        // markers: true,
                     },
                 })
 
                 let timeDelay = 0
                 let timeAnim = 1
-                let zUnit
-                let yUnit
-                if ($(window).width() > 991) {
-                    zUnit = 600
-                    yUnit = 90
-                } else {
-                    zUnit = 1200
-                    yUnit = 100
+                let zUnit = $(window).width() > 991 ? 600: 1200
+                let yUnit = $(window).width() > 991 ? 90 : 100
+
+                const setUnit = (number, brightness) => {
+                    return `z: ${cvUnit(-zUnit * number, 'rem')}, y: ${cvUnit(-yUnit * number, 'rem')}, filter: "brightness(${brightness})"`
                 }
+
                 $('.home-testi-content-item').each((idx, el) => {
-                    if (idx == 0) {
-                        tlScrub
-                            .fromTo($(el), { z: cvUnit(zUnit * 2, 'rem'), yPercent: 75, filter: "brightness(1)" }, { z: 0, yPercent: 0, filter: "brightness(1)", ease: 'power1.out', duration: timeAnim * 2 }, 0)
-                    }
+                    // if (idx == 0) {
+                    //     tlScrub
+                    //         .fromTo($(el), { z: cvUnit(zUnit * 2, 'rem'), yPercent: 75, filter: "brightness(1)" }, { z: 0, yPercent: 0, filter: "brightness(1)", ease: 'power1.out', duration: timeAnim * 2 }, 0)
+                    // }
                     if (idx > 0 && idx < ($('.home-testi-content-item').length)) {
                         tlScrub
-                            .fromTo($(el), { z: cvUnit(zUnit, 'rem'), yPercent: 150, filter: "brightness(1)" }, { z: 0, yPercent: 0, filter: "brightness(1)", ease: 'power3.out', duration: timeAnim }, `>=${(timeDelay)}`)
+                            .fromTo($(el), { z: cvUnit(zUnit, 'rem'), yPercent: 200, filter: "brightness(1)" }, { z: 0, yPercent: 0, filter: "brightness(1)", ease: 'power3.out', duration: timeAnim }, `>=${(timeDelay)}`)
                             .fromTo($(el).prev(), { z: 0, y: 0, filter: "brightness(1)" }, { z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter: "brightness(.67)", ease: 'power2.out', duration: timeAnim }, "<=0")
                         if (idx > 1) {
                             tlScrub
@@ -945,12 +865,12 @@ const home = {
                                 .fromTo($(el).prev().prev().prev(), { z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter: "brightness(.33)" }, { z: cvUnit(-zUnit * 3, 'rem'), y: cvUnit(-yUnit * 3, 'rem'), filter: "brightness(0)", ease: 'power2.out', duration: timeAnim }, "<=0")
                         }
                     }
-                    if (idx == ($('.home-testi-content-item').length - 1)) {
-                        tlScrub
-                            .fromTo($(el), { z: 0, y: 0, filter: "brightness(1)" }, { z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter: "brightness(.67)", ease: 'power3.out', duration: timeAnim }, `>=${timeDelay}`)
-                            .fromTo($(el).prev(), { z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter: "brightness(.67)" }, { z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter: "brightness(.33)", ease: 'power3.out', duration: timeAnim }, "<=0")
-                            .fromTo($(el).prev().prev(), { z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter: "brightness(.33)" }, { z: cvUnit(-zUnit * 3, 'rem'), y: cvUnit(-yUnit * 3, 'rem'), filter: "brightness(0)", ease: 'power3.out', duration: timeAnim }, "<=0")
-                    }
+                    // if (idx == ($('.home-testi-content-item').length - 1)) {
+                    //     tlScrub
+                    //         .fromTo($(el), { z: 0, y: 0, filter: "brightness(1)" }, { z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter: "brightness(.67)", ease: 'power3.out', duration: timeAnim }, `>=${timeDelay}`)
+                    //         .fromTo($(el).prev(), { z: cvUnit(-zUnit, 'rem'), y: cvUnit(-yUnit, 'rem'), filter: "brightness(.67)" }, { z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter: "brightness(.33)", ease: 'power3.out', duration: timeAnim }, "<=0")
+                    //         .fromTo($(el).prev().prev(), { z: cvUnit(-zUnit * 2, 'rem'), y: cvUnit(-yUnit * 2, 'rem'), filter: "brightness(.33)" }, { z: cvUnit(-zUnit * 3, 'rem'), y: cvUnit(-yUnit * 3, 'rem'), filter: "brightness(0)", ease: 'power3.out', duration: timeAnim }, "<=0")
+                    // }
                 })
                 gsap.set('.home-testi-content-item', { z: 0, y: 0, filter: "brightness(1)" })
             } else {
@@ -1284,6 +1204,22 @@ const home = {
             accordion();
         }
         homeFaq();
+
+        function borderGlow() {
+            $('[data-border-glow]').each((idx, el) => {
+                const outerBorder = document.createElement('div');
+                const innerBorder = document.createElement('div');
+            
+                $(outerBorder).addClass('border-outer');
+                $(innerBorder).addClass('border-inner');
+
+                $(outerBorder).append(innerBorder)
+                $(el).append(outerBorder)
+
+                console.log(el);
+            })
+        }
+        borderGlow()
     },
     beforeLeave() {
         console.log(`leave ${this.namespace}`);
