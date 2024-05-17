@@ -452,17 +452,40 @@ button {
 }
 [data-border-glow] {
     position: relative;
-    
-    * {
-        z-index: 2;
-    }
 
     .border-outer {
         position: absolute;
-        z-index: 1;
-        top: 0;
-        left: 0;
-        @include size(100%);
+        top: 50%;
+        left: 50%;
+        z-index: 5;
+        pointer-events: none;
+        padding: 1px;
+        inset: 0px;
+        mask-mode: match-source, match-source;
+        background: transparent border-box;
+        mask-composite: exclude;
+        -webkit-mask-composite: xor;
+        -webkit-mask-image: linear-gradient(#fff 0 0), linear-gradient(#fff 0 0);
+        -webkit-mask-position: 0 0, 0 0;
+        -webkit-mask-size: auto, auto;
+        -webkit-mask-repeat: repeat, repeat;
+        -webkit-mask-clip: content-box, border-box;
+        -webkit-mask-origin: content-box, border-box;
+        -webkit-mask-source-type: auto, auto;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .border-inner {
+        @include size(1.5rem);
+        border-radius: 100vmax;
+        background-color: var(--bg-cl);
+        -webkit-box-shadow: 0px 0px 2rem var(--glow) var(--bg-cl);
+        -moz-box-shadow: 0px 0px 2rem var(--glow) var(--bg-cl);
+        box-shadow: 0px 0px 2rem var(--glow) var(--bg-cl);
+        // opacity: 0;
     }
 }
 
