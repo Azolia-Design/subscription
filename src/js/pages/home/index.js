@@ -323,11 +323,11 @@ const home = {
                     if (idx === 0) {
                         tlItem
                             .fromTo(el, { opacity: 0}, {opacity: 1, duration: 1, ease: "none"}, 0)
-                            .fromTo(el, { opacity: 1 }, { opacity: 0, duration: 1, ease: "none"}, `>=2`)
+                            .fromTo(el, { opacity: 1 }, { opacity: 0, duration: 1, ease: "none"}, `>=.5`)
                     } else if (idx < $('.home-service-preamble-inner-item').length - 1) {
                         tlItem
                             .fromTo(el, { opacity: 0 }, { opacity: 1, duration: 1, ease: "none" }, `>=0`)
-                            .fromTo(el, { opacity: 1 }, { opacity: 0, duration: 1, ease: "none" }, `>=2`)
+                            .fromTo(el, { opacity: 1 }, { opacity: 0, duration: 1, ease: "none" }, `>=.5`)
                     } else {
                         tlItem
                             .fromTo(el, { opacity: 0 }, { opacity: 1, duration: 1, ease: "none"}, `>=0`)
@@ -1405,6 +1405,45 @@ const home = {
             }
         }
         borderGlow()
+
+        function dotRunAroundBorder() {
+            const createElement = () => {
+                $('[data-dot-glow-test]').each((idx, el) => {
+                    const outerBorder = document.createElement('div');
+                    const innerBorder = document.createElement('div');
+    
+                    $(outerBorder).addClass('border-dot-outer');
+                    $(innerBorder).addClass('border-dot-inner');
+    
+                    $(outerBorder).append(innerBorder)
+                    $(outerBorder).css('borderRadius', parseFloat($(el).css("borderRadius")) + "px")
+
+                    $(el).prepend(outerBorder)
+                })
+            }
+
+            const Test = () => {
+                const target = $('[data-dot-glow-test]')
+
+                target.each((idx, el) => {
+                    const element = $(el).find('.border-dot-outer')
+                    const radius = parseFloat($(el).css("borderRadius"))
+                    $(element).css('--border-radius', radius)
+                    
+                    const dimension = {
+                        width: $(element).width(),
+                        height: $(element).height(),
+                    }
+
+                    const elRatio = dimension.width / dimension.height
+                    $(element).css('--ratio-w', radius / dimension.width * 100)
+                    $(element).css('--ratio-h', radius / dimension.height * 100)
+                })
+            }
+            createElement()
+            Test()
+        }
+        dotRunAroundBorder()
     },
     beforeLeave() {
         console.log(`leave ${this.namespace}`);

@@ -558,7 +558,7 @@
     &-service {
         &-preamble {
             position: relative;
-            height: 550vh;
+            height: 650vh;
             z-index: 1;
             margin-top: -200vh;
 
@@ -1201,7 +1201,7 @@
 
     &-portfolio {
         background-color: rgba($cl-primary, 1);
-        // background: linear-gradient(to bottom, $cl-primary-li 0%, $cl-primary 30%, $cl-primary 100%);
+        background: linear-gradient(to bottom, $cl-primary-li 0%, $cl-primary 30%, $cl-primary 100%);
         position: relative;
         display: grid;
 

@@ -486,13 +486,34 @@ button {
         @include size(1.5rem);
         border-radius: 100vmax;
         background-color: var(--bg-cl);
-        -webkit-box-shadow: 0px 0px var(--glow) var(--glow) var(--bg-cl);
-        -moz-box-shadow: 0px 0px var(--glow) var(--glow) var(--bg-cl);
-        box-shadow: 0px 0px var(--glow) var(--glow) var(--bg-cl);
+        -webkit-box-shadow: 0px 0px var(--glow) calc(var(--glow)/2) var(--bg-cl);
+        -moz-box-shadow: 0px 0px var(--glow) calc(var(--glow)/2) var(--bg-cl);
+        box-shadow: 0px 0px var(--glow) calc(var(--glow)/2) var(--bg-cl);
+        filter: drop-shadow(0px 0px calc(var(--glow)/2) var(--bg-cl));
         // opacity: 0;
     }
 }
+[data-dot-glow-test] {
 
+    .border-dot-outer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        @include size(100%);
+    }
+
+    .border-dot-inner {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 100vmax;
+        background-color: blue;
+        @include size(1rem);
+        z-index: 1000;
+    }
+
+}
 
 @include md {
     .cursor {
