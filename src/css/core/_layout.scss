@@ -454,10 +454,9 @@ button {
     position: relative;
 
     .border-outer {
+        z-index: 10;
         position: absolute;
-        top: 50%;
-        left: 50%;
-        z-index: 5;
+        @include size(100%);
         pointer-events: none;
         padding: 1px;
         inset: 0px;
@@ -476,15 +475,18 @@ button {
         display: flex;
         align-items: center;
         justify-content: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 
     .border-inner {
         @include size(1.5rem);
         border-radius: 100vmax;
         background-color: var(--bg-cl);
-        -webkit-box-shadow: 0px 0px 2rem var(--glow) var(--bg-cl);
-        -moz-box-shadow: 0px 0px 2rem var(--glow) var(--bg-cl);
-        box-shadow: 0px 0px 2rem var(--glow) var(--bg-cl);
+        -webkit-box-shadow: 0px 0px var(--glow) var(--glow) var(--bg-cl);
+        -moz-box-shadow: 0px 0px var(--glow) var(--glow) var(--bg-cl);
+        box-shadow: 0px 0px var(--glow) var(--glow) var(--bg-cl);
         // opacity: 0;
     }
 }

@@ -819,14 +819,15 @@ const home = {
                         snap: {
                             // To update exact position and check directional
                             snapTo(value) {
-                                if (value > 0.1822 && value <= 0.3644) {
-                                    return 0.2521;
-                                } else if (value > 0.3644 && value <= 0.5512) {
-                                    return 0.4767;
-                                } else if (value > 0.5512 && value <= 0.69445) {
-                                    return 0.6257;
-                                } else if (value > 0.69445 && value <= 0.8816) {
-                                    return 0.7632;
+                                const dataLength = $('.home-testi-content-item').length
+                                if (value > 0 && value <= 0.1) {
+                                    return 0;
+                                } else if (value > 0.1 && value <= 0.433) {
+                                    return 0.33;
+                                } else if (value > 0.433 && value <= 0.766) {
+                                    return 0.66;
+                                } else if (value > 0.766 && value <= 1) {
+                                    return 1;
                                 } else {
                                     return value;
                                 }
@@ -835,6 +836,9 @@ const home = {
                             delay: 0.01,
                         },
                         // markers: true,
+                        // onUpdate: (timeline) => {
+                        //     console.log(timeline.progress);
+                        // }
                     },
                 })
 
@@ -1219,15 +1223,37 @@ const home = {
                     $(innerBorder).addClass('border-inner');
     
                     // Set Border Radius for Border
-                    if ($(el).css("--border-radius")) {
-                        let actualNumber = cvUnit(parseFloat($(el).css("--border-radius")) * 10, "rem")
-                        $(outerBorder).css('borderRadius', actualNumber)
-                    } else {
-                        $(outerBorder).css('borderRadius', parseFloat($(el).css("borderRadius")))
-                    }
-    
-                    //Set Glow for Glow Dot
+                    $(outerBorder).css('borderRadius', parseFloat($(el).css("borderRadius")) + "px")
+                    // if ($(el).css("--border-radius")) {
+                    //     let actualNumber = cvUnit(parseFloat($(el).css("--border-radius")) * 10, "rem")
+                    //     $(outerBorder).css('borderRadius', actualNumber)
+                    // } else {
+                    //     // $(outerBorder).css('borderRadius', parseFloat($(el).css("borderRadius")) + "px")
+                    // }
 
+                    // Check Element have Before and After or not
+                    const beforeContent = window.getComputedStyle(el, '::before').getPropertyValue('content');
+                    // if (beforeContent && beforeContent !== 'none') {
+                    //     console.log("::before pseudo-element exists and has content.");
+                    // } else {
+                    //     console.log("::before pseudo-element does not exist or has no content.");
+                    // }
+
+                    //Set Inset for Border
+                    if (option.inset) {
+                        if (option.inset.x) {
+                            $(outerBorder).css('width', `calc(100% - ${parseFloat(option.inset.x || option.inset)}px)`)
+                        }
+                        if (option.inset.y) {
+                            $(outerBorder).css('height', `calc(100% - ${parseFloat(option.inset.y || option.inset)}px)`)
+                        }
+                        if (!option.inset.x && !option.inset.y) {
+                            $(outerBorder).css('width', `calc(100% - ${parseFloat(option.inset)}px)`)
+                            $(outerBorder).css('height', `calc(100% - ${parseFloat(option.inset)}px)`)
+                        }
+                    }
+                    
+                    //Set Glow for Glow Dot
                     $(innerBorder).css('--glow', (option.glow || 4) + "rem")
                     if (option.color === undefined) {
                         option.color = "rgba(255, 255, 255, 1)";
@@ -1265,7 +1291,7 @@ const home = {
                             const maxYMove = $(el).height()/2
                             let yMove = targetPos.y - (el.getBoundingClientRect().top + $(el).height()/2)
                             let LimitYMove = Math.max(Math.min(yMove, maxYMove), -maxYMove)
-                            
+
                             // Calculate Magnetic Area
                             let boundingMagnet = {
                                 top: el.getBoundingClientRect().top - cvUnit(option.magnetic * 10 /2 || 0, "rem"),
@@ -1276,7 +1302,7 @@ const home = {
 
                             // Anim opacity
                             const changeOpacity = () => {
-                                const offsetOpacity = .6
+                                const offsetOpacity = .8
                                 if (option.magnetic) {
                                     if (glowTarget.hasClass('active')) {
                                         if (Math.abs(xMove) >= Math.abs(yMove)) {
