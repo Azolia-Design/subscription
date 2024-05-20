@@ -428,5 +428,9 @@
     }
     &-btn-wrapper {
         display: flex;
+
+        .btn {
+            border-radius: var(--border-radius);
+        }
     }
 }

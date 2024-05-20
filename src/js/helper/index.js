@@ -43,6 +43,11 @@ const pointerCurr = () => {
     return pointer
 }
 
+const inView = (el) => {
+	if (0 <= el.getBoundingClientRect().bottom && el.getBoundingClientRect().top <= $(window).height()) {
+		return true
+	}
+}
 function debounce(func, delay = 100){
     let timer;
     return function(event) {
@@ -147,5 +152,6 @@ export {
     closestEdge,
     distMetric,
     FloatingAnimation,
-    debounce
+    debounce,
+	inView,
 }

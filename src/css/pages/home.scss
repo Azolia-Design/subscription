@@ -70,6 +70,7 @@
 
         &-btn {
             width: 18rem;
+            border-radius: var(--border-radius);
 
             @include sm {
                 display: none;
@@ -84,7 +85,6 @@
             @include size(100%, calc(100% + 7rem));
             margin: 0 auto;
             pointer-events: none;
-
             .img {
                 margin-top: -19rem;
                 object-fit: cover;
@@ -1830,7 +1830,8 @@
 
             &-img {
                 @include size(34rem, auto);
-                margin-top: -1.6rem;
+                margin-block: 2.8rem;
+                margin-inline: auto;
                 flex: 1;
                 opacity: 1;
                 position: relative;
@@ -1851,8 +1852,7 @@
 
                 @include md {
                     opacity: 1;
-                    @include size(14.7rem, auto);
-                    margin-top: 0;
+                    @include size(16rem, auto);
                 }
             }
             &-title-wrap {
@@ -2379,6 +2379,8 @@
                     }
 
                     .btn {
+                        border-radius: var(--border-radius);
+
                         @include md {
                             --border-radius: 1rem;
                         }
@@ -2411,12 +2413,12 @@
             &-listing {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
-                grid-template-rows: 10rem 1fr;
+                grid-template-rows: 7rem 1fr;
                 gap: 0 2rem;
                 margin-bottom: 8rem;
 
                 @include md {
-                    grid-template-rows: 4.3rem 1fr;
+                    grid-template-rows: 6.8rem 1fr;
                     gap: 0 1.6rem;
                     margin-bottom: 6rem;
                 }
@@ -2468,9 +2470,6 @@
                         pointer-events: none;
                         @include border-gradient(linear-gradient(180deg, rgba($cl-primary-hl, 1) 0%, rgba($cl-primary-hl, 0) 100%), 2rem);
                     }
-                    .home-pricing-plan-item-label {
-                        margin-top: 2rem;
-                    }
                     .home-pricing-plan-item-time {
                         color: rgba($cl-white, .8);
                     }
@@ -2483,12 +2482,12 @@
                     border: 1px solid rgba($cl-white, .1);
                     border-radius: 5rem;
                     padding: 1.2rem 2rem;
-                    margin: 0 auto 3.55rem;
+                    margin: 0 auto 2rem;
                     color: $cl-heading;
                     background: rgba($cl-white, 0.05);
 
                     @include md {
-                        margin-bottom: unset;
+                        // margin-bottom: unset;
                     }
 
                     @include sm {
@@ -2509,19 +2508,17 @@
                     @include md {
                         margin-bottom: 1.2rem;
                     }
+                    @include sm {
+                        @include text(12);
+                    }
                 }
                 &-off {
                     margin-bottom: .8rem;
                     text-decoration: line-through;
                     color: rgba($cl-white, .6);
 
-                    @include md {
-                        --fs-14: 1.2rem;
-                    }
-
                     @include sm {
-                        --fs-14: 1.4rem;
-                        --lh-14: 1.3em;
+                        @include text(14);
                     }
                 }
 
@@ -2532,7 +2529,6 @@
                     justify-content: center;
 
                     @include md {
-                        margin-top: unset;
                         margin-bottom: 1.2rem;
                     }
 
@@ -2548,8 +2544,8 @@
                             pointer-events: none;
 
                             @include sm {
-                                --fs-h4: 4.4rem;
-                                --lh-h4: 1em;
+                                --fs-h4: 3.6rem;
+                                --lh-h4: 1.1em;
                             }
                         }
 
@@ -2591,13 +2587,10 @@
                     opacity: .8;
 
                     @include md {
-                        --fs-14: 1.2rem;
-                        --lh-14: 1.4em;
+                        @include text(12);
                     }
 
                     @include sm {
-                        --fs-14: 1.4rem;
-                        --lh-14: 1.3em;
                         margin-bottom: 1.6rem;
                         color: rgba($cl-white, 1);
                     }
@@ -2611,8 +2604,12 @@
                     margin-bottom: 3.6rem;
                     text-align: left;
 
+                    @include md {
+                        margin-top: 2.8rem;
+                        row-gap: .8rem;
+                        margin-inline: -0.2rem;
+                    }
                     @include sm {
-                        margin-top: 2rem;
                         margin-bottom: 3.6rem;
                     }
 
@@ -2625,22 +2622,22 @@
                         @include md {
                             --fs-18: 1.2rem;
                             --lh-18: 1.4em;
-                            font-weight: 600;
                         }
 
                         @include sm {
                             gap: 0 1rem;
                             --fs-18: 1.4rem;
                             --lh-18: 1.3em;
-                            font-weight: 500;
                         }
 
                         img {
-                            width: 2rem;
                             flex: none;
+                            width: 2rem;
+                            margin-top: 0.4rem;
 
                             @include md {
                                 width: 1.6rem;
+                                margin-top: 0.1rem;
                             }
                         }
                     }

@@ -1,7 +1,7 @@
 import { parseRem, selector } from "../../helper/index";
 import { cvUnit, percentage, viewport, viewportBreak } from "../../helper/viewport";
 import { lenis } from "../../global/lenis";
-import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, findClosestEdge, FloatingAnimation, pointerCurr, typeOpts } from "../../helper/index";
+import { lerp, xSetter, ySetter, rotZSetter, xGetter, yGetter, rotZGetter, findClosestEdge, FloatingAnimation, pointerCurr, typeOpts, inView } from "../../helper/index";
 import planListing from '../../../../plan-data.json';
 import { SplitText } from "../../libs/SplitText";
 
@@ -819,14 +819,15 @@ const home = {
                         snap: {
                             // To update exact position and check directional
                             snapTo(value) {
-                                if (value > 0.1822 && value <= 0.3644) {
-                                    return 0.2521;
-                                } else if (value > 0.3644 && value <= 0.5512) {
-                                    return 0.4767;
-                                } else if (value > 0.5512 && value <= 0.69445) {
-                                    return 0.6257;
-                                } else if (value > 0.69445 && value <= 0.8816) {
-                                    return 0.7632;
+                                const dataLength = $('.home-testi-content-item').length
+                                if (value > 0 && value <= 0.1) {
+                                    return 0;
+                                } else if (value > 0.1 && value <= 0.433) {
+                                    return 0.33;
+                                } else if (value > 0.433 && value <= 0.766) {
+                                    return 0.66;
+                                } else if (value > 0.766 && value <= 1) {
+                                    return 1;
                                 } else {
                                     return value;
                                 }
@@ -835,6 +836,9 @@ const home = {
                             delay: 0.01,
                         },
                         // markers: true,
+                        // onUpdate: (timeline) => {
+                        //     console.log(timeline.progress);
+                        // }
                     },
                 })
 
@@ -1206,18 +1210,141 @@ const home = {
         homeFaq();
 
         function borderGlow() {
-            $('[data-border-glow]').each((idx, el) => {
-                const outerBorder = document.createElement('div');
-                const innerBorder = document.createElement('div');
-            
-                $(outerBorder).addClass('border-outer');
-                $(innerBorder).addClass('border-inner');
 
-                $(outerBorder).append(innerBorder)
-                $(el).append(outerBorder)
+            const CreateGlowDiv = () => {
+                $('[data-border-glow]').each((idx, el) => {
+                    const option = JSON.parse($(el).attr('data-glow-option'))
 
-                console.log(el);
-            })
+                    // Create Element
+                    const outerBorder = document.createElement('div');
+                    const innerBorder = document.createElement('div');
+                
+                    $(outerBorder).addClass('border-outer');
+                    $(innerBorder).addClass('border-inner');
+    
+                    // Set Border Radius for Border
+                    $(outerBorder).css('borderRadius', parseFloat($(el).css("borderRadius")) + "px")
+                    // if ($(el).css("--border-radius")) {
+                    //     let actualNumber = cvUnit(parseFloat($(el).css("--border-radius")) * 10, "rem")
+                    //     $(outerBorder).css('borderRadius', actualNumber)
+                    // } else {
+                    //     // $(outerBorder).css('borderRadius', parseFloat($(el).css("borderRadius")) + "px")
+                    // }
+
+                    // Check Element have Before and After or not
+                    const beforeContent = window.getComputedStyle(el, '::before').getPropertyValue('content');
+                    // if (beforeContent && beforeContent !== 'none') {
+                    //     console.log("::before pseudo-element exists and has content.");
+                    // } else {
+                    //     console.log("::before pseudo-element does not exist or has no content.");
+                    // }
+
+                    //Set Inset for Border
+                    if (option.inset) {
+                        if (option.inset.x) {
+                            $(outerBorder).css('width', `calc(100% - ${parseFloat(option.inset.x || option.inset)}px)`)
+                        }
+                        if (option.inset.y) {
+                            $(outerBorder).css('height', `calc(100% - ${parseFloat(option.inset.y || option.inset)}px)`)
+                        }
+                        if (!option.inset.x && !option.inset.y) {
+                            $(outerBorder).css('width', `calc(100% - ${parseFloat(option.inset)}px)`)
+                            $(outerBorder).css('height', `calc(100% - ${parseFloat(option.inset)}px)`)
+                        }
+                    }
+                    
+                    //Set Glow for Glow Dot
+                    $(innerBorder).css('--glow', (option.glow || 4) + "rem")
+                    if (option.color === undefined) {
+                        option.color = "rgba(255, 255, 255, 1)";
+                    }
+                    $(innerBorder).css('--bg-cl', option.color)
+    
+                    // Append Element
+                    $(outerBorder).append(innerBorder)
+                    $(el).prepend(outerBorder)
+                })
+            }
+
+            const AnimDotGlow = () => {
+                let target = $('[data-border-glow]');
+                gsap.set(".border-inner", {opacity: 0})
+
+
+                function initDotGlow() {
+                    let targetPos = {
+                        x: pointerCurr().x,
+                        y: pointerCurr().y
+                    }
+
+                    target.each((idx, el) => {
+                        const option = JSON.parse($(el).attr('data-glow-option'))
+                        const glowTarget = $(el).find(".border-inner")
+                        let xTarget = xGetter(glowTarget.get(0))
+                        let yTarget = yGetter(glowTarget.get(0))
+
+                        const magicMath = () => {
+                            // Calculate Glow Dot Move
+                            const maxXMove = $(el).width()/2
+                            let xMove = targetPos.x - (el.getBoundingClientRect().left + $(el).width()/2)
+                            let LimitXMove = Math.max(Math.min(xMove, maxXMove), -maxXMove)
+                            const maxYMove = $(el).height()/2
+                            let yMove = targetPos.y - (el.getBoundingClientRect().top + $(el).height()/2)
+                            let LimitYMove = Math.max(Math.min(yMove, maxYMove), -maxYMove)
+
+                            // Calculate Magnetic Area
+                            let boundingMagnet = {
+                                top: el.getBoundingClientRect().top - cvUnit(option.magnetic * 10 /2 || 0, "rem"),
+                                right: el.getBoundingClientRect().right + cvUnit(option.magnetic * 10 /2 || 0, "rem"),
+                                bottom: el.getBoundingClientRect().bottom + cvUnit(option.magnetic * 10 /2 || 0, "rem"),
+                                left: el.getBoundingClientRect().left - cvUnit(option.magnetic * 10 /2 || 0, "rem"),
+                            }
+
+                            // Anim opacity
+                            const changeOpacity = () => {
+                                const offsetOpacity = .8
+                                if (option.magnetic) {
+                                    if (glowTarget.hasClass('active')) {
+                                        if (Math.abs(xMove) >= Math.abs(yMove)) {
+                                            // Opacity Set by X Pos
+                                            // console.log("Set By X");
+                                            let Xnormalize = Math.abs((Math.abs(xMove) - $(el).width()/2) / cvUnit(option.magnetic * 10 /2 || 0, "rem") - 1)
+                                            gsap.to(glowTarget, {opacity: 1 - offsetOpacity + Xnormalize * offsetOpacity, overwrite: true, duration: .8, ease: "power2.out"})
+                                        } else {
+                                            // Opacity Set by Y Pos
+                                            // console.log("Set By Y");
+                                            let Ynormalize = Math.abs((Math.abs(yMove) - $(el).height()/2) / cvUnit(option.magnetic * 10 /2 || 0, "rem") - 1)
+                                            gsap.to(glowTarget, {opacity: 1 - offsetOpacity + Ynormalize * offsetOpacity, overwrite: true, duration: .8, ease: "power2.out"})
+                                        }
+                                    }
+                                }
+                            }
+
+                            // Check target in magnetic area yet
+                            if (boundingMagnet.left <= targetPos.x && targetPos.x <= boundingMagnet.right && boundingMagnet.top <= targetPos.y && targetPos.y <= boundingMagnet.bottom) {
+                                glowTarget.addClass('active')
+                                xSetter(glowTarget.get(0))(lerp(xTarget, LimitXMove, .1))
+                                ySetter(glowTarget.get(0))(lerp(yTarget, LimitYMove, .1))
+                                changeOpacity()
+                            } else {
+                                glowTarget.removeClass('active')
+                                xSetter(glowTarget.get(0))(lerp(xTarget, LimitXMove, .1))
+                                ySetter(glowTarget.get(0))(lerp(yTarget, LimitYMove, .1))
+                                gsap.to(glowTarget, {opacity: 0, overwrite: true, duration: .6, ease: "power2.out"})
+                            }
+                        }
+
+                        if (inView(el)) {
+                            magicMath()
+                        }
+                    })
+                    requestAnimationFrame(initDotGlow)
+                }
+                requestAnimationFrame(initDotGlow)
+            }
+
+            CreateGlowDiv()
+            AnimDotGlow()
         }
         borderGlow()
     },
