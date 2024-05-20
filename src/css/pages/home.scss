@@ -161,14 +161,45 @@
 
         &-mouse {
             position: relative;
-            width: 6.8rem;
+            // width: 6.8rem;
+            @include size(4.4rem, 6.6rem);
             display: flex;
             justify-content: center;
             margin-right: 1.6rem;
+            background: rgba($cl-white, .08);
+            border-radius: 100vmax;
+            align-items: center;
+            justify-content: center;
 
             @include md {
                 width: 5.4rem;
                 margin-right: 1.2rem;
+            }
+
+            &-border {
+                z-index: 10;
+                position: absolute;
+                @include size(100%);
+                pointer-events: none;
+                padding: 1px;
+                inset: 0px;
+                mask-mode: match-source, match-source;
+                // background: linear-gradient(to bottom, rgba($cl-primary-hl, .7) 0%, transparent 30%) border-box;
+                background: linear-gradient(to bottom, rgba($cl-white, .1) 0%, transparent 80%) border-box;
+                mask-composite: exclude;
+                -webkit-mask-composite: xor;
+                -webkit-mask-image: linear-gradient(#fff 0 0), linear-gradient(#fff 0 0);
+                -webkit-mask-position: 0 0, 0 0;
+                -webkit-mask-size: auto, auto;
+                -webkit-mask-repeat: repeat, repeat;
+                -webkit-mask-clip: content-box, border-box;
+                -webkit-mask-origin: content-box, border-box;
+                -webkit-mask-source-type: auto, auto;
+                border-radius: 100vmax;
+            }
+            &-slide {
+                background: linear-gradient(to bottom, transparent 0%, rgba($cl-white, .1) 30%, rgba($cl-white, .1) 65%, transparent 100%);
+                @include size(1px, 4.2rem);
             }
 
             &-wheel {
@@ -1656,7 +1687,7 @@
         &--wrap {
             position: relative;
             border-radius: 2rem;
-            height: 100%;
+            height: calc(100% - 6rem);
 
             &::before {
                 content: '';
@@ -1676,7 +1707,7 @@
             justify-content: start;
             height: 100%;
             position: relative;
-            padding-bottom: 12rem;
+            // padding-bottom: 12rem;
             border-radius: 2rem;
             overflow: hidden;
 

@@ -65,7 +65,7 @@ const home = {
                 let totalDistance = BENEFIT.mainItem.width() + (BENEFIT.otherItem.width() * BENEFIT.otherItem.length);
                 let otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem") + cvUnit(viewportBreak({ desktop: .7, tablet: .5 }), 'vw')
 
-                const ITEM_WIDTH = ($('.container').width() - percentage(48.2, $('.container').width())) / viewportBreak({ desktop: 4, tablet: 2 });
+                const ITEM_WIDTH = ($('.container').width() - percentage(37, $('.container').width())) / viewportBreak({ desktop: 5, tablet: 2 });
                 if ($(window).width() > 991) {
                     gsap.set(BENEFIT.stage, { height: totalDistance * 1.2 + cvUnit(100, "rem") });
                 }
@@ -1273,8 +1273,8 @@ const home = {
 
                 function initDotGlow() {
                     let targetPos = {
-                        x: pointerCurr().x,
-                        y: pointerCurr().y
+                        x: xGetter('.cursor'),
+                        y: yGetter('.cursor')
                     }
 
                     target.each((idx, el) => {
@@ -1286,10 +1286,26 @@ const home = {
                         const magicMath = () => {
                             // Calculate Glow Dot Move
                             const maxXMove = $(el).width()/2
-                            let xMove = targetPos.x - (el.getBoundingClientRect().left + $(el).width()/2)
-                            let LimitXMove = Math.max(Math.min(xMove, maxXMove), -maxXMove)
                             const maxYMove = $(el).height()/2
-                            let yMove = targetPos.y - (el.getBoundingClientRect().top + $(el).height()/2)
+
+                            let xMove
+                            let yMove
+
+                            xMove = targetPos.x - (el.getBoundingClientRect().left + $(el).width()/2)
+                            yMove = targetPos.y - (el.getBoundingClientRect().top + $(el).height()/2)
+
+                            // Position of Dot when in Magnetic Area but onHover or not
+                            // if ($(el).is(":hover")) {
+                            //     xMove = targetPos.x - (el.getBoundingClientRect().left + $(el).width()/2)
+                            //     yMove = targetPos.y - (el.getBoundingClientRect().top + $(el).height()/2)
+
+                            // } else {
+                            //     xMove = targetPos.x - (el.getBoundingClientRect().left + $(el).width()/2)
+                            //     yMove = targetPos.y - (el.getBoundingClientRect().top + $(el).height()/2)
+                            // }
+                            
+
+                            let LimitXMove = Math.max(Math.min(xMove, maxXMove), -maxXMove)
                             let LimitYMove = Math.max(Math.min(yMove, maxYMove), -maxYMove)
 
                             // Calculate Magnetic Area
@@ -1300,23 +1316,32 @@ const home = {
                                 left: el.getBoundingClientRect().left - cvUnit(option.magnetic * 10 /2 || 0, "rem"),
                             }
 
+
                             // Anim opacity
-                            const changeOpacity = () => {
-                                const offsetOpacity = .8
-                                if (option.magnetic) {
-                                    if (glowTarget.hasClass('active')) {
-                                        if (Math.abs(xMove) >= Math.abs(yMove)) {
-                                            // Opacity Set by X Pos
-                                            // console.log("Set By X");
-                                            let Xnormalize = Math.abs((Math.abs(xMove) - $(el).width()/2) / cvUnit(option.magnetic * 10 /2 || 0, "rem") - 1)
-                                            gsap.to(glowTarget, {opacity: 1 - offsetOpacity + Xnormalize * offsetOpacity, overwrite: true, duration: .8, ease: "power2.out"})
-                                        } else {
-                                            // Opacity Set by Y Pos
-                                            // console.log("Set By Y");
-                                            let Ynormalize = Math.abs((Math.abs(yMove) - $(el).height()/2) / cvUnit(option.magnetic * 10 /2 || 0, "rem") - 1)
-                                            gsap.to(glowTarget, {opacity: 1 - offsetOpacity + Ynormalize * offsetOpacity, overwrite: true, duration: .8, ease: "power2.out"})
+                            const changeOpacity = {
+                                change: () => {
+                                    const offsetOpacity = 1
+                                    if (option.magnetic) {
+                                        if (glowTarget.hasClass('active')) {
+                                            if (Math.abs(xMove) >= Math.abs(yMove)) {
+                                                // Opacity Set by X Pos
+                                                // console.log("Set By X");
+                                                let Xnormalize = Math.abs((Math.abs(xMove) - $(el).width()/2) / cvUnit(option.magnetic * 10 /2 || 0, "rem") - 1)
+                                                gsap.to(glowTarget, {opacity: 1 - offsetOpacity + Xnormalize * offsetOpacity, overwrite: true, duration: .8, ease: "power2.out"})
+                                            } else {
+                                                // Opacity Set by Y Pos
+                                                // console.log("Set By Y");
+                                                let Ynormalize = Math.abs((Math.abs(yMove) - $(el).height()/2) / cvUnit(option.magnetic * 10 /2 || 0, "rem") - 1)
+                                                gsap.to(glowTarget, {opacity: 1 - offsetOpacity + Ynormalize * offsetOpacity, overwrite: true, duration: .8, ease: "power2.out"})
+                                            }
                                         }
                                     }
+                                },
+                                default: () => {
+                                    gsap.to(glowTarget, {opacity: 0, overwrite: true, duration: .6, ease: "power2.out"})
+                                },
+                                visible: () => {
+                                    gsap.set(glowTarget, {opacity: 1})
                                 }
                             }
 
@@ -1325,12 +1350,44 @@ const home = {
                                 glowTarget.addClass('active')
                                 xSetter(glowTarget.get(0))(lerp(xTarget, LimitXMove, .1))
                                 ySetter(glowTarget.get(0))(lerp(yTarget, LimitYMove, .1))
-                                changeOpacity()
+
+                                // Check State Position of this border
+                                if (!option.position) {
+                                    changeOpacity.change()
+                                } else {
+                                    changeOpacity.visible()
+                                }
                             } else {
                                 glowTarget.removeClass('active')
-                                xSetter(glowTarget.get(0))(lerp(xTarget, LimitXMove, .1))
-                                ySetter(glowTarget.get(0))(lerp(yTarget, LimitYMove, .1))
-                                gsap.to(glowTarget, {opacity: 0, overwrite: true, duration: .6, ease: "power2.out"})
+
+                                // Check State Position of this border
+                                if (!option.position) {
+                                    xSetter(glowTarget.get(0))(lerp(xTarget, LimitXMove, .1))
+                                    ySetter(glowTarget.get(0))(lerp(yTarget, LimitYMove, .1))
+                                    changeOpacity.default()
+                                } else {
+                                    changeOpacity.visible()
+                                    xSetter(glowTarget.get(0))(lerp(xTarget, 0, .05))
+                                    ySetter(glowTarget.get(0))(lerp(yTarget, 0, .05))
+
+                                    const pos = option.position.split(" ")
+                                    $(pos).each((idx, posTarget) => {
+                                        switch (posTarget) {
+                                            case 'top':
+                                                ySetter(glowTarget.get(0))(lerp(yTarget, -maxYMove, .05))
+                                                break;
+                                            case 'bottom':
+                                                ySetter(glowTarget.get(0))(lerp(yTarget, maxYMove, .05))
+                                                break;
+                                            case 'left':
+                                                xSetter(glowTarget.get(0))(lerp(xTarget, -maxXMove, .05))
+                                                break;
+                                            case 'right':
+                                                xSetter(glowTarget.get(0))(lerp(xTarget, maxXMove, .05))
+                                                break;
+                                        }
+                                    })
+                                }
                             }
                         }
 
@@ -1342,9 +1399,10 @@ const home = {
                 }
                 requestAnimationFrame(initDotGlow)
             }
-
-            CreateGlowDiv()
-            AnimDotGlow()
+            if ($(window).width() > 991) {
+                CreateGlowDiv()
+                AnimDotGlow()
+            }
         }
         borderGlow()
     },
