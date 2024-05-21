@@ -1687,7 +1687,8 @@
         &--wrap {
             position: relative;
             border-radius: 2rem;
-            height: calc(100% - 6rem);
+            height: 100%;
+            // height: calc(100% - 6rem);
 
             &::before {
                 content: '';
