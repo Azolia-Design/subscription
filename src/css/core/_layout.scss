@@ -54,7 +54,9 @@ html {
 html.lenis {
     height: auto;
 }
-
+.main {
+    contain: paint;
+}
 .lenis.lenis-smooth {
     scroll-behavior: auto;
 }
@@ -172,7 +174,7 @@ button {
     &.on-hidden {
         opacity: 0;
     }
-    $cs-lg: 14.1rem; // 30rem
+    $cs-lg: 16.1rem; // 30rem
     $cs-md: 4.5rem; // 6.5rem
     $cs-sm: 1.5rem;
 
@@ -458,7 +460,7 @@ button {
         position: absolute;
         @include size(100%);
         pointer-events: none;
-        padding: 1px;
+        padding: var(--border-width);
         inset: 0px;
         mask-mode: match-source, match-source;
         background: transparent border-box;
@@ -475,22 +477,118 @@ button {
         display: flex;
         align-items: center;
         justify-content: center;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        // transform: translate(-50%, -50%);
     }
 
     .border-inner {
-        @include size(1.5rem);
+        @include size(calc(var(--glow) * 2));
         border-radius: 100vmax;
         background-color: var(--bg-cl);
-        -webkit-box-shadow: 0px 0px var(--glow) var(--glow) var(--bg-cl);
-        -moz-box-shadow: 0px 0px var(--glow) var(--glow) var(--bg-cl);
-        box-shadow: 0px 0px var(--glow) var(--glow) var(--bg-cl);
+        filter: blur(calc(var(--glow)));
         // opacity: 0;
     }
-}
 
+    .glow-outer {
+        z-index: 10;
+        position: absolute;
+        @include size(100%);
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        // background-color: rgba(255, 255, 255, .4);
+        // transform: translate(-50%, -50%);
+        mix-blend-mode: hard-light;
+        // overflow: hidden;
+    }
+
+    .glow-feather {
+        @include size(0px);
+        position: relative;
+        pointer-events: none;
+
+
+        &-inner {
+            @include size(calc(var(--glow)));
+            border-radius: 100vmax;
+            background-color: var(--bg-cl);
+            filter: drop-shadow(0px 0px var(--glow) var(--bg-cl)) blur(calc(var(--glow)));
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            opacity: .6;
+        }
+    }
+    .glow-flare {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        @include size(0);
+        border-radius: 100vmax;
+
+        &-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(calc(-50% +  var(--glow)), -50%) rotate(90deg);
+            @include size(calc(var(--glow) * 2), var(--glow));
+            width: 0;
+            height: 0;
+            border: calc(var(--glow)/10) solid transparent;
+            border-bottom: calc(var(--glow) * 2) solid var(--bg-cl);
+            position: relative;
+            filter: blur(.1rem);
+            opacity: .3;
+
+            &::after {
+                content: '';
+                position: absolute;
+                left: calc(-1 * var(--glow)/10);
+                top: calc(var(--glow) * 2);
+                transform: translate(.1px, -.1rem);
+                width: 0;
+                height: 0;
+                border: calc(var(--glow)/10) solid transparent;
+                border-top: calc(var(--glow) * 2) solid var(--bg-cl);
+            }
+
+        }
+    }
+
+}
+[data-dot-glow-test] {
+
+    .border-dot-outer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        @include size(100%);
+    }
+
+    .border-dot-inner {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 100vmax;
+        background-color: blue;
+        @include size(1rem);
+        z-index: 1000;
+    }
+
+}
 
 @include md {
     .cursor {
