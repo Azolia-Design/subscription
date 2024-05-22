@@ -455,13 +455,28 @@ button {
 [data-border-glow] {
     position: relative;
 
+    .border-wrap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        @include size(100%);
+        z-index: 10;
+        pointer-events: none;
+    }
+
     .border-outer {
         z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        left: 0;
         position: absolute;
         @include size(100%);
+        border-radius: var(--border-radius);
         pointer-events: none;
+
         padding: var(--border-width);
-        inset: 0px;
         mask-mode: match-source, match-source;
         background: transparent border-box;
         mask-composite: exclude;
@@ -473,100 +488,72 @@ button {
         -webkit-mask-clip: content-box, border-box;
         -webkit-mask-origin: content-box, border-box;
         -webkit-mask-source-type: auto, auto;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        // transform: translate(-50%, -50%);
     }
 
     .border-inner {
-        @include size(calc(var(--glow) * 2));
         border-radius: 100vmax;
-        background-color: var(--bg-cl);
-        filter: blur(calc(var(--glow)));
-        // opacity: 0;
-    }
-
-    .glow-outer {
-        z-index: 10;
-        position: absolute;
-        @include size(100%);
-        pointer-events: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        // background-color: rgba(255, 255, 255, .4);
-        // transform: translate(-50%, -50%);
-        mix-blend-mode: hard-light;
-        // overflow: hidden;
-    }
-
-    .glow-feather {
         @include size(0px);
-        position: relative;
-        pointer-events: none;
-
-
-        &-inner {
-            @include size(calc(var(--glow)));
-            border-radius: 100vmax;
-            background-color: var(--bg-cl);
-            filter: drop-shadow(0px 0px var(--glow) var(--bg-cl)) blur(calc(var(--glow)));
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            opacity: .6;
-        }
     }
-    .glow-flare {
+
+    .glow-el {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        pointer-events: none;
-        @include size(0);
-        border-radius: 100vmax;
+        @include size(var(--glow));
+        background-image: url('../../public/imgs/glow.png');
+        background-size: cover;
 
-        &-inner {
+        &::before {
+            content: "";
+            display: block;
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(calc(-50% +  var(--glow)), -50%) rotate(90deg);
-            @include size(calc(var(--glow) * 2), var(--glow));
-            width: 0;
-            height: 0;
-            border: calc(var(--glow)/10) solid transparent;
-            border-bottom: calc(var(--glow) * 2) solid var(--bg-cl);
-            position: relative;
-            filter: blur(.1rem);
-            opacity: .3;
-
-            &::after {
-                content: '';
-                position: absolute;
-                left: calc(-1 * var(--glow)/10);
-                top: calc(var(--glow) * 2);
-                transform: translate(.1px, -.1rem);
-                width: 0;
-                height: 0;
-                border: calc(var(--glow)/10) solid transparent;
-                border-top: calc(var(--glow) * 2) solid var(--bg-cl);
-            }
-
+            top: 0;
+            left: 0;
+            border-radius: 100vmax;
+            @include size(100%);
+            background-color: var(--bg-cl);
+            mix-blend-mode: color;
+            filter: blur(1rem);
         }
     }
 
+    .glow-outer {
+        pointer-events: none;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        border-radius: var(--border-radius);
+        @include size(calc(100% + var(--glow) / 1.4));
+        z-index: 20;
+
+        // padding: calc(var(--glow) / 2.8);
+        // mask-mode: match-source, match-source;
+        // background: transparent border-box;
+        // mask-composite: subtract;
+        // -webkit-mask-composite: xor;
+        // -webkit-mask-image: linear-gradient(#fff 0 0), linear-gradient(#fff 0 0);
+        // -webkit-mask-position: 0 0, 0 0;
+        // -webkit-mask-size: auto, auto;
+        // -webkit-mask-repeat: repeat, repeat;
+        // -webkit-mask-clip: content-box, border-box;
+        // -webkit-mask-origin: content-box, border-box;
+        // -webkit-mask-source-type: auto, auto;
+    }
+
+    .glow-inner {
+        border-radius: 100vmax;
+        @include size(0px);
+
+        .glow-el {
+            @include size(calc(var(--glow) / 1.4));
+            opacity: .2;
+        }
+    }
 }
 [data-dot-glow-test] {
 
@@ -587,7 +574,47 @@ button {
         @include size(1rem);
         z-index: 1000;
     }
+}
+.test {
+    margin-top: 5rem;
 
+    .border-box {
+        position: relative;
+        @include size(20rem, 15rem);
+        background-color: transparent;
+        filter: blur(1rem);
+        // overflow: hidden;
+        clip-path: inset(0 -300px 0 300px);
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            @include size(100%);
+            border: 1px solid rgba($cl-white, .54);
+        }
+
+        
+        .inner {
+            position: relative;
+            z-index: 2;
+            @include size(4rem);
+            left: 10rem;
+            top: 40rem;
+            border-radius: 100vmax;
+            background-color: blue;
+            filter: blur(1rem);
+
+            &::before {
+                content: "";
+                position: relative;
+                display: block;
+                @include size(100%);
+                background-color: rgba($cl-white, 1);
+            }
+        }
+    }
 }
 
 @include md {

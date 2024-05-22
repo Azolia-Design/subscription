@@ -110,9 +110,10 @@
         }
 
         &-inner {
+            position: relative;
             display: flex;
             padding: 1rem 1rem 1rem 0;
-            border: 1px solid rgba($cl-white, .1);
+            // border: 1px solid rgba($cl-white, .1);
             background-color: rgba(0,0,0,.8);
             border-radius: 2.5rem;
             margin-left: 3.2rem;
@@ -130,6 +131,17 @@
                 margin-left: 0;
                 border-radius: 1.8rem;
                 flex-direction: column-reverse;
+            }
+
+            &::before {
+                content: "";
+                @include size(100%);
+                border: 1px solid rgba($cl-white, .1);
+                border-radius: inherit;
+                position: absolute;
+                top: 0;
+                left: 0;
+                pointer-events: none;
             }
 
             .btn {
