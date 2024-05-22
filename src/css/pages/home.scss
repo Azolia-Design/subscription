@@ -565,12 +565,12 @@
             @include md {
                 height: 520vh;
             }
-    
+
             @include sm {
                 height: 520vh;
                 margin-top: unset;
             }
-                    
+
             &-sticky {
                 position: sticky;
                 top: 0;
@@ -591,7 +591,7 @@
                 @include md {
                     @include size(100%, 137.3rem);
                 }
-        
+
                 @include sm {
                     @include size(100%, 61.5rem);
                 }
@@ -634,7 +634,7 @@
             @include md {
                 padding-top: 0;
             }
-    
+
             @include sm {
             }
             &-wrap {
@@ -1973,7 +1973,7 @@
             height: 100vh;
             padding-top: var(--height-header);
             padding-bottom: 4rem;
-            overflow: hidden;
+            // overflow: hidden;
 
             .grid {
                 height: 100%;
@@ -2259,6 +2259,9 @@
         padding-top: var(--height-header);
         // padding-bottom: calc(23rem - var(--height-header));
         padding-bottom: 15rem;
+        position: relative;
+        z-index: 5;
+        background-color: $cl-bg;
 
         @include md {
             padding-bottom: calc(15.6rem - var(--height-header));
@@ -3167,8 +3170,6 @@
                 grid-column: 1/-1;
             }
 
-            &-listing {}
-
             &-item {
                 --widthOrdinal: 13rem;
                 border-bottom: 1px solid rgba($cl-white, 0.10);
@@ -3306,10 +3307,10 @@
                     .home-faq-content-item-ques-dot {
                         border-color: rgba($cl-primary, 1);
 
-                        &:before {
-                            opacity: 1;
-                            @include transform(scale(1));
-                        }
+                        // &:before {
+                        //     opacity: 1;
+                        //     @include transform(scale(1));
+                        // }
                     }
 
                     &:before {

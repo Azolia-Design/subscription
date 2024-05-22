@@ -18,7 +18,7 @@ const home = {
                 onComplete: () => {
                     headTxt.revert()
                     scheduleTxt.revert()
-                } 
+                }
             })
             tlSplitHead
                 .from(".home-hero-logo", { yPercent: 60, autoAlpha: 0, duration: 1, ease: "power2.out" }, 0)
@@ -192,7 +192,7 @@ const home = {
                     }
                 })
             }
-            
+
 
             animText();
             if ($(window).width() > 767) {
@@ -309,7 +309,7 @@ const home = {
                     }
                 })
                 tlImg.to('.home-service-preamble-bg', {autoAlpha: 1, duration: 1, ease: 'linear'})
-    
+
                 let tlItem = gsap.timeline({
                     scrollTrigger: {
                         trigger: ".home-service-preamble",
@@ -318,7 +318,7 @@ const home = {
                         scrub: true,
                     }
                 })
-    
+
                 $('.home-service-preamble-inner-item').each((idx, el) => {
                     if (idx === 0) {
                         tlItem
@@ -1218,7 +1218,7 @@ const home = {
                     // Create Element
                     const outerBorder = document.createElement('div');
                     const innerBorder = document.createElement('div');
-                    
+
                     const outerGlow = document.createElement('div');
                     const innerGlow = document.createElement('div');
                     const featherGlow = document.createElement('div');
@@ -1232,16 +1232,14 @@ const home = {
                     $(featherGlow).addClass('glow-feather-inner');
                     $(flareGlow).addClass('glow-flare');
                     $(innerFlareGlow).addClass('glow-flare-inner');
-    
+
                     // Set Border Radius for Border
                     $(outerBorder).css('borderRadius', parseFloat($(el).css("borderRadius")) + "px")
                     $(outerGlow).css('borderRadius', parseFloat($(el).css("borderRadius")) + "px")
 
-
                     // Set Border Width for Border
                     $(outerBorder).css('--border-width', `${parseFloat(option.width) || 1}px`)
                     $(outerGlow).css('--border-width', `${parseFloat(option.width) || 1}px`)
-
 
                     //Set Inset for Border
                     if (option.inset) {
@@ -1260,7 +1258,7 @@ const home = {
                             $(outerGlow).css('height', `calc(100% - ${parseFloat(option.inset.y)}px)`)
                         }
                     }
-                    
+
                     //Set Glow for Glow Dot
                     $(outerBorder).css('--glow', (option.glow || 4) + "rem")
                     $(outerGlow).css('--glow', (option.glow || 4) + "rem")
@@ -1271,7 +1269,7 @@ const home = {
                     $(outerBorder).css('--bg-cl', option.color)
                     $(outerGlow).css('--bg-cl', option.color)
 
-    
+
                     // Append Element
                     $(outerBorder).append(innerBorder)
                     $(innerGlow).append(featherGlow)
@@ -1322,8 +1320,8 @@ const home = {
                             let xMove = targetPos.x - (el.getBoundingClientRect().left + $(el).outerWidth()/2)
                             let yMove = targetPos.y - (el.getBoundingClientRect().top + $(el).outerHeight()/2)
 
-                            let LimitXMove = Math.max(Math.min(xMove, maxXMove), -maxXMove)
-                            let LimitYMove = Math.max(Math.min(yMove, maxYMove), -maxYMove)
+                            let limitXMove = Math.max(Math.min(xMove, maxXMove), -maxXMove)
+                            let limitYMove = Math.max(Math.min(yMove, maxYMove), -maxYMove)
 
                             // let LimitXlareMove
                             // if ($(el).hasClass('isGlow')) {
@@ -1351,12 +1349,12 @@ const home = {
                                         if (borderTarget.hasClass('active')) {
                                             if (Math.abs(xMove) >= Math.abs(yMove)) {
                                                 // Opacity Set by X Pos
-                                                let Xnormalize = Math.abs((Math.abs(xMove) - $(el).outerWidth()/2 ) / cvUnit(option.magnetic * 10 /2 || 1, "rem") -1)
-                                                gsap.to(changeOpacityTarget, {opacity: (Xnormalize * .2) + (1 - offsetOpacity + Xnormalize * offsetOpacity), overwrite: true, duration: .8, ease: "power2.out"})
+                                                let xNormalize = Math.abs((Math.abs(xMove) - $(el).outerWidth()/2 ) / cvUnit(option.magnetic * 10 /2 || 1, "rem") -1)
+                                                gsap.set(changeOpacityTarget, {opacity: (xNormalize * .2) + (1 - offsetOpacity + xNormalize * offsetOpacity) })
                                             } else {
                                                 // Opacity Set by Y Pos
-                                                let Ynormalize = Math.abs((Math.abs(yMove) - $(el).outerHeight()/2) / cvUnit(option.magnetic * 10 /2 || 1, "rem") - 1)
-                                                gsap.to(changeOpacityTarget, {opacity: (Ynormalize * .2) + (1 - offsetOpacity + Ynormalize * offsetOpacity), overwrite: true, duration: .8, ease: "power2.out"})
+                                                let yNormalize = Math.abs((Math.abs(yMove) - $(el).outerHeight()/2) / cvUnit(option.magnetic * 10 /2 || 1, "rem") - 1)
+                                                gsap.set(changeOpacityTarget, {opacity: (yNormalize * .2) + (1 - offsetOpacity + yNormalize * offsetOpacity) })
                                             }
                                         }
                                     }
@@ -1373,17 +1371,17 @@ const home = {
                             if (boundingMagnet.left <= targetPos.x && targetPos.x <= boundingMagnet.right && boundingMagnet.top <= targetPos.y && targetPos.y <= boundingMagnet.bottom) {
                                 //Anim Border
                                 borderTarget.addClass('active')
-                                xSetter(borderTarget.get(0))(lerp(xBorderTarget, LimitXMove, .1))
-                                ySetter(borderTarget.get(0))(lerp(yBorderTarget, LimitYMove, .1))
-        
+                                xSetter(borderTarget.get(0))(lerp(xBorderTarget, limitXMove, .1))
+                                ySetter(borderTarget.get(0))(lerp(yBorderTarget, limitYMove, .1))
+
                                 // Check State Position of this border and anim Glow
                                 if (!option.position) {
                                     if ($(el).hasClass('isGlow')) {
-                                        xSetter(glowTarget.get(0))(lerp(xGlowTarget, LimitXMove, .8))
-                                        ySetter(glowTarget.get(0))(lerp(yGlowTarget, LimitYMove, .8))
+                                        xSetter(glowTarget.get(0))(lerp(xGlowTarget, limitXMove, .8))
+                                        ySetter(glowTarget.get(0))(lerp(yGlowTarget, limitYMove, .8))
 
                                         // xSetter(flareTarget.get(0))(lerp(xFlareTarget, LimitXlareMove, .1))
-                                    } 
+                                    }
                                     changeOpacity.change()
                                 }
                             } else {
@@ -1394,12 +1392,12 @@ const home = {
                                 // }
 
                                 if (!option.position) {
-                                    xSetter(borderTarget.get(0))(lerp(xBorderTarget, LimitXMove, .1))
-                                    ySetter(borderTarget.get(0))(lerp(yBorderTarget, LimitYMove, .1))
+                                    xSetter(borderTarget.get(0))(lerp(xBorderTarget, limitXMove, .1))
+                                    ySetter(borderTarget.get(0))(lerp(yBorderTarget, limitYMove, .1))
 
                                     if ($(el).hasClass('isGlow')) {
-                                        xSetter(glowTarget.get(0))(lerp(xGlowTarget, LimitXMove, .1))
-                                        ySetter(glowTarget.get(0))(lerp(yGlowTarget, LimitYMove, .1))
+                                        xSetter(glowTarget.get(0))(lerp(xGlowTarget, limitXMove, .1))
+                                        ySetter(glowTarget.get(0))(lerp(yGlowTarget, limitYMove, .1))
                                     }
                                     changeOpacity.default()
                                 }
@@ -1411,8 +1409,8 @@ const home = {
                                     // Anim
                                     if (option.position) {
                                         if ($(el).hasClass('isGlow')) {
-                                            xSetter(glowTarget.get(0))(lerp(xGlowTarget, LimitXMove, .15))
-                                            ySetter(glowTarget.get(0))(lerp(yGlowTarget, LimitYMove, .15))
+                                            xSetter(glowTarget.get(0))(lerp(xGlowTarget, limitXMove, .15))
+                                            ySetter(glowTarget.get(0))(lerp(yGlowTarget, limitYMove, .15))
                                         }
                                         changeOpacity.visible()
                                     }
@@ -1454,7 +1452,7 @@ const home = {
                         }
 
                         // Flare only stick in Top
-                        
+
                         if (inView(el)) {
                             MagicMath()
                         }
@@ -1475,10 +1473,10 @@ const home = {
                 $('[data-dot-glow-test]').each((idx, el) => {
                     const outerBorder = document.createElement('div');
                     const innerBorder = document.createElement('div');
-    
+
                     $(outerBorder).addClass('border-dot-outer');
                     $(innerBorder).addClass('border-dot-inner');
-    
+
                     $(outerBorder).append(innerBorder)
                     $(outerBorder).css('borderRadius', parseFloat($(el).css("borderRadius")) + "px")
 
@@ -1494,7 +1492,7 @@ const home = {
                     const target = $(el).find('.border-dot-inner')
                     const radius = parseFloat($(el).css("borderRadius"))
                     $(element).css('--border-radius', radius)
-                    
+
                     const dimension = {
                         width: $(element).width(),
                         height: $(element).height(),
