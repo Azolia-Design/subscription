@@ -1506,6 +1506,8 @@ const home = {
                 let target = $('[data-border-glow]');
                 gsap.set(".border-inner, .glow-outer-inner, .glow-inner-inner", {opacity: 0})
 
+                // console.log(target);
+
                 function initDotGlow() {
                     let targetPos = {
                         x: xGetter('.cursor'),
@@ -1549,8 +1551,11 @@ const home = {
                             let limitBorderXMove = Math.max(Math.min(xMove, maxXMove), -maxXMove)
                             let limitBorderYMove = Math.max(Math.min(yMove, maxYMove), -maxYMove)
                             
-                            let limitGlowXMove = Math.max(Math.min(xMove, (maxXMove - parseFloat($(el).css("borderRadius")))), -(maxXMove - parseFloat($(el).css("borderRadius"))))
-                            let limitGlowYMove = Math.max(Math.min(yMove, (maxYMove - parseFloat($(el).css("borderRadius")))), -(maxYMove - parseFloat($(el).css("borderRadius"))))
+                            let limitGlowOuterXMove = Math.max(Math.min(xMove, (maxXMove - parseFloat($(el).css("borderRadius")))), -(maxXMove - parseFloat($(el).css("borderRadius"))))
+                            let limitGlowOuterYMove = Math.max(Math.min(yMove, (maxYMove - parseFloat($(el).css("borderRadius")))), -(maxYMove - parseFloat($(el).css("borderRadius"))))
+
+                            let GlowInnerXMove
+                            let GlowInnerYMove
 
                             // Calculate Magnetic Area
                             let boundingMagnet = {
@@ -1578,6 +1583,7 @@ const home = {
 
                                         let xNormalize = Math.min(Math.abs((Math.abs(xMove) - $(el).outerWidth()/2 ) / cvUnit(option.magnetic * 10 /2 || 1, "rem") -1), 1) // Run 0 - 1
                                         let yNormalize = Math.min(Math.abs((Math.abs(yMove) - $(el).outerHeight()/2) / cvUnit(option.magnetic * 10 /2 || 1, "rem") - 1), 1) // Run 0 - 1
+
 
                                         if (xOffset > 0 && yOffset > 0) {
                                             if (xOffset <= yOffset) {
@@ -1614,7 +1620,7 @@ const home = {
                                     }
                                 },
                                 default: () => {
-                                    gsap.to(changeOpacityTarget, {opacity: 0, overwrite: true, duration: .5, ease: "power1.out"})
+                                    gsap.set(changeOpacityTarget, {opacity: 0,})
                                 },
                                 visible: () => {
                                     gsap.set(changeOpacityTarget, {opacity: 1})
@@ -1626,34 +1632,29 @@ const home = {
                                 if (boundingMagnet.left <= targetPos.x && targetPos.x <= boundingMagnet.right && boundingMagnet.top <= targetPos.y && targetPos.y <= boundingMagnet.bottom) {
                                     //Anim Border
                                     borderTarget.addClass('active')
-                                    xSetter(borderTarget.get(0))(lerp(xBorderTarget, limitBorderXMove, .1))
-                                    ySetter(borderTarget.get(0))(lerp(yBorderTarget, limitBorderYMove, .1))
+                                    xSetter(borderTarget.get(0))(lerp(xBorderTarget, limitBorderXMove, .15))
+                                    ySetter(borderTarget.get(0))(lerp(yBorderTarget, limitBorderYMove, .15))
     
-                                    xSetter(glowOuter.get(0))(lerp(xGlowOuter, limitGlowXMove, .15))
-                                    ySetter(glowOuter.get(0))(lerp(yGlowOuter, limitGlowYMove, .15))
-    
+                                    xSetter(glowOuter.get(0))(lerp(xGlowOuter, limitGlowOuterXMove, .15))
+                                    ySetter(glowOuter.get(0))(lerp(yGlowOuter, limitGlowOuterYMove, .15))
+
                                     xSetter(glowInner.get(0))(lerp(xGlowInner, limitBorderXMove, .15))
                                     ySetter(glowInner.get(0))(lerp(yGlowInner, limitBorderYMove, .15))
-    
-                                    // Check State Position of this border and anim Glow
-                                    if (!option.position) {
-                                        changeOpacity.change()
-                                    }
+
+                                    changeOpacity.change()
                                 } else {
                                     // Reset Border and Glow Position
                                     borderTarget.removeClass('active')
-                                    if (!option.position) {
-                                        xSetter(borderTarget.get(0))(lerp(xBorderTarget, limitBorderXMove, .1))
-                                        ySetter(borderTarget.get(0))(lerp(yBorderTarget, limitBorderYMove, .1))
-    
-                                        xSetter(glowOuter.get(0))(lerp(xGlowOuter, limitGlowXMove, .15))
-                                        ySetter(glowOuter.get(0))(lerp(yGlowOuter, limitGlowYMove, .15))
-    
-                                        xSetter(glowInner.get(0))(lerp(xGlowInner, limitBorderXMove, .15))
-                                        ySetter(glowInner.get(0))(lerp(yGlowInner, limitBorderYMove, .15))
-                                        
-                                        changeOpacity.default()
-                                    }
+                                    xSetter(borderTarget.get(0))(lerp(xBorderTarget, limitBorderXMove, .15))
+                                    ySetter(borderTarget.get(0))(lerp(yBorderTarget, limitBorderYMove, .15))
+
+                                    xSetter(glowOuter.get(0))(lerp(xGlowOuter, limitGlowOuterXMove, .15))
+                                    ySetter(glowOuter.get(0))(lerp(yGlowOuter, limitGlowOuterYMove, .15))
+
+                                    xSetter(glowInner.get(0))(lerp(xGlowInner, limitBorderXMove, .15))
+                                    ySetter(glowInner.get(0))(lerp(yGlowInner, limitBorderYMove, .15))
+                                    
+                                    changeOpacity.default()
                                 }
                             }
 
@@ -1676,11 +1677,11 @@ const home = {
                                     xSetter(borderTarget.get(0))(lerp(xBorderTarget, 0, .05))
                                     ySetter(borderTarget.get(0))(lerp(yBorderTarget, 0, .05))
 
-                                    glowOuter.length && xSetter(glowOuter.get(0))(lerp(xGlowOuter, 0, .05))
-                                    glowOuter.length && ySetter(glowOuter.get(0))(lerp(yGlowOuter, 0, .05))
+                                    xSetter(glowOuter.get(0))(lerp(xGlowOuter, 0, .05))
+                                    ySetter(glowOuter.get(0))(lerp(yGlowOuter, 0, .05))
 
-                                    glowOuter.length && xSetter(glowInner.get(0))(lerp(xGlowInner, 0, .05))
-                                    glowOuter.length && ySetter(glowInner.get(0))(lerp(yGlowInner, 0, .05))
+                                    xSetter(glowInner.get(0))(lerp(xGlowInner, 0, .05))
+                                    ySetter(glowInner.get(0))(lerp(yGlowInner, 0, .05))
 
                                     // Check State Position of this border
                                     const pos = option.position.split(" ")
@@ -1688,23 +1689,23 @@ const home = {
                                         switch (posTarget) {
                                             case 'top':
                                                 ySetter(borderTarget.get(0))(lerp(yBorderTarget, -maxYMove, .05))
-                                                glowOuter.length && ySetter(glowOuter.get(0))(lerp(yGlowOuter, -maxYMove, .05))
-                                                glowOuter.length && ySetter(glowInner.get(0))(lerp(yGlowInner, -maxYMove, .05))
+                                                ySetter(glowOuter.get(0))(lerp(yGlowOuter, -maxYMove, .05))
+                                                ySetter(glowInner.get(0))(lerp(yGlowInner, -maxYMove, .05))
                                                 break;
                                             case 'bottom':
                                                 ySetter(borderTarget.get(0))(lerp(yBorderTarget, maxYMove, .05))
-                                                glowOuter.length && ySetter(glowOuter.get(0))(lerp(yGlowOuter, maxYMove, .05))
-                                                glowOuter.length && ySetter(glowInner.get(0))(lerp(yGlowInner, maxYMove, .05))
+                                                ySetter(glowOuter.get(0))(lerp(yGlowOuter, maxYMove, .05))
+                                                ySetter(glowInner.get(0))(lerp(yGlowInner, maxYMove, .05))
                                                 break;
                                             case 'left':
                                                 xSetter(borderTarget.get(0))(lerp(xBorderTarget, -maxXMove, .05))
-                                                glowOuter.length && xSetter(glowOuter.get(0))(lerp(xGlowOuter, -maxXMove, .05))
-                                                glowOuter.length && xSetter(glowInner.get(0))(lerp(xGlowInner, -maxXMove, .05))
+                                                xSetter(glowOuter.get(0))(lerp(xGlowOuter, -maxXMove, .05))
+                                                xSetter(glowInner.get(0))(lerp(xGlowInner, -maxXMove, .05))
                                                 break;
                                             case 'right':
                                                 xSetter(borderTarget.get(0))(lerp(xBorderTarget, maxXMove, .05))
-                                                glowOuter.length && xSetter(glowOuter.get(0))(lerp(xGlowOuter, maxXMove, .05))
-                                                glowOuter.length && xSetter(glowInner.get(0))(lerp(xGlowInner, maxXMove, .05))
+                                                xSetter(glowOuter.get(0))(lerp(xGlowOuter, maxXMove, .05))
+                                                xSetter(glowInner.get(0))(lerp(xGlowInner, maxXMove, .05))
                                                 break;
                                         }
                                     })
