@@ -70,7 +70,7 @@
 
         --fs-h2: 3.6rem;
         --lh-h2: 1.1em;
-        
+
         --fs-h5: 3.2rem;
         --lh-h5: 1.1em;
 
@@ -211,6 +211,9 @@ body {
     color: rgba($cl-white, 1);
     font-weight: 500;
     @include transition(color .3s ease-out);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     @include sm {
         --border-radius: 1.2rem;

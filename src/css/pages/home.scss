@@ -2357,12 +2357,14 @@
                 }
 
                 &:before {
+                    --border-width: 1px;
                     content: '';
                     position: absolute;
-                    top: 0;
-                    left: 0;
-                    @include size(100%);
                     @include border-gradient(linear-gradient(180deg, rgba($cl-white, 0.20) 0%, rgba($cl-white, 0.00) 100%));
+                    top: calc(var(--border-width) / 1.5* -1);
+                    bottom: calc(var(--border-width) / 2.5* -1);
+                    left: calc(var(--border-width) / 1.5* -1);
+                    right: calc(var(--border-width) / 2.5* -1);
                 }
 
                 &-wrap {

@@ -336,12 +336,12 @@ button {
 
         @include md {
             margin-top: -1rem;
-            margin-right: -1rem;      
+            margin-right: -1rem;
         }
 
         @include sm {
             margin-top: -2.2rem;
-            margin-right: -1.4rem;      
+            margin-right: -1.4rem;
         }
     }
     &--sidebar {
@@ -483,10 +483,11 @@ button {
         display: flex;
         align-items: center;
         justify-content: center;
-        top: 0;
-        left: 0;
+        top: calc(var(--border-width) / 1.5 * -1);
+        bottom: calc(var(--border-width) / 2.5 * -1);
+        left: calc(var(--border-width) / 1.5 * -1);
+        right: calc(var(--border-width) / 2.5 * -1);
         position: absolute;
-        @include size(100%);
         border-radius: var(--border-radius);
         pointer-events: none;
         // opacity: var(--opacity);
@@ -529,7 +530,7 @@ button {
         &-inner {
             border-radius: 100vmax;
             @include size(0px);
-    
+
             .glow-el {
                 @include size(calc(var(--glow) / 1.5));
                 opacity: .2;
@@ -592,7 +593,7 @@ button {
             border: 1px solid rgba($cl-white, .54);
         }
 
-        
+
         .inner {
             position: relative;
             z-index: 2;
