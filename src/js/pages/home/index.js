@@ -1472,6 +1472,8 @@ const home = {
                             $([outerBorder, wrapOuterGlow, wrapInnerGlow]).css('height', `calc(100% - ${parseFloat(option.inset.y)}px)`)
                         }
                     }
+                    $([outerBorder, wrapOuterGlow, wrapInnerGlow]).css('--opacity', (option.opacity || 1))
+
 
                     //Set Glow for Glow Dot
                     $([outerBorder, wrapOuterGlow, wrapInnerGlow]).css('--glow', (option.glow || 4) + "rem")
@@ -1602,7 +1604,7 @@ const home = {
                                                     opacitySetter(el)(lerp(opacityTarget, xNormalize * 1.15, .95))
                                                 })
                                             }
-                                            if (xOffset <= 0 && yOffset <= 0){
+                                            if (xOffset <= 0 && yOffset <= 0) {
                                                 // This is Hovering
                                                 $(changeOpacityTarget).each((idx, el) => {
                                                     opacitySetter(el)(lerp(opacityTarget, 1, .95))

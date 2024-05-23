@@ -9,9 +9,9 @@
   },
   "targets": {},
   "scripts": {
-    "clear": "rimraf dist .parcel-cache",
-    "dev": "yarn clear && cross-env PARCEL_WORKERS=1 parcel -p 3000",
-    "build": "yarn clear && cross-env PARCEL_WORKERS=1 parcel build --no-cache --no-content-hash --public-url ./ --no-scope-hoist",
+    "clear": "rm -rf dist .parcel-cache",
+    "dev": "yarn clear && PARCEL_WORKERS=1 parcel -p 3000",
+    "build": "yarn clear && PARCEL_WORKERS=1 parcel build --no-cache --no-content-hash --public-url ./ --no-scope-hoist",
     "server": "nodemon server.js",
     "start": "concurrently \"yarn dev\" \"yarn server\""
   },
@@ -26,10 +26,8 @@
     "nodemon": "^3.0.3",
     "parcel": "^2.11.0",
     "parcel-reporter-static-files-copy": "^1.5.3",
-    "rimraf": "^4.0.0",
     "sharp": "^0.31.1",
-    "stripe": "^14.14.0",
-    "cross-env": "^7.0.3"
+    "stripe": "^14.14.0"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead, Safari 14",
   "dependencies": {
