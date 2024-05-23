@@ -134,13 +134,22 @@
             }
 
             &::before {
+                --border-width: 1px;
                 content: "";
-                @include size(100%);
-                border: 1px solid rgba($cl-white, .1);
+                padding: var(--border-width);
+                background: rgba($cl-white, .1) border-box;
+                -webkit-mask:
+                linear-gradient($cl-white 0 0) content-box,
+                linear-gradient($cl-white 0 0);
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+
                 border-radius: inherit;
                 position: absolute;
-                top: 0;
-                left: 0;
+                top: calc(var(--border-width) / 1.5 * -1);
+                bottom: calc(var(--border-width) / 2.5 * -1);
+                left: calc(var(--border-width) / 1.5 * -1);
+                right: calc(var(--border-width) / 2.5 * -1);
                 pointer-events: none;
             }
 
