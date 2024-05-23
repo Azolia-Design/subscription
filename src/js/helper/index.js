@@ -13,12 +13,16 @@ const ySetter = (el) => gsap.quickSetter(el, 'y', `px`);
 const scaleXSetter = (el) => gsap.quickSetter(el, 'scaleX');
 const scaleYSetter = (el) => gsap.quickSetter(el, 'scaleY');
 const rotZSetter = (el) => gsap.quickSetter(el, 'rotateZ', `deg`);
+const opacitySetter = (el) => gsap.quickSetter(el, 'opacity', ``);
+
 
 const xGetter = (el) => gsap.getProperty(el, 'x');
 const yGetter = (el) => gsap.getProperty(el, 'y');
 const scaleXGetter = (el) => gsap.getProperty(el, 'scaleX');
 const scaleYGetter = (el) => gsap.getProperty(el, 'scaleY');
 const rotZGetter = (el) => gsap.getProperty(el, 'rotateZ')
+const opacityGetter = (el) => gsap.getProperty(el, 'opacity')
+
 
 const selector = (parent) => {
     return (child) => $(parent).find(child);
@@ -140,10 +144,12 @@ export {
 	scaleXSetter,
 	scaleYSetter,
     rotZSetter,
+	opacitySetter,
     xGetter,
     yGetter,
 	scaleXGetter,
 	scaleYGetter,
+	opacityGetter,
     selector,
     rotZGetter,
     typeOpts,

@@ -54,7 +54,9 @@ html {
 html.lenis {
     height: auto;
 }
-
+.main {
+    contain: paint;
+}
 .lenis.lenis-smooth {
     scroll-behavior: auto;
 }
@@ -172,7 +174,7 @@ button {
     &.on-hidden {
         opacity: 0;
     }
-    $cs-lg: 14.1rem; // 30rem
+    $cs-lg: 16.1rem; // 30rem
     $cs-md: 4.5rem; // 6.5rem
     $cs-sm: 1.5rem;
 
@@ -453,13 +455,43 @@ button {
 [data-border-glow] {
     position: relative;
 
+    .glow-el {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        @include size(var(--glow));
+        background-image: url('../../public/imgs/glow.png');
+        background-size: cover;
+
+        &::before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 100vmax;
+            @include size(100%);
+            background-color: var(--bg-cl);
+            mix-blend-mode: color;
+            filter: blur(1rem);
+        }
+    }
+
     .border-outer {
         z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        left: 0;
         position: absolute;
         @include size(100%);
+        border-radius: var(--border-radius);
         pointer-events: none;
-        padding: 1px;
-        inset: 0px;
+        // opacity: var(--opacity);
+
+        padding: var(--border-width);
         mask-mode: match-source, match-source;
         background: transparent border-box;
         mask-composite: exclude;
@@ -471,26 +503,116 @@ button {
         -webkit-mask-clip: content-box, border-box;
         -webkit-mask-origin: content-box, border-box;
         -webkit-mask-source-type: auto, auto;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        opacity: calc(var(--opacity) * 1.2);
     }
 
     .border-inner {
-        @include size(1.5rem);
         border-radius: 100vmax;
-        background-color: var(--bg-cl);
-        -webkit-box-shadow: 0px 0px var(--glow) var(--glow) var(--bg-cl);
-        -moz-box-shadow: 0px 0px var(--glow) var(--glow) var(--bg-cl);
-        box-shadow: 0px 0px var(--glow) var(--glow) var(--bg-cl);
-        // opacity: 0;
+        @include size(0px);
+    }
+
+    .glow-outer, .glow-inner {
+        z-index: -1;
+        pointer-events: none;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        border-radius: var(--border-radius);
+        @include size(100%);
+        opacity: var(--opacity);
+        mix-blend-mode: darken;
+
+        &-inner {
+            border-radius: 100vmax;
+            @include size(0px);
+    
+            .glow-el {
+                @include size(calc(var(--glow) / 1.5));
+                opacity: .2;
+                display: flex;
+            }
+        }
+    }
+
+    .glow-inner {
+        z-index: 20;
+        mix-blend-mode: soft-light;
+        overflow: hidden;
+
+        &-inner {
+
+            .glow-el {
+                @include size(calc(var(--glow) / 1.2));
+                opacity: .3;
+            }
+        }
     }
 }
+[data-dot-glow-test] {
 
+    .border-dot-outer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        @include size(100%);
+    }
+
+    .border-dot-inner {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 100vmax;
+        background-color: blue;
+        @include size(1rem);
+        z-index: 1000;
+    }
+}
+.test {
+    margin-top: 5rem;
+
+    .border-box {
+        position: relative;
+        @include size(20rem, 15rem);
+        background-color: transparent;
+        filter: blur(1rem);
+        // overflow: hidden;
+        clip-path: inset(0 -300px 0 300px);
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            @include size(100%);
+            border: 1px solid rgba($cl-white, .54);
+        }
+
+        
+        .inner {
+            position: relative;
+            z-index: 2;
+            @include size(4rem);
+            left: 10rem;
+            top: 40rem;
+            border-radius: 100vmax;
+            background-color: blue;
+            filter: blur(1rem);
+
+            &::before {
+                content: "";
+                position: relative;
+                display: block;
+                @include size(100%);
+                background-color: rgba($cl-white, 1);
+            }
+        }
+    }
+}
 
 @include md {
     .cursor {
