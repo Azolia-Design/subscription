@@ -487,6 +487,7 @@ button {
         bottom: calc(var(--border-width) / 2.5 * -1);
         left: calc(var(--border-width) / 1.5 * -1);
         right: calc(var(--border-width) / 2.5 * -1);
+        @include size(100%);
         position: absolute;
         border-radius: var(--border-radius);
         pointer-events: none;

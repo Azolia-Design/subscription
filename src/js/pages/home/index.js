@@ -288,6 +288,20 @@ const home = {
                 })
             }
 
+            function fadeShowreel() {
+                const target = $('.home-showreel');
+                let tlFade = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: target,
+                        start: "bottom top+=45%",
+                        end: "bottom top-=40%",
+                        scrub: .3,
+                    }
+                })
+                tlFade.to(target, {opacity: 0})
+            }
+            fadeShowreel()
+
             playShowreel();
             if ($(window).width() > 767) {
                 galleryZoom()
@@ -305,7 +319,7 @@ const home = {
                         trigger: ".home-service-preamble",
                         start: `top+=${parseRem(190)} top`,
                         end: `top+=${$(window).width()} top`,
-                        scrub: true,
+                        scrub: 1,
                     }
                 })
                 tlImg.to('.home-service-preamble-bg', {autoAlpha: 1, duration: 1, ease: 'linear'})
@@ -315,7 +329,7 @@ const home = {
                         trigger: ".home-service-preamble",
                         start: `top+=${$(window).width() * .5} top`,
                         end: `bottom bottom`,
-                        scrub: true,
+                        scrub: 1,
                     }
                 })
 
@@ -1454,7 +1468,7 @@ const home = {
                     $(elementInnerGlow).addClass('glow-el');
 
                     // Set Border Radius for Border
-                    $([outerBorder, wrapOuterGlow, wrapInnerGlow]).css('--border-radius', parseFloat($(el).css("borderRadius")) + "px")
+                    // $([outerBorder, wrapOuterGlow, wrapInnerGlow]).css('--border-radius', parseFloat($(el).css("borderRadius")) + "px")
 
                     // Set Border Width for Border
                     $([outerBorder, wrapOuterGlow, wrapInnerGlow]).css('--border-width', `${parseFloat(option.width) || 1}px`)
@@ -1464,6 +1478,7 @@ const home = {
                         if (!option.inset.x && !option.inset.y) {
                             $([outerBorder, wrapOuterGlow, wrapInnerGlow]).css('width', `calc(100% - ${parseFloat(option.inset)}px)`)
                             $([outerBorder, wrapOuterGlow, wrapInnerGlow]).css('height', `calc(100% - ${parseFloat(option.inset)}px)`)
+                            
                         }
                         if (option.inset.x) {
                             $([outerBorder, wrapOuterGlow, wrapInnerGlow]).css('width', `calc(100% - ${parseFloat(option.inset.x)}px)`)
@@ -1493,7 +1508,7 @@ const home = {
                     $(innerInnerGlow).append(elementInnerGlow)
                     $(wrapInnerGlow).append(innerInnerGlow)
 
-                    if (!$(el).parents('[data-glow-option]').length) {
+                    if (!$(el).parents('[data-glow-option]').length && !option.position) {
                         $(el).prepend(wrapOuterGlow)
                         $(el).prepend(wrapInnerGlow)
                     }
