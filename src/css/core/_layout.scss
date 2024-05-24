@@ -140,7 +140,7 @@ button {
     @include size(100%, 100vh);
     pointer-events: none;
     overflow: hidden;
-    opacity: .4;
+    opacity: .3;
     z-index: 99999;
 
     &:before {
@@ -476,6 +476,14 @@ button {
             mix-blend-mode: color;
             filter: blur(1rem);
         }
+
+        &.force-cl {
+            background: radial-gradient(var(--bg-cl), transparent 80%);
+
+            &::before {
+                content: unset;
+            }
+        }
     }
 
     .border-outer {
@@ -546,7 +554,6 @@ button {
         overflow: hidden;
 
         &-inner {
-
             .glow-el {
                 @include size(calc(var(--glow) / 1.2));
                 opacity: .3;

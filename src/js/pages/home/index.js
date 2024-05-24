@@ -288,7 +288,7 @@ const home = {
                 })
             }
 
-            function fadeShowreel() {
+            function animShowreel() {
                 const target = $('.home-showreel');
                 let tlFade = gsap.timeline({
                     scrollTrigger: {
@@ -298,9 +298,8 @@ const home = {
                         scrub: .3,
                     }
                 })
-                tlFade.to(target, {opacity: 0})
             }
-            fadeShowreel()
+            animShowreel()
 
             playShowreel();
             if ($(window).width() > 767) {
@@ -1498,6 +1497,10 @@ const home = {
                     }
                     $([outerBorder, wrapOuterGlow, wrapInnerGlow]).css('--bg-cl', option.color)
 
+                    if (option.position) {
+                        $(lineBorder).addClass('force-cl');
+                    }
+
                     // Append Element
                     $(innerBorder).append(lineBorder)
                     $(outerBorder).append(innerBorder)
@@ -1647,27 +1650,27 @@ const home = {
                                 if (boundingMagnet.left <= targetPos.x && targetPos.x <= boundingMagnet.right && boundingMagnet.top <= targetPos.y && targetPos.y <= boundingMagnet.bottom) {
                                     //Anim Border
                                     borderTarget.addClass('active')
-                                    xSetter(borderTarget.get(0))(lerp(xBorderTarget, limitBorderXMove, .15))
-                                    ySetter(borderTarget.get(0))(lerp(yBorderTarget, limitBorderYMove, .15))
+                                    xSetter(borderTarget.get(0))(lerp(xBorderTarget, limitBorderXMove, .55))
+                                    ySetter(borderTarget.get(0))(lerp(yBorderTarget, limitBorderYMove, .55))
     
-                                    xSetter(glowOuter.get(0))(lerp(xGlowOuter, limitGlowOuterXMove, .15))
-                                    ySetter(glowOuter.get(0))(lerp(yGlowOuter, limitGlowOuterYMove, .15))
+                                    xSetter(glowOuter.get(0))(lerp(xGlowOuter, xMove, .55))
+                                    ySetter(glowOuter.get(0))(lerp(yGlowOuter, yMove, .55))
 
-                                    xSetter(glowInner.get(0))(lerp(xGlowInner, limitBorderXMove, .15))
-                                    ySetter(glowInner.get(0))(lerp(yGlowInner, limitBorderYMove, .15))
+                                    xSetter(glowInner.get(0))(lerp(xGlowInner, xMove, .55))
+                                    ySetter(glowInner.get(0))(lerp(yGlowInner, yMove, .55))
 
                                     changeOpacity.change()
                                 } else {
                                     // Reset Border and Glow Position
                                     borderTarget.removeClass('active')
-                                    xSetter(borderTarget.get(0))(lerp(xBorderTarget, limitBorderXMove, .15))
-                                    ySetter(borderTarget.get(0))(lerp(yBorderTarget, limitBorderYMove, .15))
+                                    xSetter(borderTarget.get(0))(lerp(xBorderTarget, limitBorderXMove, .55))
+                                    ySetter(borderTarget.get(0))(lerp(yBorderTarget, limitBorderYMove, .55))
 
-                                    xSetter(glowOuter.get(0))(lerp(xGlowOuter, limitGlowOuterXMove, .15))
-                                    ySetter(glowOuter.get(0))(lerp(yGlowOuter, limitGlowOuterYMove, .15))
+                                    xSetter(glowOuter.get(0))(lerp(xGlowOuter, xMove, .55))
+                                    ySetter(glowOuter.get(0))(lerp(yGlowOuter, yMove, .55))
 
-                                    xSetter(glowInner.get(0))(lerp(xGlowInner, limitBorderXMove, .15))
-                                    ySetter(glowInner.get(0))(lerp(yGlowInner, limitBorderYMove, .15))
+                                    xSetter(glowInner.get(0))(lerp(xGlowInner, xMove, .55))
+                                    ySetter(glowInner.get(0))(lerp(yGlowInner, yMove, .55))
                                     
                                     changeOpacity.default()
                                 }
@@ -1743,11 +1746,6 @@ const home = {
             }
         }
         borderGlow()
-
-
-        function test() {
-
-        } test()
     },
     beforeLeave() {
         console.log(`leave ${this.namespace}`);
