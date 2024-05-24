@@ -125,7 +125,35 @@
                 z-index: 3;
             }
         }
+        &-bg {
+            display: none;
+        }
+        &-bg-test {
+            position: absolute;
+            top: 0;
+            left: 0;
+            @include size(100%, 100vh);
+            // opacity: 0;
+            animation: fadeIn 6s;
+            // background-color: blue;
 
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+
+            &-wrap {
+                @include size(100%);
+
+                div {
+                    @include size(100%);
+                }
+            }
+        }
         &-discover {
             display: flex;
             align-items: center;
@@ -213,6 +241,8 @@
                 @include animation(moveWheel 2s cubic-bezier(0.83, 0, 0.17, 1) infinite alternate-reverse);
             }
         }
+
+
     }
 
     &-main {
