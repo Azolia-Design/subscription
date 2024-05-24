@@ -125,9 +125,7 @@
                 z-index: 3;
             }
         }
-        &-bg {
-            display: none;
-        }
+
         &-bg-test {
             position: absolute;
             top: 0;
@@ -153,6 +151,12 @@
                     @include size(100%);
                 }
             }
+        }
+        &-bg {
+            // display: none;
+        }
+        &-bg-test {
+            display: none;
         }
         &-discover {
             display: flex;
@@ -188,8 +192,9 @@
         }
 
         &-mouse {
+            --border-radius: 100vmax;
+            
             position: relative;
-            // width: 6.8rem;
             @include size(4.4rem, 6.6rem);
             display: flex;
             justify-content: center;
@@ -200,7 +205,7 @@
             justify-content: center;
 
             @include md {
-                width: 5.4rem;
+                @include size(4rem, 6rem);
                 margin-right: 1.2rem;
             }
 
@@ -212,7 +217,6 @@
                 padding: 1px;
                 inset: 0px;
                 mask-mode: match-source, match-source;
-                // background: linear-gradient(to bottom, rgba($cl-primary-hl, .7) 0%, transparent 30%) border-box;
                 background: linear-gradient(to bottom, rgba($cl-white, .1) 0%, transparent 80%) border-box;
                 mask-composite: exclude;
                 -webkit-mask-composite: xor;
@@ -224,10 +228,18 @@
                 -webkit-mask-origin: content-box, border-box;
                 -webkit-mask-source-type: auto, auto;
                 border-radius: 100vmax;
+
+                @include md {
+                    background: linear-gradient(to bottom, rgba($cl-primary-hl, .7) 0%, transparent 60%) border-box;
+                }
             }
             &-slide {
                 background: linear-gradient(to bottom, transparent 0%, rgba($cl-white, .1) 30%, rgba($cl-white, .1) 65%, transparent 100%);
                 @include size(1px, 4.2rem);
+
+                @include md {
+                    height: 4rem;
+                }
             }
 
             &-wheel {
@@ -1715,6 +1727,8 @@
         }
 
         &--wrap {
+            --border-radius: 2rem;
+
             position: relative;
             border-radius: 2rem;
             height: 100%;
@@ -1803,6 +1817,7 @@
             }
             &-btn {
                 transform-origin: left top;
+                width: fit-content;
             }
 
             &-sub {
@@ -1835,6 +1850,8 @@
         }
 
         &-other {
+            --border-radius: 0rem;
+
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -1888,6 +1905,10 @@
                 //     width: calc(100% - 2px);
                 //     @include transform(translateX(1px));
                 // }
+            }
+
+            &:last-child {
+                width: 29vw;
             }
 
             &-img {
@@ -2102,6 +2123,8 @@
             }
 
             &-item {
+                --border-radius: 2rem;
+
                 // opacity: 0;
                 // z-index: calc(var(--i) * -1);
                 pointer-events: auto;
@@ -2370,6 +2393,8 @@
             }
 
             &-switch {
+                --border-radius: 2rem;
+
                 position: relative;
                 display: flex;
                 padding: 1rem;
@@ -2387,12 +2412,14 @@
                 }
 
                 &:before {
+                    --border-width: 1px;
                     content: '';
                     position: absolute;
-                    top: 0;
-                    left: 0;
-                    @include size(100%);
                     @include border-gradient(linear-gradient(180deg, rgba($cl-white, 0.20) 0%, rgba($cl-white, 0.00) 100%));
+                    top: calc(var(--border-width) / 1.5* -1);
+                    bottom: calc(var(--border-width) / 2.5* -1);
+                    left: calc(var(--border-width) / 1.5* -1);
+                    right: calc(var(--border-width) / 2.5* -1);
                 }
 
                 &-wrap {
@@ -2498,6 +2525,8 @@
             }
 
             &-item {
+                --border-radius: 2rem;
+
                 grid-row: 2/3;
                 padding: 4rem 4rem 5rem;
                 position: relative;
@@ -3249,15 +3278,14 @@
                     }
 
                     &-dot {
+                        --border-radius: 100vmax;
+
                         flex: none;
                         position: relative;
-
                         margin-left: 3rem;
                         @include size(2rem);
-
-                        border-radius: 50%;
+                        border-radius: 100vmax;
                         border: 1.5px solid rgba($cl-white, 0.2);
-                        overflow: hidden;
                         @include transition(border .65s cubic-bezier(.6, 0, .3, 1) .2s);
 
                         @include md {
