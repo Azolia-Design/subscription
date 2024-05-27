@@ -455,34 +455,43 @@ button {
 [data-border-glow] {
     position: relative;
 
-    .glow-el {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        @include size(var(--glow));
-        background-image: url('../../public/imgs/glow.png');
-        background-size: cover;
-
-        &::before {
-            content: "";
-            display: block;
+    .glow {
+        &-el {
             position: absolute;
-            top: 0;
-            left: 0;
-            border-radius: 100vmax;
-            @include size(100%);
-            background-color: var(--bg-cl);
-            mix-blend-mode: color;
-            filter: blur(1rem);
-        }
-
-        &.force-cl {
-            background: radial-gradient(var(--bg-cl), transparent 80%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            @include size(var(--glow));
+            background-image: url('../../public/imgs/glow-1.png');
+            background-size: cover;
 
             &::before {
-                content: unset;
+                content: "";
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                border-radius: 100vmax;
+                @include size(100%);
+                background-color: var(--bg-cl);
+                mix-blend-mode: lighten;
+                filter: blur(calc(var(--glow) / 2.5));
             }
+
+            &.force-cl {
+                background: radial-gradient(var(--bg-cl), transparent 80%);
+
+                &::before {
+                    content: unset;
+                }
+            }
+        }
+
+        &-big {
+            background-image: url('../../public/imgs/glow-2.png');
+        }
+        &-nor {
+            background-image: url('../../public/imgs/glow-4.png');
         }
     }
 
@@ -499,7 +508,7 @@ button {
         position: absolute;
         border-radius: var(--border-radius);
         pointer-events: none;
-        // opacity: var(--opacity);
+        opacity: calc(var(--opacity) * 1.5 );
 
         padding: var(--border-width);
         mask-mode: match-source, match-source;
@@ -513,7 +522,7 @@ button {
         -webkit-mask-clip: content-box, border-box;
         -webkit-mask-origin: content-box, border-box;
         -webkit-mask-source-type: auto, auto;
-        opacity: calc(var(--opacity) * 1.2);
+        // opacity: calc(var(--opacity) * 1.2);
     }
 
     .border-inner {
@@ -534,7 +543,7 @@ button {
         border-radius: var(--border-radius);
         @include size(100%);
         opacity: var(--opacity);
-        mix-blend-mode: darken;
+        // mix-blend-mode: darken;
 
         &-inner {
             border-radius: 100vmax;

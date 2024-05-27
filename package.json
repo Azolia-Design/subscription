@@ -26,11 +26,16 @@
     "nodemon": "^3.0.3",
     "parcel": "^2.11.0",
     "parcel-reporter-static-files-copy": "^1.5.3",
+    "process": "^0.11.10",
     "sharp": "^0.31.1",
     "stripe": "^14.14.0"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead, Safari 14",
   "dependencies": {
-    "cors": "^2.8.5"
+    "@splinetool/loader": "^1.4.0",
+    "@splinetool/runtime": "^1.4.0",
+    "cors": "^2.8.5",
+    "three": "^0.164.1",
+    "three-orbitcontrols": "^2.110.3"
   }
 }
