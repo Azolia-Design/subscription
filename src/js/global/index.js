@@ -2,6 +2,7 @@ import initHeader from "./header";
 import initFooter from "./footer";
 import initPopup from "./popup";
 import initCursor from "./magic-mouse";
+import initGlowBorder from "./glow-border";
 import { initLenis } from "./lenis";
 import initButton from './button';
 import refreshOnBreakpoint from './refresh';
@@ -16,6 +17,7 @@ const initGlobal = () => {
     initButton()
     initHeader();
     initFooter();
+    initGlowBorder();
 }
 
 export default initGlobal;
