@@ -65,9 +65,11 @@ const home = {
 
                 let mainItemSelect = selector(BENEFIT.mainItem);
                 let totalDistance = BENEFIT.mainItem.width() + (BENEFIT.otherItem.width() * BENEFIT.otherItem.length);
-                let otherWrapDistance = BENEFIT.mainItem.width() + cvUnit(parseInt(BENEFIT.mainItem.css('padding-left'), 10), "rem") + cvUnit(viewportBreak({ desktop: .7, tablet: .5 }), 'vw')
+                let otherWrapDistance = BENEFIT.mainItem.outerWidth()
 
-                const ITEM_WIDTH = ($('.container').width() - percentage(37, $('.container').width())) / viewportBreak({ desktop: 5, tablet: 2 });
+                // const ITEM_WIDTH = ($('.container').width() - percentage(37, $('.container').width())) / viewportBreak({ desktop: 5, tablet: 2 });
+                const ITEM_WIDTH = (($(BENEFIT.otherItem).outerWidth() * (BENEFIT.otherItem.length - 1)) - ($('.container').width() - $(BENEFIT.otherItem).last().outerWidth())) / (BENEFIT.otherItem.length - 1)
+                
                 if ($(window).width() > 991) {
                     gsap.set(BENEFIT.stage, { height: totalDistance * 1.2 + cvUnit(100, "rem") });
                 }
@@ -127,7 +129,7 @@ const home = {
                         if (idx > index) {
                             scrollerTl
                                 .to(el, {
-                                    x: -(ITEM_WIDTH * (1 + index)),
+                                    x: -(ITEM_WIDTH * (index + 1)),
                                     paddingLeft: viewportBreak({ desktop: cvUnit(40, 'rem'), tablet: cvUnit(24, 'rem') }),
                                     duration: 1
                                 }, '<=0')
