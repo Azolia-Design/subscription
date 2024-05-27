@@ -69,7 +69,7 @@ const home = {
 
                 // const ITEM_WIDTH = ($('.container').width() - percentage(37, $('.container').width())) / viewportBreak({ desktop: 5, tablet: 2 });
                 const ITEM_WIDTH = (($(BENEFIT.otherItem).outerWidth() * (BENEFIT.otherItem.length - 1)) - ($('.container').width() - $(BENEFIT.otherItem).last().outerWidth())) / (BENEFIT.otherItem.length - 1)
-                
+
                 if ($(window).width() > 991) {
                     gsap.set(BENEFIT.stage, { height: totalDistance * 1.2 + cvUnit(100, "rem") });
                 }
@@ -314,7 +314,7 @@ const home = {
 
         /** (💡)  - SERVICE */
         function homeService() {
-            function homeService_Preamble() {
+            function homeServicePreamble() {
                 const WrapHeightRatio = parseInt(parseFloat($(".home-service-preamble").css("height")) / $(window).height())
 
                 let tlImg = gsap.timeline({
@@ -353,7 +353,7 @@ const home = {
                 })
             }
 
-            function homeService_Main() {
+            function homeServiceMain() {
 
                 $('.home-service-item').each((idx, el) => {
                     let itemTitleTxt = new SplitText($(el).find('.home-service-item-title'), typeOpts.chars)
@@ -475,9 +475,9 @@ const home = {
                 start: 'top bottom',
                 once: true,
                 onEnter: () => {
-                    homeService_Preamble()
+                    homeServicePreamble()
                     requestAnimationFrame(() => {
-                        homeService_Main()
+                        homeServiceMain()
                     })
                 }
             })
@@ -618,6 +618,20 @@ const home = {
                 })
             }
             //changeTxtScrollAnim()
+
+            function parallaxTitle() {
+                let tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: '.home-portfolio-content',
+                        start: 'top+=55% top+=50%',
+                        end: 'top+=55% top+=15%',
+                        markers: true,
+                        scrub: 1.1,
+                    }
+                })
+                tl.to('.home-portfolio-content-intro', { y: 150, ease: 'linear', duration: 1 });
+            }
+            // parallaxTitle();
 
             function hoverProject() {
                 if ($(window).width() <= 991) {
@@ -800,7 +814,7 @@ const home = {
                         y: -offset,
                     }, 0)
             }
-            projectCurtain()
+            projectCurtain();
         }
         homePortfolio()
 
