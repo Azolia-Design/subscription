@@ -314,6 +314,51 @@ const home = {
 
         /** (💡)  - SERVICE */
         function homeService() {
+            function accordionService() {
+                const parentService = selector('.home-service-listing');
+                const DOMSERVICE = {
+                    accordionService: parentService('.home-service-item'),
+                    accordionTitleService: parentService('.home-service-item-question'),
+                    accordionContentService: parentService('.home-service-item-desc')
+                }
+                parentService(DOMSERVICE.accordionContentService).hide();
+                function activeAccordion(index) {
+                    DOMSERVICE.accordionContentService.eq(index).slideToggle("slow");
+                    DOMSERVICE.accordionService.eq(index).toggleClass("active");
+
+                    DOMSERVICE.accordionContentService.not(DOMSERVICE.accordionContentService.eq(index)).slideUp("slow");
+                    DOMSERVICE.accordionService.not(DOMSERVICE.accordionService.eq(index)).removeClass("active");
+                };
+
+                DOMSERVICE.accordionTitleService.on("click", function () {
+                    let index = $(this).parent().index();
+                    if ($(this).find('.home-service-item-toggle').hasClass('active')){
+                    $(this).find('.home-service-item-toggle').removeClass('active');
+                    }
+                    else{
+                        $('.home-service-item-toggle').removeClass('active');
+                        $(this).find('.home-service-item-toggle').addClass('active');
+                    }
+                    activeAccordion(index);
+                })
+            }
+            const widthCursor =$('.cursor-wrap .cursor-border').outerWidth();
+            const heightCursor =$('.cursor-wrap .cursor-border').outerHeight();
+            $('.home-service-item').hover(
+                function () {
+                let width = $(this).find('.home-service-item-toggle svg').outerWidth() + 4;
+                 let height = $(this).find('.home-service-item-toggle svg').outerHeight() + 4;
+                $('.cursor-wrap .cursor-border').css('width', width + 'px');
+                $('.cursor-wrap .cursor-border').css('height', height + 'px');
+                $('.cursor-wrap .cursor-dot').hide(300);
+                },
+                function () {
+                $('.cursor-wrap .cursor-dot').show(300);
+                    $('.cursor-wrap .cursor-border').css('width', widthCursor + 'px');
+                    $('.cursor-wrap .cursor-border').css('height', heightCursor + 'px');
+                    }
+        );
+            accordionService();
             function homeServicePreamble() {
                 const WrapHeightRatio = parseInt(parseFloat($(".home-service-preamble").css("height")) / $(window).height())
 
@@ -357,7 +402,7 @@ const home = {
 
                 $('.home-service-item').each((idx, el) => {
                     let itemTitleTxt = new SplitText($(el).find('.home-service-item-title'), typeOpts.chars)
-
+                    let itemToggle=$(el).find('.home-service-item-toggle')
                     let tlItem = gsap.timeline({
                         scrollTrigger: {
                             trigger: el,
@@ -371,6 +416,8 @@ const home = {
                     tlItem
                         .from($(el).find('.line'), { scaleX: 0, transformOrigin: 'left', duration: .6, ease: 'power2.out' }, 0)
                         .from(itemTitleTxt.chars, { yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: 'power2.out'}, 0)
+                        .from(itemToggle, { y: 60, autoAlpha: 0, duration: .8, ease: 'power2.out'}, 0)
+
                 })
 
                 $('.home-service-thumb-item').each((idx, el) => {
@@ -442,23 +489,27 @@ const home = {
                             if (!$(this).hasClass('active')) {
                                 idx = $(this).index()
                                 imgIdx = Number($(this).attr('data-thumb-image')) - 1;
-                                $('.home-service-item').removeClass('active')
-                                $('.home-service-item .home-service-item-desc').slideUp(300, 'linear')
-                                $(this).addClass('active')
-                                $(this).find('.home-service-item-desc').slideDown(300, 'linear')
-                                gsap.to('.home-service-item', { paddingTop: cvUnit(60.5, 'rem'), paddingBottom: cvUnit(60.5, 'rem'), duration: .3, ease: 'none' })
+                                // $('.home-service-item').removeClass('active')
+                                // $('.home-service-item .home-service-item-desc').slideUp(300, 'linear')
+                                // $(this).addClass('active')
+                                // $(this).find('.home-service-item-desc').slideDown(300, 'linear')
+                                // gsap.to('.home-service-item', { paddingTop: cvUnit(60.5, 'rem'), paddingBottom: cvUnit(60.5, 'rem'), duration: .3, ease: 'none' })
                                 gsap.to('.home-service-item .home-service-item-title', { marginBottom: 0, duration: .3, ease: 'none' })
                                 gsap.to(this, { paddingTop: cvUnit(27.5, 'rem'), paddingBottom: cvUnit(27.5, 'rem'), duration: .3, ease: 'none', overwrite: true })
                                 gsap.to($(this).find('.home-service-item-title'), { marginBottom: cvUnit(12, 'rem'), duration: .3, ease: 'none', overwrite: true })
                                 $('.home-service-thumb').find('.home-service-thumb-item').removeClass('active')
-                                $('.home-service-thumb').find('.home-service-thumb-item').eq(imgIdx).addClass('active')
+                                // $('.home-service-thumb').find('.home-service-thumb-item').eq(imgIdx).addClass('active')
                                 gsap.to('.home-service-thumb', { y: -cvUnit(120, 'rem') + $(this).offset().top - $('.home-service-listing').offset().top, duration: 1 })
                             } else {
-                                $('.home-service-item').removeClass('active')
-                                $('.home-service-item .home-service-item-desc').slideUp(300, 'linear')
+                                imgIdx = Number($(this).attr('data-thumb-image')) - 1;
+                                // $('.home-service-item').removeClass('active')
+                                // $('.home-service-item .home-service-item-desc').slideUp(300, 'linear')
                                 gsap.to('.home-service-item', { paddingTop: cvUnit(60.5, 'rem'), paddingBottom: cvUnit(60.5, 'rem'), duration: .3, ease: 'none' })
                                 gsap.to('.home-service-item .home-service-item-title', { marginBottom: 0, duration: .3, ease: 'none' })
                                 $('.home-service-thumb').find('.home-service-thumb-item').removeClass('active')
+                                $('.home-service-thumb').find('.home-service-thumb-item').eq(imgIdx).addClass('active')
+                                gsap.to('.home-service-thumb', { y: -cvUnit(120, 'rem') + $(this).offset().top - $('.home-service-listing').offset().top, duration: 1 })
+
                             }
                         })
                     }

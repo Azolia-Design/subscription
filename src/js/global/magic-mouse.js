@@ -8,7 +8,8 @@ const initCursor = () => {
     let cursor = $('.cursor')
     let targetPos
     let forcing = false
-
+    const widthCursor =cursor.find('.cursor-border').outerWidth();
+    const heightCursor =cursor.find('.cursor-border').outerHeight();
     function initMouseMove() {
         let cursorX = xGetter(cursor.get(0))
         let cursorY = yGetter(cursor.get(0))
@@ -106,7 +107,6 @@ const initCursor = () => {
             }
 
             let type = target.attr('data-cursor')
-
             switch (type) {
 
                 case 'stick':
@@ -166,7 +166,18 @@ const initCursor = () => {
                         target.addClass('hovered')
                     }
                     break;
-
+                case 'dotstickService':
+                    cursor.find('.cursor-dot').addClass('stickservice')
+                    // let width = target.find('.home-service-item-toggle svg').outerWidth() + 4;
+                    // let height = target.find('.home-service-item-toggle svg').outerHeight() + 4;
+                    // cursor.find('.cursor-border').css('width', width + 'px');
+                    // cursor.find('.cursor-border').css('height', height + 'px');
+                    targetPos = {
+                        x: dotOffsetLeft + target.find('[data-cursor-dotpos]').outerWidth() / 2,
+                        y: dotOffsetTop + target.find('[data-cursor-dotpos]').outerHeight() / 2
+                    }
+                    updatePos()
+                    break;
                 case 'txtstick':
                     cursor.find('.cursor-dot').addClass('smdot')
                     cursor.find('.cursor-border').addClass('hide')
@@ -253,11 +264,14 @@ const initCursor = () => {
                     xSetter(cursor.find('.cursor-border').get(0))(lerp(borderX, 0, velChange))
                     ySetter(cursor.find('.cursor-border').get(0))(lerp(borderY, 0, velChange))
                     break;
+               
             }
             cursorChange = true
         } else {
             forcing = false
             if (cursorChange == true) {
+                cursor.find('.cursor-border').css('width',widthCursor+'px'); // Giá trị ban đầu của width
+                cursor.find('.cursor-border').css('height', heightCursor+'px'); 
                 cursor.closest('.cursor-wrap').removeClass('mixBlendMode')
                 gsap.to('[data-cursor="btnstick"] .txt', { x: 0, duration: .6, ease: 'power2.out' })
                 gsap.to('[data-cursor="halostick"]', { x: 0, duration: .6, ease: 'power2.out' })
