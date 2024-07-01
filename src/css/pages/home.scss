@@ -786,14 +786,14 @@
                 }
             }
             &-desc {
-                grid-column: 2/8;
+                grid-column: 2/9;
                 padding-bottom: 5.8rem;
                 grid-row:2;
                 @include transform(translate(0, .8rem));
                 /* @include transition(opacity .8s ease-in-out,height .8s ease, transform 2.333s var(--spring-easing-1)); */
 
                 @include md {
-                    padding-bottom: 5.6rem;
+                    padding-bottom: 4.5rem;
                     grid-column: 1/13;
                     &-frame {
                         margin-top:3rem;
@@ -801,12 +801,18 @@
                 }
 
                 @include sm {
-                padding-bottom: 6rem;
+                padding-bottom: 3.2rem;
                     grid-column: 1/-1;
                     opacity: 1;
                     display: none;
                     overflow: hidden;
                 }
+                 &-frame{
+                    margin-top:3rem;
+                    @include sm {   
+                      margin-top:2rem;
+                     }
+                 }
             }
 
             .line {
@@ -1468,6 +1474,7 @@
                 p {
                     grid-row: 1/-1;
                     grid-column: 1/-1;
+                    max-width:53rem;
                 }
 
                 p:nth-child(n + 2) {
@@ -1875,7 +1882,7 @@
             &-sub {
                 margin-top: 6.4rem;
                 color: rgba($cl-white,.8);
-                max-width: 44.1rem;
+                max-width: 29.1rem;
                 margin-bottom: 3.2rem;
                 transform-origin: left top;
                 // Update mb
@@ -2120,7 +2127,7 @@
 
         &-heading {
             margin-bottom: 6rem;
-
+            max-width: 46rem;
             @include md {
                 padding-right: 1rem;
             }
@@ -2378,7 +2385,7 @@
         }
 
         @include sm {
-        padding-top: var(--height-header);
+            padding-top: var(--height-header);
             // padding-bottom: calc(6.8rem- var(--height-header));
             margin-top: unset;
         }

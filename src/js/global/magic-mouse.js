@@ -8,8 +8,7 @@ const initCursor = () => {
     let cursor = $('.cursor')
     let targetPos
     let forcing = false
-    const widthCursor =cursor.find('.cursor-border').outerWidth();
-    const heightCursor =cursor.find('.cursor-border').outerHeight();
+    
     function initMouseMove() {
         let cursorX = xGetter(cursor.get(0))
         let cursorY = yGetter(cursor.get(0))
@@ -167,11 +166,6 @@ const initCursor = () => {
                     }
                     break;
                 case 'dotstickService':
-                    cursor.find('.cursor-dot').addClass('stickservice')
-                    // let width = target.find('.home-service-item-toggle svg').outerWidth() + 4;
-                    // let height = target.find('.home-service-item-toggle svg').outerHeight() + 4;
-                    // cursor.find('.cursor-border').css('width', width + 'px');
-                    // cursor.find('.cursor-border').css('height', height + 'px');
                     targetPos = {
                         x: dotOffsetLeft + target.find('[data-cursor-dotpos]').outerWidth() / 2,
                         y: dotOffsetTop + target.find('[data-cursor-dotpos]').outerHeight() / 2
