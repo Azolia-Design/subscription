@@ -840,7 +840,7 @@
             position: absolute;
             pointer-events: none;
             top: 0;
-            left: 68.6rem;
+            left: 71.6rem;
             display: grid;
             grid-template-columns: 1fr;
 
@@ -892,7 +892,7 @@
                 }
 
                 &.active {
-                    opacity: .85;
+                    opacity: 1;
                     @include transform(scale(1.1));
                     @include transition(opacity .8s ease-out, transform .2s cubic-bezier(0.45, 0.5, 0.55, 1));
                 }

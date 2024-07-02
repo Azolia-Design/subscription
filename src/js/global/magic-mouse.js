@@ -171,6 +171,17 @@ const initCursor = () => {
                         y: dotOffsetTop + target.find('[data-cursor-dotpos]').outerHeight() / 2
                     }
                     updatePos()
+                    
+                    if (target.hasClass('hovered')) {
+                        if (Math.abs(cursorY - targetPos.y) <= 1 || forcing == true) {
+                            updatePos('force')
+                            forcing = true
+                        }
+                    } else {
+                        forcing = false
+                        $(`[data-cursor="dotstickService"]`).removeClass('hovered')
+                        target.addClass('hovered')
+                    }
                     break;
                 case 'txtstick':
                     cursor.find('.cursor-dot').addClass('smdot')
@@ -264,8 +275,8 @@ const initCursor = () => {
         } else {
             forcing = false
             if (cursorChange == true) {
-                cursor.find('.cursor-border').css('width',widthCursor+'px'); // Giá trị ban đầu của width
-                cursor.find('.cursor-border').css('height', heightCursor+'px'); 
+                // cursor.find('.cursor-border').css('width',widthCursor+'px'); // Giá trị ban đầu của width
+                // cursor.find('.cursor-border').css('height', heightCursor+'px'); 
                 cursor.closest('.cursor-wrap').removeClass('mixBlendMode')
                 gsap.to('[data-cursor="btnstick"] .txt', { x: 0, duration: .6, ease: 'power2.out' })
                 gsap.to('[data-cursor="halostick"]', { x: 0, duration: .6, ease: 'power2.out' })
