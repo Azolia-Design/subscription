@@ -716,7 +716,7 @@
                 // padding: 0  !important;
             }
             @include sm {
-                padding-bottom: 4rem;
+                padding-bottom: 3rem;
             }
             &:hover {
                 .home-service-item-toggle svg g path:nth-child(1){
@@ -728,11 +728,6 @@
             &.active {
                 .home-service-item-title {
                     color: $cl-primary;
-                }
-
-                .home-service-item-desc {
-                    opacity: 1;
-                    @include transform(translate(0));
                 }
                 .home-service-item-toggle svg{
                     transform: rotate(-180deg);
@@ -748,6 +743,7 @@
             }
 
             &-title {
+                @include transition(color .4s ease-in-out);
                 span {
                     opacity: .2;
                     font-weight: 400;
@@ -769,7 +765,7 @@
 
                 @include sm {
                     grid-column: 1/-1;
-                    padding: 6rem 0 2rem;
+                    padding: 4.2rem 0 1.2rem;
                 }
             }
             &-toggle{
@@ -2567,7 +2563,7 @@
 
                     @include md {
                         --fs-16: 1.4rem;
-                        --lh-16: 1.3rem;
+                        --lh-16: 1.3em;
                         width: var(--btn-width);
                     }
                 }

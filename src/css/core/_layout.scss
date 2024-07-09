@@ -221,7 +221,10 @@ button {
                 @include size(calc(3.2rem + 24px))
             }
             &.stickfaq {
-                @include size(2rem)
+                @include size(2rem);
+            }
+            &.stickService {
+                //@include size(0rem);
             }
             &.smdot {
                 @include size(.6rem)

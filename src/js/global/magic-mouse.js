@@ -166,6 +166,7 @@ const initCursor = () => {
                     }
                     break;
                 case 'dotstickService':
+                    cursor.find('.cursor-dot').addClass('stickService');
                     targetPos = {
                         x: dotOffsetLeft + target.find('[data-cursor-dotpos]').outerWidth() / 2,
                         y: dotOffsetTop + target.find('[data-cursor-dotpos]').outerHeight() / 2
@@ -287,6 +288,7 @@ const initCursor = () => {
                 cursor.find('.cursor-dot').removeClass('whitedot')
                 cursor.find('.cursor-dot').removeClass('blackdot')
                 cursor.find('.cursor-dot').removeClass('stickfaq')
+                cursor.find('.cursor-dot').removeClass('stickService')
 
                 cursor.find('.cursor-border').removeClass('stickstepdot')
                 cursor.find('.cursor-border').removeClass('mddot')
