@@ -4,6 +4,7 @@ import { lenis } from './lenis';
 import { cvUnit, isTouchDevice, viewportBreak} from '../helper/viewport';
 
 const initFooter = () => {
+
     marqueeCSS({
         parent: selector('.footer-brands'),
         duration: 10
@@ -11,8 +12,8 @@ const initFooter = () => {
 
     const curtainFooter = () => {
         let curtainHeight = $('.footer-curtain').height()
-
-        gsap.from('.footer-curtain--inner', {
+        let tl = gsap.timeline({
+            data: 'footer-curtain',
             scrollTrigger: {
                 trigger: '.footer-curtain',
                 start: 'top bottom',
@@ -20,6 +21,9 @@ const initFooter = () => {
                 end: `bottom bottom+=${cvUnit(viewportBreak({desktop: 0, tablet: -40, mobile: -90}), "rem") - (curtainHeight)}`,
                 scrub: .2,
             },
+        })
+
+        tl.from('.footer-curtain--inner', {
             scaleY: 0,
             stagger: {
                 amount: -.35
@@ -27,6 +31,7 @@ const initFooter = () => {
             delay: .2,
             ease: 'power1.inOut'
         })
+        return tl;
     }
     curtainFooter();
 
@@ -61,7 +66,6 @@ const initFooter = () => {
             }
         }
     })
-
 
     $("[data-action='scrollTop']").on('click', function (e) {
         e.preventDefault()

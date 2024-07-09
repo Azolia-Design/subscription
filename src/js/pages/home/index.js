@@ -1,4 +1,3 @@
-import homeThree3D from "./homeThree"
 import { parseRem, selector } from "../../helper/index";
 import { cvUnit, percentage, viewport, viewportBreak } from "../../helper/viewport";
 import { lenis } from "../../global/lenis";
@@ -10,8 +9,6 @@ const home = {
     afterEnter(data) {
         console.log(`enter ${this.namespace}`);
         let cont = $('body');
-
-        // homeThree3D()
 
         function headerAnim() {
             let headTxt = new SplitText(".home-hero-title", typeOpts.words)
@@ -35,7 +32,35 @@ const home = {
             tlSplitHead
                 .from(".header-main-inner", { autoAlpha: 0, duration: .6, ease: "power2.out" }, "<=.2")
         }
-        headerAnim()
+        headerAnim();
+
+        function initAccordion(wrap) {
+            const parent = selector(wrap);
+            const DOM = {
+                accordion: parent('.accordion'),
+                accordionTitle: parent('.accordion-title'),
+                accordionContent: parent('.accordion-content')
+            }
+            parent(DOM.accordionContent).hide();
+            function activeAccordion(index) {
+                DOM.accordionContent.eq(index).slideToggle("slow");
+                DOM.accordion.eq(index).toggleClass("active");
+
+                DOM.accordionContent.not(DOM.accordionContent.eq(index)).slideUp("slow");
+                DOM.accordion.not(DOM.accordion.eq(index)).removeClass("active");
+            };
+
+            DOM.accordionTitle.on("click", function () {
+                let index = $(this).parent().index();
+                activeAccordion(index);
+                gsap.globalTimeline
+                    .getChildren()
+                    .filter((e) => e.data === 'footer-curtain')
+                    .forEach((el) => {
+                        el.scrollTrigger.refresh();
+                })
+            })
+        }
 
         function heroParallax() {
             let tl = gsap.timeline({
@@ -314,51 +339,24 @@ const home = {
 
         /** (💡)  - SERVICE */
         function homeService() {
-            function accordionService() {
-                const parentService = selector('.home-service-listing');
-                const DOMSERVICE = {
-                    accordionService: parentService('.home-service-item'),
-                    accordionTitleService: parentService('.home-service-item-question'),
-                    accordionContentService: parentService('.home-service-item-desc')
-                }
-                parentService(DOMSERVICE.accordionContentService).hide();
-                function activeAccordion(index) {
-                    DOMSERVICE.accordionContentService.eq(index).slideToggle("slow");
-                    DOMSERVICE.accordionService.eq(index).toggleClass("active");
+            initAccordion('.home-service-listing');
 
-                    DOMSERVICE.accordionContentService.not(DOMSERVICE.accordionContentService.eq(index)).slideUp("slow");
-                    DOMSERVICE.accordionService.not(DOMSERVICE.accordionService.eq(index)).removeClass("active");
-                };
-
-                DOMSERVICE.accordionTitleService.on("click", function () {
-                    let index = $(this).parent().index();
-                    if ($(this).find('.home-service-item-toggle').hasClass('active')){
-                    $(this).find('.home-service-item-toggle').removeClass('active');
-                    }
-                    else{
-                        $('.home-service-item-toggle').removeClass('active');
-                        $(this).find('.home-service-item-toggle').addClass('active');
-                    }
-                    activeAccordion(index);
-                })
-            }
             const widthCursor =$('.cursor-wrap .cursor-border').outerWidth();
             const heightCursor =$('.cursor-wrap .cursor-border').outerHeight();
             $('.home-service-item').hover(
                 function () {
-                let width = $(this).find('.home-service-item-toggle svg').outerWidth() + 4;
-                 let height = $(this).find('.home-service-item-toggle svg').outerHeight() + 4;
-                $('.cursor-wrap .cursor-border').css('width', width + 'px');
-                $('.cursor-wrap .cursor-border').css('height', height + 'px');
-                $('.cursor-wrap .cursor-dot').hide(300);
+                    let width = $(this).find('.home-service-item-toggle svg').outerWidth() + 4;
+                    let height = $(this).find('.home-service-item-toggle svg').outerHeight() + 4;
+                    $('.cursor-wrap .cursor-border').css('width', width + 'px');
+                    $('.cursor-wrap .cursor-border').css('height', height + 'px');
+                    $('.cursor-wrap .cursor-dot').hide(300);
                 },
                 function () {
-                $('.cursor-wrap .cursor-dot').show(300);
+                    $('.cursor-wrap .cursor-dot').show(300);
                     $('.cursor-wrap .cursor-border').css('width', widthCursor + 'px');
                     $('.cursor-wrap .cursor-border').css('height', heightCursor + 'px');
-                    }
-        );
-            accordionService();
+                }
+            );
             function homeServicePreamble() {
                 const WrapHeightRatio = parseInt(parseFloat($(".home-service-preamble").css("height")) / $(window).height())
 
@@ -399,7 +397,6 @@ const home = {
             }
 
             function homeServiceMain() {
-
                 $('.home-service-item').each((idx, el) => {
                     let itemTitleTxt = new SplitText($(el).find('.home-service-item-title'), typeOpts.chars)
                     let itemToggle=$(el).find('.home-service-item-toggle')
@@ -417,7 +414,6 @@ const home = {
                         .from($(el).find('.line'), { scaleX: 0, transformOrigin: 'left', duration: .6, ease: 'power2.out' }, 0)
                         .from(itemTitleTxt.chars, { yPercent: 60, autoAlpha: 0, stagger: .03, duration: .6, ease: 'power2.out'}, 0)
                         .from(itemToggle, { y: 60, autoAlpha: 0, duration: .8, ease: 'power2.out'}, 0)
-
                 })
 
                 $('.home-service-thumb-item').each((idx, el) => {
@@ -429,6 +425,7 @@ const home = {
                     }
                 })
                 if ($(window).width() > 991) {
+                    console.log("run")
                     $('.home-service-item').on('mouseenter', function (e) {
                         let idx = Number($(this).attr('data-thumb-image')) - 1;
 
@@ -449,7 +446,7 @@ const home = {
 
                             let tarX = -target.outerWidth() / 4 + (pointerCurr().x - $('.home-service-listing').get(0).getBoundingClientRect().left) / $('.home-service-listing').outerWidth() * ($('.home-service-listing').outerWidth()/3  - target.outerWidth() / 2)
                             let tarY = -target.outerHeight() / 4 + (pointerCurr().y - $('.home-service-listing').get(0).getBoundingClientRect().top) / $('.home-service-listing').outerHeight() * ($('.home-service-listing').outerHeight() - target.outerHeight() / 2)
-                            
+
                             xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
                             ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
                             rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX) / 40, -7), 7)), .1))
@@ -457,62 +454,6 @@ const home = {
                         requestAnimationFrame(initMouseMove)
                     }
                     requestAnimationFrame(initMouseMove)
-                } else {
-                    let idx = 0
-                    let imgIdx = 0
-                    $('.home-service-item').eq(idx).addClass('active')
-
-                    if ($(window).width() > 767) {
-                        $('.home-service-item').on('click', function (e) {
-                            e.preventDefault()
-                            if (!$(this).hasClass('active')) {
-                                $('.home-service-item').removeClass('active')
-                                $(this).addClass('active')
-                                $('.home-service-thumb').find('.home-service-thumb-item').removeClass('active')
-                                let idx = $(this).index()
-                                let imgIdx = Number($(this).attr('data-thumb-image')) - 1;
-                                $('.home-service-thumb').find('.home-service-thumb-item').eq(imgIdx).addClass('active')
-                                gsap.to('.home-service-thumb', { y: -cvUnit(120, 'rem') + $(this).offset().top - $('.home-service-listing').offset().top, duration: 1 })
-                                console.log();
-                            } else {
-                                $('.home-service-thumb').find('.home-service-thumb-item').removeClass('active')
-                                $('.home-service-item').removeClass('active')
-                            }
-                        })
-                    } else {
-                        $('.home-service-item').eq(idx).find('.home-service-item-desc').slideDown(300, 'linear')
-                        gsap.to($('.home-service-item').eq(idx), { paddingTop: cvUnit(27.5, 'rem'), paddingBottom: cvUnit(27.5, 'rem'), duration: .3, ease: 'none', overwrite: true })
-                        gsap.to($('.home-service-item').eq(idx).find('.home-service-item-title'), { marginBottom: cvUnit(12, 'rem'), duration: .3, ease: 'none', overwrite: true })
-
-                        $('.home-service-item').on('click', function (e) {
-                            e.preventDefault()
-                            if (!$(this).hasClass('active')) {
-                                idx = $(this).index()
-                                imgIdx = Number($(this).attr('data-thumb-image')) - 1;
-                                // $('.home-service-item').removeClass('active')
-                                // $('.home-service-item .home-service-item-desc').slideUp(300, 'linear')
-                                // $(this).addClass('active')
-                                // $(this).find('.home-service-item-desc').slideDown(300, 'linear')
-                                // gsap.to('.home-service-item', { paddingTop: cvUnit(60.5, 'rem'), paddingBottom: cvUnit(60.5, 'rem'), duration: .3, ease: 'none' })
-                                gsap.to('.home-service-item .home-service-item-title', { marginBottom: 0, duration: .3, ease: 'none' })
-                                gsap.to(this, { paddingTop: cvUnit(27.5, 'rem'), paddingBottom: cvUnit(27.5, 'rem'), duration: .3, ease: 'none', overwrite: true })
-                                gsap.to($(this).find('.home-service-item-title'), { marginBottom: cvUnit(12, 'rem'), duration: .3, ease: 'none', overwrite: true })
-                                $('.home-service-thumb').find('.home-service-thumb-item').removeClass('active')
-                                // $('.home-service-thumb').find('.home-service-thumb-item').eq(imgIdx).addClass('active')
-                                gsap.to('.home-service-thumb', { y: -cvUnit(120, 'rem') + $(this).offset().top - $('.home-service-listing').offset().top, duration: 1 })
-                            } else {
-                                imgIdx = Number($(this).attr('data-thumb-image')) - 1;
-                                // $('.home-service-item').removeClass('active')
-                                // $('.home-service-item .home-service-item-desc').slideUp(300, 'linear')
-                                gsap.to('.home-service-item', { paddingTop: cvUnit(60.5, 'rem'), paddingBottom: cvUnit(60.5, 'rem'), duration: .3, ease: 'none' })
-                                gsap.to('.home-service-item .home-service-item-title', { marginBottom: 0, duration: .3, ease: 'none' })
-                                $('.home-service-thumb').find('.home-service-thumb-item').removeClass('active')
-                                $('.home-service-thumb').find('.home-service-thumb-item').eq(imgIdx).addClass('active')
-                                gsap.to('.home-service-thumb', { y: -cvUnit(120, 'rem') + $(this).offset().top - $('.home-service-listing').offset().top, duration: 1 })
-
-                            }
-                        })
-                    }
                 }
             }
             ScrollTrigger.create({
@@ -1097,10 +1038,10 @@ const home = {
 
                     if (index > 0) {
                         // DOM.priceOff.removeClass('active')
-                        DOM.priceOff.slideUp(600, "swing")
+                        DOM.priceOff.slideUp('fast')
                     } else {
                         // DOM.priceOff.addClass('active')
-                        DOM.priceOff.slideDown(600, "swing")
+                        DOM.priceOff.slideDown('fast')
                     }
 
                     let currPlan = DOM.btnPlan.eq(index).text();
@@ -1266,28 +1207,7 @@ const home = {
 
         /** (💡)  - FAQ */
         function homeFaq() {
-            function accordion() {
-                const parent = selector('.home-faq-content-listing');
-                const DOM = {
-                    accordion: parent('.home-faq-content-item'),
-                    accordionTitle: parent('.home-faq-content-item-ques'),
-                    accordionContent: parent('.home-faq-content-item-answer')
-                }
-                parent(DOM.accordionContent).hide();
-                function activeAccordion(index) {
-                    DOM.accordionContent.eq(index).slideToggle("slow");
-                    DOM.accordion.eq(index).toggleClass("active");
-
-                    DOM.accordionContent.not(DOM.accordionContent.eq(index)).slideUp("slow");
-                    DOM.accordion.not(DOM.accordion.eq(index)).removeClass("active");
-                };
-
-                DOM.accordionTitle.on("click", function () {
-                    let index = $(this).parent().index();
-                    activeAccordion(index);
-                })
-            }
-            accordion();
+            initAccordion('.home-faq-content-listing');
         }
         homeFaq();
 

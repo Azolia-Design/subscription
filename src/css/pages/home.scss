@@ -713,12 +713,16 @@
             position: relative;
             // border-top: 1px solid rgba($cl-heading, 0.1);
             @include md{
-                padding: 0  !important;
-             }
-            &:hover{
+                // padding: 0  !important;
+            }
+            @include sm {
+                padding-bottom: 4rem;
+            }
+            &:hover {
                 .home-service-item-toggle svg g path:nth-child(1){
                     fill: #F5450D !important;
                     fill-opacity: 1;
+                    transform: scale(.9);
                 }
             }
             &.active {
@@ -730,8 +734,19 @@
                     opacity: 1;
                     @include transform(translate(0));
                 }
+                .home-service-item-toggle svg{
+                    transform: rotate(-180deg);
+                    g path:nth-child(1) {
+                        fill: #F5450D !important;
+                        fill-opacity: 1;
+                        transform: scale(.9);
+                    }
+                    g path:nth-child(2){
+                        opacity: 0;
+                    }
+                }
             }
-           
+
             &-title {
                 span {
                     opacity: .2;
@@ -745,10 +760,7 @@
                 grid-column: 2/16;
                 padding: 5.8rem 0;
                 @include transition(color 1.333s var(--spring-easing-2));
-                .home-service-item-toggle svg g path{
-                    transition:.5s ease all;
-                }
-               
+
                 @include md {
                     grid-column: 1/13;
                     padding: 5.5rem 0;
@@ -757,32 +769,23 @@
 
                 @include sm {
                     grid-column: 1/-1;
-                    padding: 6rem 0;
+                    padding: 6rem 0 2rem;
                 }
             }
             &-toggle{
-                width: 7.2rem;
-                height:7.2rem;
+                @include size(6rem);
                 @include md {
-                    width: 5rem;
-                    height:5rem;
+                    @include size(5rem);
                 }
                 @include sm {
-                    width: 3.2rem;
-                    height:3.2rem;
+                    @include size(3.2rem);
                 }
-                & svg g path{
+                svg {
+                    @include transition(all .4s cubic-bezier(.455, .03, .515, .955));
+                }
+                svg g path{
                     transform-origin: center;
-                }
-                &.active{
-                    svg g path:nth-child(1){
-                        fill: #F5450D !important;
-                        fill-opacity: 1;
-                    }
-                    svg g path:nth-child(2){
-                        transform: rotate(90deg);
-                    }
-                
+                    @include transition(all .4s cubic-bezier(.455, .03, .515, .955));
                 }
             }
             &-desc {
@@ -790,7 +793,6 @@
                 padding-bottom: 5.8rem;
                 grid-row:2;
                 @include transform(translate(0, .8rem));
-                /* @include transition(opacity .8s ease-in-out,height .8s ease, transform 2.333s var(--spring-easing-1)); */
 
                 @include md {
                     padding-bottom: 4.5rem;
@@ -801,7 +803,7 @@
                 }
 
                 @include sm {
-                padding-bottom: 3.2rem;
+                    padding-bottom: .8rem;
                     grid-column: 1/-1;
                     opacity: 1;
                     display: none;
@@ -809,7 +811,7 @@
                 }
                  &-frame{
                     margin-top:3rem;
-                    @include sm {   
+                    @include sm {
                       margin-top:2rem;
                      }
                  }
@@ -849,12 +851,11 @@
             }
 
             @include sm {
-                left: auto;
-                right: 2rem;
+                display: none;
             }
 
             &-item {
-                width: 40rem;
+                width: 32rem;
                 grid-area: 1/1/2/2;
                 opacity: 0;
                 @include transform(scale(1.1));
@@ -896,7 +897,7 @@
                     @include transform(scale(1.1));
                     @include transition(opacity .8s ease-out, transform .2s cubic-bezier(0.45, 0.5, 0.55, 1));
                 }
-               
+
                 // &:nth-child(5n).active {
                 //     img.cloner {
                 //         @include animation(glitch-anim-1 var(--time-anim) infinite linear alternate);
@@ -1826,7 +1827,7 @@
         &-item {
             position: relative;
             z-index: 3;
-            padding-top: 6rem;
+            padding-top: 4.2rem;
             background-color: $cl-bg;
 
             @include md {
@@ -1974,8 +1975,8 @@
             }
 
             &-img {
-                @include size(34rem, auto);
-                margin-block: 4rem;
+                @include size(22rem, auto);
+                margin-block: 3.2rem;
                 margin-inline: auto;
                 /* flex: 1; */
                 opacity: 1;
@@ -2014,6 +2015,7 @@
 
                 &-txt {
                     margin-bottom: 3.2rem;
+                    max-width: 31rem;
 
                     @include md {
                         --fs-20: 1.4rem;
@@ -2032,6 +2034,7 @@
                     &.hidden {
                         opacity: 0;
                         pointer-events: none;
+                        display: none;
                     }
 
                     @include md {
@@ -2122,6 +2125,8 @@
                 grid-column: 1/-1;
                 @include transform(translateY(0));
                 margin-bottom: 6rem;
+                align-items: center;
+                text-align: center;
             }
         }
 
@@ -2431,6 +2436,9 @@
                 align-items: center;
                 justify-content: center;
                 column-gap: 3.2rem;
+                @include sm {
+                    row-gap: .8rem;
+                }
             }
             &-sub-item {
                 display: flex;
@@ -2474,6 +2482,7 @@
 
                 @include sm {
                     width: 100%;
+                    margin-bottom: 4rem;
                 }
 
                 &:before {
@@ -2859,6 +2868,7 @@
 
                 @include sm {
                     padding-top: 6rem;
+                    align-items: stretch;
                 }
 
                 &-heading {
@@ -2871,6 +2881,7 @@
 
                     @include sm {
                         --lh-h6: 1.2em;
+                        max-width: 32rem;
                     }
                 }
 
