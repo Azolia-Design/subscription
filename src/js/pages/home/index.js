@@ -449,9 +449,7 @@ const home = {
 
                             let tarX = -target.outerWidth() / 4 + (pointerCurr().x - $('.home-service-listing').get(0).getBoundingClientRect().left) / $('.home-service-listing').outerWidth() * ($('.home-service-listing').outerWidth()/3  - target.outerWidth() / 2)
                             let tarY = -target.outerHeight() / 4 + (pointerCurr().y - $('.home-service-listing').get(0).getBoundingClientRect().top) / $('.home-service-listing').outerHeight() * ($('.home-service-listing').outerHeight() - target.outerHeight() / 2)
-                            console.log($('.home-service-item-desc').get(0).getBoundingClientRect().right)
-                            // console.log(target.outerWidth() / 2)
-                            console.log( $('.home-service-listing').outerWidth() )
+                            
                             xSetter(target.get(0))(lerp(tarCurrX, tarX, .05))
                             ySetter(target.get(0))(lerp(tarCurrY, tarY, .05))
                             rotZSetter(target.get(0))(lerp(tarCurrRot, (Math.min(Math.max((tarX - tarCurrX) / 40, -7), 7)), .1))
@@ -1111,6 +1109,7 @@ const home = {
                         if ($(item).attr('data-purchase-method') === 'subscription') {
                             let priceId = $(item).attr('data-price');
                             let dataSrc = data.filter((el) => el.name === priceId);
+                            console.log(dataSrc[0].price_id[subsType])
                             $(item).attr('href', dataSrc[0].price_id[subsType])
                         }
                         else return;

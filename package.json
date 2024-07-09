@@ -10,8 +10,8 @@
   "targets": {},
   "scripts": {
     "clear": "rm -rf dist .parcel-cache",
-    "dev": " parcel -p 3000",
-    "build": " parcel build --no-cache --no-content-hash --public-url ./ --no-scope-hoist",
+    "dev": "npm run clear && PARCEL_WORKERS=1 parcel",
+    "build": "npm run clear && parcel build --no-cache --no-content-hash --public-url ./ --no-scope-hoist",
     "server": "nodemon server.js",
     "start": "concurrently \"yarn dev\" \"yarn server\""
   },
@@ -19,7 +19,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.11.0",
+    "@parcel/transformer-sass": "2.11.0",
     "concurrently": "^8.2.2",
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
