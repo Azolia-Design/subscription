@@ -23,6 +23,7 @@
         }
         &-title {
             color: rgba($cl-primary, 1);
+            line-height: 1.2em;
 
             @include sm {
                 --fs-h0: 4.4rem;
