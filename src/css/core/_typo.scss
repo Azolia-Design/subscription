@@ -276,6 +276,10 @@ body {
         --border-radius: 2rem;
         --border-padding: .5rem;
 
+        @include sm {
+            --border-radius: 1.7rem;
+        }
+
         position: relative;
         border: 1px solid rgba($cl-white, 0.1);
         background-color: rgba($cl-white, 0.05);

@@ -30,6 +30,14 @@
                 --ld-h0: 1em;
             }
         }
+        &-title::before {
+            height: .4rem;
+            bottom: 0;
+        }
+        &-title::after {
+            height: .4rem;
+            bottom: 0;
+        }
         &-sub1 {
             color: $cl-heading;
             color: rgba($cl-white, 1);
