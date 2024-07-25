@@ -24,10 +24,33 @@
         &-title {
             color: rgba($cl-primary, 1);
             line-height: 1.2em;
+            &.hover-line {
+                &::before,
+                &::after {
+                    height: .4rem;
+                    bottom: .1em;
+                }
+            }
+
+            @include md {
+                &.hover-line {
+                    &::before,
+                    &::after {
+                        height: .3rem;
+                    }
+                }
+            }
 
             @include sm {
                 --fs-h0: 4.4rem;
                 --ld-h0: 1em;
+                &.hover-line {
+                    &::before,
+                    &::after {
+                        height: .2rem;
+                        bottom: .05em;
+                    }
+                }
             }
         }
         &-title::before {
