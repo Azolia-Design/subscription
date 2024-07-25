@@ -21,13 +21,32 @@
 
     <link rel="preload" href="css/style.scss" as="style" />
     <link rel="stylesheet" href="css/style.scss">
+    <link rel="stylesheet" href="css/core/popup.scss">
     <link rel="stylesheet" href="../public/fonts/font.css">
     <link rel="preload" href="../public/imgs/hero-banner-full.jpg" as="image">
     <link rel="preload" href="../public/fonts/Saans-Bold.woff" as="font" type="font/woff" crossorigin>
     <link rel="preload" href="../public/fonts/Saans-Regular.woff" as="font" type="font/woff" crossorigin>
     <link rel="preload" href="../public/fonts/Saans-Medium.woff" as="font" type="font/woff" crossorigin>
 </head>
-
+<section class="popup-contact active">
+    <div class="popup-contact-wrap">
+    <div class="popup-contact-overlay"></div>
+    <div class="container grid">
+    <div class="popup-contact-inner">
+            <div class="popup-contact-content">
+                <p class="txt popup-contact-content-title">Have some amazing ideas? Let’s make them happen. </p>
+                <div class="popup-contact-content-email-wrap">
+                    <span class="popup-sidebar-content-email-label">Or feel free to contact us via email</span>
+                    <span class="popup-sidebar-content-email-txt">hello@dashhq.com</span>
+                </div>
+            </div>
+            <div class="popup-contact-form">
+                
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
 <body>
     <div class="cursor-wrap on-hidden">
         <div class="cursor">
@@ -1490,11 +1509,18 @@
                                 <div class="home-pricing-plan-cta">
                                     <h4 class="h6 home-pricing-plan-cta-heading">Still need more hours? <br />Contact us
                                         for a customized plan</h4>
+                                    <div class="home-pricing-plan-cta-btn">
                                     <div class="btn-border" data-border-glow="true" data-glow-option='{"color": "rgba(255, 255, 255, 1)", "glow": 6, "magnetic": 20, "inset": -2, "opacity": 0.4}'>
                                         <a class="btn btn-dark" href="#" data-cursor="btnstick" data-border-glow="true" data-glow-option='{"color": "rgba(255, 255, 255, 1)", "glow": 6, "magnetic": 20, "inset": -1, "opacity": 0.4}'>
                                             <span class="txt txt-18 txt-btn" data-cursor="txtstick">Book an Intro</span>
                                         </a>
                                     </div>
+                                    <div class="btn-border" data-border-glow="true" data-glow-option='{"color": "rgba(255, 255, 255, 1)", "glow": 6, "magnetic": 20, "inset": -2, "opacity": 0.4}' data-popup-contact="open">
+                                        <a class="btn btn-dark" href="#" data-cursor="btnstick" data-border-glow="true" data-glow-option='{"color": "rgba(255, 255, 255, 1)", "glow": 6, "magnetic": 20, "inset": -1, "opacity": 0.4}'>
+                                            <span class="txt txt-18 txt-btn" data-cursor="txtstick">Contact us</span>
+                                        </a>
+                                    </div>
+                                </div>
                                 </div>
                             </div>
                         </div>

@@ -2866,7 +2866,10 @@
                     padding-top: 6rem;
                     align-items: stretch;
                 }
-
+                &-btn{
+                    display: flex;
+                    gap: 2rem;
+                }
                 &-heading {
                     max-width: 66rem;
                     margin-bottom: 2rem;
