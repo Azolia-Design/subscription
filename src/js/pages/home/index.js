@@ -986,7 +986,7 @@ const home = {
                     btnOverlay: $('.home-pricing-plan-switch-overlay'),
                     periodic: $('.home-pricing-plan-item-price-periodic'),
                     price: $('.home-pricing-plan-item-price-txt'),
-                    btnPurchase: $('.home-pricing-plan-item-btn.btn-purchase'),
+                    btnPurchase: $('.home-pricing-plan-item-btn > .btn-purchase'),
                     priceOff: $('.home-pricing-plan-item-off'),
                 }
                 const data = [
@@ -1055,6 +1055,7 @@ const home = {
                         }
                         else return;
                     })
+                    console.log("datasrc: ")
                 }
 
                 activePlan(0);
