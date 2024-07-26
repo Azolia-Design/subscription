@@ -299,7 +299,7 @@ button {
     min-height: 100vh;
     @include size(100%, 100vh);
     inset: 0;
-    z-index: 3;
+    z-index: 99;
     overflow: hidden;
     background-color: rgba($cl-black, 0.70);
     pointer-events: none;

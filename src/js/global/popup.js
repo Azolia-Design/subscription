@@ -52,6 +52,7 @@ const popup = (name) => {
 }
 const initPopup = () => {
     popup('benefit');
+    popup('contact');
 }
 
 export default initPopup;

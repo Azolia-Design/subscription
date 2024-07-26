@@ -1050,12 +1050,10 @@ const home = {
                         if ($(item).attr('data-purchase-method') === 'subscription') {
                             let priceId = $(item).attr('data-price');
                             let dataSrc = data.filter((el) => el.name === priceId);
-                            console.log(dataSrc[0].price_id[subsType])
                             $(item).attr('href', dataSrc[0].price_id[subsType])
                         }
                         else return;
                     })
-                    console.log("datasrc: ")
                 }
 
                 activePlan(0);
