@@ -25,7 +25,8 @@ const initButton = () => {
           requestAnimationFrame(() => lenis.scrollTo(`[id="${target}"]`));
         } else {
           //update later
-          let targetTop = $(`[id="${target}"]`).get(0).offsetTop + $(window).height();
+          let targetTop =
+            $(`[id="${target}"]`).get(0).offsetTop + $(window).height();
           $("html").animate({
             scrollTop: targetTop,
           });
@@ -36,6 +37,20 @@ const initButton = () => {
       }
     }
   });
+
+  if (window.location.hash) {
+    let target = window.location.hash.replace("#", "");
+    if ($("html").hasClass("lenis-smooth")) {
+      requestAnimationFrame(() => lenis.scrollTo(`[id="${target}"]`));
+    } else {
+      //update later
+      let targetTop =
+        $(`[id="${target}"]`).get(0).offsetTop + $(window).height();
+      $("html").animate({
+        scrollTop: targetTop,
+      });
+    }
+  }
 };
 
 export default initButton;
