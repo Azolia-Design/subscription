@@ -118,7 +118,6 @@
                         height: 100%;
                         display: flex;
                         flex-direction: column;
-                        justify-content: space-between;
                         margin-right: -2.4rem;
                         overflow-y: auto;
                         -ms-overflow-style: none;
@@ -126,6 +125,17 @@
                         @include md {
                             margin-right: 0;
                             width: 100%;
+                            height: 70vh;
+                        }
+                        @include sm {
+                            height: 75vh;
+                        }
+                        &-top {
+                            flex: 1;
+                            overflow-y: auto;
+                            &::-webkit-scrollbar {
+                                display: none;
+                            }
                         }
                         &-title{
                             font-size: 2rem;
@@ -302,6 +312,7 @@
                             }
                             &-label{
                                 color: #8E8E8E;
+                                transition: all .4s ease-in-out;
                             }
                             &-label-wrap{
                                 display: flex;
@@ -336,4 +347,16 @@
 .accordion__item.is-open ~ .popup-contact-inner-content-sidebar-form-group-bar::before {
     transform: scale(1);
     transform-origin: center left;
+}
+
+#topic {
+    display: none;
+}
+
+.accordion__submenu-item.active{
+    color: #F5450D;
+    .accordion__submenu-dot{
+        border: none;
+        background-color: #F5450D;
+    }
 }

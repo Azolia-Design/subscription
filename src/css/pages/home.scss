@@ -775,13 +775,12 @@
                 justify-content:space-between;
                 align-items: center;
                 grid-column: 2/16;
-                padding: 5.8rem 0;
+                padding: 4rem 0;
                 @include transition(color 1.333s var(--spring-easing-2));
 
                 @include md {
                     grid-column: 1/13;
                     padding: 5.5rem 0;
-
                 }
 
                 @include sm {
@@ -858,7 +857,7 @@
             position: absolute;
             pointer-events: none;
             top: 0;
-            left: 71.6rem;
+            left: 53%;
             display: grid;
             grid-template-columns: 1fr;
 
