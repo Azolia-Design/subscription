@@ -21,7 +21,6 @@
 
     <link rel="preload" href="css/style.scss" as="style" />
     <link rel="stylesheet" href="css/style.scss">
-    <link rel="stylesheet" href="css/core/popup.scss">
     <link rel="stylesheet" href="../public/fonts/font.css">
     <link rel="preload" href="../public/imgs/hero-banner-full.jpg" as="image">
     <link rel="preload" href="../public/fonts/Saans-Bold.woff" as="font" type="font/woff" crossorigin>
@@ -66,17 +65,85 @@
         <div class="container">
             <div class="popup-inner popup-contact-inner">
                 <div class="popup-content popup-contact-inner-content">
-                    <div class="popup--sidebar">
-                        <div class="popup--sidebar-header">
-                            <h2 class="h5 popup--sidebar-header-heading">This is a heading</h2>
-                            <a href="#" class="popup-close" data-popup-contact="close" aria-label="close-popup">
-                                <img src="../public/imgs/close.svg" alt="">
-                            </a>
+                    <div class="popup--sidebar popup-content popup-contact-inner-content-sidebar">
+                        <a href="#" class="popup-close" data-popup-contact="close" aria-label="close-popup">
+                            <img src="../public/imgs/close.svg" alt="">
+                        </a>
+                        <div class="popup-contact-inner-content-sidebar-left">
+                            <h3 class="h6 popup-contact-inner-content-sidebar-left-heading">Have some amazing ideas? Let’s make them happen.</h3>
+                            <div class="popup-contact-inner-content-sidebar-left-sub">
+                                <div class="txt-12 popup-contact-inner-content-sidebar-left-sub-txt">Or feel free to contact us via email</div>
+                                <a href="mailto:hello@dashhq.com" class="txt-18 txt-med hover-line"><span>hello@dashhq.com</span></a>
+                            </div>
                         </div>
-                        <div class="txt txt-20 popup--sidebar-content custome-scroll" data-lenis-prevent>
-                            <p>Lorem ipsum dolor sit amet consectetur. Habitasse posuere sed sed mauris enim venenatis
-                                nisl. Mollis amet fermentum</p>
-                        </div>
+                        <form action="#" class="popup-contact-inner-content-sidebar-form">
+                            <div class="popup-contact-inner-content-sidebar-form-top">
+                                <div class="txt-med popup-contact-inner-content-sidebar-form-title">Your information</div>
+                                <div class="popup-contact-inner-content-sidebar-form-group">
+                                  <input type="text" placeholder="name" class="popup-contact-inner-content-sidebar-form-control" value="" id="name">
+                                  <div class="popup-contact-inner-content-sidebar-form-group-bar"></div>
+                                  <label for="name" class="txt-16 popup-contact-inner-content-sidebar-form-text-label">Your name</label>
+                                  <div class="popup-contact-inner-content-sidebar-form-error">This field required!</div>
+                                </div>
+                                <div class="popup-contact-inner-content-sidebar-form-group">
+                                    <input type="text" placeholder="company" class="popup-contact-inner-content-sidebar-form-control" id="company">
+                                    <div class="popup-contact-inner-content-sidebar-form-group-bar"></div>
+                                    <label for="company"  class="txt-16 popup-contact-inner-content-sidebar-form-text-label">Company</label>
+                                    <div class="popup-contact-inner-content-sidebar-form-error">This field required!</div>
+                                </div>
+                                <div class="popup-contact-inner-content-sidebar-form-group">
+                                  <input type="email" placeholder="email" class="popup-contact-inner-content-sidebar-form-control" id="email">
+                                  <div class="popup-contact-inner-content-sidebar-form-group-bar"></div>
+                                  <label for="email"  class="txt-16 popup-contact-inner-content-sidebar-form-text-label">Email</label>
+                                  <div class="popup-contact-inner-content-sidebar-form-error">This field required!</div>
+                                </div>
+                                <div class="popup-contact-inner-content-sidebar-form-accordion" id="accordion">
+                                    <div class="txt-med popup-contact-inner-content-sidebar-form-title">What do you want to discuss about?</div>
+                                    <div class="accordion__item popup-contact-inner-content-sidebar-form-control">
+                                        <div class="popup-contact-inner-content-sidebar-form-accordion-label-wrap accordion__link js-accordion-link">
+                                            <div class="popup-contact-inner-content-sidebar-form-accordion-label">Topic</div>
+                                            <div class="ic-embed">
+                                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M3.5 10.5L8 6L12.5 10.5" stroke="#4D4D4D" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>                                                    
+                                            </div>
+                                        </div>
+                                        <ul class="accordion__submenu js-accordion-submenu popup-contact-inner-content-sidebar-form-accordion-submenu" style="display: none;">
+                                            <li class="accordion__submenu-item popup-contact-inner-content-sidebar-form-accordion-label-wrap">
+                                                <div class="accordion__submenu-label">General Questions</div>
+                                                <div class="accordion__submenu-dot"></div>
+                                            </li>
+                                            <li class="accordion__submenu-item popup-contact-inner-content-sidebar-form-accordion-label-wrap">
+                                                <div class="accordion__submenu-label">Services</div>
+                                                <div class="accordion__submenu-dot"></div>
+                                            </li>
+                                            <li class="accordion__submenu-item popup-contact-inner-content-sidebar-form-accordion-label-wrap">
+                                                <div class="accordion__submenu-label">Plans</div>
+                                                <div class="accordion__submenu-dot"></div>
+                                            </li>
+                                            <li class="accordion__submenu-item popup-contact-inner-content-sidebar-form-accordion-label-wrap">
+                                                <div class="accordion__submenu-label">Subscription</div>
+                                                <div class="accordion__submenu-dot"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="popup-contact-inner-content-sidebar-form-group-bar"></div>
+                                </div>
+                                <div class="txt-med popup-contact-inner-content-sidebar-form-title">Share your ideas  <span class="txt-disabled"> (optional) </span></div>
+                                <div class="popup-contact-inner-content-sidebar-form-group">
+                                  <textarea name="" placeholder="msg" cols="30" rows="4" id="msg" class="popup-contact-inner-content-sidebar-form-control"></textarea>
+                                  <div class="popup-contact-inner-content-sidebar-form-group-bar"></div>
+                                  <label for="msg" class="txt-16 popup-contact-inner-content-sidebar-form-text-label">Message</label>
+                                </div>
+                            </div>
+                            <div class="btn-border popup-contact-inner-content-sidebar-form-btn" data-border-glow="true" data-glow-option='{"color": "rgba(255, 255, 255, 1)", "glow": 8, "magnetic": 20, "inset": "-1px", "opacity": 0.5}'>
+                                <div class="btn" data-border-glow="true" data-cursor="btnstick">
+                                    <div class="txt-wrap">
+                                        <span class="txt txt-18 txt-btn popup-contact-inner-content-sidebar-form-btn-submit">Submit</span>
+                                    </div>
+                                </d>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -1477,7 +1544,7 @@
                                                 <div class="txt txt-18 home-pricing-plan-item-detail-txt">
                                                     <img class="img" src="../public/imgs/asterisk.svg" width="20"
                                                         height="20" loading="lazy" alt="asterisk icon">
-                                                    <p>PSeamless project management</p>
+                                                    <p>Seamless project management</p>
                                                 </div>
                                                 <div class="txt txt-18 home-pricing-plan-item-detail-txt">
                                                     <img class="img" src="../public/imgs/asterisk.svg" width="20"
