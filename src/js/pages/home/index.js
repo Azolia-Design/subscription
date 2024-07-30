@@ -1745,22 +1745,22 @@ const home = {
           {
             name: "quarter-time",
             price_id: {
-              monthly: "https://buy.stripe.com/test_eVabJk3j0fEG9fa7st",
-              quarterly: "https://buy.stripe.com/test_7sIdRs8Dkakm9fa6oq",
+              monthly: "https://buy.stripe.com/6oE8xH9bOcUcf3q8wA",
+              quarterly: "https://buy.stripe.com/bIY6pz3RuaM4f3qcMR",
             },
           },
           {
             name: "part-time",
             price_id: {
-              monthly: "https://buy.stripe.com/test_8wM7t48DkfEG62Y5kn",
-              quarterly: "https://buy.stripe.com/test_eVafZA1aSgIK9fa7sw",
+              monthly: "https://buy.stripe.com/14kaFP3Ru7zS5sQ28a",
+              quarterly: "https://buy.stripe.com/6oEaFP4Vy4nG4oMbIL",
             },
           },
           {
             name: "full-time",
             price_id: {
-              monthly: "https://buy.stripe.com/test_cN2cNodXEeAC2QMfZ4",
-              quarterly: "https://buy.stripe.com/test_5kAcNo06O8ceajedQV",
+              monthly: "https://buy.stripe.com/cN201bbjW3jC1cA000",
+              quarterly: "https://buy.stripe.com/bIYbJTbjWaM4f3q6op",
             },
           },
         ];

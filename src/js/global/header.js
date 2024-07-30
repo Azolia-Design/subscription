@@ -157,6 +157,7 @@ const updateHeaderBarByScroll = () => {
                     if ($(window).width() <= 767) {
                         gsap.to('.header-main', { marginRight: 0 })
                         gsap.to('.header-hamburger', {width: cvUnit(60, "rem"), overwrite: true})
+                        gsap.to('.header-main-inner', {paddingLeft: cvUnit(3.2, "rem")})
                         gsap.to('.header-logo', {width: 'auto', marginRight: cvUnit(32, "rem")})
                     }
                 },
@@ -176,6 +177,7 @@ const updateHeaderBarByScroll = () => {
                     if ($(window).width() <= 767) {
                         gsap.to('.header-main', { marginRight: offsetHeaderMain })
                         gsap.to('.header-hamburger', {width: 0, overwrite: true})
+                        gsap.to('.header-main-inner', {clearProps: 'padding-left'})
                         gsap.to('.header-logo', {width: 0, marginRight: 0})
                     }
                 }

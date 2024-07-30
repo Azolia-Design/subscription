@@ -1990,9 +1990,9 @@
             }
 
             &-img {
-                @include size(22rem, auto);
+                @include size(21rem, auto);
                 margin-block: 3.2rem;
-                margin-inline: auto;
+                margin-inline: 0;
                 /* flex: 1; */
                 opacity: 1;
                 position: relative;
