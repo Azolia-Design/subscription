@@ -39,7 +39,7 @@
                         grid-template-columns: repeat(4, 1fr);
                         column-gap: 1.6rem;
                         padding:  2.4rem 4rem;
-                        height: calc(100% - 3.2rem);
+                        height: calc(100vh - 3.2rem);
                     }
 
                     .popup-close{
@@ -128,7 +128,8 @@
                             height: 70vh;
                         }
                         @include sm {
-                            height: 75vh;
+                            height: 55vh;
+                            flex: 1;
                         }
                         &-top {
                             flex: 1;
@@ -273,6 +274,9 @@
                             .btn &-submit {
                                 @include md {
                                     padding: 1.9rem 2.7rem;
+                                }
+                                @include sm {
+                                    padding: 1.4rem 2.7rem;
                                 }
                             }
                         }
