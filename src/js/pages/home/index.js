@@ -109,7 +109,9 @@ const home = {
           .getChildren()
           .filter((e) => e.data === "footer-curtain")
           .forEach((el) => {
-            el.scrollTrigger.refresh();
+            setTimeout(() => {
+              el.scrollTrigger.refresh();
+            }, 500);
           });
       });
     }
@@ -2040,6 +2042,9 @@ const home = {
         } else if ($(this).attr(`data-popup-${name}`) === "close") {
           e.preventDefault();
           popupAction.close();
+
+          //turn off validation
+          errorValidation.reset($("#contact-form").get(0));
         } else return;
       });
 
@@ -2047,11 +2052,17 @@ const home = {
         if (!$(`[data-popup-${name}='open']:hover`).length) {
           if ($(`[data-popup-${name}="wrap"]`).hasClass("active")) return;
           popupAction.close();
+          
+          //turn off validation
+          errorValidation.reset($("#contact-form").get(0));
         }
       });
 
       $(`[data-popup-${name}="wrap"] .popup-overlay`).on("click", function (e) {
         popupAction.close();
+
+        //turn off validation
+        errorValidation.reset($("#contact-form").get(0));
       });
 
       function accordion() {

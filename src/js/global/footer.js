@@ -18,7 +18,7 @@ const initFooter = () => {
                 trigger: '.footer-curtain',
                 start: 'top bottom',
                 endTrigger: '.footer',
-                end: `bottom bottom+=${cvUnit(viewportBreak({desktop: 0, tablet: -40, mobile: -90}), "rem") - (curtainHeight)}`,
+                end: `bottom bottom+=${cvUnit(viewportBreak({desktop: 0, tablet: -40, mobile: 0}), "rem") - (curtainHeight)}`,
                 scrub: .2,
             },
         })
