@@ -193,8 +193,7 @@ const updateHeaderBarByScroll = () => {
                     gsap.to('.header-menu-label', {marginLeft: '1rem'})
                 }
             } else {
-                $('.header-menu-sm').slideDown(400);
-                $('.header-menu-sm').css("display", "flex");
+                $('.header-menu-sm').slideDown(400)
                 gsap.set('.header-menu-sm-process-inner-line', {top: `${$('[data-section]').length/2 * ($('.header-menu-sm-process-inner').height() - $('.header-menu-sm-process-inner-line').height()) / ($('[data-section]').length - 1) / $('.header-menu-sm-process-inner').height() * 100}%`})
             }
             $(this).addClass('active')

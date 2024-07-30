@@ -10,7 +10,7 @@
   "targets": {},
   "scripts": {
     "clear": "rm -rf dist .parcel-cache",
-    "dev": "npm run clear && PARCEL_WORKERS=1 parcel",
+    "dev": "parcel",
     "build": "npm run clear && parcel build --no-cache --no-content-hash --public-url ./ --no-scope-hoist",
     "server": "nodemon server.js",
     "start": "concurrently \"yarn dev\" \"yarn server\""
