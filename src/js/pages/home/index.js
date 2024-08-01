@@ -2071,7 +2071,7 @@ const home = {
           this.multiple = multiple || false;
 
           // Variables privadas
-          var links = this.el.find(".js-accordion-link");
+          var links = this.el.find(".popup-contact-inner-content-sidebar-form-control");
           // Evento
           links.on(
             "click",
@@ -2083,7 +2083,7 @@ const home = {
         Accordion.prototype.dropdown = function (e) {
           var $el = e.data.el,
             $this = $(this),
-            $next = $this.next();
+            $next = $this.find('.popup-contact-inner-content-sidebar-form-accordion-submenu');
 
           $next.slideToggle();
           $this.parent().toggleClass("is-open");
@@ -2111,20 +2111,22 @@ const home = {
         }
 
         $(".accordion__submenu-item").on("click", function (e) {
-          const submenuLabel = e.target.parentNode.querySelector(
-            ".accordion__submenu-label"
-          ).innerHTML;
-          if (topicInput.val() === submenuLabel) {
-            topicInput.attr("value", "");
-            accordionLabel.html("Topic");
-            accordionLabel.css("color", "")
-          } else {
-            topicInput.attr("value", `${submenuLabel}`);
-            accordionLabel.html(`${submenuLabel}`);
-            accordionLabel.css("color", "#010101")
-          }
-          $(".accordion__submenu-item").not($(this)).removeClass("active");
-          $(this).toggleClass("active");
+          const submenuLabel = $(this).find(".accordion__submenu-label").text();
+          topicInput.val(submenuLabel);
+          $(".accordion__submenu-item").removeClass('active');
+          $(this).addClass('active');
+          accordionLabel.text(submenuLabel);
+
+          // if (topicInput.val() === submenuLabel) {
+          //   topicInput.attr("value", "");
+          //   accordionLabel.html("Topic");
+          //   accordionLabel.css("color", "")
+          // } else {
+          //   topicInput.attr("value", `${submenuLabel}`);
+          //   accordionLabel.html(`${submenuLabel}`);
+          //   accordionLabel.css("color", "#010101")
+          // }
+          // $(this).toggleClass("active");
         });
       }
       accordion();
@@ -2222,7 +2224,51 @@ const home = {
             isValidated: Object.keys(errors).length === 0
         };
     }
+    const showError = (message = "Something error") => {
+      alert(message)
+  }
+    function sendDataHubspot(data){
+      let portalId= '46924593';
+      let formId = '3d53f0e5-1b84-4da7-a032-ecb348d101ef';
+      let url = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`;
 
+      $.ajax({
+        url: url,
+        method: 'POST',
+        data: JSON.stringify(data),
+        dataType: 'json',
+        headers: {
+            accept: 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        },
+        contentType: 'application/json',
+        success: function (response) {
+            // $(form).get(0).reset()
+            // if (fileOptions) {
+            //     const { fileEle } = fileOptions;
+            //     fileEle.reset();
+            // }
+            // if (onSuccess) onSuccess();
+            // // alert('Success');
+            // setLoading(false);
+            console.log('success')
+        },
+        error: function (error) {
+            if (error.readyState === 4) {
+                const errors = error.responseJSON.errors
+                const errorArr = errors[0].message.split('.')
+                const errorMess = errorArr[errorArr.length - 1]
+
+                showError(errorMess);
+            }
+            else {
+                showError('Something error');
+            }
+            // setLoading(false)
+        },
+    });
+      
+    }
       const submitForm = ({ formsObj, rules }) => {
         let validateInfo = { status: false, resultForm: {} };
 
@@ -2235,6 +2281,7 @@ const home = {
             return { validateInfo };
         }
         else {
+
             validateInfo.status = false;
             return { errors, validateInfo };
         }
@@ -2337,8 +2384,11 @@ const home = {
 
           const { errors, validateInfo } = submitForm({ formsObj, rules });
           if (validateInfo.status) {
+            e.preventDefault();
+            console.log(validateInfo)
+            sendDataHubspot(validateInfo.resultForm)
             onSuccess?.(validateInfo);
-            $(this).closest("form").trigger("submit");
+            // $(this).closest("form").trigger("submit");
             errorValidation.reset($(formID).get(0));
           } else {
             e.preventDefault();

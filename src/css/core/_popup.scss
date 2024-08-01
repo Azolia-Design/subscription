@@ -15,6 +15,7 @@
             }
 
             &-content {
+                height: 100vh;
                 grid-area: 1/7/1/18;
                 @include md {
                     grid-area: 1/1/1/13;
@@ -29,7 +30,7 @@
                     display: grid;
                     grid-template-columns: repeat(10, 1fr);
                     column-gap: 2rem;
-                    padding:  8rem 0;
+                    padding:  5rem 0;
                     align-items: start;
                     @include md {
                         display: flex;
@@ -137,6 +138,7 @@
                             &::-webkit-scrollbar {
                                 display: none;
                             }
+                            padding-bottom: 3rem;
                         }
                         &-title{
                             font-size: 2rem;
@@ -148,6 +150,7 @@
                             }
                         }
                         &-control{
+                            cursor: pointer;
                             width: 100%;
                             color: #010101;
                             background-color: rgba(0, 0, 0, 0);
@@ -268,7 +271,7 @@
                         }
                         &-btn{
                             background-color: rgba(255, 255, 255, 0.1);
-                            border: 1px solid rgba(255, 255, 255, 0.5);
+                            // border: 1px solid rgba(255, 255, 255, 0.5);
                             cursor: pointer;
 
                             .btn &-submit {
@@ -289,6 +292,7 @@
                             }
                             .accordion__link {
                                 cursor: pointer;
+                                color: #4d4d4d;
                             }
                             &-submenu{
                                 margin-top: 2.4rem;
@@ -315,7 +319,7 @@
                                 }
                             }
                             &-label{
-                                color: #8E8E8E;
+                                color: currentColor;
                                 transition: all .4s ease-in-out;
                             }
                             &-label-wrap{
