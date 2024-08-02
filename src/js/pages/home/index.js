@@ -2227,15 +2227,43 @@ const home = {
     const showError = (message = "Something error") => {
       alert(message)
   }
+  let submitBtn = $('.popup-contact-inner-content-sidebar-form [data-form-btn="submit"]');
+  const setLoading = (isLoading) => {
+    console.log(isLoading)
+    if (isLoading) {
+        // console.log(textEle)
+            submitBtn.find('.popup-contact-inner-content-sidebar-form-btn-submit').text('Please wait ...');
+        submitBtn.css({ 'pointer-events': 'none' })
+    }
+    else {
+            submitBtn.find('.popup-contact-inner-content-sidebar-form-btn-submit').text('Submit');
+        submitBtn.css({ 'pointer-events': '' })
+    }
+}
+const mapField = (data) => {
+  return Object.keys(data).map((key) => ({
+      name: key,
+      value: data[key] || ''
+  }));
+}
     function sendDataHubspot(data){
       let portalId= '46924593';
       let formId = '3d53f0e5-1b84-4da7-a032-ecb348d101ef';
       let url = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`;
+      const mappedFields = mapField(data);
+      const dataSend = {
+          fields: mappedFields,
+          context: {
+              pageUri: window.location.href,
+              pageName: "Form",
+          },
+      };
+      console.log(dataSend)
 
       $.ajax({
         url: url,
         method: 'POST',
-        data: JSON.stringify(data),
+        data: JSON.stringify(dataSend),
         dataType: 'json',
         headers: {
             accept: 'application/json',
@@ -2243,14 +2271,14 @@ const home = {
         },
         contentType: 'application/json',
         success: function (response) {
-            // $(form).get(0).reset()
+            $('.popup-contact-inner-content-sidebar-form').get(0).reset()
             // if (fileOptions) {
             //     const { fileEle } = fileOptions;
             //     fileEle.reset();
             // }
             // if (onSuccess) onSuccess();
             // // alert('Success');
-            // setLoading(false);
+            setLoading(false);
             console.log('success')
         },
         error: function (error) {
@@ -2264,14 +2292,13 @@ const home = {
             else {
                 showError('Something error');
             }
-            // setLoading(false)
+            setLoading(false)
         },
     });
       
     }
       const submitForm = ({ formsObj, rules }) => {
         let validateInfo = { status: false, resultForm: {} };
-
         const { errors, isValidated } = validateForm({ formsObj, rules });
         if (isValidated) {
             validateInfo.status = true;
@@ -2385,7 +2412,7 @@ const home = {
           const { errors, validateInfo } = submitForm({ formsObj, rules });
           if (validateInfo.status) {
             e.preventDefault();
-            console.log(validateInfo)
+            setLoading(true);
             sendDataHubspot(validateInfo.resultForm)
             onSuccess?.(validateInfo);
             // $(this).closest("form").trigger("submit");
