@@ -119,13 +119,12 @@
                         height: 100%;
                         display: flex;
                         flex-direction: column;
-                        margin-right: -2.4rem;
+                        margin-right: -4.8rem;
                         overflow-y: auto;
                         -ms-overflow-style: none;
-                        scrollbar-width: none;
+                        /* scrollbar-width: none;    */
                         @include md {
-                            margin-right: 0;
-                            width: 100%;
+                           margin-right:-2rem;
                             height: 70vh;
                         }
                         @include sm {
@@ -133,12 +132,26 @@
                             flex: 1;
                         }
                         &-top {
+                            scrollbar-width: initial !important;
+                            padding-right:2.4rem;    
                             flex: 1;
                             overflow-y: auto;
                             &::-webkit-scrollbar {
-                                display: none;
+                                width: .3rem   ;
+                                display: block !important;
+                            }
+                            &::-webkit-scrollbar-thumb{
+                                background-color:#f5450d;
+                                border-radius: 5rem;
+                            }
+                            &::-webkit-scrollbar-track{
+                               background-color: #ffffff1a;
+
                             }
                             padding-bottom: 3rem;
+                            @include md {
+                               padding-right:2rem;
+                            }
                         }
                         &-title{
                             font-size: 2rem;
@@ -273,7 +286,7 @@
                             background-color: rgba(255, 255, 255, 0.1);
                             // border: 1px solid rgba(255, 255, 255, 0.5);
                             cursor: pointer;
-
+                            margin-right:2.4rem;
                             .btn &-submit {
                                 @include md {
                                     padding: 1.9rem 2.7rem;
