@@ -631,10 +631,10 @@ const home = {
             $(this).find(".home-service-item-toggle svg").outerHeight() + 4;
           $(".cursor-wrap .cursor-border").css("width", width + "px");
           $(".cursor-wrap .cursor-border").css("height", height + "px");
-          $(".cursor-wrap .cursor-dot").hide(300);
+          $(".cursor-wrap .cursor-dot").hide();
         },
         function () {
-          $(".cursor-wrap .cursor-dot").show(300);
+          $(".cursor-wrap .cursor-dot").show();
           $(".cursor-wrap .cursor-border").css("width", widthCursor + "px");
           $(".cursor-wrap .cursor-border").css("height", heightCursor + "px");
         }
