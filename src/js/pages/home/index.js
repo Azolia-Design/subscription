@@ -1716,7 +1716,7 @@ const home = {
               0
             )
             .from(
-              ".home-pricing-plan-cta .btn",
+              ".home-pricing-plan-cta .btn-border",
               {
                 yPercent: 60,
                 autoAlpha: 0,
