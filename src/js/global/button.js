@@ -25,11 +25,9 @@ const initButton = () => {
           requestAnimationFrame(() => lenis.scrollTo(`[id="${target}"]`));
         } else {
           //update later
-          let targetTop =
-            $(`[id="${target}"]`).get(0).offsetTop + $(window).height();
-          $("html").animate({
-            scrollTop: targetTop,
-          });
+          let targetTop = $(`[id="${target}"]`).offset().top;
+
+          $("html, body").animate({ scrollTop: targetTop });
         }
 
         history.replaceState({}, "", `${window.location.pathname}${url.hash}`);

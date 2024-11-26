@@ -1,3 +1,6 @@
+@use './mixin' as *;
+@use './variables' as *;
+
 .popup {
     &-contact {
         &-inner {
@@ -142,7 +145,7 @@
                         }
                         &-top {
                             scrollbar-width: initial !important;
-                            padding-right:2.4rem;    
+                            padding-right:2.4rem;
                             flex: 1;
                             overflow-y: auto;
                             &::-webkit-scrollbar {
@@ -206,7 +209,7 @@
                                 transform: scale(1);
                                 transform-origin: center left;
                             }
-                            
+
                         }
                         &-group{
                             position: relative;

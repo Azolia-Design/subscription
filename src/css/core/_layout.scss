@@ -1,20 +1,10 @@
+@use './variables' as *;
+@use './mixin' as *;
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
-//$container-width: 192rem; //resolve in 192x12.5px(fontsize) = 2400px
-
-$xs-min: 477px;
-$sm-min: 768px;
-$md-min: 992px;
-$lg-min: 1728px;
-
-$xs-max: ($xs-min - 1); // Mobile
-$sm-max: ($sm-min - 1); // Tablet
-$md-max: ($md-min - 1); // Desktop
-$lg-max: ($lg-min - 1); // Large Desktop
 
 //Font
 html {

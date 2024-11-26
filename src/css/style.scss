@@ -1,12 +1,12 @@
-@import 'core/mixin';
-@import 'core/variables';
-@import 'core/layout';
-@import 'core/typo';
+@forward 'core/variables';
+@forward 'core/mixin';
+@forward 'core/layout';
+@forward 'core/typo';
 
-@import 'core/header';
-@import 'core/footer';
-@import 'core/popup';
+@forward 'core/header';
+@forward 'core/footer';
+@forward 'core/popup';
 
-@import 'pages/home';
-@import 'pages/term&policy';
-@import 'pages/success';
+@forward 'pages/home';
+@forward 'pages/term&policy';
+@forward 'pages/success';

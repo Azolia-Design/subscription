@@ -1,3 +1,14 @@
+//$container-width: 192rem; //resolve in 192x12.5px(fontsize) = 2400px
+$xs-min: 477px;
+$sm-min: 768px;
+$md-min: 992px;
+$lg-min: 1728px;
+
+$xs-max: ($xs-min - 1); // Mobile
+$sm-max: ($sm-min - 1); // Tablet
+$md-max: ($md-min - 1); // Desktop
+$lg-max: ($lg-min - 1); // Large Desktop
+
 @mixin lg {
 	@media screen and (max-width: $lg-min) {
 		@content;
@@ -106,13 +117,13 @@
 	}
 }
 
-@mixin border-gradient($color: $border-line-3, $radius: inherit) {
+@mixin border-gradient($color: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.00) 100%), $radius: inherit) {
     padding: 1px;
     border-radius: $radius;
     background: $color border-box;
     -webkit-mask:
-    linear-gradient($cl-heading 0 0) content-box,
-    linear-gradient($cl-heading 0 0);
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
 }

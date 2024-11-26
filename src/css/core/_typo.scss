@@ -1,3 +1,5 @@
+@use './mixin' as *;
+@use './variables' as *;
 :root {
     --fs-h0: 12rem;
     --lh-h0: .9em;
