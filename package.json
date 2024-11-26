@@ -28,7 +28,8 @@
     "parcel-reporter-static-files-copy": "^1.5.3",
     "process": "^0.11.10",
     "sharp": "^0.33.5",
-    "stripe": "^14.14.0"
+    "stripe": "^14.14.0",
+    "svgo": "^3.3.2"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead, Safari 14",
   "dependencies": {
