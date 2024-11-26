@@ -1,3 +1,5 @@
+@use './mixin' as *;
+@use './variables' as *;
 .header {
     display: flex;
     align-items: center;
@@ -389,13 +391,12 @@
         }
     }
     &-menu-sm {
-        display: none;
 
         @include sm {
             --header-marginTop: 2.4rem;
             --header-marginBot: 2.7rem;
 
-            display: flex;
+            display: none;
             width: 100%;
             overflow: hidden;
 

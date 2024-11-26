@@ -1,3 +1,6 @@
+@use '../core/mixin' as *;
+@use '../core/variables' as *;
+
 .policy {
     --height-header: 15.4rem;
 

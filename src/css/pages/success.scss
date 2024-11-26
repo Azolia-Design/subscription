@@ -1,3 +1,6 @@
+@use '../core/mixin' as *;
+@use '../core/variables' as *;
+
 .success {
     &-bg {
         position: absolute;
