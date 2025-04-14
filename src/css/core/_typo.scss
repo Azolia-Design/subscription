@@ -211,7 +211,7 @@ body {
 
 .btn {
     --border-radius: 1.5rem;
-
+    border-radius: var(--border-radius);
     position: relative;
     color: rgba($cl-white, 1);
     font-weight: 500;
