@@ -1104,12 +1104,14 @@ const home = {
         if ($(window).width() <= 991) {
           changeProjHtml();
         }
-        $('.home-project-item').each((idx, el) => {
-          let link = $(el).attr('href');
-          if (!link.includes('bear.plus')) {
-            $(el).find('.home-project-item-view p').text('Visit Website');
-          }
-        })
+        if($(window).width() > 991){
+          $('.home-project-item').each((idx, el) => {
+            let link = $(el).attr('href');
+            if (!link.includes('bear.plus')) {
+              $(el).find('.home-project-item-view p').text('Visit Website');
+            }
+          })
+        }
         const line = document.createElement("div");
         $(line).addClass("line");
         $(".home-project-item:last-child").append(line);
