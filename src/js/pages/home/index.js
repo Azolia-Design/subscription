@@ -1752,22 +1752,22 @@ const home = {
           {
             name: "quarter-time",
             price_id: {
-              monthly: "https://buy.stripe.com/6oE8xH9bOcUcf3q8wA",
-              quarterly: "https://buy.stripe.com/bIY6pz3RuaM4f3qcMR",
+              monthly: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-2FU91487WY5914922NA6XOZI",
+              quarterly: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-3UN99138DF6683533NA6XU7Q",
             },
           },
           {
             name: "part-time",
             price_id: {
-              monthly: "https://buy.stripe.com/14kaFP3Ru7zS5sQ28a",
-              quarterly: "https://buy.stripe.com/6oEaFP4Vy4nG4oMbIL",
+              monthly: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-4K1796600R122332SNA6XVYY",
+              quarterly: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-9225614061780104SNA6XWEQ",
             },
           },
           {
             name: "full-time",
             price_id: {
-              monthly: "https://buy.stripe.com/cN201bbjW3jC1cA000",
-              quarterly: "https://buy.stripe.com/bIYbJTbjWaM4f3q6op",
+              monthly: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-2FS05115TE451125NNA6XYFY",
+              quarterly: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-3M265801A9612925HNA6XYQA",
             },
           },
         ];
