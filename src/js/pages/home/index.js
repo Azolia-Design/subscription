@@ -29,6 +29,9 @@ const home = {
       let headTxt = new SplitText(".home-hero-title", typeOpts.words);
       let scheduleTxt = new SplitText(".header-main-schedule", typeOpts.chars);
       let tlSplitHead = gsap.timeline({
+        onStart: () => {
+          $('[data-init-df]').removeAttr('data-init-df');
+        },
         onComplete: () => {
           headTxt.revert();
           scheduleTxt.revert();

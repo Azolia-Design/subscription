@@ -630,4 +630,6 @@ button {
         display: none;
     }
 }
-
+[data-init-df] {
+    opacity: 0;
+}

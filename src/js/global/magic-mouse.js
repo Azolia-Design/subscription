@@ -90,6 +90,7 @@ const initCursor = () => {
             let target = $('[data-cursor]:hover')
             let targetOffsetLeft = target.get(0).getBoundingClientRect().left
             let targetOffsetTop = target.get(0).getBoundingClientRect().top
+            let txtOffsetLeft, txtOffsetTop, dotOffsetLeft, dotOffsetTop;
 
             if (target.find('.txt').length) {
                 txtOffsetLeft = target.find('.txt').get(0).getBoundingClientRect().left
